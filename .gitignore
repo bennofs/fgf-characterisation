@@ -1,0 +1,6 @@
+/kitchen
+*.aux
+*.pdf
+*.synctex.gz
+main.log
+.auctex-auto

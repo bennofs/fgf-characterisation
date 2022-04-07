@@ -1,0 +1,206 @@
+% -*- TeX-engine: xetex -*-
+\documentclass[draft]{scrartcl}
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+
+\setmainlanguage{english}
+
+\usepackage{blindtext}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[capitalise]{cleveref}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{placeins}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{fixme}
+
+\fxsetup{theme=color}
+
+\title{FGF Notes}
+\author{Benno Fünfstück}
+\date{March 2022}
+
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{definition}{Definition}{Definitions}
+\crefname{theorem}{Theorem}{Theorems}
+
+\newcommand{\last}[1]{\mathtt{last}(#1)}
+
+\begin{document}
+
+\maketitle
+
+\section{Logics}
+
+% exactly as in jair-main
+\begin{definition}[Forward (Guarded) Fragment]
+Let FF$(n)$ be the smallest fragment of FO satisfying:
+
+\begin{itemize}
+    \item an atom $\alpha(\bar{x})$ belongs to FF$(n)$ iff $\alpha$ is equality-free and $\bar{x}$ is an infix of $\bar{x}_{1\ldots{}n}$
+    \item FF$(n)$ is closed under boolean connectives $\land, \lor, \neg, \rightarrow, \leftrightarrow$.
+    \item If $\phi(\bar{x}_{1\ldots{}n+1}$ is in FF$(n+1)$, then $\exists{x_{n+1}}\phi(\bar{x}_{1\ldots{}n+1})$ and $\forall{x_{n+1}}\phi(\bar{x}_{1\ldots{}n+1})$ are in FF$(n)$.
+\end{itemize}
+
+The \emph{forward fragment} FF is the set FF$(0)$.
+The \emph{forward guarded fragment} FGF is the \fxfatal*{Allow variable reuse}{intersection of FF with GF}.
+\end{definition}
+
+% as in jair-main.pdf
+\begin{definition}[Forward type]
+A $(\sigma,n)$-forward type is a maximally consistent conjunction of atoms of the form $\pm{}R(\bar{x}_{i\ldots{}i+ar(R)-1}$ for an index $1 \leq i \leq n - ar(R) + 1$.
+\end{definition}
+
+We denote by $\mathrm{ftp}_\mathfrak{A}(\bar{a})$ the unique $(\sigma,|\bar{a}|)$-forward type such that $\mathfrak{A} \models \mathrm{ftp}_\mathfrak{A}(\bar{a})$
+
+\section{Back-and-forth conditions / Games}
+
+% adapted from Otto 2004
+\begin{definition}[Connected GF back-and-forth conditions]
+Let $\mathfrak{A}$ and $\mathfrak{B}$ be $\sigma$-structures, $\mathcal{Z}, \mathcal{Z'} \subseteq \mathtt{Part}(\mathfrak{A}, \mathfrak{B})$ sets of partial isomorphisms between $\mathfrak{A}$ and $\mathfrak{B}$.
+
+$\mathcal{Z'}$ satisfies the connected GF back-and-forth conditions for $\mathcal{Z}$ if for every $p \in \mathcal{Z}$ the following holds:
+
+\begin{description}
+    \item[(gforth)] For any guarded subset $s'$ of $A$ with $s' \cap \mathtt{dom}(p)$ nonempty, there is some $p' \in \mathcal{Z}$ with $\mathtt{dom}(p') = s'$ such that $p$ and $p'$ agree on their common domain.
+    \item[(gback)] For any guarded subset $t'$ of $B$ with $t' \cap \mathtt{im}(p)$ nonempty, there is some $p' \in \mathcal{Z}$ with $\mathtt{im}(p') = t'$ such that $p^{-1}$ and $p'^{-1}$ agree on their common domain.
+\end{description}
+\end{definition}
+
+% adapted from jair-main.pdf
+\begin{definition}[Connected FGF back-and-forth conditions]
+Let $\mathfrak{A}$ and $\mathfrak{B}$ be $\sigma$-structures, $\mathcal{Z}, \mathcal{Z'} \subseteq \bigcup_{i=0}(A^i \times B^i)$ be mappings such that for any $(\bar{a}, \bar{b}) \in \mathcal{Z} \cup \mathcal{Z'}$ forward types are preserved: $\mathrm{ftp}_\mathfrak{A}(\bar{a}) = \mathrm{ftp}_\mathfrak{B}(\bar{b})$ (\textbf{atomic harmony}).
+
+$\mathcal{Z'}$ satisfies the connected FGF back-and-forth conditions for $\mathcal{Z}$ if for every $(\bar{a}, \bar{b}) \in \mathcal{Z}$ the following conditions hold:
+
+\begin{description}
+    \item[(fgforth)] For a nonempty affix $\bar{a}_{i\ldots{}j}$ of $\bar{a}$ and a $\sigma$-live tuple $\bar{c}$ with $|c| \leq k$ in $\mathfrak{A}$ such that $\bar{a}_{i\ldots{}j} = \bar{c}_{1\ldots{}j-i+1}$ there is a tuple $\bar{d}$ with $\bar{b}_{i\ldots{}j} = \bar{d}_{1\ldots{}j-i+1}$ and $(\bar{c}, \bar{d}) \in \mathcal{Z'}$
+    \item[(fgback)] For a nonempty affix $\bar{b}_{i\ldots{}j}$ of $\bar{b}$ and a $\sigma$-live tuple $\bar{d}$ with $|d| \leq k$ in $\mathfrak{B}$ such that $\bar{b}_{i\ldots{}j} = \bar{d}_{1\ldots{}j-i+1}$ there is a tuple $\bar{c}$ with $\bar{a}_{i\ldots{}j} = \bar{c}_{1\ldots{}j-i+1}$ and $(\bar{c}, \bar{d}) \in \mathcal{Z'}$
+\end{description}
+\end{definition}
+
+\begin{definition}[Connected Bisimulation]
+A set $\mathcal{Z}$ is a connected GF or FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$ if it satisfies the local GF respective FGF back-and-forth conditions for itself and $(\bar{a}, \bar{b}) \in \mathcal{Z}$.
+\end{definition}
+
+We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}} \mathfrak{B}, \bar{b}$ if there exists a local GF respective FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
+
+\begin{definition}[k-Level Bisimulation]
+A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}_k$ such that each $\mathcal{Z}_{i - 1}$ for $0 < i \le k$ satisfies the associated back-and-forth conditions for $\mathcal{Z}_i$.
+\end{definition}
+
+We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}, k} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}, k} \mathfrak{B}, \bar{b}$ if there exists a k-level local GF respective FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
+
+\begin{definition}[Global Bisimulation]
+A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{B}$ is a set $\mathcal{Z}$ such that for any guarded tuple $\bar{a} \in \mathfrak{A}$ there is a guarded tuple $\bar{b} \in \mathfrak{B}$ such that $(\bar{a}, \bar{b}) \in \mathcal{Z}$ and vice versa.
+\end{definition}
+
+\section{Tree unraveling}
+
+% definition adapted from jair-main.pdf
+\begin{definition}[HAT]
+Let $\mathcal{P}$ be a prefix-closed set of sequences over $A$.\fxfatal{need to restrict to single root}
+A tuple $\bar{a}$ is \emph{sequential} if there are elements $a_1, \ldots, a_i$ in $A$ and a sequence $p \in \mathcal{P}$ such that $\bar{a} = (p, p a_1, \ldots, p a_1 \cdots a_i)$.
+
+A \emph{higher-arity tree} (HAT) is a structure $\mathfrak{T}$ with domain $P$ where for each relation $R$, every tuple $\bar{a} \in R^\mathfrak{T}$ is sequential.
+\end{definition}
+
+\begin{lemma}\label{lemma-seq-intersection}
+The intersection of two sequential tuples $\bar{a}, \bar{b}$ in a HAT is an infix of both tuples and a prefix of at least one of the tuples.
+\end{lemma}
+
+\begin{proof}
+\fxfatal{write proof}
+\end{proof}
+
+% definition exactly as in jair-main.pdf
+\begin{definition}[Forward Gaifman Graph]
+The \emph{forward Gaifman graph} $\mathit{fG}_\mathfrak{A}$ of a structure $\mathfrak{A}$ is the graph with the set of nodes equal to to $A$ and edges between $d$ and $e$ whenever there are (possibly empty) tuples of elements $\bar{c}$, $\bar{f}$ and a relational symbol $R$ witnessing $(\bar{c}, d, e, \bar{f}) \in R^{\mathfrak{A}}$.
+\end{definition}
+
+\begin{definition}[Tree unraveling]
+For a structure $\mathfrak{A}$ and an element $a \in A$, the \emph{tree unraveling} $\mathfrak{A}^*_a$ of $\mathfrak{A}$ from $a$ is a structure with domain $\mathtt{Paths}_a(\mathit{fG}_\mathfrak{A})$. The relations in $\mathfrak{A}^*$ are defined as:
+
+\[
+R^{\mathfrak{A}^*_a} = \{ \bar{x} \mid \text{$\last{\bar{x}} \in R^{\mathfrak{A}}$ and $\bar{x}$ is sequential} \}
+\]
+for every relational R, where $\last{\bar{x}}$ is the projection that maps the tuple $\bar{x}$ of paths to a tuple of each path's last element.
+\end{definition}
+
+\begin{definition}[Global tree unraveling]
+The global tree unraveling $\mathfrak{A}^*$ of a structure $\mathfrak{A}$ without a distinguished element is defined as the disjoint union of all the tree unravelings $A^*_{a_i}$ from every $a_i \in A$.
+\end{definition}
+
+\begin{lemma}
+$\mathfrak{A} \sim_{\textrm{FGF}} \mathfrak{A}^*$ for any structure $\mathfrak{A}$.
+\end{lemma}
+
+\begin{proof}
+We show that:
+\[ \mathcal{Z} = \left\{(\bar{a}, \bar{b}) \in \bigcup_{i=0}(A^i \times {A^*}^i) \mid \text{$\bar{a} = \last{\bar{b}}$ and $\bar{b}$ is sequential}\right\} \]
+is a FGF-bisimulation between $\mathfrak{A}$ and $\mathfrak{A}^*$. Clearly, $(\epsilon, \epsilon) \in \mathcal{Z}$.
+
+To show (atomic harmony), first note that for any $(\bar{a}, \bar{b}) \in \mathcal{Z}$ and any relation R of arity $|a| = |b|$, we have $\mathfrak{A} \models R(\bar{a})$ iff $\mathfrak{A}^* \models R(\bar{b})$ since by construction of $\mathcal{Z}$ both $\bar{a} = \last{\bar{b}}$ and $\bar{b}$ is sequential. For any indices $i \leq j$, $(\bar{a}_{i\ldots{}j}, \bar{b}_{i\ldots{}j})$ is also in $\mathcal{Z}$. Thus, all infixes also satisfy equal relations implying $\mathtt{ftp}_{\mathfrak{A}}(\bar{a}) = \mathtt{ftp}_{\mathfrak{A}^*}(\bar{b})$.
+
+To show (fgforth), let $(\bar{a}, \bar{b}) \in \mathcal{Z}$, $\bar{a}_{i\ldots{}j}$ be an infix of $\bar{a}$ and $\bar{c}$ be a $\sigma$-live tuple with prefix $\bar{a}_{i\ldots{}j}$ as in the definition of FGF-bisimulation.
+Since $\bar{b} = \last{\bar{a}}$ and $\bar{b}$ is sequential, we know that there is a path $p \in \mathtt{Paths}_e(\mathit{fG}_\mathfrak{A})$ from some element $e \in A$ such that $\bar{b}_{i\ldots{}j} = (p, p a_{i+1}, \ldots, p a_{i+1} \cdots a_j)$.
+Because $\bar{c}$ is a live tuple in $\mathfrak{A}$ there is a path $c_1 \cdots c_n$ in $\mathit{fG}_\mathfrak{A}$. If $\bar{b}_{i\ldots{}j}$ is empty we pick $p = c_1$, a path from element $e = c_1$.
+The tuple $\bar{d} = (p, p c_2, \ldots, p c_2 \cdots c_n)$ is sequential and satisfies $\last{\bar{d}} = \bar{c}$, so we have $(\bar{c}, \bar{d}) \in \mathcal{Z}$.
+The paths $p \bar{c}_2 \cdots \bar{c}_{k}$ and $p \bar{a}_{i+1} \cdots \bar{a}_{i+k-1}$ are identical for all $k \leq j-i+1$ as $\bar{a}_{i\ldots{}j} = \bar{c}_{1\ldots{}j-i+1}$.
+Thus $\bar{d}_{1\ldots{}j-i+1} = \bar{b}_{i\ldots{}j}$ as required by (fgforth).
+
+To show (fgback), let $(\bar{a}, \bar{b}) \in \mathcal{Z}$, $\bar{b}_{i\ldots{}j}$ be an infix of $\bar{b}$ and $\bar{d}$ be a $\sigma$-live tuple with prefix $\bar{b}_{i\ldots{}j}$ as in the definition of FGF-bisimulation. The tuple $\bar{d}$ is sequential since it is $\sigma$-live in $\mathfrak{A}^*$. Then, taking $\bar{c} = \last{\bar{d}}$ satisfies $\bar{c}_{1\ldots{}j-i+1} = \bar{a}_{i\ldots{}j}$ and $(\bar{c}, \bar{d}) \in \mathcal{Z}$ as required by (fgback).
+\end{proof}
+
+\begin{lemma}
+If $\mathfrak{\hat{A}}$ and $\mathfrak{\hat{B}}$ are HATs, then $\mathfrak{\hat{A}} \sim_{\mathrm{FGF},k} \mathfrak{\hat{B}}$ implies $\mathfrak{\hat{A}} \sim_{\mathrm{GF},k} \mathfrak{\hat{B}}$.
+\end{lemma}
+
+\begin{definition}[infix-marker-relation]
+The infix-marker-relation $\beta_{R,i,j}$ is a relation of width j-i+1 for every relation R and natural numbers $i \leq j$.
+Its interpretation is given by:
+
+\[
+  \beta_{R,i,j}^\mathfrak{A} = \left\{ \bar{a}_{i\ldots{}j} \mid \bar{a} \in R^\mathfrak{A} \right\}
+\]
+\end{definition}
+
+\begin{definition}
+
+\end{definition}
+
+\begin{proof}
+Let $\mathcal{Z}_k: \mathfrak{\hat{A}} \sim_{\textrm{FGF},k} \mathfrak{\hat{B}}$ be the \emph{smallest} FGF k-bisimulation between $\mathfrak{\hat{A}}$ and $\mathfrak{\hat{B}}$. We show that $Z$ is also a GF k-bisimulation.
+
+First, note that for tuples $\bar{a}, \bar{b}$ if $\mathtt{ftp}_\mathfrak{\hat{A}}(\bar{a}) = \mathtt{ftp}_\mathfrak{\hat{B}}$, then the mapping $p: \bar{a}_i \mapsto \bar{b}_i$ is a partial isomorphism in HATs.
+Clearly, $p$ is bijective, as $|\bar{a}| = |\bar{b}|$.
+We claim that $\bar{d} = (p(c_1), ..., p(c_n))$ satisfies exactly the same relations as $\bar{c}$, for any tuple $\bar{c}$ with elements from $\bar{a}$.
+If $\bar{c}$ is an infix of $\bar{a}$, then this is true because either $-R(\bar{c})$ or $+R(\bar{c})$ must be part of the forward type of $\bar{a}$ and due to equality of forward types also in the forward type of $\bar{b}$.
+If $\bar{c}$ is not an infix of $\bar{a}$, then $\bar{c}$ is not sequential, since any tuple of elements from $\bar{a}$ which is sequential must be an infix of $\bar{a}$.
+Since $\bar{c}$ is not sequential, $\bar{d}$ is also not sequential, and for any relation $R$ we have $-R(\bar{c})$ and $-R(\bar{d})$ as $\mathfrak{\hat{A}}$ and $\mathfrak{\hat{B}}$ are HATs and therefore any tuple satisfying a relation must be sequential.
+
+For (gforth), let $s'$ be any guarded subset of $\hat{A}$, and $p$ be the partial isomorphism for any pair of tuples $(\bar{a},\bar{b}) \in \mathcal{Z}$.
+Since $s'$ is guarded and $\mathfrak{\hat{A}}$ is a HAT, there must be a tuple $\bar{c}$ such that each element of $s'$ appears in $\bar{c}$ exactly once and $\bar{c}$ is sequential.
+Because $\bar{a}$ is guarded it must also be sequential.
+Let $\bar{a}_{i\ldots{}j}$ be the intersection of $\bar{a}$ and $\bar{c}$, which is a an infix of $\bar{a}$ by~\cref{lemma-seq-intersection}.
+If $\bar{a}_{i\ldots{}j}$ is a prefix of $\bar{c}$, then we directly obtain $\bar{d}$ using (fgforth) which satisfies the necessary conditions for (gforth).
+
+Otherwise, $\bar{a}_{i\ldots{}j}$ is a prefix of $\bar{a}$.
+Let $X_{}$
+
+\fxfatal{case for $\bar{a}_{i\ldots{}j}$ not prefix of $\bar{c}$}
+
+\end{proof}
+
+\end{document}
