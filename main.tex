@@ -64,7 +64,7 @@ A $(\sigma,n)$-forward type is a maximally consistent conjunction of atoms of th
 
 We denote by $\mathrm{ftp}_\mathfrak{A}(\bar{a})$ the unique $(\sigma,|\bar{a}|)$-forward type such that $\mathfrak{A} \models \mathrm{ftp}_\mathfrak{A}(\bar{a})$
 
-\section{Back-and-forth conditions / Games}
+\section{Back-and-forth conditions / Bisimulations / Games}
 
 % adapted from Otto 2004
 \begin{definition}[Connected GF back-and-forth conditions]
@@ -91,19 +91,26 @@ $\mathcal{Z'}$ satisfies the connected FGF back-and-forth conditions for $\mathc
 \end{definition}
 
 \begin{definition}[Connected Bisimulation]
-A set $\mathcal{Z}$ is a connected GF or FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$ if it satisfies the local GF respective FGF back-and-forth conditions for itself and $(\bar{a}, \bar{b}) \in \mathcal{Z}$.
+A set $\mathcal{Z}$ is a connected GF or FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$ if it satisfies the connected GF respective FGF back-and-forth conditions for itself and $(\bar{a}, \bar{b}) \in \mathcal{Z}$.
 \end{definition}
 
-We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}} \mathfrak{B}, \bar{b}$ if there exists a local GF respective FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
+We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}} \mathfrak{B}, \bar{b}$ if there exists a connected GF respective FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
 
 \begin{definition}[k-Level Bisimulation]
 A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}_k$ such that each $\mathcal{Z}_{i - 1}$ for $0 < i \le k$ satisfies the associated back-and-forth conditions for $\mathcal{Z}_i$.
 \end{definition}
 
-We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}, k} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}, k} \mathfrak{B}, \bar{b}$ if there exists a k-level local GF respective FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
+We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}, k} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}, k} \mathfrak{B}, \bar{b}$ if there exists a k-level connected GF respective FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
 
 \begin{definition}[Global Bisimulation]
 A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{B}$ is a set $\mathcal{Z}$ such that for any guarded tuple $\bar{a} \in \mathfrak{A}$ there is a guarded tuple $\bar{b} \in \mathfrak{B}$ such that $(\bar{a}, \bar{b}) \in \mathcal{Z}$ and vice versa.
+\end{definition}
+
+\begin{definition}[Connected Forward Bisimulation Path]\label{def:bisim-path}
+  Let $\bar{a}^{0}, \cdots, \bar{a}^{l}$ be a sequence of guarded tuples in some structure $\mathfrak{A}$.
+  This sequence is a \emph{connected forward bisimulation path} from $\bar{a}^{0}$ to $\bar{a}^{i}$ if for all consecutive tuples $\bar{a}^{i}$ and $\bar{a}^{i+1}$,
+  a nonempty prefix of $\bar{a}^{i+1}$ is an infix of $\bar{a}^{i}$ and $a^{i} \ne a^{i+1}$.
+  A path is \emph{strict} if $\bar{a}^{i+1}$ contains at least one element not part of the common infix.
 \end{definition}
 
 \section{Tree unraveling}
@@ -126,7 +133,7 @@ The intersection of two sequential tuples $\bar{a}, \bar{b}$ in a HAT is an infi
 
 % definition exactly as in jair-main.pdf
 \begin{definition}[Forward Gaifman Graph]
-The \emph{forward Gaifman graph} $\mathit{fG}_\mathfrak{A}$ of a structure $\mathfrak{A}$ is the graph with the set of nodes equal to to $A$ and edges between $d$ and $e$ whenever there are (possibly empty) tuples of elements $\bar{c}$, $\bar{f}$ and a relational symbol $R$ witnessing $(\bar{c}, d, e, \bar{f}) \in R^{\mathfrak{A}}$.
+The \emph{forward Gaifman graph} $\mathit{fG}_\mathfrak{A}$ of a structure $\mathfrak{A}$ is the graph with the set of nodes equal to $A$ and edges between $d$ and $e$ whenever there are (possibly empty) tuples of elements $\bar{c}$, $\bar{f}$ and a relational symbol $R$ witnessing $(\bar{c}, d, e, \bar{f}) \in R^{\mathfrak{A}}$.
 \end{definition}
 
 \begin{definition}[Tree unraveling]
@@ -163,27 +170,107 @@ Thus $\bar{d}_{1\ldots{}j-i+1} = \bar{b}_{i\ldots{}j}$ as required by (fgforth).
 To show (fgback), let $(\bar{a}, \bar{b}) \in \mathcal{Z}$, $\bar{b}_{i\ldots{}j}$ be an infix of $\bar{b}$ and $\bar{d}$ be a $\sigma$-live tuple with prefix $\bar{b}_{i\ldots{}j}$ as in the definition of FGF-bisimulation. The tuple $\bar{d}$ is sequential since it is $\sigma$-live in $\mathfrak{A}^*$. Then, taking $\bar{c} = \last{\bar{d}}$ satisfies $\bar{c}_{1\ldots{}j-i+1} = \bar{a}_{i\ldots{}j}$ and $(\bar{c}, \bar{d}) \in \mathcal{Z}$ as required by (fgback).
 \end{proof}
 
+\begin{definition}[Path-complete tree unraveling]
+  Let $\mathfrak{A}, \bar{a}$ be a pointed structure.
+  Let $S$ be the set of all strict paths in $\mathfrak{A}$ starting from the tuple $\bar{a}$.
+  The \emph{path-complete tree unraveling} $A^{*}_{c,\bar{a}}$ is a structure with the domain equal to the smallest set $D$ such that:
+
+  \begin{itemize}
+    \item $(\bar{a}, i, a_{i}) \in D$ for every $a_{i} \in \bar{a}$
+    \item
+          for every path $\rho \in S$ with $|\rho| \geq 2$, let $\bar{p}^{(n-1)}$, $\bar{p}^{(n)}$ be the last two tuples of the path.
+          Let $\bar{p}^{(n)}_{i}$ be the leftmost element of $\bar{p}^{(n)}$ which is not part of the infix of  $\bar{p}^{(n-1)}$.
+          Then for every $i \leq j \leq |\bar{p}^{n}|$ also $ (\rho, j-i, \bar{p}^{(n)}_{j}) \in D$.
+  \end{itemize}
+
+  For every relation R we define the relation in $\mathfrak{A}^{*}_{c,\bar{a}}$ as follows:
+  \[
+    R^{\mathfrak{A}^{*}_{c,\bar{a}}} = \left\{
+      (
+      (\rho, i, \bar{s}_{0}),
+      (\rho, i+1, \bar{s}_{1}),
+      \ldots,
+      (\rho \bar{p'}, 0, \bar{s}_{j}),
+      (\rho \bar{p'}, 1, \bar{s}_{j+1}),
+      \ldots,
+      (\rho \bar{p'}, |\bar{s}|-j, \bar{s}_{|\bar{s}|})
+      )
+      \mid
+      \bar{s} \in R^{\mathfrak{A}}
+    \right\}
+  \]
+\end{definition}
+
 \begin{lemma}
-If $\mathfrak{\hat{A}}$ and $\mathfrak{\hat{B}}$ are HATs, then $\mathfrak{\hat{A}} \sim_{\mathrm{FGF},k} \mathfrak{\hat{B}}$ implies $\mathfrak{\hat{A}} \sim_{\mathrm{GF},k} \mathfrak{\hat{B}}$.
+  $\mathfrak{A}^{*}_{c, \bar{a}}, ((\bar{a}, 0, \bar{a}_{0}), \ldots, (\bar{a}, |\bar{a}|, \bar{a}_{|\bar{a}|})) \sim_{\textrm{FGF}} \mathfrak{A}, \bar{a}$ for any pointed structure $\mathfrak{A}, \bar{a}$.
 \end{lemma}
 
-\begin{definition}[infix-marker-relation]
-The infix-marker-relation $\beta_{R,i,j}$ is a relation of width j-i+1 for every relation R and natural numbers $i \leq j$.
-Its interpretation is given by:
+\begin{proof}
+  We show that the following set is a FGF-bisimulation:
 
-\[
-  \beta_{R,i,j}^\mathfrak{A} = \left\{ \bar{a}_{i\ldots{}j} \mid \bar{a} \in R^\mathfrak{A} \right\}
-\]
-\end{definition}
+  \[
+    \mathcal{Z} = \left\{
+      (\bar{s}, \pi(\bar{s}))
+      \mid \bar{s}\
+      \textrm{is any infix of a guarded tuple in}\ \mathfrak{A}^{*}_{c, \bar{a}}
+    \right\}
+  \]
 
-\begin{definition}
+  where the projection $\pi$ maps every element $(\rho, i, \bar{x}_{j})$ of a guarded tuple to the element $\bar{x}_{j}$ in $A$.
 
-\end{definition}
+  The set $\mathcal{Z}$ satisfies \textbf{(atomic harmony)} because $\bar{s}$ satisfies the same relations in $\mathfrak{A}^{*}_{c,\bar{a}}$ as $\pi(\bar{s})$ does in $\mathfrak{A}$, by definition.
+  The same holds for any infixes as they are also contained in $\mathcal{Z}$.
+
+  To show \textbf{(fgforth)}, let $(\bar{s}, \pi(\bar{s})) \in \mathcal{Z}$, $\bar{s}_{i\ldots{}j}$ be an infix of $\bar{s}$ and $\bar{s'}$ be a $\sigma$-live tuple with prefix $\bar{s}_{i\ldots{}j}$ as in the definition of FGF-bisimulation.
+  The projection $\pi{\bar{s'}}$ then shares the same infix, and $(\bar{s'}, \pi(\bar{s'})) \in \mathcal{Z}$, as required.
+
+  To show \textbf{(fgback)}, let $(\bar{s}, \pi(\bar{s})) \in \mathcal{Z}$, ${\pi(\bar{s})}_{i\ldots{}j}$ be an infix of $\pi(\bar{s})$ and $t'$ be a $\sigma$-live tuple with prefix ${\pi(\bar{s})}_{i\ldots{}j}$ as in the definition of FGF-bisimulation.
+  If $j = i + |\bar{t'}| - 1$, then $\bar{t'}$ is an infix of $\pi(\bar{s})$.
+  Thus, $(\bar{s}_{i\ldots{}j}, t') \in \mathcal{Z}$ satisfies the requirements.
+  Otherwise let $(\rho, \_, \_) = \bar{s}_{i}$ be the first element of the shared infix.
+
+
+\end{proof}
+
+
+% \begin{definition}[bisimulation-level]
+%   Let $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$ be pointed structures and $\mathcal{Z}_0, \ldots, \mathcal{Z}_k$, be a k-level bisimulation between them.
+%   The \emph{bisimulation level} $\mathtt{level}_{\mathcal{Z}}(\bar{c})$ of a tuple $\bar{c} \in A$ is the smallest $l$ such that there exists a tuple $\bar{x}$ with $(\bar{c}, \bar{x}) \in \mathcal{Z}_{k-l}$.
+%   The bisimulation level of a tuple $\bar{d} \in B$ is defined symmetrically.
+% \end{definition}
+
+% \begin{lemma}
+%   Let $\mathcal{Z}_{k}: \mathfrak{\hat{A}}, \bar{a} ~_{\textrm{FGF},k} \mathfrak{\hat{B}}, \bar{b}$ be a minimal k-level connected FGF bisimulation between HATs.
+%   Then for all $0 \leq i \leq k$ and bisimilar tuples $(\bar{s}, \bar{t}) \in \mathcal{Z}_{i}$, the level is preserved: $\mathtt{level}(\bar{s}) = \mathtt{level}(\bar{t})$.
+% \end{lemma}
+
+% \begin{proof}
+%   Proof by induction.
+%   \paragraph{Base case for level 0}
+%   Since the bisimulation $\mathcal{Z}$ is minimal, $Z_{k} = {(\bar{a}, \bar{b})}$.
+%   Both $\bar{a}$ and $\bar{b}$ have equal level $0$, as required.
+%   \paragraph{Inductive case for level $i' = i + 1$}
+%   Let $s'$ be a tuple in $A$ (the case for $B$ is symmetric) with $level(\bar{s}') = i$.
+%   Assume by contradiction that there is a tuple $\bar{t}'$ with $(\bar{s}', \bar{t}') \in \mathcal{Z}_{x}$ with $\level{t'} < i'$ for some $0 \leq x \leq k$.
+%   Let $a$
+%   Let $(\bar{s}', \bar{t}') \in Z_{i'}$.
+%   Assume by contradiction and w.l.o.g by symmetry that $\mathtt{level}(\bar{s}') > \mathtt{level}(\bar{t}')$.
+%   We know that $\mathtt{level}(\bar{s}') \leq i'$ since it appears in $Z_{i'}$.
+%   Let $x = \mathtt{level}(\bar{t}')$, which must therefore be less than $i'$.
+%   We also know that $\mathtt{level}(\bar{s}') = i'$ since otherwise both tuples in the pair $(\bar{s}', \bar{t}')$ would have a level less than $i'$ and thus have equal levels by inductive hypothesis.
+
+%   Since $\mathcal{Z}$ is minimal, there must be $(\bar{s}, \bar{t}) \in Z_{i'+1}$ where $\bar{s}$ has an infix which is a prefix of $\bar{s'}$ and the same holds for $t$ and $t'$.
+% \end{proof}
+
+\begin{lemma}
+If $\mathfrak{\hat{A}}, \bar{a}$ and $\mathfrak{\hat{B}}, \bar{b}$ are pointed HATs, then $\mathfrak{\hat{A}}, \bar{a} \sim_{\mathrm{FGF},k} \mathfrak{\hat{B}}, \bar{b}$ implies $\mathfrak{\hat{A}}, \bar{a} \sim_{\mathrm{GF},k} \mathfrak{\hat{B}}, \bar{b}$.
+\end{lemma}
+
 
 \begin{proof}
-Let $\mathcal{Z}_k: \mathfrak{\hat{A}} \sim_{\textrm{FGF},k} \mathfrak{\hat{B}}$ be the \emph{smallest} FGF k-bisimulation between $\mathfrak{\hat{A}}$ and $\mathfrak{\hat{B}}$. We show that $Z$ is also a GF k-bisimulation.
+Let $\mathcal{Z}_k: \mathfrak{\hat{A}} \sim_{\textrm{FGF},k} \mathfrak{\hat{B}}$ be a history-preserving k-level FGF bisimulation between $\mathfrak{\hat{A}}$ and $\mathfrak{\hat{B}}$. We show that $Z$ is also a k-level GF-bisimulation.
 
-First, note that for tuples $\bar{a}, \bar{b}$ if $\mathtt{ftp}_\mathfrak{\hat{A}}(\bar{a}) = \mathtt{ftp}_\mathfrak{\hat{B}}$, then the mapping $p: \bar{a}_i \mapsto \bar{b}_i$ is a partial isomorphism in HATs.
+First, we show that for tuples $\bar{a}, \bar{b}$ if $\mathtt{ftp}_\mathfrak{\hat{A}}(\bar{a}) = \mathtt{ftp}_\mathfrak{\hat{B}}$, then the mapping $p: \bar{a}_i \mapsto \bar{b}_i$ is a partial isomorphism in HATs.
 Clearly, $p$ is bijective, as $|\bar{a}| = |\bar{b}|$.
 We claim that $\bar{d} = (p(c_1), ..., p(c_n))$ satisfies exactly the same relations as $\bar{c}$, for any tuple $\bar{c}$ with elements from $\bar{a}$.
 If $\bar{c}$ is an infix of $\bar{a}$, then this is true because either $-R(\bar{c})$ or $+R(\bar{c})$ must be part of the forward type of $\bar{a}$ and due to equality of forward types also in the forward type of $\bar{b}$.
@@ -201,6 +288,10 @@ Let $X_{}$
 
 \fxfatal{case for $\bar{a}_{i\ldots{}j}$ not prefix of $\bar{c}$}
 
+The case for (gback) is symmetrical.
+
 \end{proof}
+
+
 
 \end{document}

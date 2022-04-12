@@ -4,3 +4,4 @@
 *.synctex.gz
 main.log
 .auctex-auto
+_region_.*
