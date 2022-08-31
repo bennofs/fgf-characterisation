@@ -106,13 +106,6 @@ We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}, k} \mathfrak{B}, \bar{b}$ or 
 A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{B}$ is a set $\mathcal{Z}$ such that for any guarded tuple $\bar{a} \in \mathfrak{A}$ there is a guarded tuple $\bar{b} \in \mathfrak{B}$ such that $(\bar{a}, \bar{b}) \in \mathcal{Z}$ and vice versa.
 \end{definition}
 
-\begin{definition}[Connected Forward Bisimulation Path]\label{def:bisim-path}
-  Let $\bar{a}^{0}, \cdots, \bar{a}^{l}$ be a sequence of guarded tuples in some structure $\mathfrak{A}$.
-  This sequence is a \emph{connected forward bisimulation path} from $\bar{a}^{0}$ to $\bar{a}^{i}$ if for all consecutive tuples $\bar{a}^{i}$ and $\bar{a}^{i+1}$,
-  a nonempty prefix of $\bar{a}^{i+1}$ is an infix of $\bar{a}^{i}$ and $a^{i} \ne a^{i+1}$.
-  A path is \emph{strict} if $\bar{a}^{i+1}$ contains at least one element not part of the common infix.
-\end{definition}
-
 \section{Tree unraveling}
 
 % definition adapted from jair-main.pdf
@@ -170,10 +163,33 @@ Thus $\bar{d}_{1\ldots{}j-i+1} = \bar{b}_{i\ldots{}j}$ as required by (fgforth).
 To show (fgback), let $(\bar{a}, \bar{b}) \in \mathcal{Z}$, $\bar{b}_{i\ldots{}j}$ be an infix of $\bar{b}$ and $\bar{d}$ be a $\sigma$-live tuple with prefix $\bar{b}_{i\ldots{}j}$ as in the definition of FGF-bisimulation. The tuple $\bar{d}$ is sequential since it is $\sigma$-live in $\mathfrak{A}^*$. Then, taking $\bar{c} = \last{\bar{d}}$ satisfies $\bar{c}_{1\ldots{}j-i+1} = \bar{a}_{i\ldots{}j}$ and $(\bar{c}, \bar{d}) \in \mathcal{Z}$ as required by (fgback).
 \end{proof}
 
+\begin{definition}[Connected Forward Bisimulation Path]\label{def:bisim-path}
+  Let $\rho = \bar{p}^{0}, \cdots, \bar{p}^{l}$ be a sequence of guarded tuples in a structure $\mathfrak{A}$.
+  This sequence is a \emph{connected forward bisimulation path} from $\bar{p}^{0}$ to $\bar{p}^{l}$ if for all consecutive tuples $\bar{p}^{k}$ and $\bar{p}^{k+1}$,
+  there is some $i$ that partitions the tuple into a nonempty prefix $\mathtt{pref}(\bar{p}^{k+1}) = \bar{p}_{\ldots{}i}$ and a tail $\mathtt{tail}(\bar{p}^{k+1}) = \bar{p}_{i+1\ldots{}}$,
+  and $\mathtt{pref}(\bar{p}^{k+1})$ is an infix of $\bar{p}^{k}$. For the first tuple, the prefix and tail are defined as: $\mathtt{pref}(\bar{p}^{0}) = ()$, $\mathtt{tail}(\bar{p}^{0}) = \bar{p}^{0}$.
+
+  A path is strict if the tail of every tuple in the path is nonempty.
+
+  We write $\bar{p}^{-1} = \bar{p}^{l}$ for the last element of the path.
+\end{definition}
+
 \begin{definition}[Path-complete tree unraveling]
   Let $\mathfrak{A}, \bar{a}$ be a pointed structure.
-  Let $S$ be the set of all strict paths in $\mathfrak{A}$ starting from the tuple $\bar{a}$.
-  The \emph{path-complete tree unraveling} $A^{*}_{c,\bar{a}}$ is a structure with the domain equal to the smallest set $D$ such that:
+  Let $S$ be the set of all strict, nonempty, connected forward bisimulation paths in $\mathfrak{A}$ from $\bar{a}$.
+  The \emph{path-complete tree unraveling} $\mathfrak{A}^{*}_{c,\bar{a}}$ is a structure with domain $D$, where $D$ is the smallest subset of $S \times \mathbb{N}$, such that for any $\rho \in S$: $(\rho, i) \in D$ for all $1 \leq i \leq |\mathtt{tail}(\bar{p}^{-1})|$.
+
+  For any $e = (\rho, i) \in D$, define the projection $\pi(e) = \bar{p}^{-1}_{i}$, a mapping from elements of $\mathfrak{A}^{*}_{c,\bar{a}}$ to elements of $\mathfrak{A}$.
+  For a tuple $\bar{e} \in D$, we define $\pi(\bar{e})$ similarly by applying the projection pointwise to each element of the tuple.
+
+  Let  $\mathtt{bracket}(\rho)$ is the
+  A tuple $\bar{e} \in D$ is \emph{sequential} if there are two paths $\rho$ and $\rho'$ such that:
+  \begin{itemize}
+    \item the second path is a direct successor of the first: $\rho' = \rho \bar{s}$ for some $\bar{s} \in A$
+    \item $\bar{e}$ is an infix of the tuple $()$
+  \end{itemize}
+
+
 
   \begin{itemize}
     \item $(\bar{a}, i, a_{i}) \in D$ for every $a_{i} \in \bar{a}$
