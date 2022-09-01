@@ -30,7 +30,7 @@
 \author{Benno Fünfstück}
 \date{March 2022}
 
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem}{Theorem}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -40,6 +40,8 @@
 \crefname{theorem}{Theorem}{Theorems}
 
 \newcommand{\last}[1]{\mathtt{last}(#1)}
+\newcommand{\trace}[1]{\mathtt{trace}(#1)}
+\newcommand{\context}[1]{\mathtt{context}(#1)}
 \newcommand{\struct}[1]{$\mathfrak{#1}$}
 
 \include{tolcolors}
@@ -119,17 +121,15 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
 
 \section{Tree unraveling}
 
-\subsection{Bisimulation path}
-
-\begin{definition}[Connected Forward Bisimulation Path]\label{def:bisim-path}
-  A \emph{connected forward bisimulation path} of \emph{length} $n$ with \emph{start} $\bar{s}_{0}$ for a structure \struct{A} is a sequence $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$ where:
+\begin{definition}[Bisimulation Path]\label{def:bisim-path}
+  A (connected, forward) \emph{bisimulation path} of \emph{length} $n$ with \emph{start} $\bar{s}_{0}$ for a structure \struct{A} is a sequence $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$ where:
   \begin{itemize}
     \item each $\bar{s}_{k}$ for $0 \le k \le n$ is a guarded tuple from \struct{A}
     \item each $(i_{k}, j_{k})$ for $1 \le k \le n$ are a pair of indices into $\bar{s}_{k-1}$, such that $\bar{s}_{k-1,i\ldots{}j} = \bar{s}_{k,1\ldots{j-i+1}}$
   \end{itemize}
 \end{definition}
 
-\begin{definition}[Strict Connected Forward Bisimulation Path]
+\begin{definition}[Strict Bisimulation Path]
   A bisimulation path $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$ is called strict iff:
 
   \begin{enumerate}
@@ -138,9 +138,8 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
   \end{enumerate}
 \end{definition}
 
-\pagebreak
-
-\begin{example}[Bisimulation paths]\leavevmode\\*[1em]
+\begin{samepage}
+\begin{example}[Bisimulation paths]\leavevmode\\*[1em]\label{ex:fgf-paths}
   {%
     \newcommand{\tups}{{\color{tolbrightYellowDarker}\bar{s}}}%
     \newcommand{\tupp}{{\color{tolbrightCyanDarker}\bar{p}}}%
@@ -173,10 +172,9 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
   \begin{minipage}[t]{0.35\textwidth}
     \vspace{0pt}
     \includegraphics[width=0.9\textwidth]{svg/fgf-unravel.svg/example-struct-1}
-    \captionof{figure}{Example structure \struct{A}}
-    \label{fig:fgf-struct-a} \leavevmode\\[-0.5em]
+    \captionof{figure}{Example structure \struct{A}}\label{fig:fgf-struct-a} \leavevmode\\[-0.5em]
     \raggedright
-    $ \tups = (1,2,3)$, $\tupp = (2,3,4)$, $\tupt = (3,4,5)$, $\tupq = (4,5)$. \\
+    $\tups = (1,2,3)$, $\tupp = (2,3,4)$, $\tupt = (3,4,5)$, $\tupq = (4,5)$. \\
 
     \begin{enumerate}[label=(\arabic*)]
       \item not strict because tail in step from $\tupt$ to $\tupq$ is empty
@@ -184,6 +182,66 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
     \end{enumerate}
   \end{minipage}
   }
+\end{example}
+\end{samepage}
+
+\begin{example}[Traces of paths]
+  Traces of some paths from \cref{ex:fgf-paths}:
+  {%
+    \newcommand{\pA}{{\color{tolbrightYellowDarker}\rho_1}}%
+    \newcommand{\pB}{{\color{tolbrightCyanDarker}\rho_2}}%
+    \newcommand{\pC}{{\color{tolbrightGreen}\rho_{17}}}%
+    \newcommand{\pD}{{\color{tolbrightPurple}\rho_{18}}}%
+    \begin{align*}
+      \trace{\pA} &= (\pA,1)(\pA,2)(\pA,3) \\
+      \trace{\pC} &= (\pA,1)(\pA,2)(\pA,3)(\pC,2)(\pC,3)\\
+      \trace{\pD} &= (\pA,1)(\pA,2)(\pA,3)(\pC,2)(\pD,2)\\
+      \trace{\pB} &= (\pA,1)(\pA,2)(\pB,2)(\pB,3)
+    \end{align*}
+  }
+\end{example}
+
+\begin{samepage}
+\begin{definition}[Trace of a path]
+  Let $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$ be a bisimulation path, and $\rho_{\ldots{}k} = \bar{s}_{0}\cdots(i_{k},j_{k})\bar{s}_{k}$ for $0 \le k \le n$ be the k-length prefix of that path.
+  The trace of $\rho$ is a sequence of tuples with the following structure, describing the elements traversed by the path:
+  \begin{equation*}
+  \trace{\rho} = (\rho_{\ldots{}0}, 1)(\rho_{\ldots{}0}, 2)\cdots{}(\rho_{\ldots{}0}, b_{0})(\rho_{\ldots{}1}, a_{1})\cdots{}(\rho_{\ldots{}1}, b_{1})\cdots(\rho_{\ldots{}n}, a_{n})\cdots(\rho_{\ldots{}n}, b_{n})
+  \end{equation*}
+  where the indices $a_{k}$, $b_{k}$ marking the start and end of each segment are defined as follows:
+  \begin{align*}
+    a_{0} &= 1                   & b_{n} &= |s_{n}| & \text{edge cases} \\
+    a_{k} &= j_{k} - i_{k} + 2    &  b_{k-1} &= j_{k} & \text{for}\ 1 \le k \le n
+  \end{align*}
+
+  Every element in a trace has a projection $\pi$ to an element of the original structure.
+  This projection is given by:
+  \begin{equation*}
+    \pi(\rho_{\ldots{}k},x) = s_{k,x}\ \text{for every $0 \le k \le n$}
+  \end{equation*}
+  The projection $\pi(\trace{\rho})$ of the whole trace is the sequence of the projections of individual trace elements.
+\end{definition}
+\end{samepage}
+
+The context of a path represents the elements of the trace which are used in the last step, and is defined as follows:
+
+\begin{definition}[Context of a path]
+  For a bisimulation path $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$, the context is defined as: $\context{\rho} = \text{the last}\ |s_{n}|\ \text{elements of}\ \trace{\rho}$
+\end{definition}
+
+\begin{definition}[Path-complete tree unraveling]
+  For a structure \struct{A}, let $\mathcal{P^{\mathfrak{A}}}_{\bar{a}}$ be the set of all bisimulation paths with start $\bar{a}$.
+  The path-complete unraveling $\mathfrak{A}^{*,c}_{a_{0}}$ is the structure with domain $\mathcal{P} \times \mathbb{N}$ (elements of traces).
+  Each relation $R_{i}$ is defined in $\mathfrak{A}^{*,c}_{a_{0}}$ as:
+  \begin{equation*}
+    R_{i}^{\mathfrak{A}^{*,c}_{a_{0}}} = \left\{ \bar{r} \mid \pi(\bar{r}) \in R_{i}^{\mathfrak{A}}\ \text{and there exists a path $\rho$ with}\ \bar{r} \sqsubseteq \context{\rho}\right\}
+  \end{equation*}
+\end{definition}
+
+\begin{example}\leavevmode\\
+    \vspace{0pt}
+    \includegraphics[width=0.9\textwidth]{svg/fgf-unravel.svg/struct-1-unravel}
+    \captionof{figure}{Unraveling of structure \struct{A} from \cref{fig:fgf-struct-a}}\label{fig:fgf-struct-a-unravel}
 \end{example}
 
 \end{document}

@@ -8,7 +8,7 @@ all: main.pdf
 
 -include latex.out/deps/*.d
 
-latex.out/svg/%.pdf:
+latex.out/svg/%.pdf: kitchen/inkscape-export.py
 	@mkdir -p latex.out/deps
 	./kitchen/inkscape-export.py --output-directory "$(dir $@)" "$(patsubst latex.out/svg/%/,res/%,$(dir $@))" > "$(patsubst latex.out/svg/%/,latex.out/deps/%.d,$(dir $@))"
 
