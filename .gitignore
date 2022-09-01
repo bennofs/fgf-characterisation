@@ -2,6 +2,7 @@
 *.aux
 *.pdf
 *.synctex.gz
+*.out
 main.log
 .auctex-auto
 _region_.*
