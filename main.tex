@@ -1,10 +1,17 @@
 % -*- TeX-engine: xetex -*-
-\documentclass{scrartcl}
+\documentclass[draft]{scrartcl}
 
-\usepackage{polyglossia}
-\usepackage{fontspec}
+\usepackage{ifxetex}
+\usepackage{amsmath}
 
-\setmainlanguage{english}
+\ifxetex
+  \usepackage{polyglossia}
+  \usepackage{fontspec}
+
+  \setmainlanguage{english}
+\else
+  \usepackage[english]{babel}
+\fi
 
 \usepackage{blindtext}
 \usepackage{amsthm}
@@ -23,7 +30,10 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{enumitem}
+\usepackage{pbox}
+\usepackage{mathtools}
 
+\setkeys{Gin}{draft=false} %load images in draft mode
 \fxsetup{theme=color,status=draft}
 
 \title{FGF Notes}
@@ -35,13 +45,16 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{example}[theorem]{Example}
+\newtheorem{observation}[theorem]{Observation}
 \crefname{lemma}{Lemma}{Lemmas}
 \crefname{definition}{Definition}{Definitions}
 \crefname{theorem}{Theorem}{Theorems}
+\crefname{observation}{Observation}{Observations}
 
 \newcommand{\last}[1]{\mathtt{last}(#1)}
 \newcommand{\trace}[1]{\mathtt{trace}(#1)}
 \newcommand{\context}[1]{\mathtt{context}(#1)}
+\newcommand{\level}[1]{\mathtt{level}(#1)}
 \newcommand{\struct}[1]{$\mathfrak{#1}$}
 
 \include{tolcolors}
@@ -223,25 +236,87 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
 \end{definition}
 \end{samepage}
 
+\begin{observation}
+  If $(\rho,i) \in \trace{\sigma}$ then $\rho \le \sigma$ and $(\rho, i) \in \trace{\rho}$.
+\end{observation}
+
 The context of a path represents the elements of the trace which are used in the last step, and is defined as follows:
 
 \begin{definition}[Context of a path]
-  For a bisimulation path $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$, the context is defined as: $\context{\rho} = \text{the last}\ |s_{n}|\ \text{elements of}\ \trace{\rho}$
+  For a bisimulation path $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$, the context is defined as: $\context{\rho} = \text{tuple of the last}\ |s_{n}|\ \text{elements of}\ \trace{\rho}$
 \end{definition}
+
+Note that $\pi(\context{\rho (i,j) \bar{s}_{n}}) = \bar{s}_{n}$ for any path $\rho$.
+
+\begin{definition}[Bisimilarity of paths]
+  Let $\mathfrak{A},\bar{a} \sim_{\textrm{FGF},k} \mathfrak{B}, \bar{b}$ be two bisimilar structures.
+  We define $\sim_{\textrm{FGF},k}$ for bisimulation paths inductively as:
+  \begin{align*}
+    \bar{a} &\sim_{\textrm{FGF},k} \bar{b} & \text{base case} \\
+    \rho (i,j) \bar{s} &\sim_{\textrm{FGF,k}} \sigma (i,j) \bar{t} & \text{if}\ \rho \sim_{\textrm{FGF,k}} \sigma \ \text{and}\ \mathfrak{A},\bar{s} \sim_{k-|\rho|} \mathfrak{B},\bar{t}
+  \end{align*}
+\end{definition}
+
+\begin{observation}\label{obs:path-context-bisim}
+  Let $\rho$ and $\sigma$ be bisimulation paths in structures $\mathfrak{A}$ and $\mathfrak{B}$.
+  Then $\rho \sim_{\textrm{FGF},k} \sigma$ implies $\mathfrak{A}, \pi(\context{\rho}) \sim_{\textrm{FGF},k+1-|\rho|} \mathfrak{B}, \pi(\context{\sigma})$ and the same holds by induction for any n-length prefixes $\rho_{\ldots{}n}, \sigma_{\ldots{}n}$ of $\rho$ and $\sigma$.
+\end{observation}
 
 \begin{definition}[Path-complete tree unraveling]
   For a structure \struct{A}, let $\mathcal{P^{\mathfrak{A}}}_{\bar{a}}$ be the set of all bisimulation paths with start $\bar{a}$.
-  The path-complete unraveling $\mathfrak{A}^{*,c}_{a_{0}}$ is the structure with domain $\mathcal{P} \times \mathbb{N}$ (elements of traces).
-  Each relation $R_{i}$ is defined in $\mathfrak{A}^{*,c}_{a_{0}}$ as:
+  The path-complete unraveling $\mathfrak{A}^{*,c}_{\bar{a}}, \bar{a}^{*}$ is the structure with domain $\mathcal{P} \times \mathbb{N}$ (elements of traces).
+  Each relation $R_{i}$ is defined in $\mathfrak{A}^{*,c}_{\bar{a}}$ as:
   \begin{equation*}
     R_{i}^{\mathfrak{A}^{*,c}_{a_{0}}} = \left\{ \bar{r} \mid \pi(\bar{r}) \in R_{i}^{\mathfrak{A}}\ \text{and there exists a path $\rho$ with}\ \bar{r} \sqsubseteq \context{\rho}\right\}
   \end{equation*}
+  The tuple $\bar{a}$ is lifed to the unraveling as $\bar{a}^{*} = \context{\bar{a}}$.
 \end{definition}
 
+\begin{samepage}
 \begin{example}\leavevmode\\
     \vspace{0pt}
     \includegraphics[width=0.9\textwidth]{svg/fgf-unravel.svg/struct-1-unravel}
     \captionof{figure}{Unraveling of structure \struct{A} from \cref{fig:fgf-struct-a}}\label{fig:fgf-struct-a-unravel}
+    \vspace{0.5em}
+    All starting elements have level 1.
+    Every element connected by some relation to those elements has level 2, and so on.
 \end{example}
+\end{samepage}
+
+\begin{theorem}[$\textrm{FGF}_{k}$ to $\textrm{GF}_{k'}$]
+  Let $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}_{k}}\mathfrak{B}, \bar{b}$ be two connected-forward bisimilar $\Sigma$-structures.
+  Then $\mathfrak{A}^{*,c}_{\bar{a}}, \bar{a}^{*} \sim_{\textrm{GF},k'} \mathfrak{B}^{*,c}_{\bar{b}}, \bar{b}^{*}$ for some $k'$ only dependent on $k$ and $\Sigma$.
+\end{theorem}
+
+\begin{proof}
+  Let $\level{e}$ for $e \in A^{*,c}_{\bar{a}}$ be the length of the shortest path from any element of $\bar{a}^{*}$ to $e$ in the Gaifman graph of the unraveling.
+  For a tuple $\bar{s}$, we define $\level{\bar{e}} = \max \level{\bar{e}_{i}}\ \text{for}\ 1 \le i \le |\bar{e}|$.
+  We show that a sequence of sets $\mathcal{Z}_{0}, \mathcal{Z}_{1}, \ldots, \mathcal{Z}_{k'}$ form a k'-level connected bisimulation, where each $\mathcal{Z}_{h}$ is defined as follows:
+  \begin{equation*}
+    \mathcal{Z}_{h} = \left\{
+      (\bar{s}, \bar{t})
+      \ \middle|\
+      \begin{aligned}
+        & \text{there are bisimulation paths $\rho$, $\sigma$ such that:} \\
+        & \ \text{(a)}\ \rho \sim_{\textrm{FGF}, c*k'} \sigma \\
+        & \ \text{(b)}\ \bar{s} = \context{\rho}_{i\ldots{}j}\ \text{and}\ \bar{t} = \context{\sigma}_{i\ldots{}j}\ \text{for some}\ i, j \\
+        & \ \text{(c)}\ \level{\bar{s}},\,\level{\bar{t}} \le k' - h + 1
+      \end{aligned}
+    \right\}
+  \end{equation*}
+
+  First we show for any $(\bar{s}, \bar{t}) \in \mathcal{Z}_{h}$ that $\bar{s}, \bar{t}$ induce isomorphic substructures, so the mapping $\bar{s}_{i} \mapsto \bar{t}_{i}$ for $1 \le i \le |\bar{s}|$ is a partial isomorphism.
+  Let $\rho$ and $\sigma$ be the paths for $\bar{s}$ and $\bar{t}$ as in the definition of $\mathcal{Z}_{h}$.
+  Condition (a) implies by \cref{obs:path-context-bisim} that $\mathfrak{A}, \pi(\context{\rho}) \sim_{FGF,c*k'-|\rho|} \mathfrak{B}, \pi(\context{\sigma})$.
+  By the atomic harmony property of FGF bisimulations this means that $\pi(\context{\rho})$ and $\pi(\context{\sigma})$ must have equal forward types.
+  This also holds for $\context{\rho}$ and $\context{\sigma}$ since by definition of the unraveling those have the same forward type as the projection.
+  Because elements of the unraveling are ordered, substructures with equal forward types are isomorphic.
+  As $\bar{s}$ and $\bar{t}$ are simply slices of $\context{\rho}$ and $\context{\sigma}$ they must be isomorphic substructes as well.
+
+  Next we give the proof for \texttt{(gforth)} and \texttt{(gback)} follows by symmetry.
+  Let $(\bar{s}, \bar{t}) \in \mathcal{Z}_{h}$ and $\bar{s'} \in \mathfrak{A}^{*,c}_{\bar{a}}$ be a guarded tuple sharing at least one element with $\bar{s}$.
+  Since all these tuples are guarded
+  \phantom{\qedhere}
+\end{proof}
 
 \end{document}
