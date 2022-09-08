@@ -1,0 +1,40 @@
+\documentclass{standalone}
+
+\usepackage{ifxetex}
+\usepackage{amsmath}
+
+\ifxetex
+  \usepackage{polyglossia}
+  \usepackage{fontspec}
+
+  \setmainlanguage{english}
+\else
+  \usepackage[english]{babel}
+\fi
+
+\usepackage{blindtext}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[capitalise]{cleveref}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{placeins}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{fixme}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{pbox}
+\usepackage{mathtools}
+
+\setkeys{Gin}{draft=false} %load images in draft mode
+\fxsetup{theme=color,status=draft}
+
+\begin{document}
+\blindtext
+\end{document}
