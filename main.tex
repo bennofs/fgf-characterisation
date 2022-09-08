@@ -178,16 +178,17 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
       \item $\rho_{7} = \tups(2,2)\tupp(2,3)\tupt(2,2)\tupq$
       \item $\rho_{8} = \tups(2,2)\tupp(2,3)\tupt(2,3)\tupq$, not strict (1)
       \item $\rho_{9} = \tups(2,2)\tupp(3,3)\tupq$
-      \item $\rho_{10} = \tups(2,3)\tupp(2,2)\tupt$, not strict (2)
-      \item $\rho_{11} = \tups(2,3)\tupp(2,2)\tupt(2,2)\tupq$, not strict (2)
-      \item $\rho_{12} = \tups(2,3)\tupp(2,2)\tupt(2,3)\tupq$, not strict (1)
-      \item $\rho_{13} = \tups(2,3)\tupp(2,3)\tupt$
-      \item $\rho_{14} = \tups(2,3)\tupp(2,3)\tupt(2,2)\tupq$
-      \item $\rho_{15} = \tups(2,3)\tupp(2,3)\tupt(2,3)\tupq$, not strict (1)
-      \item $\rho_{16} = \tups(2,3)\tupp(3,3)\tupq$
-      \item $\rho_{17} = \tups(3,3)\tupt$
-      \item $\rho_{18} = \tups(3,3)\tupt(2,2)\tupq$
-      \item $\rho_{19} = \tups(3,3)\tupt(2,3)\tupq$, not strict (1)
+      \item $\rho_{10} = \tups(2,3)\tupp$
+      \item $\rho_{11} = \tups(2,3)\tupp(2,2)\tupt$, not strict (2)
+      \item $\rho_{12} = \tups(2,3)\tupp(2,2)\tupt(2,2)\tupq$, not strict (2)
+      \item $\rho_{13} = \tups(2,3)\tupp(2,2)\tupt(2,3)\tupq$, not strict (1)
+      \item $\rho_{14} = \tups(2,3)\tupp(2,3)\tupt$
+      \item $\rho_{15} = \tups(2,3)\tupp(2,3)\tupt(2,2)\tupq$
+      \item $\rho_{16} = \tups(2,3)\tupp(2,3)\tupt(2,3)\tupq$, not strict (1)
+      \item $\rho_{17} = \tups(2,3)\tupp(3,3)\tupq$
+      \item $\rho_{18} = \tups(3,3)\tupt$
+      \item $\rho_{19} = \tups(3,3)\tupt(2,2)\tupq$
+      \item $\rho_{20} = \tups(3,3)\tupt(2,3)\tupq$, not strict (1)
     \end{enumerate}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.35\textwidth}
@@ -211,13 +212,17 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
   {%
     \newcommand{\pA}{{\color{tolbrightYellowDarker}\rho_1}}%
     \newcommand{\pB}{{\color{tolbrightCyanDarker}\rho_2}}%
-    \newcommand{\pC}{{\color{tolbrightGreen}\rho_{17}}}%
-    \newcommand{\pD}{{\color{tolbrightPurple}\rho_{18}}}%
+    \newcommand{\pC}{{\color{tolbrightGreen}\rho_{18}}}%
+    \newcommand{\pD}{{\color{tolbrightPurple}\rho_{19}}}%
+    \newcommand{\tups}{{\color{tolbrightYellowDarker}\bar{s}}}%
+    \newcommand{\tupp}{{\color{tolbrightCyanDarker}\bar{p}}}%
+    \newcommand{\tupt}{{\color{tolbrightGreen}\bar{t}}}%
+    \newcommand{\tupq}{{\color{tolbrightPurple}\bar{q}}}%
     \begin{align*}
-      \trace{\pA} &= (\pA,1)(\pA,2)(\pA,3) \\
-      \trace{\pC} &= (\pA,1)(\pA,2)(\pA,3)(\pC,2)(\pC,3)\\
-      \trace{\pD} &= (\pA,1)(\pA,2)(\pA,3)(\pC,2)(\pD,2)\\
-      \trace{\pB} &= (\pA,1)(\pA,2)(\pB,2)(\pB,3)
+      \trace{\tups} &= (\pA,1)(\pA,2)(\pA,3) \\
+      \trace{\tups(3,3)\tupt(2,2)} &= (\pA,1)(\pA,2)(\pA,3)(\pC,2)(\pC,3)\\
+      \trace{\tups(3,3)\tupt(2,2)\tupq} &= (\pA,1)(\pA,2)(\pA,3)(\pC,2)(\pD,2)\\
+      \trace{\tups(2,2)\tupp} &= (\pA,1)(\pA,2)(\pB,2)(\pB,3)
     \end{align*}
   }
 \end{example}
