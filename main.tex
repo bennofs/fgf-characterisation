@@ -60,6 +60,7 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{arrows}
+\usetikzlibrary{arrows.meta}
 
 \typeout{CONTENT START NOW}
 
@@ -401,7 +402,7 @@ The following proof is illustrated in \cref{fig:fgf-context-intersect}.
     \right\}
   \end{equation*}
 
-  First we show for any $(\bar{s}, \bar{t}) \in \mathcal{Z}_{h}$ that $\bar{s}, \bar{t}$ induce isomorphic substructures, so the mapping $\bar{s}_{i} \mapsto \bar{t}_{i}$ for $1 \le i \le |\bar{s}|$ is a partial isomorphism.
+  First we show for any $(\bar{s}, \bar{t}) \in \mathcal{Z}_{h}$ that $\bar{s}_{i} \mapsto \bar{t}_{i}$ for $1 \le i \le |\bar{s}|$ is an isomorphism between the induced substructures of $\bar{s}$ and $\bar{t}$.
   Let $\rho$ and $\sigma$ be the paths for $\bar{s}$ and $\bar{t}$ as in the definition of $\mathcal{Z}_{h}$.
   Condition (a) implies by \cref{obs:path-context-bisim} that $\mathfrak{A}, \pi(\context{\rho}) \sim_{FGF,w*k'-|\rho|+1} \mathfrak{B}, \pi(\context{\sigma})$.
   By the atomic harmony property of FGF bisimulations this means that $\pi(\context{\rho})$ and $\pi(\context{\sigma})$ must have equal forward types.
@@ -435,5 +436,14 @@ The following proof is illustrated in \cref{fig:fgf-context-intersect}.
   Clearly $(\bar{s}', \bar{t}') \in \mathcal{Z}_{h+1}$ with bisimulation paths $\rho', \sigma'$.
   $\bar{t}$ also shares the same elements with $\bar{t}'$ as $\bar{s}$ does with $\bar{s}'$ because the contexts for $\rho, \sigma$ and $\rho', \sigma'$ do and the tuples are simply infixes of those contexts at the same positions.
 \end{proof}
+
+\cref{fig:fgf-vs-bart-unraveling} shows why we need a special unraveling.
+Consider the left structure, which is a already a HAT according to Bart.\ et.\ al, MFCS 2022.
+
+\begin{figure}
+  \include{res/fgf-bart-unraveling}
+  \caption{HAT unraveling vs new unraveling}\label{fig:fgf-vs-bart-unraveling}
+\end{figure}
+
 
 \end{document}

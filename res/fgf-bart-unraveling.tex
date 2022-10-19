@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+  \draw[tolbrightGreen, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
+  \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
+
+  \draw [black, line width=0.1em, fill=white] (0em, 8em) circle [radius=0.8em] node[anchor=center] {};
+  \draw [black, line width=0.1em, fill=white] (0em, 4em) circle [radius=0.8em] node[anchor=center] {};
+  \draw [black, line width=0.1em, fill=white] (0em, 0em) circle [radius=0.8em] node[anchor=center] {};
+
+  \begin{scope}[xshift=10em]
+    \draw[tolbrightGreen, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
+    \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0em,4em) -> (6em,2em);
+    \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
+
+    \draw [black, line width=0.1em, fill=white] (0em, 8em) circle [radius=0.8em] node[anchor=center] {};
+    \draw [black, line width=0.1em, fill=white] (0em, 4em) circle [radius=0.8em] node[anchor=center] {};
+    \draw [black, line width=0.1em, fill=white] (0em, 0em) circle [radius=0.8em] node[anchor=center] {};
+    \draw [black, line width=0.1em, fill=white] (6em, 2em) circle [radius=0.8em] node[anchor=center] {};
+
+    \node[tolbrightGreen] at (-2em, 6em) {P};
+    \node[tolbrightYellow] at (-1.5em, 2em) {E};
+    \node[tolbrightYellow] at (3em, 4em) {E};
+  \end{scope}
+
+  \node[font=\Large] at (5em, 4em) {$\sim_{FGF}$};
+
+  \node[tolbrightGreen] at (-2em, 6em) {P};
+  \node[tolbrightYellow] at (-1.5em, 2em) {E};
+
+  \node at (5em, -3em) {but not $\sim_{\mathrm{GF}}$: $\forall b,c. E(b,c) \implies \exists a. P(a,b,c) $};
+\end{tikzpicture}%
