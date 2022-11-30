@@ -51,10 +51,13 @@
 \crefname{theorem}{Theorem}{Theorems}
 \crefname{observation}{Observation}{Observations}
 
+\newcommand{\first}[1]{\mathtt{first}(#1)}
 \newcommand{\last}[1]{\mathtt{last}(#1)}
 \newcommand{\trace}[1]{\mathtt{trace}(#1)}
 \newcommand{\context}[1]{\mathtt{context}(#1)}
-\newcommand{\struct}[1]{$\mathfrak{#1}$}
+\newcommand{\struct}[1]{\mathfrak{#1}}
+\newcommand{\seq}[1]{\mathtt{Seq}_{#1}}
+\newcommand{\dom}[1]{\mathtt{dom}({#1})}
 
 \include{tolcolors}
 \usetikzlibrary{calc}
@@ -137,313 +140,40 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
 
 \section{Tree unraveling}
 
-\begin{definition}[Bisimulation Path]\label{def:bisim-path}
-  A (connected, forward) \emph{bisimulation path} of \emph{length} $n$ with \emph{start} $\bar{s}_{0}$ for a structure \struct{A} is a sequence $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$ where:
-  \begin{itemize}
-    \item each $\bar{s}_{k}$ for $0 \le k \le n$ is a guarded tuple from \struct{A}
-    \item each $(i_{k}, j_{k})$ for $1 \le k \le n$ are a pair of indices into $\bar{s}_{k-1}$, such that $\bar{s}_{k-1,i\ldots{}j} = \bar{s}_{k,1\ldots{j-i+1}}$
-  \end{itemize}
-\end{definition}
+\subsection{Infinite full tree unraveling}
 
-\begin{definition}[Strict Bisimulation Path]
-  A bisimulation path $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$ is called strict iff:
-
-  \begin{enumerate}
-    \item \textbf{tail is not empty}: $j_{k}-i_{k}+1 < |s_{k}|$ for $1 \le k \le n$, and
-    \item \textbf{previous tail is used}: $j_{k} > j_{k-1}-i_{k-1} + 1$ for $2 \le k \le n$
+\begin{definition}[Bisimulation Sequences]
+  The set of bisimulation sequences $\seq{\struct{A}}$ for a structure $\struct{A}$ consists of all sequences of the form $\bar{a}_{0}(i_{1}, j_{1})\bar{a}_{1}\cdots{}(i_{l},j_{l})\bar{a}_{l}$, where:
+  \begin{enumerate}[(1)]
+    \item $a_{i}$ is a live tuple in $\struct{A}$ for every $0 \le i \le l$,
+    \item for every $1 \le k \le l$, $(i_{k}, j_{k})$ is a pair of indices into $\bar{a}_{k-1}$ such that $\bar{a}_{k-1,i\ldots{}j} = \bar{a}_{k,1\ldots{j-i+1}}$,
+    \item $j_{k}-i_{k}+1 < |a_{k}|$ for $1 \le k \le l$, and
+    \item $j_{k} > j_{k-1}-i_{k-1} + 1$ for $2 \le k \le n$
   \end{enumerate}
-
-  The set of all strict bisimulation paths starting from a tuple $\bar{s}_{0}$ is denoted by $\mathtt{Paths}_{\bar{s}_{0}}(\mathfrak{A})$.
+  This set is partially ordered with $s_{1} \le s_{2}$ iff $s_{1}$ is a prefix of $s_{2}$ for two sequences $s_{1}, s_{2}$.
 \end{definition}
 
-\begin{definition}[Bisimulation Path Predecessor]
-  For any bisimulation path $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$, define $\mathtt{pred}(\rho) = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n-1}, j_{n-1})\bar{s}_{n-1}$ as the path $\rho$ without the last step.
-\end{definition}
+\begin{definition}[Unraveling Domain]
+  The unraveling domain $\mathtt{Dom}^{\rightarrow}_{\struct{A}}$ of a structure $\struct{A}$ is defined as:
 
-\begin{samepage}
-\begin{example}[Bisimulation paths]\leavevmode\\*[1em]\label{ex:fgf-paths}
-  {%
-    \newcommand{\tups}{{\color{tolbrightYellowDarker}\bar{s}}}%
-    \newcommand{\tupp}{{\color{tolbrightCyanDarker}\bar{p}}}%
-    \newcommand{\tupt}{{\color{tolbrightGreen}\bar{t}}}%
-    \newcommand{\tupq}{{\color{tolbrightPurple}\bar{q}}}%
-  \begin{minipage}[t]{0.6\textwidth}
-    Bisimulation paths in \cref{fig:fgf-struct-a}:
-    \begin{enumerate}
-      \item $\rho_{1} = \tups$
-      \item $\rho_{2} = \tups(2,2)\tupp$
-      \item $\rho_{3} = \tups(2,2)\tupp(2,2)\tupt$
-      \item $\rho_{4} = \tups(2,2)\tupp(2,2)\tupt(2,2)\tupq$
-      \item $\rho_{5} = \tups(2,2)\tupp(2,2)\tupt(2,3)\tupq$, not strict (1)
-      \item $\rho_{7} = \tups(2,2)\tupp(2,3)\tupt$
-      \item $\rho_{7} = \tups(2,2)\tupp(2,3)\tupt(2,2)\tupq$
-      \item $\rho_{8} = \tups(2,2)\tupp(2,3)\tupt(2,3)\tupq$, not strict (1)
-      \item $\rho_{9} = \tups(2,2)\tupp(3,3)\tupq$
-      \item $\rho_{10} = \tups(2,3)\tupp$
-      \item $\rho_{11} = \tups(2,3)\tupp(2,2)\tupt$, not strict (2)
-      \item $\rho_{12} = \tups(2,3)\tupp(2,2)\tupt(2,2)\tupq$, not strict (2)
-      \item $\rho_{13} = \tups(2,3)\tupp(2,2)\tupt(2,3)\tupq$, not strict (1)
-      \item $\rho_{14} = \tups(2,3)\tupp(2,3)\tupt$
-      \item $\rho_{15} = \tups(2,3)\tupp(2,3)\tupt(2,2)\tupq$
-      \item $\rho_{16} = \tups(2,3)\tupp(2,3)\tupt(2,3)\tupq$, not strict (1)
-      \item $\rho_{17} = \tups(2,3)\tupp(3,3)\tupq$
-      \item $\rho_{18} = \tups(3,3)\tupt$
-      \item $\rho_{19} = \tups(3,3)\tupt(2,2)\tupq$
-      \item $\rho_{20} = \tups(3,3)\tupt(2,3)\tupq$, not strict (1)
-    \end{enumerate}
-  \end{minipage}\hfill
-  \begin{minipage}[t]{0.35\textwidth}
-    \vspace{0pt}
-    \includegraphics[width=0.9\textwidth]{svg/fgf-unravel.svg/example-struct-1}
-    \captionof{figure}{Example structure \struct{A}}\label{fig:fgf-struct-a} \leavevmode\\[-0.5em]
-    \raggedright
-    $\tups = (1,2,3)$, $\tupp = (2,3,4)$, $\tupt = (3,4,5)$, $\tupq = (4,5)$. \\
-
-    \begin{enumerate}[label=(\arabic*)]
-      \item not strict because tail in step from $\tupt$ to $\tupq$ is empty
-      \item not strict because step from $\tupp$ to $\tupt$ does not use previous tail
-    \end{enumerate}
-  \end{minipage}
-  }
-\end{example}
-\end{samepage}
-
-\begin{example}[Traces of paths]
-  Traces of some paths from \cref{ex:fgf-paths}:
-  {%
-    \newcommand{\pA}{{\color{tolbrightYellowDarker}\rho_1}}%
-    \newcommand{\pB}{{\color{tolbrightCyanDarker}\rho_2}}%
-    \newcommand{\pC}{{\color{tolbrightGreen}\rho_{18}}}%
-    \newcommand{\pD}{{\color{tolbrightPurple}\rho_{19}}}%
-    \newcommand{\tups}{{\color{tolbrightYellowDarker}\bar{s}}}%
-    \newcommand{\tupp}{{\color{tolbrightCyanDarker}\bar{p}}}%
-    \newcommand{\tupt}{{\color{tolbrightGreen}\bar{t}}}%
-    \newcommand{\tupq}{{\color{tolbrightPurple}\bar{q}}}%
-    \begin{align*}
-      \trace{\tups} &= (\pA,1)(\pA,2)(\pA,3) \\
-      \trace{\tups(3,3)\tupt(2,2)} &= (\pA,1)(\pA,2)(\pA,3)(\pC,2)(\pC,3)\\
-      \trace{\tups(3,3)\tupt(2,2)\tupq} &= (\pA,1)(\pA,2)(\pA,3)(\pC,2)(\pD,2)\\
-      \trace{\tups(2,2)\tupp} &= (\pA,1)(\pA,2)(\pB,2)(\pB,3)
-    \end{align*}
-  }
-\end{example}
-
-\begin{samepage}
-\begin{definition}[Trace of a path]
-  Let $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$ be a bisimulation path, and $\rho_{\ldots{}k} = \bar{s}_{0}\cdots(i_{k},j_{k})\bar{s}_{k}$ for $0 \le k \le n$ be the k-length prefix of that path.
-  The trace of $\rho$ is a sequence of tuples with the following structure, describing the elements traversed by the path:
   \begin{equation*}
-  \trace{\rho} = (\rho_{\ldots{}0}, 1)(\rho_{\ldots{}0}, 2)\cdots{}(\rho_{\ldots{}0}, b_{0})(\rho_{\ldots{}1}, a_{1})\cdots{}(\rho_{\ldots{}1}, b_{1})\cdots(\rho_{\ldots{}n}, a_{n})\cdots(\rho_{\ldots{}n}, b_{n})
+    \mathtt{Dom}^{\rightarrow}_{\struct{A}}
+      = (\seq{\struct{A}} \times \mathbb{N})
+        \setminus
+        \left\{ (s(i,j)\bar{a}, k) \mid k \le i-j+1\ \text{or}\ k > |a| \right\}
   \end{equation*}
-  where the indices $a_{k}$, $b_{k}$ marking the start and end of each segment are defined as follows:
-  \begin{align*}
-    a_{0} &= 1                   & b_{n} &= |s_{n}| & \text{edge cases} \\
-    a_{k} &= j_{k} - i_{k} + 2    &  b_{k-1} &= j_{k} & \text{for}\ 1 \le k \le n
-  \end{align*}
-
-  Every element in a trace has a projection $\pi$ to an element of the original structure.
-  This projection is given by:
-  \begin{equation*}
-    \pi(\rho_{\ldots{}k},x) = s_{k,x}\ \text{for every $0 \le k \le n$}
-  \end{equation*}
-  The projection $\pi(\trace{\rho})$ of the whole trace is the sequence of the projections of individual trace elements.
-
-  The set of all traces starting from a tuple $\bar{s}_{0}$ is denoted by $\mathtt{Traces}_{\bar{s}_{0}}(\mathfrak{A})$.
-\end{definition}
-\end{samepage}
-
-As $\mathtt{Traces}_{\bar{a}}$ is a prefix-closed set, there is the natural preorder $\tau_{1} \le \tau_{2}$ iff $\tau_{1}$ is a prefix of $\tau_{2}$.
-
-\begin{observation}
-  If $(\rho,i) \in \trace{\sigma}$ then $\rho \le \sigma$ and $(\rho, i) \in \trace{\rho}$.
-\end{observation}
-
-The context of a path represents the elements of the trace which are used in the last step, and is defined as follows:
-
-\begin{definition}[Context of a path]
-  For a bisimulation path $\rho = \bar{s}_{0}(i_{1}, j_{1})\bar{s}_{1}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$, the context is defined as: $\context{\rho} = \text{tuple of the last}\ |s_{n}|\ \text{elements of}\ \trace{\rho}$
-\end{definition}
-
-Note that $\pi(\context{\rho (i,j) \bar{s}_{n}}) = \bar{s}_{n}$ for any path $\rho$.
-We write $\context{\rho_{1}} \le \context{\rho_{2}}$ iff $\rho_{1} \le \rho_{2}$ which is well-defined since $\mathtt{context}$ is an injective mapping.
-
-\begin{definition}[Bisimilarity of paths]
-  Let $\mathfrak{A},\bar{a} \sim_{\textrm{FGF},k} \mathfrak{B}, \bar{b}$ be two bisimilar structures.
-  We define $\sim_{\textrm{FGF},k}$ for bisimulation paths inductively as:
-  \begin{align*}
-    \bar{a} &\sim_{\textrm{FGF},k} \bar{b} & \text{base case} \\
-    \rho (i,j) \bar{s} &\sim_{\textrm{FGF,k}} \sigma (i,j) \bar{t} & \text{if}\ \rho \sim_{\textrm{FGF,k}} \sigma \ \text{and}\ \mathfrak{A},\bar{s} \sim_{k-|\rho|} \mathfrak{B},\bar{t}
-  \end{align*}
-\end{definition}
-
-\begin{observation}\label{obs:path-context-bisim}
-  Let $\rho$ and $\sigma$ be bisimulation paths in structures $\mathfrak{A}$ and $\mathfrak{B}$.
-  Then $\rho \sim_{\textrm{FGF},k} \sigma$ implies $\mathfrak{A}, \pi(\context{\rho}) \sim_{\textrm{FGF},k+1-|\rho|} \mathfrak{B}, \pi(\context{\sigma})$ and the same holds by induction for any n-length prefixes $\rho_{\ldots{}n}, \sigma_{\ldots{}n}$ of $\rho$ and $\sigma$.
-\end{observation}
-
-\begin{definition}[Path-complete tree unraveling]
-  For a structure \struct{A}, let
-  \begin{equation*}
-    \text{Traces}_{\bar{a}}(\mathfrak{A}) = \left\{ \trace{\rho} \mid \text{$\rho$ is a path in}\ \mathfrak{A} \right\}
-  \end{equation*}
-  be the set of all traces starting from $\bar{a}$ in $\mathfrak{A}$.
-  The path-complete unraveling $\mathfrak{A}^{*,c}_{\bar{a}}, \bar{a}^{*}$ is the structure with domain $\bigcup_{\tau \in \text{Traces}_{\bar{a}}(\mathfrak{A})} \{ x \in \tau \}$ (elements of traces) and each relation $R_{i}$ defined as:
-  \begin{equation*}
-    R_{i}^{\mathfrak{A}^{*,c}_{a_{0}}} = \left\{ \bar{r} \mid \pi(\bar{r}) \in R_{i}^{\mathfrak{A}}\ \text{and there exists a path $\rho$ with}\ \bar{r} \sqsubseteq \context{\rho}\right\}
-  \end{equation*}
-  The tuple $\bar{a}$ is lifed to the unraveling as $\bar{a}^{*} = \context{\bar{a}}$.
-\end{definition}
-
-\begin{definition}[Trace of element in tree unraveling]
-  For $(\rho, k) \in A^{*,c}_{\bar{a}}$ define $\trace{(\rho, k)}$ as the prefix of $\trace{\rho}$ up to but including the element $(\rho, k)$.
-\end{definition}
-
-\begin{samepage}
-\begin{example}\leavevmode\\
-    \vspace{0pt}
-    \includegraphics[width=0.9\textwidth]{svg/fgf-unravel.svg/struct-1-unravel}
-    \captionof{figure}{Unraveling of structure \struct{A} from \cref{fig:fgf-struct-a}}\label{fig:fgf-struct-a-unravel}
-    \vspace{0.5em}
-\end{example}
-\end{samepage}
-
-\begin{lemma}[Elements of tree unraveling form a prefix order]
-  Let $(\rho, i) \le (\sigma, j)$ iff $(\rho, i) \in \trace{(\sigma, j)}$ for elements $(\rho, i)$ and $(\sigma, j)$ of some tree unraveling.
-  This order is a preorder.
-\end{lemma}
-
-\begin{observation}
-  For all guarded tuples $\bar{s} \in A^{*,c}_{\bar{a}}$ we have $s_{k} < s_{k+1}$ for $1 \le k < |\bar{s}|$ because they are consecutive elements of some trace.
-\end{observation}
-
-The tuples of a tree unraveling are also continuous, meaning that for $s_{i}, s_{j} \in \bar{s}$ with $i \le j$ also $x \in \bar{s}$ for all $s_{i} \le x \le s_{j}$.
-
-\begin{lemma}\label{lemma:context-element-bounding}
-  Let $\rho_{1}, \rho_{2} \in \mathtt{Paths}_{\bar{a}}(\mathfrak{A})$.
-  If $\rho_{1} \le \rho_{2}$ then for any $e_{2} \in \context{\rho_{2}}$ there is $e_{1} \in \context{\rho_{1}}$ with $e_{1} \le e_{2}$.
-\end{lemma}
-\begin{proof}
-  By induction over bisimulation paths of increasing length.
-  Note that a contetxt's first element $\context{\rho_{2}}_{1}$ (which is the minimal element of the context) is always in $\context{\mathtt{pred}(\rho_{2})}$ by definition of bisimulation paths.
-\end{proof}
-
-\begin{samepage}
-\begin{lemma}[Intersection of contexts]\label{lemma:context-intersection}
-  Let $\rho, \rho'$ be bisimulation paths with the same starting tuple in some structure $\mathfrak{A}$.
-  Then the intersection $\bar{\imath} = \context{\rho} \cap \context{\rho'}$ is an infix of both $\context{\rho}, \context{\rho'}$ and at least one of the following is true:
-
-  \begin{enumerate}[label=a)]
-    \item $\rho \le \rho'$ and $\bar{\imath}$ is a prefix of $\context{\rho'}$
-    \item there exists a bisimulation path $\gamma$ with $\gamma < \rho$ and $\bar{\imath} \sqsubseteq \context{\gamma}$.
+  The successor relation ``$\rightarrow$'' is the smallest binary relation defined on the unraveling domain such that:
+  \begin{enumerate}[(a)]
+    \item $(s, k) \rightarrow (s, k + 1)$
+    \item $(s, j) \rightarrow (s(i,j)\bar{a}, j - k + 2)$
   \end{enumerate}
-\end{lemma}
-\end{samepage}
+\end{definition}
 
-\begin{figure}
-  \begin{subfigure}[b]{0.45\textwidth}
-    \include{res/fgf-context-intersect-variant-a}
-    \caption{$\rho = \gamma \le \rho'$}
-  \end{subfigure}{\unskip\ \vrule\ }
-  \begin{subfigure}[b]{0.5\textwidth}
-    \include{res/fgf-context-intersect-variant-b}
-    \caption{$\gamma < \rho, \rho'$}
-  \end{subfigure}
-  \caption{Intersection of contexts}\label{fig:fgf-context-intersect}
-\end{figure}
+\subsection{Finite tree-like unraveling}
 
-The following proof is illustrated in \cref{fig:fgf-context-intersect}.
-\begin{proof}
-  Let $a$ be the minimal and $b$ be the maximal element of the intersection $\bar{\imath}$.
-  Because contexts are continuous, both $\context{\rho}$ and $\context{\rho'}$ contain all elements between $a$ and $b$ as an infix.
-  Let $\gamma$ be the smallest bisimulation path such that $b \in \context{\gamma}$.
-  Note that $\gamma \le \rho, \rho'$ since $b \in \context{\rho}, \context{\rho'}$.
-  There are two cases:
-
-  \paragraph{a) $\gamma = \rho$}
-  Then we have $\rho = \gamma \le \rho'$.
-  By \cref{lemma:context-element-bounding} we know that there must be an element $c \in \context{\rho}$ such that $c \le \context{\rho'}_{1}$.
-  Thus $c \le \context{\rho'}_{1} \le b$ and $c, b \in \context{\rho}$.
-  Because contexts are continuous, this implies that the $\context{\rho'}_{1}$ is in $\context{\rho}$ showing that the intersection of both is a prefix of $\context{\rho'}_{1}$.
-
-  \paragraph{b) $\gamma < \rho$}
-  By \cref{lemma:context-element-bounding} since $\gamma < \rho$ and $a \in \context{\rho}$ there must a $c \in \context{\gamma}$ such that $c \le a$.
-  Because $c \le a \le b$ with $c, b \in \context{\gamma}$ we get $a \in \context{\gamma}$ so the whole intersection is an infix of $\context{\gamma}$.
-\end{proof}
-
-\begin{lemma}\label{lemma:fgf-context-path-length}
-  For strict bisimulation paths $\rho, \rho'$ if $\context{\rho}$ and $\context{\rho'}$ share at least one element, then $|\rho'| \le |\rho| + w$ where $w$ is the width of the signature.
-\end{lemma}
-\begin{proof}
-  Let $\context{\rho'} = (s_{1}, \ldots, s_{n})$ where we know that $n \le w$.
-  Let $s_{i} = (\gamma, k)$ be an element that $\rho$ and $\rho'$ share.
-  Because $\rho'$ is a strict bisimulation path, we have that for any two elements $s_{j} = (\sigma_{j}, v_{i})$ and $s_{j+1} = (\sigma_{j+1}, v_{j+1})$ always $|\sigma_{j+1}| \le |\sigma_{j}| + 1$ since they are consecutive elements of $\trace{\rho'}$.
-  Thus $|\rho'| \le |\gamma| + (n - i) \le |\gamma| + w$.
-  From $\gamma \le \rho$ (since $s_{i} \in \context{\rho}$) it follows that $|\gamma| \le |\rho|$ so we obtain the final bound $|\rho'| \le |\rho| + w$.
-\end{proof}
-
-\begin{theorem}[$\textrm{FGF}_{k}$ to $\textrm{GF}_{k'}$]
-  Let $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}_{k}}\mathfrak{B}, \bar{b}$ be two connected-forward bisimilar $\Sigma$-structures.
-  Then $\mathfrak{A}^{*,c}_{\bar{a}}, \bar{a}^{*} \sim_{\textrm{GF},k'} \mathfrak{B}^{*,c}_{\bar{b}}, \bar{b}^{*}$ for some $k'$ only dependent on $k$ and $\Sigma$.
-\end{theorem}
-
-\begin{proof}
-  Let $w$ be the width of the signature of $\mathfrak{A}$.
-  We show prove the above theorem for $k = k' * w$ where the bisimulation is given by the sequence of sets $\mathcal{Z}_{0}, \mathcal{Z}_{1}, \ldots, \mathcal{Z}_{k'}$ defined as follows:
-  \begin{equation*}
-    \mathcal{Z}_{h} = \left\{
-      (\bar{s}, \bar{t})
-      \ \middle|\
-      \begin{aligned}
-        & \text{there are strict bisimulation paths $\rho$, $\sigma$ such that:} \\
-        & \ \text{(1)}\ \rho \sim_{\textrm{FGF}, w*k'} \sigma \\
-        & \ \text{(2)}\ \bar{s} = \context{\rho}_{x\ldots{}y}\ \text{and}\ \bar{t} = \context{\sigma}_{x\ldots{}y}\ \text{for some}\ x, y \\
-        & \ \text{(3)}\ |\rho|, |\sigma| \le 1 + w * (k' - h)
-      \end{aligned}
-    \right\}
-  \end{equation*}
-
-  First we show for any $(\bar{s}, \bar{t}) \in \mathcal{Z}_{h}$ that $\bar{s}_{i} \mapsto \bar{t}_{i}$ for $1 \le i \le |\bar{s}|$ is an isomorphism between the induced substructures of $\bar{s}$ and $\bar{t}$.
-  Let $\rho$ and $\sigma$ be the paths for $\bar{s}$ and $\bar{t}$ as in the definition of $\mathcal{Z}_{h}$.
-  Condition (a) implies by \cref{obs:path-context-bisim} that $\mathfrak{A}, \pi(\context{\rho}) \sim_{FGF,w*k'-|\rho|+1} \mathfrak{B}, \pi(\context{\sigma})$.
-  By the atomic harmony property of FGF bisimulations this means that $\pi(\context{\rho})$ and $\pi(\context{\sigma})$ must have equal forward types.
-  This also holds for $\context{\rho}$ and $\context{\sigma}$ since by definition of the unraveling those have the same forward type as the projection.
-  Because elements of the unraveling are ordered, substructures with equal forward types are isomorphic.
-  As $\bar{s}$ and $\bar{t}$ are simply slices of $\context{\rho}$ and $\context{\sigma}$ they must be isomorphic substructes as well.
-
-  Next we give the proof for \texttt{(gforth)} and \texttt{(gback)} follows by symmetry.
-  Let $(\bar{s}, \bar{t}) \in \mathcal{Z}_{h}$ and $\bar{s'} \in \mathfrak{A}^{*,c}_{\bar{a}}$ be a guarded tuple sharing at least one element with $\bar{s}$.
-  Let $\rho$ and $\sigma$ be the strict bisimulation paths for $\bar{s}$ and $\bar{t}$ as in the definition of $Z_{h}$.
-  Since $\bar{s}'$ is guarded there is also a strict bisimulation path $\rho'$ such that $\bar{s}' \sqsubseteq \context{\rho'}$.
-  We show that there is a path $\sigma'$ with $|\sigma'| \le |\sigma| + w$ such that $\rho' \sim_{\textrm{FGF}, w*k'} \sigma'$ and whenever $\context{\rho}_{v} = \context{\rho'}_{v}$ for some indices $v,v'$ then also $\context{\sigma}_{v} = \context{\sigma'}_{v'}$.
-
-  Following \cref{lemma:context-intersection} we differentiate two cases for the common elements $\bar{c} = \context{\rho} \cap \context{\rho'}$:
-
-  \begin{description}[left=0pt]
-  \item[a) $\rho \le \rho'$ and $\bar{c}$ is a prefix of $\context{\rho'}$] Let $\rho' = \rho(i_{1}, j_{1})\bar{x}_{1} \cdots (i_{l}, j_{l})\bar{x}_{l}$.
-  Then we can find $\bar{y}_{1},\ldots,\bar{y}_{l}$ such that $\sigma' = \sigma(i_{1}, j_{1})\bar{y}_{l}\cdots(i_{l},j_{l})\bar{y}_{l}$ and $\rho' \sim_{\mathrm{FGF,w*k'}} \sigma'$ by applying $l$ times the (fgforth) property of $\mathfrak{A}$.
-  Because the sequence of indices $(i_{l},j_{l})$ is the same for both $\rho'$ and $\sigma'$ we get $\context{\sigma}_{v} = \context{\sigma'}_{v'}$ when $\context{\rho}_{v} = \context{\rho'}_{v'}$ as required.
-  Since $\context{\sigma}$ and $\context{\sigma'}$ share at least one element \cref{lemma:fgf-context-path-length} guarantees that $|\sigma'| \le |\sigma| + w$.
-
-  \item[b) exists path $\gamma < \rho$ with $\bar{c} \sqsubseteq \context{\gamma}$] Let $\rho = \gamma (i_{1}, j_{1})\bar{x}_{1}\cdots(i_{l}, j_{l})\bar{x}_{l}$.
-  From condition (1) $\rho \sim_{\mathrm{FGF}, w*k'} \sigma$ it follows that $\sigma = \delta(i_{1}, j_{1})\cdots(i_{l}, j_{l})\bar{x}_{l}$ for some bisimulation path $\delta$ with $\gamma \sim_{\mathrm{FGF, w*k'}} \delta$ and thus $(\context{\gamma}, \context{\delta} \in \mathcal{Z}_{h}$.
-  We assume by induction that we have a $\sigma'$ such that $\context{\delta}_{v} = \context{\sigma'}_{v'}$ if $\context{\gamma}_{v} = \context{\rho'}_{v'}$.
-  Because $\gamma$ is strictly smaller than $\rho$ this induction terminates.
-  Since all the shared elements between $\context{\rho}$ and $\context{\rho'}$ are also in $\context{\gamma}$ and the sequence of indices $(i_{l}, j_{l})$ is exactly the same for both $\rho$ and $\sigma$ this implies that $\context{\sigma}_{v} = \context{\sigma'}_{v}$ if $\context{\rho}_{v} = \context{\rho}_{v'}$.
-  \end{description}
-
-  We have now found a path $\sigma'$ such that every element shared by $\context{\rho}$ and $\context{\rho'}$ is also shared by $\context{\sigma}$ and $\context{\sigma'}$.
-  Let $i',j'$ be indices such that $\bar{s}' = \context{\rho'}_{i'\ldots{}j'}$ and then define $t' = \context{\rho'}_{i'\ldots{}j'}$.
-  Clearly $(\bar{s}', \bar{t}') \in \mathcal{Z}_{h+1}$ with bisimulation paths $\rho', \sigma'$.
-  $\bar{t}$ also shares the same elements with $\bar{t}'$ as $\bar{s}$ does with $\bar{s}'$ because the contexts for $\rho, \sigma$ and $\rho', \sigma'$ do and the tuples are simply infixes of those contexts at the same positions.
-\end{proof}
-
-\cref{fig:fgf-vs-bart-unraveling} shows why we need a special unraveling.
-Consider the left structure, which is a already a HAT according to Bart.\ et.\ al, MFCS 2022.
-
-\begin{figure}
-  \include{res/fgf-bart-unraveling}
-  \caption{HAT unraveling vs new unraveling}\label{fig:fgf-vs-bart-unraveling}
-\end{figure}
+\fxnote{todo}
 
 
 \end{document}
+
+% additional elements
