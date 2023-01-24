@@ -58,6 +58,7 @@
 \newcommand{\struct}[1]{\mathfrak{#1}}
 \newcommand{\seq}[1]{\mathtt{Seq}_{#1}}
 \newcommand{\dom}[1]{\mathtt{dom}({#1})}
+\newcommand{\dist}[2]{\mathtt{dist}({#1},{#2})}
 
 \include{tolcolors}
 \usetikzlibrary{calc}
@@ -146,9 +147,9 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
   The set of bisimulation sequences $\seq{\struct{A}}$ for a structure $\struct{A}$ consists of all sequences of the form $\bar{a}_{0}(i_{1}, j_{1})\bar{a}_{1}\cdots{}(i_{l},j_{l})\bar{a}_{l}$, where:
   \begin{enumerate}[(1)]
     \item $a_{i}$ is a live tuple in $\struct{A}$ for every $0 \le i \le l$,
-    \item for every $1 \le k \le l$, $(i_{k}, j_{k})$ is a pair of indices into $\bar{a}_{k-1}$ such that $\bar{a}_{k-1,i\ldots{}j} = \bar{a}_{k,1\ldots{j-i+1}}$,
-    \item $j_{k}-i_{k}+1 < |a_{k}|$ for $1 \le k \le l$, and
-    \item $j_{k} > j_{k-1}-i_{k-1} + 1$ for $2 \le k \le n$
+    \item for every $1 \le k \le l$, $(i_{k}, j_{k})$ is a pair of indices into $\bar{a}_{k-1}$ such that $\bar{a}_{k-1,i_{k}\ldots{}j_{k}} = \bar{a}_{k,1\ldots{\dist{i_{k}}{j_{k}}}}$,
+    \item $\dist{i_{k}}{j_{k}} < |a_{k}|$ for $1 \le k \le l$, and
+    \item $j_{k} > \dist{i_{k-1}}{j_{k-1}}$ for $2 \le k \le n$
   \end{enumerate}
   This set is partially ordered with $s_{1} \le s_{2}$ iff $s_{1}$ is a prefix of $s_{2}$ for two sequences $s_{1}, s_{2}$.
 \end{definition}
@@ -160,13 +161,22 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
     \mathtt{Dom}^{\rightarrow}_{\struct{A}}
       = (\seq{\struct{A}} \times \mathbb{N})
         \setminus
-        \left\{ (s(i,j)\bar{a}, k) \mid k \le i-j+1\ \text{or}\ k > |a| \right\}
+        \left\{ (s(i,j)\bar{a}, k) \mid k \le \dist{i}{j}\ \text{or}\ k > |a| \right\}
   \end{equation*}
   The successor relation ``$\rightarrow$'' is the smallest binary relation defined on the unraveling domain such that:
   \begin{enumerate}[(a)]
     \item $(s, k) \rightarrow (s, k + 1)$
-    \item $(s, j) \rightarrow (s(i,j)\bar{a}, j - k + 2)$
+    \item $(s, j) \rightarrow (s(i,j)\bar{a}, \dist{i}{j} + 1)$
   \end{enumerate}
+\end{definition}
+
+\begin{definition}[Infinite Full Tree Unraveling]
+  The infinite full tree unraveling for a base structure $\struct{A}$ is a structure $\struct{A}^{\rightarrow{}}$ with domain $\mathtt{Dom}^{\rightarrow}_{\struct{A}}$.
+  Each relation $R_{i}$ in the signature of $\struct{A}$ is interpreted in $\struct{A}^{\rightarrow}$ as:
+  \begin{equation*}
+    \bar{r} \in R_{i}^{\struct{A}^{\rightarrow}} \iff \pi[\bar{r}] \in R_{i}^{\struct{A}} \land \bigwedge_{1 \le i < |\bar{r}|}{r_{i} \rightarrow r_{i+1}} \land |\bar{r}| \le \mathtt{bound}(\bar{r})
+  \end{equation*}
+  where $\mathtt{bound}(\bar{r})$ is such that $(s,\mathtt{bound}(\bar{r})) = \last{\bar{r}}$ for some bisimulation sequence $s$.
 \end{definition}
 
 \subsection{Finite tree-like unraveling}
