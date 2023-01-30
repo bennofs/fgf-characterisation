@@ -59,6 +59,8 @@
 \newcommand{\seq}[1]{\mathtt{Seq}_{#1}}
 \newcommand{\dom}[1]{\mathtt{dom}({#1})}
 \newcommand{\dist}[2]{\mathtt{dist}({#1},{#2})}
+\newcommand{\nextrel}[2]{\mathit{Next}({#1},{#2})}
+\newcommand{\lift}[1]{\mathtt{lift}({#1})}
 
 \include{tolcolors}
 \usetikzlibrary{calc}
@@ -151,7 +153,7 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
     \item $\dist{i_{k}}{j_{k}} < |a_{k}|$ for $1 \le k \le l$, and
     \item $j_{k} > \dist{i_{k-1}}{j_{k-1}}$ for $2 \le k \le n$
   \end{enumerate}
-  This set is partially ordered with $s_{1} \le s_{2}$ iff $s_{1}$ is a prefix of $s_{2}$ for two sequences $s_{1}, s_{2}$.
+  This set is partially ordered with $\sigma_{1} \le \sigma_{2}$ iff $\sigma_{1}$ is a prefix of $\sigma_{2}$ for two sequences $s_{1}, s_{2}$.
 \end{definition}
 
 \begin{definition}[Unraveling Domain]
@@ -161,24 +163,73 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
     \mathtt{Dom}^{\rightarrow}_{\struct{A}}
       = (\seq{\struct{A}} \times \mathbb{N})
         \setminus
-        \left\{ (s(i,j)\bar{a}, k) \mid k \le \dist{i}{j}\ \text{or}\ k > |a| \right\}
+        \left\{ (\sigma(i,j)\bar{a}, k) \mid k \le \dist{i}{j}\ \text{or}\ k > |a| \right\}
   \end{equation*}
-  The successor relation ``$\rightarrow$'' is the smallest binary relation defined on the unraveling domain such that:
+  The successor relation ``$\mathit{Next}$'' is the smallest binary relation defined on the unraveling domain such that:
   \begin{enumerate}[(a)]
-    \item $(s, k) \rightarrow (s, k + 1)$
-    \item $(s, j) \rightarrow (s(i,j)\bar{a}, \dist{i}{j} + 1)$
+    \item $\nextrel{(\sigma, k)}{(\sigma, k + 1)}$
+    \item $\nextrel{(\sigma, j)}{(\sigma(i,j)\bar{a}, \dist{i}{j} + 1)}$
   \end{enumerate}
+  The projection ``$\pi$'' of a domain element $(\sigma, k)$ is defined as follows.
+  Let $\bar{a}$ be the last tuple in the sequence $\sigma$, so $\sigma = \cdots{}\bar{a}$.
+  Then $\pi((\sigma, k)) = \bar{a}_{k}$.
 \end{definition}
 
 \begin{definition}[Infinite Full Tree Unraveling]
   The infinite full tree unraveling for a base structure $\struct{A}$ is a structure $\struct{A}^{\rightarrow{}}$ with domain $\mathtt{Dom}^{\rightarrow}_{\struct{A}}$.
   Each relation $R_{i}$ in the signature of $\struct{A}$ is interpreted in $\struct{A}^{\rightarrow}$ as:
   \begin{equation*}
-    \bar{r} \in R_{i}^{\struct{A}^{\rightarrow}} \iff \pi[\bar{r}] \in R_{i}^{\struct{A}} \land \bigwedge_{1 \le i < |\bar{r}|}{r_{i} \rightarrow r_{i+1}} \land |\bar{r}| \le \mathtt{bound}(\bar{r})
+    \bar{r} \in R_{i}^{\struct{A}^{\rightarrow}} \iff \pi[\bar{r}] \in R_{i}^{\struct{A}} \land \bigwedge_{k=1}^{|\bar{r}|-1}{(\nextrel{r_{k}}{r_{k+1}})} \land |\bar{r}| \le \mathtt{bound}(\bar{r})
   \end{equation*}
-  where $\mathtt{bound}(\bar{r})$ is such that $(s,\mathtt{bound}(\bar{r})) = \last{\bar{r}}$ for some bisimulation sequence $s$.
+  where $\mathtt{bound}(\bar{r}) = x$ such that $r_{|r|} = (\rho, x)$ for some bisimulation sequence $\rho$.
 \end{definition}
 
+\begin{definition}[Lifting tuples and bisimulation sequences]
+  For each tuple $\bar{a} \in \struct{A}$, we define a lifted tuple $\lift{\bar{a}} \in \struct{A}^{\rightarrow}$ as follows:
+  \begin{equation*}
+    \lift{\bar{a}} = ((\bar{a}, 1), \ldots{}, (\bar{a}, |a|))
+  \end{equation*}
+  The mapping can be extended to bisimulation sequences.
+  Let $\rho = \sigma(i,j)\bar{a}$ be a bisimulation sequence, then the $\lift{\rho}$ is defined such that:
+  \begin{alignat*}{3}
+    &{\lift{\rho}}_{1\ldots{}\dist{i}{j}} &&= {\lift{\sigma}}_{i\ldots{}j} && \\
+    &{\lift{\rho}}_{x} &&= (\rho, x) && \qquad\text{for $\dist{i}{j} < x \le |\bar{a}|$}
+  \end{alignat*}
+\end{definition}
+
+\begin{lemma}
+  $\struct{A} \sim_{\mathrm{FGF}} \struct{A}^{\rightarrow{}}$
+\end{lemma}
+\begin{proof}
+  We show that the set $\mathcal{Z}$, defined as follows, is FGF bisimulation:
+  \begin{equation*}
+    (\bar{a}, \bar{a}^{*}) \in \mathcal{Z} \iff
+    \bar{a} = \pi[\bar{a}^{*}] \text{\ and\ }
+    \bar{a}^{*} \text{\ is live}
+  \end{equation*}
+
+  \begin{description}
+    \item[(atomic harmony)]
+          Let $(\bar{a}, \bar{a}^{*}) \in \mathcal{Z}$.
+          We show that $\bar{a}_{i\ldots{}j} \in R^{\struct{A}} \iff \bar{a}^{*}_{i\ldots{}j} \in R^{\struct{A}^{\rightarrow}}$.
+          From $\bar{a} = \pi[\bar{a}^{*}]$ follows that $\bar{a}_{i\ldots{}j} = \pi[\bar{a}^{*}_{i\ldots{}j}]$.
+          By definition of the unraveling $\bar{a}^{*}_{i\ldots{}j} \in R^{\struct{A}^{\rightarrow}}$ implies $\pi[\bar{a}^{*}_{i\ldots{}j}] \in R^{\struct{A}}$ leaving only the ``$\implies$'' direction to be shown.
+          We prove the three conditions required for $\bar{a}^{*}_{i\ldots{}j} \in R^{\struct{A}^{\rightarrow}}$:
+          \begin{itemize}
+            \item
+                  $\pi[\bar{a}^{*}_{i\ldots{}j}] \in R^{\mathfrak{A}}$ follows directly from $\bar{a}_{i\ldots{}j} \in R^{\mathfrak{A}}$.
+            \item
+                  $\bigwedge_{k=1}^{|\bar{a}^{*}_{i\ldots{}j}|-1}{(\nextrel{\bar{a}^{*}_{i\ldots{}j,k}}{{}\bar{a}^{*}_{i\ldots{}j,k+1}})}$ is true since $\bar{a}^{*}$ is live so $\nextrel{a^{*}_{k}}{a^{*}_{k+1}}$ for all $1 \le k < |\bar{a}^{*}|$.
+            \item
+                  To show that $|\bar{a}^{*}_{i\ldots{j}}| \le \mathtt{bound}(\bar{a}^{*}_{i\ldots{}j})$, let $\bar{a}^{*} = ((\sigma_{1}, x_{1}), \ldots{}, (\sigma_{n}, x_{n}))$.
+                  We know that for all $1 \le k < |\bar{a}^{*}|$ we have $\nextrel{(\sigma_{k}, x_{k})}{(\sigma_{k}, x_{k+1})}$ since $\bar{a}^{*}$ is live.
+                  This implies $x_{k} \ge x_{k+1} - 1$ as can be seen by analysing the two cases of the definition of $\mathit{Next}$.
+                  Since $\bar{a}^{*}$ is live we have $\mathtt{bound}(\bar{a}^{*}) = x_{n} \ge n = |\bar{a}^{*}|$.
+                  It follows that $x_{k} \ge k$ for all $k$, so $\mathtt{bound}(\bar{a}^{*}_{i\ldots{}j}) = x_{j} \ge j \ge |\bar{a}^{*}_{i\ldots{j}}|$ as required.
+          \end{itemize}
+  \end{description}
+
+\end{proof}
 \subsection{Finite tree-like unraveling}
 
 \fxnote{todo}
