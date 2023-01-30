@@ -222,8 +222,8 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
                   $\bigwedge_{k=1}^{|\bar{a}^{*}_{i\ldots{}j}|-1}{(\nextrel{\bar{a}^{*}_{i\ldots{}j,k}}{{}\bar{a}^{*}_{i\ldots{}j,k+1}})}$ is true since $\bar{a}^{*}$ is live so $\nextrel{a^{*}_{k}}{a^{*}_{k+1}}$ for all $1 \le k < |\bar{a}^{*}|$.
             \item
                   To show that $|\bar{a}^{*}_{i\ldots{j}}| \le \mathtt{bound}(\bar{a}^{*}_{i\ldots{}j})$, let $\bar{a}^{*} = ((\sigma_{1}, x_{1}), \ldots{}, (\sigma_{n}, x_{n}))$.
-                  We know that for all $1 \le k < |\bar{a}^{*}|$ we have $\nextrel{(\sigma_{k}, x_{k})}{(\sigma_{k}, x_{k+1})}$ since $\bar{a}^{*}$ is live.
-                  This implies $x_{k} \ge x_{k+1} - 1$ as can be seen by analysing the two cases of the definition of $\mathit{Next}$.
+                  We know that for all $1 < k \le |\bar{a}^{*}|$ we have $\nextrel{(\sigma_{k-1}, x_{k-1})}{(\sigma_{k}, x_{k})}$ since $\bar{a}^{*}$ is live.
+                  This implies $x_{k-1} \ge x_{k} - 1$ as can be seen by analysing the two cases of the definition of $\mathit{Next}$.
                   Since $\bar{a}^{*}$ is live we have $\mathtt{bound}(\bar{a}^{*}) = x_{n} \ge n = |\bar{a}^{*}|$.
                   It follows that $x_{k} \ge k$ for all $k$, so $\mathtt{bound}(\bar{a}^{*}_{i\ldots{}j}) = x_{j} \ge j \ge |\bar{a}^{*}_{i\ldots{j}}|$ as required.
           \end{itemize}
