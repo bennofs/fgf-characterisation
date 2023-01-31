@@ -61,6 +61,7 @@
 \newcommand{\dist}[2]{\mathtt{dist}({#1},{#2})}
 \newcommand{\nextrel}[2]{\mathit{Next}({#1},{#2})}
 \newcommand{\lift}[1]{\mathtt{lift}({#1})}
+\newcommand{\sij}{_{i\ldots{}j}}
 
 \include{tolcolors}
 \usetikzlibrary{calc}
@@ -227,6 +228,35 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
                   Since $\bar{a}^{*}$ is live we have $\mathtt{bound}(\bar{a}^{*}) = x_{n} \ge n = |\bar{a}^{*}|$.
                   It follows that $x_{k} \ge k$ for all $k$, so $\mathtt{bound}(\bar{a}^{*}_{i\ldots{}j}) = x_{j} \ge j \ge |\bar{a}^{*}_{i\ldots{j}}|$ as required.
           \end{itemize}
+    \item[(fgforth)]
+          Let $(\bar{a}, \bar{a}^{*}) \in \mathcal{Z}$ and $\bar{b} \in \mathfrak{A}$ be a live tuple such that $\bar{a}\sij = \bar{b}_{1\ldots{}\dist{i}{j}}$ for some $i,j$.
+          We show that there exists $\bar{b}^{*}$ such that $\bar{a}^{*}\sij = \bar{b}^{*}_{1\ldots{}\dist{i}{j}}$ and $(\bar{b}, \bar{b}^{*}) \in \mathcal{Z}$.
+
+          We first consider the case where $\bar{b}_{1\ldots{}\dist{i}{j}}$ is a proper, non-empty prefix of $\bar{b}$.
+          Let $\sigma$ and $k$ be the bisimulation sequence and index such that $b_{j} = (\sigma, k)$.
+          We choose $\bar{b}^{*}$ to be the tuple such that:
+          \begin{alignat*}{2}
+            &\bar{b}^{*}_{1\ldots{}\dist{i}{j}} &&= \bar{a}\sij \\
+            &\bar{b}^{*}_{x} &&= (\sigma (i,j) \bar{b}, x) \qquad \text{for\ }\dist{i}{j} < x \le |\bar{b}|
+          \end{alignat*}
+          Note that \fxnote{more detail}{$\sigma (i,j) \bar{b}$ is a valid bisimulation} sequence, $\bigwedge_{k=1}^{|\bar{b}^{*}|-1}{\nextrel{b^{*}_{k}}{b^{*}_{k+1}}}$ and $|\bar{b}^{*}| \le \mathtt{bound}(\bar{b}^{*}) = |\bar{b}|$.
+          Since $\pi[\bar{b}^{*}] = \bar{b}$ and $\bar{b}$ is live, it follows that $\bar{b}^{*}$ is also live, so $(\bar{b}, \bar{b}^{*}) \in \mathcal{Z}$ as required.
+
+          Now consider the case where $\bar{b}_{1\ldots{}\dist{i}{j}}$ is not a proper prefix, so it is either empty or equal to $\bar{b}$.
+          If it is equal to $\bar{b}$, then $\bar{b}$ is an infix of $\bar{a}$.
+          So by atomic harmony, $\bar{b}^{*} = \bar{a}^{*}\sij$ is live since $\bar{b}$ is live and satisfies $(\bar{b}, \bar{b}^{*}) \in \mathcal{Z}$.
+          If it is empty, let $\bar{b}^{*} = \lift{\bar{b}}$.
+          Again $\bar{b}^{*}$ is live since $\bar{b}$ is live and satisfies $(\bar{b}, \bar{b}^{*}) \in \mathcal{Z}$.
+
+          % We define $$
+          %  $\bar{
+          % First consider the case where $\bar{a}$ and $\bar{b}$ share no elements, so $|\bar{a}\sij| = 0$.
+          % As $(\bar{b}, \lift{\bar{b}}) \in \mathcal{Z}$, we can pick $\bar{b}^{*} = \lift{\bar{b}}$ to satisfy the conditions.
+    \item[(fgfback)]
+          This case follows directly from the definition of the unraveling.
+          Let $(\bar{a}, \bar{a}^{*}) \in \mathcal{Z}$ and $\bar{b}^{*} \in \mathfrak{A}^{\rightarrow}$ be a live tuple such that $\bar{a}^{*}\sij = \bar{b}^{*}_{1\ldots{}\dist{i}{j}}$ for some $i,j$.
+
+
   \end{description}
 
 \end{proof}
