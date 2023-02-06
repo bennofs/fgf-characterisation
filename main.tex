@@ -38,7 +38,7 @@
 
 \title{FGF Notes}
 \author{Benno Fünfstück}
-\date{March 2022}
+\date{\today}
 
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}
@@ -56,7 +56,9 @@
 \newcommand{\trace}[1]{\mathtt{trace}(#1)}
 \newcommand{\context}[1]{\mathtt{context}(#1)}
 \newcommand{\struct}[1]{\mathfrak{#1}}
-\newcommand{\seq}[1]{\mathtt{Seq}_{#1}}
+\newcommand{\seqset}[1]{\mathtt{Seq}_{#1}}
+\newcommand{\seq}[1]{\mathtt{seq}({#1})}
+\newcommand{\num}[1]{\mathtt{num}({#1})}
 \newcommand{\dom}[1]{\mathtt{dom}({#1})}
 \newcommand{\dist}[2]{\mathtt{dist}({#1},{#2})}
 \newcommand{\nextrel}[2]{\mathit{Next}({#1},{#2})}
@@ -101,43 +103,37 @@ We denote by $\mathrm{ftp}_\mathfrak{A}(\bar{a})$ the unique $(\sigma,|\bar{a}|)
 \section{Back-and-forth conditions / Bisimulations / Games}
 
 % adapted from Otto 2004
-\begin{definition}[Connected GF back-and-forth conditions]
+\begin{definition}[GF back-and-forth conditions]
 Let $\mathfrak{A}$ and $\mathfrak{B}$ be $\sigma$-structures, $\mathcal{Z}, \mathcal{Z'} \subseteq \mathtt{Part}(\mathfrak{A}, \mathfrak{B})$ sets of partial isomorphisms between $\mathfrak{A}$ and $\mathfrak{B}$.
 
-$\mathcal{Z'}$ satisfies the connected GF back-and-forth conditions for $\mathcal{Z}$ if for every $p \in \mathcal{Z}$ the following holds:
+$\mathcal{Z'}$ satisfies the GF back-and-forth conditions for $\mathcal{Z}$ if for every $p \in \mathcal{Z}$ the following holds:
 
 \begin{description}
-    \item[(gforth)] For any guarded subset $s'$ of $A$ with $s' \cap \mathtt{dom}(p)$ nonempty, there is some $p' \in \mathcal{Z}$ with $\mathtt{dom}(p') = s'$ such that $p$ and $p'$ agree on their common domain.
-    \item[(gback)] For any guarded subset $t'$ of $B$ with $t' \cap \mathtt{im}(p)$ nonempty, there is some $p' \in \mathcal{Z}$ with $\mathtt{im}(p') = t'$ such that $p^{-1}$ and $p'^{-1}$ agree on their common domain.
+    \item[(gforth)] For any guarded subset $s'$ of $A$, there is some $p' \in \mathcal{Z}$ with $\mathtt{dom}(p') = s'$ such that $p$ and $p'$ agree on their common domain.
+    \item[(gback)] For any guarded subset $t'$ of $B$, there is some $p' \in \mathcal{Z}$ with $\mathtt{im}(p') = t'$ such that $p^{-1}$ and $p'^{-1}$ agree on their common domain.
 \end{description}
 \end{definition}
 
 % adapted from jair-main.pdf
-\begin{definition}[Connected FGF back-and-forth conditions]
+\begin{definition}[FGF back-and-forth conditions]
 Let $\mathfrak{A}$ and $\mathfrak{B}$ be $\sigma$-structures, $\mathcal{Z}, \mathcal{Z'} \subseteq \bigcup_{i=0}(A^i \times B^i)$ be mappings such that for any $(\bar{a}, \bar{b}) \in \mathcal{Z} \cup \mathcal{Z'}$ forward types are preserved: $\mathrm{ftp}_\mathfrak{A}(\bar{a}) = \mathrm{ftp}_\mathfrak{B}(\bar{b})$ (\textbf{atomic harmony}).
 
-$\mathcal{Z'}$ satisfies the connected FGF back-and-forth conditions for $\mathcal{Z}$ if for every $(\bar{a}, \bar{b}) \in \mathcal{Z}$ the following conditions hold:
+$\mathcal{Z'}$ satisfies the FGF back-and-forth conditions for $\mathcal{Z}$ if for every $(\bar{a}, \bar{b}) \in \mathcal{Z}$ the following conditions hold:
 
 \begin{description}
-    \item[(fgforth)] For a nonempty affix $\bar{a}_{i\ldots{}j}$ of $\bar{a}$ and a $\sigma$-live tuple $\bar{c}$ with $|c| \leq k$ in $\mathfrak{A}$ such that $\bar{a}_{i\ldots{}j} = \bar{c}_{1\ldots{}j-i+1}$ there is a tuple $\bar{d}$ with $\bar{b}_{i\ldots{}j} = \bar{d}_{1\ldots{}j-i+1}$ and $(\bar{c}, \bar{d}) \in \mathcal{Z'}$
-    \item[(fgback)] For a nonempty affix $\bar{b}_{i\ldots{}j}$ of $\bar{b}$ and a $\sigma$-live tuple $\bar{d}$ with $|d| \leq k$ in $\mathfrak{B}$ such that $\bar{b}_{i\ldots{}j} = \bar{d}_{1\ldots{}j-i+1}$ there is a tuple $\bar{c}$ with $\bar{a}_{i\ldots{}j} = \bar{c}_{1\ldots{}j-i+1}$ and $(\bar{c}, \bar{d}) \in \mathcal{Z'}$
+    \item[(fgforth)] For an infix $\bar{a}_{i\ldots{}j}$ of $\bar{a}$ and a $\sigma$-live tuple $\bar{c}$ with $|c| \leq k$ in $\mathfrak{A}$ such that $\bar{a}_{i\ldots{}j} = \bar{c}_{1\ldots{}j-i+1}$ there is a tuple $\bar{d}$ with $\bar{b}_{i\ldots{}j} = \bar{d}_{1\ldots{}j-i+1}$ and $(\bar{c}, \bar{d}) \in \mathcal{Z'}$
+    \item[(fgback)] For an infix $\bar{b}_{i\ldots{}j}$ of $\bar{b}$ and a $\sigma$-live tuple $\bar{d}$ with $|d| \leq k$ in $\mathfrak{B}$ such that $\bar{b}_{i\ldots{}j} = \bar{d}_{1\ldots{}j-i+1}$ there is a tuple $\bar{c}$ with $\bar{a}_{i\ldots{}j} = \bar{c}_{1\ldots{}j-i+1}$ and $(\bar{c}, \bar{d}) \in \mathcal{Z'}$
 \end{description}
 \end{definition}
 
-\begin{definition}[Connected Bisimulation]
-A set $\mathcal{Z}$ is a connected GF or FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$ if it satisfies the connected GF respective FGF back-and-forth conditions for itself and $(\bar{a}, \bar{b}) \in \mathcal{Z}$.
+\begin{definition}[Bisimulation]
+A set $\mathcal{Z}$ is a GF or FGF bisimulation between $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$ if it satisfies the GF respective FGF back-and-forth conditions for itself and $(\bar{a}, \bar{b}) \in \mathcal{Z}$.
 \end{definition}
 
-We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}} \mathfrak{B}, \bar{b}$ if there exists a connected GF respective FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
+We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}} \mathfrak{B}, \bar{b}$ if there exists a GF respective FGF bisimulation between $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
 
 \begin{definition}[k-Level Bisimulation]
 A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}_k$ such that each $\mathcal{Z}_{i - 1}$ for $0 < i \le k$ satisfies the associated back-and-forth conditions for $\mathcal{Z}_i$.
-\end{definition}
-
-We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}, k} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}, k} \mathfrak{B}, \bar{b}$ if there exists a k-level connected GF respective FGF bisimulation between pointed $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
-
-\begin{definition}[Global Bisimulation]
-A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{B}$ is a set $\mathcal{Z}$ such that for any guarded tuple $\bar{a} \in \mathfrak{A}$ there is a guarded tuple $\bar{b} \in \mathfrak{B}$ such that $(\bar{a}, \bar{b}) \in \mathcal{Z}$ and vice versa.
 \end{definition}
 
 \pagebreak
@@ -147,7 +143,7 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
 \subsection{Infinite full tree unraveling}
 
 \begin{definition}[Bisimulation Sequences]
-  The set of bisimulation sequences $\seq{\struct{A}}$ for a structure $\struct{A}$ consists of all sequences of the form $\bar{a}_{0}(i_{1}, j_{1})\bar{a}_{1}\cdots{}(i_{l},j_{l})\bar{a}_{l}$, where:
+  The set of bisimulation sequences $\seqset{\struct{A}}$ for a structure $\struct{A}$ consists of all sequences of the form $\bar{a}_{0}(i_{1}, j_{1})\bar{a}_{1}\cdots{}(i_{l},j_{l})\bar{a}_{l}$, where:
   \begin{enumerate}[(1)]
     \item $a_{i}$ is a live tuple in $\struct{A}$ for every $0 \le i \le l$,
     \item for every $1 \le k \le l$, $(i_{k}, j_{k})$ is a pair of indices into $\bar{a}_{k-1}$ such that $\bar{a}_{k-1,i_{k}\ldots{}j_{k}} = \bar{a}_{k,1\ldots{\dist{i_{k}}{j_{k}}}}$,
@@ -159,44 +155,50 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
 
 \begin{definition}[Unraveling Domain]
   The unraveling domain $\mathtt{Dom}^{\rightarrow}_{\struct{A}}$ of a structure $\struct{A}$ is defined as:
-
   \begin{equation*}
     \mathtt{Dom}^{\rightarrow}_{\struct{A}}
-      = (\seq{\struct{A}} \times \mathbb{N})
+      = (\seqset{\struct{A}} \times \mathbb{N})
         \setminus
         \left\{ (\sigma(i,j)\bar{a}, k) \mid k \le \dist{i}{j}\ \text{or}\ k > |a| \right\}
   \end{equation*}
-  The successor relation ``$\mathit{Next}$'' is the smallest binary relation defined on the unraveling domain such that:
+  Let ``$\mathit{Next}$'' be the binary relation such that $((\rho, k), (\rho', k')) \in \mathit{Next}$ iff:
   \begin{enumerate}[(a)]
-    \item $\nextrel{(\sigma, k)}{(\sigma, k + 1)}$
-    \item $\nextrel{(\sigma, j)}{(\sigma(i,j)\bar{a}, \dist{i}{j} + 1)}$
+    \item $\rho' = \rho$ and $k' = k + 1'$, or
+    \item $\rho' = \rho (i,j) \bar{a}$ for some $i, j, \bar{a}$ and $k = j, k' = \dist{i}{j} + 1$
   \end{enumerate}
-  The projection ``$\pi$'' of a domain element $(\sigma, k)$ is defined as follows.
-  Let $\bar{a}$ be the last tuple in the sequence $\sigma$, so $\sigma = \cdots{}\bar{a}$.
-  Then $\pi((\sigma, k)) = \bar{a}_{k}$.
+  Let $e = (\rho, k) \in \mathtt{Dom}^{\rightarrow}$ be a domain element and $\bar{a}$ be the tuple so that $\sigma = \cdots{}\bar{a}$.
+  We will use the following notation:
+  \begin{enumerate}
+    \item $\pi(e) = \bar{a}_{k} \in A$ (the projection of $e$)
+    \item $\seq{e} = \rho \in \seqset{\struct{A}}$ (the sequence of $e$)
+    \item $\num{e} = k \in \mathbb{N}$ (the counter of $e$)
+  \end{enumerate}
 \end{definition}
+
 
 \begin{definition}[Infinite Full Tree Unraveling]
   The infinite full tree unraveling for a base structure $\struct{A}$ is a structure $\struct{A}^{\rightarrow{}}$ with domain $\mathtt{Dom}^{\rightarrow}_{\struct{A}}$.
   Each relation $R_{i}$ in the signature of $\struct{A}$ is interpreted in $\struct{A}^{\rightarrow}$ as:
   \begin{equation*}
-    \bar{r} \in R_{i}^{\struct{A}^{\rightarrow}} \iff \pi[\bar{r}] \in R_{i}^{\struct{A}} \land \bigwedge_{k=1}^{|\bar{r}|-1}{(\nextrel{r_{k}}{r_{k+1}})} \land |\bar{r}| \le \mathtt{bound}(\bar{r})
+    \overrightarrow{r} \in R_{i}^{\struct{A}^{\rightarrow}} \iff \pi[\overrightarrow{r}] \in R_{i}^{\struct{A}} \land \bigwedge_{k=1}^{|\overrightarrow{r}|-1}{(\nextrel{\overrightarrow{r}_{k}}{\overrightarrow{r}_{k+1}})} \land |\overrightarrow{r}| \le \mathtt{bound}(\overrightarrow{r})
   \end{equation*}
-  where $\mathtt{bound}(\bar{r}) = x$ such that $r_{|r|} = (\rho, x)$ for some bisimulation sequence $\rho$.
+  where $\mathtt{bound}(\overrightarrow{r}) = \num{\overrightarrow{r}_{|\overrightarrow{r}|}}$ (counter of last element of $\overrightarrow{r}$)
 \end{definition}
 
-\begin{definition}[Lifting tuples and bisimulation sequences]
-  For each tuple $\bar{a} \in \struct{A}$, we define a lifted tuple $\lift{\bar{a}} \in \struct{A}^{\rightarrow}$ as follows:
-  \begin{equation*}
-    \lift{\bar{a}} = ((\bar{a}, 1), \ldots{}, (\bar{a}, |a|))
-  \end{equation*}
-  The mapping can be extended to bisimulation sequences.
-  Let $\rho = \sigma(i,j)\bar{a}$ be a bisimulation sequence, then the $\lift{\rho}$ is defined such that:
-  \begin{alignat*}{3}
-    &{\lift{\rho}}_{1\ldots{}\dist{i}{j}} &&= {\lift{\sigma}}_{i\ldots{}j} && \\
-    &{\lift{\rho}}_{x} &&= (\rho, x) && \qquad\text{for $\dist{i}{j} < x \le |\bar{a}|$}
-  \end{alignat*}
-\end{definition}
+% \begin{definition}[Lifting tuples and bisimulation sequences]
+%   For each tuple $\bar{a} \in \struct{A}$, we define a lifted tuple $\lift{\bar{a}} \in \struct{A}^{\rightarrow}$ as follows:
+%   \begin{equation*}
+%     \lift{\bar{a}} = ((\bar{a}, 1), \ldots{}, (\bar{a}, |a|))
+%   \end{equation*}
+%   The mapping can be extended to bisimulation sequences.
+%   Let $\rho = \sigma(i,j)\bar{a}$ be a bisimulation sequence, then the $\lift{\rho}$ is defined such that:
+%   \begin{alignat*}{3}
+%     &{\lift{\rho}}_{1\ldots{}\dist{i}{j}} &&= {\lift{\sigma}}_{i\ldots{}j} && \\
+%     &{\lift{\rho}}_{x} &&= (\rho, x) && \qquad\text{for $\dist{i}{j} < x \le |\bar{a}|$}
+%   \end{alignat*}
+% \end{definition}
+
+\pagebreak
 
 \begin{lemma}
   $\struct{A} \sim_{\mathrm{FGF}} \struct{A}^{\rightarrow{}}$
@@ -239,13 +241,13 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
             &\bar{b}^{*}_{1\ldots{}\dist{i}{j}} &&= \bar{a}\sij \\
             &\bar{b}^{*}_{x} &&= (\sigma (i,j) \bar{b}, x) \qquad \text{for\ }\dist{i}{j} < x \le |\bar{b}|
           \end{alignat*}
-          Note that \fxnote{more detail}{$\sigma (i,j) \bar{b}$ is a valid bisimulation} sequence, $\bigwedge_{k=1}^{|\bar{b}^{*}|-1}{\nextrel{b^{*}_{k}}{b^{*}_{k+1}}}$ and $|\bar{b}^{*}| \le \mathtt{bound}(\bar{b}^{*}) = |\bar{b}|$.
+          Note that \fxnote*{more detail}{$\sigma (i,j) \bar{b}$ is a valid bisimulation sequence}, $\bigwedge_{k=1}^{|\bar{b}^{*}|-1}{\nextrel{b^{*}_{k}}{b^{*}_{k+1}}}$ and $|\bar{b}^{*}| \le \mathtt{bound}(\bar{b}^{*}) = |\bar{b}|$.
           Since $\pi[\bar{b}^{*}] = \bar{b}$ and $\bar{b}$ is live, it follows that $\bar{b}^{*}$ is also live, so $(\bar{b}, \bar{b}^{*}) \in \mathcal{Z}$ as required.
 
           Now consider the case where $\bar{b}_{1\ldots{}\dist{i}{j}}$ is not a proper prefix, so it is either empty or equal to $\bar{b}$.
           If it is equal to $\bar{b}$, then $\bar{b}$ is an infix of $\bar{a}$.
           So by atomic harmony, $\bar{b}^{*} = \bar{a}^{*}\sij$ is live since $\bar{b}$ is live and satisfies $(\bar{b}, \bar{b}^{*}) \in \mathcal{Z}$.
-          If it is empty, let $\bar{b}^{*} = \lift{\bar{b}}$.
+          If it is empty, let $\bar{b}^{*} = ((\bar{b}, 1), \ldots{}, (\bar{b}, |b|))$.
           Again $\bar{b}^{*}$ is live since $\bar{b}$ is live and satisfies $(\bar{b}, \bar{b}^{*}) \in \mathcal{Z}$.
 
           % We define $$
@@ -255,16 +257,76 @@ A global bisimulation between $\sigma$-structures $\mathfrak{A}$ and $\mathfrak{
     \item[(fgfback)]
           This case follows directly from the definition of the unraveling.
           Let $(\bar{a}, \bar{a}^{*}) \in \mathcal{Z}$ and $\bar{b}^{*} \in \mathfrak{A}^{\rightarrow}$ be a live tuple such that $\bar{a}^{*}\sij = \bar{b}^{*}_{1\ldots{}\dist{i}{j}}$ for some $i,j$.
-
-
+          Then $\bar{b} = \pi[\bar{b}^{*}]$ also has $\bar{a}_{i\ldots{}j} = \bar{b}_{1\ldots{}\dist{i}{j}}$ (since the projection is pointwise) and satisfies $(\bar{b}, \bar{b}^{*}) \in \mathcal{Z}$ as required.
   \end{description}
+\end{proof}
+
+\pagebreak
+
+\begin{lemma}\label{lem:fgf-intersection-continuous}
+  If two tuples $\overrightarrow{a}, \overrightarrow{a}' \in \struct{A}^{\rightarrow}$ intersect, then $\overrightarrow{a} \cap \overrightarrow{a}'$ is an infix of both $\overrightarrow{a}, \overrightarrow{a}'$ and
+  $\overrightarrow{a} \cap \overrightarrow{a}'$ is a prefix of at least one of $\overrightarrow{a}, \overrightarrow{a}'$.
+\end{lemma}
+
+\begin{lemma}
+  If $\struct{A} \sim_{\mathrm{FGF},2*W*l} \struct{B}$, then $\struct{A}^{\rightarrow} \sim_{\mathrm{GF},l} \struct{B}^{\rightarrow}$
+\end{lemma}
+\begin{proof}
+
+  Let $\mathcal{Z}_{0}, \ldots, \mathcal{Z}_{l}$ be a sequence of sets, each defined as follows:
+  \fxnote{
+    $\seq{a_{x}} \approx_{\alpha} \seq{b_{x}}$ is almost implied by $\seq{a_{n}} \approx_{\alpha} \seq{b_{n}}$ due to the definition of ``$\mathit{Next}$''.
+    The only difference is that since $\seq{a_{1}}$ is shorter, this increases the ``lookback'' (how many elements from the end of the sequence of $a_n$ we consider) by at most the width.
+  }{\begin{equation*}
+      (\overrightarrow{a}, \overrightarrow{b}) \in \mathcal{Z}_{\alpha}\ \iff \left\{
+        \begin{array}{lll}
+          |\overrightarrow{a}| = |\overrightarrow{b}| & \text{with\ } n = |a| = |b| & \wedge \\
+          \num{\overrightarrow{a}_{x}} = \num{\overrightarrow{b}_{x}} & \text{for all\ } 1 \le x \le |\overrightarrow{a}| & \wedge \\
+          \seq{\overrightarrow{a}_{x}} \approx_{W * \alpha} \seq{\overrightarrow{b}_{x}} & \text{for all\ } 1 \le x \le |\overrightarrow{a}| &
+        \end{array}
+      \right.
+    \end{equation*}}
+  where $\sigma \approx_{\beta} \rho$ for $\sigma = \bar{s}_{0}\cdots{}(i_{n}, j_{n})\bar{s}_{n}$ and $\rho = \bar{r}_{0}\cdots{}(v_{m}, w_{m})\bar{r}_{m}$ iff:
+  \begin{enumerate}
+    \item
+          last $\beta$ indices match: $i_{n-x} = v_{m-x} \wedge j_{n-x} = u_{m-x}$ for all $x \le \beta$, and
+    \item
+         last $\beta$ tuples are bisimilar: $\bar{s}_{n-x} \sim_{\mathrm{FGF},\beta} \bar{r}_{m-x}$ for all $x \le \beta$
+  \end{enumerate}
+  We show that each $\mathcal{Z}_{\alpha-1}$ has the back-and-forth property for $\mathcal{Z}_{\alpha}$ and satisfies atomic harmony.
+
+  \paragraph{Atomic harmony}
+  Let $(\overrightarrow{a}, \overrightarrow{b}) \in \mathcal{Z}_{\alpha}$.
+  Let $\sigma = \cdots{}\bar{s}$ be a bisimulation sequence ending in $\bar{s}$.
+  Observe that for any tuple $\overrightarrow{a} = (\overrightarrow{a}_{1}, \ldots{}, \overrightarrow{a}_{n})$ with $\seq{\overrightarrow{a}_{n}} = \sigma$, we have that $\pi(\overrightarrow{a}_{x}) = s_{\num{\overrightarrow{a}_{x}}}$.
+  Thus, by definition of $\mathcal{Z}_{a}$ and ``$\approx_{\beta}$'' it follows that $\pi[\overrightarrow{a}] \sim_{\mathrm{FGF},W*\alpha} \pi[\overrightarrow{b}]$ which implies that $\mathrm{ftp}(\overrightarrow{a}) = \mathrm{ftp}(\overrightarrow{b})$.
+  Since forward-type equivalence is the same as full atomic type equivalence in tree unravelings, this shows that $\mathcal{Z}_{\alpha}$ respects atomic harmony.
+
+  \paragraph{Back-and-forth property}
+  Now let $(\overrightarrow{a}, \overrightarrow{b}) \in \mathcal{Z}_{\alpha}$ and $\overrightarrow{a}'$ be a guarded tuple in $\struct{A}^{\rightarrow}$.
+  Since all guarded tuples in an unraveling are also live, \cref{lem:fgf-intersection-continuous} applies so the common elements of $\overrightarrow{a} \cap \overrightarrow{a}'$ must be a prefix of one of $\overrightarrow{a}, \overrightarrow{a}'$.
+  We call the case where $\overrightarrow{a} \cap \overrightarrow{a}'$ is a prefix of $\overrightarrow{a}'$ the \emph{forward case}, and the other case the \emph{backward case}.
+
+  \paragraph{The forward case.}
+  Let $\overrightarrow{a}\sij$ be the infix of $\overrightarrow{a}$ which is a prefix of $\overrightarrow{a}'$.
+  We construct a tuple $\overrightarrow{b}'$ with $\overrightarrow{b}'_{1\ldots{}\dist{i}{j}} = \overrightarrow{b}\sij$ and $(\overrightarrow{a}', \overrightarrow{b}') \in \mathcal{Z}_{\alpha-1}$.
+  Since $\overrightarrow{b}'_{1\ldots{}\dist{i}{j}} = \overrightarrow{b}\sij$ \fxwarning*{This only works if the overlap is nonempty. But if the overlap is empty, we can simply treat this as restarting the game, so we handle this case the same way that we handle the start of the game}{we already know the first elements} of $\overrightarrow{b}'$.
+  For some $x$, let $\num{\overrightarrow{b}'_{x}} = \num{\overrightarrow{a}'_{x}}$ and $\seq{\overrightarrow{b}'_{x}} \approx_{\beta} \seq{\overrightarrow{a}'_{x}}$.
+  We show how to find $\overrightarrow{b}'_{x+1}$ with $\num{\overrightarrow{b}'_{x+1}} = \num{\overrightarrow{a}'_{x+1}}$ and $\seq{\overrightarrow{b}'_{x+1}} \approx_{\beta} \seq{\overrightarrow{a}'_{x+1}}$.
+
+  If $\seq{\overrightarrow{a}'_{x+1}} = \seq{\overrightarrow{a}_{x}}$, then we can set $\overrightarrow{b}'_{x+1} = (\seq{\overrightarrow{b}'}_{x}, \num{\overrightarrow{a}'_{x+1}})$ and are done.
+  By definition of ``$\mathit{Next}$'', the only remaining case is that $\seq{\overrightarrow{a}'_{x+1}} = \seq{\overrightarrow{a}'_{x}} (v, w) \bar{t}$.
+  Let $\seq{\overrightarrow{a}'_{x}} = \cdots{}\bar{s}$ and $\seq{\overrightarrow{b}'_{x}} = \cdots{}\bar{o}$.
+  By definition of ``$\approx_{\beta}$'', we know that $\bar{s} \sim_{\mathrm{FGF},\beta} \bar{o}$.
+  Using the \textbf{(fgforth)} property of FGF, we can find $\bar{p}$ such that $\bar{t} \sim_{\mathrm{FGF},\beta-1} \bar{p}$ and $\bar{p}_{1\ldots{}\dist{v}{w}} = \bar{o}_{v\ldots{}w}$.
+  Then $\theta = \seq{\overrightarrow{b}'_{x}} (v,w) \bar{t}$ is a valid bisimulation sequence and $\theta \approx_{\beta-1} \seq{\overrightarrow{a}'_{x+1}}$ by construction.
+  So $\overrightarrow{b}_{x+1} = (\theta, \num{\overrightarrow{a}_{x+1}})$ has the required properties.
+
+  We need to apply the above procedure at most $|\overrightarrow{b}'| = |\overrightarrow{a}'| \le W$ times to construct all elements of $\overrightarrow{b}'$.
+  Therefore we have $\seq{\overrightarrow{b}'_{x}} \approx_{W*\alpha-W} \seq{\overrightarrow{a}'_{x}}$ for all $1 \le x \le |\overrightarrow{b}'|$.
+  As we also preserve the equivalence of counters with each step, it follows that $(\overrightarrow{a}', \overrightarrow{b}') \in \mathcal{Z}_{\alpha-1}$.
 
 \end{proof}
-\subsection{Finite tree-like unraveling}
-
-\fxnote{todo}
-
-
 \end{document}
 
 % additional elements
