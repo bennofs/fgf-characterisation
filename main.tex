@@ -268,35 +268,6 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
   $\overrightarrow{a} \cap \overrightarrow{a}'$ is a prefix of at least one of $\overrightarrow{a}, \overrightarrow{a}'$.
 \end{lemma}
 
-\begin{definition}[maximal tuples]
-  A live tuple $\bar{a}$ is \emph{maximal} if it is not an infix of any other live tuple.
-\end{definition}
-
-\begin{lemma}\label{lem:maximal-tuple-sequences}
-  For two maximal tuples $\overrightarrow{a}, \overrightarrow{b} \in \struct{A}^{\rightarrow}$, if $\seq{\overrightarrow{a}_{|\overrightarrow{a}|}} = \seq{\overrightarrow{b}_{|\overrightarrow{b}|}}$, then $\overrightarrow{a} = \overrightarrow{b}$.
-\end{lemma}
-\begin{proof}
-  Let $\overrightarrow{a}_{|\overrightarrow{a}|} = (\sigma, x)$ and $\overrightarrow{b}_{|\overrightarrow{b}|} = (\sigma, y)$ for some $\sigma, x, y$.
-  Let $\bar{s}$ be the last tuple of $\sigma$, so that $\sigma = \cdots{}\bar{s}$.
-  By the definition of the unraveling domain, $x \le |\bar{s}|$ and $y \le |\bar{s}|$.
-  We also have $|\overrightarrow{a}| \le x = \mathtt{bound}(\overrightarrow{a})$ by the definition of relations in the unraveling, and the same for $\overrightarrow{b}$ with $y$.
-  It follows that $|\overrightarrow{a}|, |\overrightarrow{b}| \le |\bar{s}|$.
-  We will show that there is a tuple $\overrightarrow{c} \in \struct{A}^{\rightarrow}$ with $|\overrightarrow{c}| = |\bar{s}|$ and both $(\sigma, x) \in \overrightarrow{c}$ and $(\sigma, y) \in \overrightarrow{c}$.
-  By the uniqueness of predecessors of ``$\mathit{Next}$'' and since $|\overrightarrow{a}|, |\overrightarrow{b}| \le |\bar{s}|$, this implies that $\overrightarrow{a}, \overrightarrow{b}$ are both infixes of $\overrightarrow{c}$.
-  By maximality, they must therefore both be equal to $\overrightarrow{c}$.
-
-  We construct the tuple $\bar{c}$ using a mapping $\mathtt{lift}$ from bisimulation sequences in $\struct{A}$ to tuples of $\struct{A}^{\rightarrow}$, starting by mapping bisimulation sequences of just a single tuple $\bar{a}$:
-  \begin{alignat*}{3}
-    &\lift{\bar{a}} &&= ((\bar{a}, 1), \ldots{}, (\bar{a}, |a|)) \\
-    \intertext{For longer bisimulation sequences, $\lift{\rho(i,j)\bar{a}}$ is then defined in terms of $\lift{\rho}$:}
-    &{\lift{\rho(i,j)\bar{a}}}_{1\ldots{}\dist{i}{j}} &&= {\lift{\rho}}_{i\ldots{}j} && \\
-    &{\lift{\rho(i,j)\bar{a}}}_{x} &&= (\rho(i,j)\bar{a}, x) && \qquad\text{for $\dist{i}{j} < x \le |\bar{a}|$}
-  \end{alignat*}
-  Then, $\overrightarrow{c} = \lift{\sigma}$.
-  By construction, $\lift{\sigma}$ is live.
-  Also, $\pi[\lift{\sigma}] = \bar{s}$, so $|\overrightarrow{c}| = |\bar{s}|$ as required.
-\end{proof}
-
 \begin{lemma}
   If $\struct{A} \sim_{\mathrm{FGF},2*W*l} \struct{B}$, then $\struct{A}^{\rightarrow} \sim_{\mathrm{GF},l} \struct{B}^{\rightarrow}$
 \end{lemma}
