@@ -348,26 +348,29 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
   Let $\seq{\overrightarrow{a}'_{x}} = \cdots{}\bar{s}$ and $\seq{\overrightarrow{b}'_{x}} = \cdots{}\bar{o}$.
   By definition of ``$\approx_{\beta}$'', we know that $\bar{s} \sim_{\mathrm{FGF},\beta} \bar{o}$.
   Using the \textbf{(fgforth)} property of FGF, we can find $\bar{p}$ such that $\bar{t} \sim_{\mathrm{FGF},\beta-1} \bar{p}$ and $\bar{p}_{1\ldots{}\dist{v}{w}} = \bar{o}_{v\ldots{}w}$.
-  Then $\theta = \seq{\overrightarrow{b}'_{x}} (v,w) \bar{t}$ is a valid bisimulation sequence and $\theta \approx_{\beta-1} \seq{\overrightarrow{a}'_{x+1}}$ by construction.
-  So $\overrightarrow{b}_{x+1} = (\theta, \num{\overrightarrow{a}_{x+1}})$ has the required properties.
+  Then $\rho = \seq{\overrightarrow{b}'_{x}} (v,w) \bar{p}$ is a valid bisimulation sequence and $\rho \approx_{\beta-1} \seq{\overrightarrow{a}'_{x+1}}$ by construction.
+  So $\overrightarrow{b}_{x+1} = (\rho, \num{\overrightarrow{a}_{x+1}})$ has the required properties.
 
   We need to apply the above procedure at most $|\overrightarrow{b}'| = |\overrightarrow{a}'| \le W$ times to construct all elements of $\overrightarrow{b}'$.
   Therefore we have $\seq{\overrightarrow{b}'_{x}} \approx_{W*\alpha-W} \seq{\overrightarrow{a}'_{x}}$ for all $1 \le x \le |\overrightarrow{b}'|$.
   As we also preserve the equivalence of counters with each step, it follows that $(\overrightarrow{a}', \overrightarrow{b}') \in \mathcal{Z}_{\alpha-1}$.
 
   \paragraph{The backward case.}
-  For the backward case, we first only consider tuples which are not infixes of any other live tuple, which we call \emph{maximal}.
-  Let $\overrightarrow{a}$, $\overrightarrow{b}$ and $\overrightarrow{a}'$ be maximal tuples, and $\overrightarrow{a}'\sij$ be a prefix of $\overrightarrow{a}$.
-  Let $\sigma = \seq{\overrightarrow{a}_{|\overrightarrow{a}|}}$ be the sequence of the last element of $\overrightarrow{a}$, and $\sigma =  \seq{\overrightarrow{a}'_{j}}$ be the sequence of the last element of the common infix.
-  By definition of ``$\mathit{Next}$'', we know that $\sigma'$ is a prefix of $\sigma$.
-  Let $\overrightarrow{c}$ be the maximal tuple containing $\overrightarrow{a}'_{j}$.
+  Let $\overrightarrow{a}'\sij$ be a prefix of $\overrightarrow{a}$.
+  We construct a tuple $\overrightarrow{b}'$ with $\overrightarrow{b}'\sij = \overrightarrow{b}_{1\ldots{}\dist{i}{j}}$ and $(\overrightarrow{a}', \overrightarrow{b}') \in \mathcal{Z}_{\alpha-1}$.
+  We know that $\overrightarrow{b}'_{i}$ must be equal to $\overrightarrow{b}_{1}$.
+  We show how to find $\overrightarrow{b}'_{x-1}$ with $\num{\overrightarrow{b}'_{x-1}} = \num{\overrightarrow{a}'_{x-1}}$ and $\seq{\overrightarrow{b}'_{x-1}} \approx_{\beta-1} \seq{\overrightarrow{a}_{x-1}}$ given that $\num{\overrightarrow{b}'_{x}} = \num{\overrightarrow{a}'_{x}}$ and $\seq{\overrightarrow{b'_{x}}} \approx_{\beta} \seq{\overrightarrow{a'}_{x}}$.
 
-  First consider the situation where $\sigma' = \sigma$, implying $\overrightarrow{c} = \overrightarrow{a}$.
-  We will show that then $\overrightarrow{a'}_{1} \in \overrightarrow{c}$, meaning that this case is actually a forward case and we are done.
+  If $\seq{\overrightarrow{a}'_{x-1}} = \seq{\overrightarrow{a}'_{x}}$, we can set $\overrightarrow{b}'_{x-1} = (\seq{\overrightarrow{b}'_{x}}, \num{\overrightarrow{b}'_{x}} - 1)$ because in this case $\num{\overrightarrow{a}'_{x-1}} = \num{\overrightarrow{a}'_{x}} - 1$, so we are done.
+  By definition of ``$\mathit{Next}$'', the only remaining case is that $\seq{\overrightarrow{a}'_{x}} = \seq{\overrightarrow{a}'_{x-1}} (v,w) \bar{s}$ and $\num{\overrightarrow{a}'_{x-1}} = w$.
+  By definition of ``$\approx_{\beta}$'', there must be a tuple $\bar{o}$ such that $\seq{\overrightarrow{b'}_{x}} = \rho (v,w) \bar{o}$ where $\rho \approx_{\beta-1} \seq{\overrightarrow{a}'_{x-1}}$.
+  So $\overrightarrow{b}'_{x-1} = (\rho, w)$ has the required properties.
 
-  We then
-  We show that then $\overrightarrow{a}_{|\overrightarrow{a}|}$ is contained in $\overrightarrow{a}'$, therefore $\overrightarrow{a}$ is an infix of $\overrightarrow{a}'$ and by maximality both tuples are equal.
-
+  We again need to apply the above procedure at most $i \le |\overrightarrow{a}'| \le W$ times to find all elements in $|\overrightarrow{b}'_{1\ldots{}i}|$.
+  Thus $\seq{\overrightarrow{b}'_{x}} \approx_{W*a - W} \seq{\overrightarrow{a}'_{x}}$ for all $1 \le x \le i$.
+  Because of $\overrightarrow{b}'\sij = \overrightarrow{b}_{1\ldots{}\dist{i}{j}}$, we now know all elements of $\overrightarrow{b}'_{1\ldots{}j}$.
+  We can complete the tuple $\overrightarrow{b}'_{1\ldots{}j}$ to the tuple $\overrightarrow{b}'$ by applying the construction for the forward case starting from $\overrightarrow{b}_{j}$.
+  Then we have $(\overrightarrow{a}', \overrightarrow{b}') \in \mathcal{Z}_{\alpha-1}$.
 
 \end{proof}
 \end{document}
