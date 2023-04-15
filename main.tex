@@ -163,7 +163,7 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
   \end{equation*}
   Let ``$\mathit{Next}$'' be the binary relation such that $((\rho, k), (\rho', k')) \in \mathit{Next}$ iff:
   \begin{enumerate}[(a)]
-    \item $\rho' = \rho$ and $k' = k + 1'$, or
+    \item $\rho' = \rho$ and $k' = k + 1$, or
     \item $\rho' = \rho (i,j) \bar{a}$ for some $i, j, \bar{a}$ and $k = j, k' = \dist{i}{j} + 1$
   \end{enumerate}
   Let $e = (\rho, k) \in \mathtt{Dom}^{\rightarrow}$ be a domain element and $\bar{a}$ be the tuple so that $\sigma = \cdots{}\bar{a}$.
@@ -272,7 +272,6 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
   If $\struct{A} \sim_{\mathrm{FGF},2*W*l} \struct{B}$, then $\struct{A}^{\rightarrow} \sim_{\mathrm{GF},l} \struct{B}^{\rightarrow}$
 \end{lemma}
 \begin{proof}
-
   Let $\mathcal{Z}_{0}, \ldots, \mathcal{Z}_{l}$ be a sequence of sets, each defined as follows:
   \fxnote{
     $\seq{a_{x}} \approx_{\alpha} \seq{b_{x}}$ is almost implied by $\seq{a_{n}} \approx_{\alpha} \seq{b_{n}}$ due to the definition of ``$\mathit{Next}$''.
@@ -337,13 +336,33 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
   By definition of ``$\approx_{\beta}$'', there must be a tuple $\bar{o}$ such that $\seq{\overrightarrow{b'}_{x}} = \rho (v,w) \bar{o}$ where $\rho \approx_{\beta-1} \seq{\overrightarrow{a}'_{x-1}}$.
   So $\overrightarrow{b}'_{x-1} = (\rho, w)$ has the required properties.
 
-  We again need to apply the above procedure at most $i \le |\overrightarrow{a}'| \le W$ times to find all elements in $|\overrightarrow{b}'_{1\ldots{}i}|$.
+  We need to apply the above procedure at most $i \le |\overrightarrow{a}'| \le W$ times to find all elements in $|\overrightarrow{b}'_{1\ldots{}i}|$.
   Thus $\seq{\overrightarrow{b}'_{x}} \approx_{W*a - W} \seq{\overrightarrow{a}'_{x}}$ for all $1 \le x \le i$.
   Because of $\overrightarrow{b}'\sij = \overrightarrow{b}_{1\ldots{}\dist{i}{j}}$, we now know all elements of $\overrightarrow{b}'_{1\ldots{}j}$.
   We can complete the tuple $\overrightarrow{b}'_{1\ldots{}j}$ to the tuple $\overrightarrow{b}'$ by applying the construction for the forward case starting from $\overrightarrow{b}_{j}$.
   Then we have $(\overrightarrow{a}', \overrightarrow{b}') \in \mathcal{Z}_{\alpha-1}$.
-
 \end{proof}
-\end{document}
 
-% additional elements
+\subsection{Finite tree unraveling}
+
+\begin{definition}[Finite tree unraveling]
+  Let $\mathfrak{A}^{(\sigma, s) \rightarrow}$ denote the tree structure having $(\sigma, s)$ as the root and containing all descendants according to the ``$\mathit{Next}$'' relation.
+  Let $\mathfrak{A}^{(\sigma, s) \rightarrow}_{\theta}$ be the finite truncation of that tree to elements $e$ for which $|\seq{e}| \le |\sigma| + \theta$.
+  Given two elements $(a, a') \in \mathit{Next}$, then $a'$ is called a \emph{cut element} if $a$ is in the truncated tree but $a'$ is not.
+
+  Let $\mathcal{T}$ be the set of trees for the roots $(\sigma, s)$ which have $|\sigma| \le \beta$.
+  Let $M \in \mathbb{N}$ be such that for each tree, all cut elements can be uniquely assigned an index from the sequence $1, 2, \ldots, M$.
+  The domain of the finite tree unraveling is the union of $M$ copies of each tree in $\mathcal{T}$.
+  The relation ``$\mathit{Next}_{fin}$'' is defined on this domain such that $(a, b) \in \mathit{Next}_{fin}$ iff:
+  \begin{enumerate}[(a)]
+    \item $(a, b) \in \mathit{Next}$ and $a$ and $b$ are part of the same tree, or
+    \item $(a, a') \in \mathit{Next}$ for some cut element $a'$ with associated index $m$, and all the following are true:
+        \begin{enumerate}
+          \item $b$ is the root of the $m$-th copy of a tree in T
+          \item $\num{b} = \num{a'}$
+          \item $\seq{b}$ is the length-$\beta$ suffix of $\seq{a'}$
+        \end{enumerate}
+  \end{enumerate}
+\end{definition}
+
+\end{document}
