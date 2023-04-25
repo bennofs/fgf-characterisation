@@ -84,13 +84,14 @@
 Let FF$(n)$ be the smallest fragment of FO satisfying:
 
 \begin{itemize}
-    \item an atom $\alpha(\bar{x})$ belongs to FF$(n)$ iff $\alpha$ is equality-free and $\bar{x}$ is an infix of $\bar{x}_{1\ldots{}n}$
-    \item FF$(n)$ is closed under boolean connectives $\land, \lor, \neg, \rightarrow, \leftrightarrow$.
-    \item If $\phi(\bar{x}_{1\ldots{}n+1}$ is in FF$(n+1)$, then $\exists{x_{n+1}}\phi(\bar{x}_{1\ldots{}n+1})$ and $\forall{x_{n+1}}\phi(\bar{x}_{1\ldots{}n+1})$ are in FF$(n)$.
+  \item an atom $\alpha(\bar{x})$ belongs to FF$(n)$ iff $\alpha$ is equality-free and $\bar{x}$ is an infix of $\bar{x}_{1\ldots{}n}$
+  \item $\mathrm{FF}(n-1) \subseteq \mathrm{FF}(n)$
+  \item FF$(n)$ is closed under boolean connectives $\land, \lor, \neg, \rightarrow, \leftrightarrow$.
+  \item If $\phi(\bar{x}_{1\ldots{}n+1}$ is in FF$(n+1)$, then $\exists{x_{n+1}}\phi(\bar{x}_{1\ldots{}n+1})$ and $\forall{x_{n+1}}\phi(\bar{x}_{1\ldots{}n+1})$ are in FF$(n)$.
 \end{itemize}
 
 The \emph{forward fragment} FF is the set FF$(0)$.
-The \emph{forward guarded fragment} FGF is the \fxfatal*{Allow variable reuse}{intersection of FF with GF}.
+The \emph{forward guarded fragment} FGF is the intersection of FF with GF.
 \end{definition}
 
 % as in jair-main.pdf
@@ -133,7 +134,7 @@ A set $\mathcal{Z}$ is a GF or FGF bisimulation between $\sigma$-structures $\ma
 We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}} \mathfrak{B}, \bar{b}$ or $\mathfrak{A}, \bar{a} \sim_{\textrm{FGF}} \mathfrak{B}, \bar{b}$ if there exists a GF respective FGF bisimulation between $\sigma$-structures $\mathfrak{A}, \bar{a}$ and $\mathfrak{B}, \bar{b}$.
 
 \begin{definition}[k-Level Bisimulation]
-A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}_k$ such that each $\mathcal{Z}_{i - 1}$ for $0 < i \le k$ satisfies the associated back-and-forth conditions for $\mathcal{Z}_i$.
+A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}_k$ such that each $\mathcal{Z}_{i - 1}$ for $0 < i \le k$ satisfies the associated back-and-forth conditions for $\mathcal{Z}_i$ and sets $Z_{j}$ satisfy atomic harmony.
 \end{definition}
 
 \begin{lemma}
