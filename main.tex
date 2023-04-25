@@ -413,9 +413,9 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
   \end{enumerate}
 \end{definition}
 
-\begin{lemma}[no short directed cycles]
+\begin{lemma}[no short directed cycles]\label{lem:no-short-cycles}
   Let $p$ be a directed $\mathit{Next}_{fin}$-cycle in $\mathfrak{A}^{(\sigma, s) \rightarrow}_{\theta}$: $p = p_{1}\cdots{} p_{n}$ with $n > 1, p_{1} = p_{n}$.
-  Then $n \ge \theta$.
+  Then $n > \theta$.
 \end{lemma}
 \begin{proof}
   As trees contain no cycles, any cycle must contain at least one edge linking from a leaf to the root of some tree.
@@ -424,9 +424,35 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
 
   As $p_{n}$ links to the root of a tree, $p_{n}$ must be immediately before the truncation threshold.
   This means that $|\seq{p_{n}}| = |\seq{p_{r}}| + \theta$.
-  All consecutive elements $p_{r}, p_{r+1}, \ldots, p_{n}$ are linked by $\mathit{Next}$.
-  So the length of $\seq{}$ can only increase by at most one for consecutive elements.
-  It follows that $n - r >= \theta$ and $|p| >= \theta$.
+  As consecutive elements $p_{r}, p_{r+1}, \ldots, p_{n}$ are linked by $\mathit{Next}$, the length of $\seq{}$ can only increase by at most one for consecutive elements.
+  It follows that $n - r >= \theta$ hence $n > \theta$.
+\end{proof}
+
+\begin{lemma}[no short alternative paths]
+  Let $a, b \in \mathfrak{A}^{(\sigma, s) \rightarrow}_{\theta}$.
+  Let there be two directed $\mathit{Next}_{fin}$-paths from $a$ to $b$:
+
+  \begin{alignat*}{2}
+    p &= p_{1} p_{2} \cdots{} p_{n} \qquad\text{with }&&\text{$p_{1} = a$ and $p_{n} = b$}\\
+    q &= q_{1} q_{2} \cdots{} q_{m} && \text{$q_{1} = a$ and $q_{m} = b$}
+  \end{alignat*}
+
+  If $p \neq q$, then either $|p| > \theta$ or $|q| > \theta$.
+\end{lemma}
+\begin{proof}
+  By symmetry, we assume that $p$ is the longer path.
+  Let $i$ be the smallest index such that there exists $j$ with $p_{i} = q_{j}$ and $p_{1\ldots{}i} \neq q_{1\ldots{}j}$.
+  If $p_{i} = q_{j} = a$, then either $p$ or $q$ is a cycle and by \cref{lem:no-short-cycles} longer than $\theta$.
+  Otherwise, $i \neq 1$ and $j \neq 1$.
+  We know that $p_{i-1} \neq q_{j-1}$ or $i$ would not be minimal.
+  It follows that $p_{i} = q_{j}$ must have two different $\mathit{Next}_{fin}$-predecessors, and so $p_{i}$ must be a root.
+
+  For each tree, by construction only one leaf links to a given root.
+  Therefore $p_{i-1}$ and $q_{j-1}$ must be leaves of different trees.
+  At least one of them must thus be in a different tree than $a$.
+  The shortest path from any element to a leaf of a different tree must go through the root of that tree to the leaf.
+  This means it has a length greater than $\theta$ (compare \cref{lem:no-short-cycles}).
+  So at least one of $p$ or $q$ has length greather than $\theta$.
 \end{proof}
 
 \end{document}
