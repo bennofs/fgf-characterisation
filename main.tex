@@ -55,7 +55,7 @@
 \newcommand{\last}[1]{\mathtt{last}(#1)}
 \newcommand{\trace}[1]{\mathtt{trace}(#1)}
 \newcommand{\context}[1]{\mathtt{context}(#1)}
-\newcommand{\struct}[1]{\mathfrak{#1}}
+\newcommand{\str}[1]{\mathfrak{#1}}
 \newcommand{\seqset}[1]{\mathtt{Seq}_{#1}}
 \newcommand{\seq}[1]{\mathtt{seq}({#1})}
 \newcommand{\num}[1]{\mathtt{num}({#1})}
@@ -136,6 +136,53 @@ We write $\mathfrak{A}, \bar{a} \sim_{\textrm{GF}} \mathfrak{B}, \bar{b}$ or $\m
 A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}_k$ such that each $\mathcal{Z}_{i - 1}$ for $0 < i \le k$ satisfies the associated back-and-forth conditions for $\mathcal{Z}_i$.
 \end{definition}
 
+\begin{lemma}
+  If $\str{A}, \bar{a} \sim_{\mathrm{FGF},k} \str{B},\bar{b}$ then $\str{A}, \bar{a}$ and $\str{B}, \bar{b}$ satisfy the same FGF formulae of quantifier rank $\le k$.
+\end{lemma}
+\begin{proof}
+  First consider quantifier-free (quantifier rank zero) formulae.
+  If $\str{A}, \bar{a} \sim_{\mathrm{FGF},k} \str{B}, \bar{b}$ then $\bar{a}$ and $\bar{b}$ must have equal forward types by ``atomic harmony''.
+  This means that they satisfy the same atomic formulae.
+  By structural induction, this also holds for boolean combinations of formulae.
+  Therefore, $\str{A}, \bar{a}$ and $\str{B}, \bar{b}$ satisfy the same quantifier-free FGF-formulae.
+
+  Now by strong induction, let $\phi(x_{1}, \ldots, x_{n})$ be a FGF-formulae and assume the lemma is true for all $k$ less than the quantifier rank of $\phi$.
+  Consider the case where $\phi(x_{1}, \ldots, x_{n}) = \exists{x_{(n+1)}\cdots{}x_{m}} \alpha(x_{i}, \ldots, x_{j}) \land \psi(x_{i}, \ldots, x_{j})$ ($\alpha$ is the atomic guard).
+  Let $k$ be the quantifier rank of $\phi$, then $\alpha(x_{i},\ldots,x_{j}) \land \psi(x_{i}, x_{j})$ has quantifier rank $k - 1$.
+  By symmetry, assume w.l.o.g. $\str{A}, (a_{1}, \ldots, a_{n}) \models \phi$.
+  Thus there exist $a_{n+1}, \ldots, a_{j}$ such that $\str{A} \models \alpha(a_{i}, \ldots, a_{j}) \land \psi(a_{i}, \ldots, a_{j})$.
+  As $(a_{i}, \ldots, a_{j})$ is guarded by $\alpha$, we can apply ``gforth'' to find $b_{n+1}, b_{j}$ with $\str{A}, (a_{i}, \ldots, a_{j}) \sim_{\mathrm{FGF},(k-1)} \str{B}, (b_{i}, \ldots, b_{j})$.
+  By the induction hypothesis, $\str{B}, (b_{i}, \ldots, b_{j}) \models \alpha(b_{i}, \ldots, b_{j}) \land \psi(b_{i}, \ldots, b_{j})$ and therefore also $\str{B}, (b_{1}, \ldots, b_{n}) \models \phi$.
+
+  Again, we have that the above also holds for all boolean combinations of formulae as the lemma is preserved under boolean combinations.
+  As $\forall{\bar{x}} \alpha(\bar{x}) \rightarrow \psi(\bar{x}) = \neg \exists{\bar{x}} \alpha(\bar{x}) \land \neg \psi(\bar{x})$, this also handles the case of universal quantification.
+\end{proof}
+
+\begin{lemma}
+  If $\str{A}$ and $\str{B}$ are $\omega$-saturated and $\str{A}, \bar{a}$ and $\str{B}, \bar{b}$ satisfy the same FGF formulae of quantifier rank $\le k$, then $\str{A}, \bar{a} \sim_{\mathrm{FGF}, k} \str{B}, \bar{b}$.
+\end{lemma}
+\begin{proof}
+  We show that the sets $Z_{0}, \ldots, Z_{k}$ defined as follows form a valid $k$-level FGF bisimulation:
+  \begin{equation*}
+  \mathcal{Z}_{k} = \left\{ (\bar{a}, \bar{b}) \in \bigcup_{n < \omega} (A^{n} \times B^{n}) \mid \str{A}, \bar{a} \equiv_{\mathrm{FGF},k} \str{B},\bar{b} \right\}
+  \end{equation*}
+  Each $Z_{k}$ satisfies ``atomic harmony'' as $\str{A}, \bar{a} \equiv_{\mathrm{FGF},k} \str{B},\bar{b}$ implies that $\bar{a}$ and $\bar{b}$ satisfy the same atomic formulae.
+
+  To show ``fgforth'', let $(\bar{a}, \bar{b}) \in Z_{k}$ and $\bar{c} = \bar{a}_{i\ldots{}j}\bar{e}$ be a live tuple in $\str{A}$.
+  Consider the $|e|$-type (over $\bar{b}_{i\ldots{}j}$) of all tuples $\bar{f}$ where $\str{A}, \bar{a}_{i\ldots{}j}\bar{e} \equiv_{\mathrm{FGF},k-1} \str{B}, \bar{b}_{i\ldots{j}}\bar{f}$:
+  \begin{align*}
+    \Sigma^{\bar{b}_{i\ldots{j}}}(\bar{f}) = \left\{ \phi(\bar{b}_{i\ldots{}j}\bar{f}) \mid \phi(\bar{x}) \in {\mathrm{FGF}(|c|)}_{k-1}\ \text{and}\ \str{A}, \bar{c} \models \phi(\bar{x}) \right\}
+  \end{align*}
+  We claim that $\Sigma^{\bar{b}_{i\ldots{}j}}(\bar{f})$ is realized in $\str{B}$.
+  By $\omega$-saturation and compactness it suffices to show that it is finitely satisfiable in $\str{B}$.
+  Let $\Delta \subseteq \Sigma^{\bar{b}_{i\ldots{}j}}(\bar{f})$ be a finite subset.
+  Then $\delta(\bar{x}_{i\ldots{}i+|c|}) = \bigwedge \Delta[\bar{b}_{i\ldots{}j} \mapsto \bar{x}_{i\ldots{}j}, \bar{f} \mapsto \bar{x}_{(j+1)\ldots{}(j+|e|)}]$ is a $\mathrm{FGF}_{k-1}$ formula.
+  Since $\bar{c}$ is live, there must a relation $\alpha$ such that $\bar{A}, \bar{c} \models \alpha(x_{1\ldots{}|c|})$.
+  We can now construct the $\mathrm{FGF}_{k}$-formula $\chi = \exists{x_{j+1}\cdots{}x_{j+|e|}} (\alpha(x_{i\ldots{}i+|c|}) \land \delta(\bar{x}_{i\ldots{}i+|c|}))$.
+  We have $\str{A}, \bar{a} \models \chi$ (witnessed by $\bar{e}$) and thus also $\str{B}, \bar{b} \models \chi$ as they satisfy the same $\mathrm{FGF}_{k}$ formulae by assumption.
+  So there must be $\bar{f}$ satisfying $\str{B}, \bar{b}_{i\ldots{}j}\bar{f} \models \delta(\bar{x}_{i\ldots{}i+|c|})$, which by construction means that $\str{B}, \bar{f} \models \Delta$.
+\end{proof}
+
 \pagebreak
 
 \section{Tree unraveling}
@@ -143,9 +190,9 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
 \subsection{Infinite full tree unraveling}
 
 \begin{definition}[Bisimulation Sequences]
-  The set of bisimulation sequences $\seqset{\struct{A}}$ for a structure $\struct{A}$ consists of all sequences of the form $\bar{a}_{0}(i_{1}, j_{1})\bar{a}_{1}\cdots{}(i_{l},j_{l})\bar{a}_{l}$, where:
+  The set of bisimulation sequences $\seqset{\str{A}}$ for a structure $\str{A}$ consists of all sequences of the form $\bar{a}_{0}(i_{1}, j_{1})\bar{a}_{1}\cdots{}(i_{l},j_{l})\bar{a}_{l}$, where:
   \begin{enumerate}[(1)]
-    \item $a_{i}$ is a live tuple in $\struct{A}$ for every $0 \le i \le l$,
+    \item $a_{i}$ is a live tuple in $\str{A}$ for every $0 \le i \le l$,
     \item for every $1 \le k \le l$, $(i_{k}, j_{k})$ is a pair of indices into $\bar{a}_{k-1}$ such that $\bar{a}_{k-1,i_{k}\ldots{}j_{k}} = \bar{a}_{k,1\ldots{\dist{i_{k}}{j_{k}}}}$,
     \item $\dist{i_{k}}{j_{k}} < |a_{k}|$ for $1 \le k \le l$, and
     \item $j_{k} > \dist{i_{k-1}}{j_{k-1}}$ for $2 \le k \le n$
@@ -154,10 +201,10 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
 \end{definition}
 
 \begin{definition}[Unraveling Domain]
-  The unraveling domain $\mathtt{Dom}^{\rightarrow}_{\struct{A}}$ of a structure $\struct{A}$ is defined as:
+  The unraveling domain $\mathtt{Dom}^{\rightarrow}_{\str{A}}$ of a structure $\str{A}$ is defined as:
   \begin{equation*}
-    \mathtt{Dom}^{\rightarrow}_{\struct{A}}
-      = (\seqset{\struct{A}} \times \mathbb{N})
+    \mathtt{Dom}^{\rightarrow}_{\str{A}}
+      = (\seqset{\str{A}} \times \mathbb{N})
         \setminus
         \left\{ (\sigma(i,j)\bar{a}, k) \mid k \le \dist{i}{j}\ \text{or}\ k > |a| \right\}
   \end{equation*}
@@ -170,23 +217,23 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
   We will use the following notation:
   \begin{enumerate}
     \item $\pi(e) = \bar{a}_{k} \in A$ (the projection of $e$)
-    \item $\seq{e} = \rho \in \seqset{\struct{A}}$ (the sequence of $e$)
+    \item $\seq{e} = \rho \in \seqset{\str{A}}$ (the sequence of $e$)
     \item $\num{e} = k \in \mathbb{N}$ (the counter of $e$)
   \end{enumerate}
 \end{definition}
 
 
 \begin{definition}[Infinite Full Tree Unraveling]
-  The infinite full tree unraveling for a base structure $\struct{A}$ is a structure $\struct{A}^{\rightarrow{}}$ with domain $\mathtt{Dom}^{\rightarrow}_{\struct{A}}$.
-  Each relation $R_{i}$ in the signature of $\struct{A}$ is interpreted in $\struct{A}^{\rightarrow}$ as:
+  The infinite full tree unraveling for a base structure $\str{A}$ is a structure $\str{A}^{\rightarrow{}}$ with domain $\mathtt{Dom}^{\rightarrow}_{\str{A}}$.
+  Each relation $R_{i}$ in the signature of $\str{A}$ is interpreted in $\str{A}^{\rightarrow}$ as:
   \begin{equation*}
-    \overrightarrow{r} \in R_{i}^{\struct{A}^{\rightarrow}} \iff \pi[\overrightarrow{r}] \in R_{i}^{\struct{A}} \land \bigwedge_{k=1}^{|\overrightarrow{r}|-1}{(\nextrel{\overrightarrow{r}_{k}}{\overrightarrow{r}_{k+1}})} \land |\overrightarrow{r}| \le \mathtt{bound}(\overrightarrow{r})
+    \overrightarrow{r} \in R_{i}^{\str{A}^{\rightarrow}} \iff \pi[\overrightarrow{r}] \in R_{i}^{\str{A}} \land \bigwedge_{k=1}^{|\overrightarrow{r}|-1}{(\nextrel{\overrightarrow{r}_{k}}{\overrightarrow{r}_{k+1}})} \land |\overrightarrow{r}| \le \mathtt{bound}(\overrightarrow{r})
   \end{equation*}
   where $\mathtt{bound}(\overrightarrow{r}) = \num{\overrightarrow{r}_{|\overrightarrow{r}|}}$ (counter of last element of $\overrightarrow{r}$)
 \end{definition}
 
 % \begin{definition}[Lifting tuples and bisimulation sequences]
-%   For each tuple $\bar{a} \in \struct{A}$, we define a lifted tuple $\lift{\bar{a}} \in \struct{A}^{\rightarrow}$ as follows:
+%   For each tuple $\bar{a} \in \str{A}$, we define a lifted tuple $\lift{\bar{a}} \in \str{A}^{\rightarrow}$ as follows:
 %   \begin{equation*}
 %     \lift{\bar{a}} = ((\bar{a}, 1), \ldots{}, (\bar{a}, |a|))
 %   \end{equation*}
@@ -201,7 +248,7 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
 \pagebreak
 
 \begin{lemma}
-  $\struct{A} \sim_{\mathrm{FGF}} \struct{A}^{\rightarrow{}}$
+  $\str{A} \sim_{\mathrm{FGF}} \str{A}^{\rightarrow{}}$
 \end{lemma}
 \begin{proof}
   We show that the set $\mathcal{Z}$, defined as follows, is FGF bisimulation:
@@ -214,10 +261,10 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
   \begin{description}
     \item[(atomic harmony)]
           Let $(\bar{a}, \bar{a}^{*}) \in \mathcal{Z}$.
-          We show that $\bar{a}_{i\ldots{}j} \in R^{\struct{A}} \iff \bar{a}^{*}_{i\ldots{}j} \in R^{\struct{A}^{\rightarrow}}$.
+          We show that $\bar{a}_{i\ldots{}j} \in R^{\str{A}} \iff \bar{a}^{*}_{i\ldots{}j} \in R^{\str{A}^{\rightarrow}}$.
           From $\bar{a} = \pi[\bar{a}^{*}]$ follows that $\bar{a}_{i\ldots{}j} = \pi[\bar{a}^{*}_{i\ldots{}j}]$.
-          By definition of the unraveling $\bar{a}^{*}_{i\ldots{}j} \in R^{\struct{A}^{\rightarrow}}$ implies $\pi[\bar{a}^{*}_{i\ldots{}j}] \in R^{\struct{A}}$ leaving only the ``$\implies$'' direction to be shown.
-          We prove the three conditions required for $\bar{a}^{*}_{i\ldots{}j} \in R^{\struct{A}^{\rightarrow}}$:
+          By definition of the unraveling $\bar{a}^{*}_{i\ldots{}j} \in R^{\str{A}^{\rightarrow}}$ implies $\pi[\bar{a}^{*}_{i\ldots{}j}] \in R^{\str{A}}$ leaving only the ``$\implies$'' direction to be shown.
+          We prove the three conditions required for $\bar{a}^{*}_{i\ldots{}j} \in R^{\str{A}^{\rightarrow}}$:
           \begin{itemize}
             \item
                   $\pi[\bar{a}^{*}_{i\ldots{}j}] \in R^{\mathfrak{A}}$ follows directly from $\bar{a}_{i\ldots{}j} \in R^{\mathfrak{A}}$.
@@ -264,12 +311,12 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
 \pagebreak
 
 \begin{lemma}\label{lem:fgf-intersection-continuous}
-  If two tuples $\overrightarrow{a}, \overrightarrow{a}' \in \struct{A}^{\rightarrow}$ intersect, then $\overrightarrow{a} \cap \overrightarrow{a}'$ is an infix of both $\overrightarrow{a}, \overrightarrow{a}'$ and
+  If two tuples $\overrightarrow{a}, \overrightarrow{a}' \in \str{A}^{\rightarrow}$ intersect, then $\overrightarrow{a} \cap \overrightarrow{a}'$ is an infix of both $\overrightarrow{a}, \overrightarrow{a}'$ and
   $\overrightarrow{a} \cap \overrightarrow{a}'$ is a prefix of at least one of $\overrightarrow{a}, \overrightarrow{a}'$.
 \end{lemma}
 
 \begin{lemma}
-  If $\struct{A} \sim_{\mathrm{FGF},2*W*l} \struct{B}$, then $\struct{A}^{\rightarrow} \sim_{\mathrm{GF},l} \struct{B}^{\rightarrow}$
+  If $\str{A} \sim_{\mathrm{FGF},2*W*l} \str{B}$, then $\str{A}^{\rightarrow} \sim_{\mathrm{GF},l} \str{B}^{\rightarrow}$
 \end{lemma}
 \begin{proof}
   Let $\mathcal{Z}_{0}, \ldots, \mathcal{Z}_{l}$ be a sequence of sets, each defined as follows:
@@ -302,7 +349,7 @@ A k-level bisimulation is a sequence of sets $\mathcal{Z}_0, \ldots, \mathcal{Z}
   Since forward-type equivalence is the same as full atomic type equivalence in tree unravelings, this shows that $\mathcal{Z}_{\alpha}$ respects atomic harmony.
 
   \paragraph{Back-and-forth property}
-  Now let $(\overrightarrow{a}, \overrightarrow{b}) \in \mathcal{Z}_{\alpha}$ and $\overrightarrow{a}'$ be a guarded tuple in $\struct{A}^{\rightarrow}$.
+  Now let $(\overrightarrow{a}, \overrightarrow{b}) \in \mathcal{Z}_{\alpha}$ and $\overrightarrow{a}'$ be a guarded tuple in $\str{A}^{\rightarrow}$.
   Since all guarded tuples in an unraveling are also live, \cref{lem:fgf-intersection-continuous} applies so the common elements of $\overrightarrow{a} \cap \overrightarrow{a}'$ must be a prefix of one of $\overrightarrow{a}, \overrightarrow{a}'$.
   We call the case where $\overrightarrow{a} \cap \overrightarrow{a}'$ is a prefix of $\overrightarrow{a}'$ the \emph{forward case}, and the other case the \emph{backward case}.
 
