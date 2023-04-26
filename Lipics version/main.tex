@@ -1,0 +1,103 @@
+%!TEX root = main.tex
+\pdfoutput=1
+\documentclass[a4paper,UKenglish,cleveref, autoref, thm-restate, hideLIPIcs]{lipics-v2021}
+\bibliographystyle{plainurl}
+\input{settings/paper-info}
+\input{settings/packages}
+\input{settings/macros}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\bbebox{TODO.}
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+\bbebox{TODO.}
+
+
+\section{Preliminaries}\label{sec:preliminaries}
+We employ standard terminology from (finite and classical) model theory~\cite{Hodges97,Libkin04}.
+All the logics considered here will be fragments of the first-order logic ($\FO$) over purely-relational equality-free vocabularies, under the usual syntax and semantics. 
+
+We fix a countably infinite set $\V \deff \{x_i \mid i \in \N\}$ of variables. 
+Throughout this paper all the formulae will use only variables from this set.
+With $\sig(\varphi)$ we denote the set of relational symbols appearing in $\varphi$. 
+We use $\arity(\relR)$ to denote the arity of $\relR$.
+For a logic $\logicL$ and a signature~$\sigma$ we use~$\logicL[\sigma]$ in place of~$\{ \varphi \in \logicL \mid \sig(\varphi) \subseteq \sigma \}$.
+Moreover, if an $\ell \in \N$ is given we use $\logicL_\ell$ to denote the restriction of $\logicL$ to formulae of quantifier rank (i.e.\ the maximal number of nested quantifiers) at most~$\ell$. 
+We write $\varphi(\vartuplex)$ to indicate that all free variables from $\varphi$ are members of $\vartuplex$. If $\vartuplex$ contains precisely the free
+variables of $\varphi$, then we will emphasise this separately.
+A formula without free variables will be called a \emph{sentence}. 
+Given a structure $\str{A}$ and $B \subseteq A$, we will use $\restr{\str{A}}{B}$ to denote the \emph{substructure} of $\str{A}$ induced by $B$.\\
+
+\noindent \textbf{Tuples and subsequences.}
+An $n$-tuple is a sequence with $n$ elements. The $0$-tuple is denoted with $\emptytupl$.
+We use $\vartuplexfromto{i}{j}$ to denote the $(j{-}i{+}1)$-tuple $\varx_i, \varx_{i+1}, \ldots, \varx_j$.
+We say that $\vartuplexfromto{i}{j}$ is an infix of a tuple $\vartuplexfromto{k}{l}$ if $k \leq i \leq j \leq l$ holds. 
+To improve readability, tuples of tuples will be denoted by arrows, for instance with $\elemtuptuplea$.
+For a set $S$, we write $\vartuplex \sqin S$ iff $\varx_i \in S$ for all indices $1 \leq i \leq |\vartuplex|$, where $|\vartuplex|$ denotes the length of~$\vartuplex$. 
+A tuple $\elemtuplea \sqin A$ is \emph{$\sigma$-live} (or simply \emph{live} if a signature $\sigma$ is known from the context) in $\str{A}$ if $|\elemtuplea| \leq 1$ or~$\elemtuplea \in \relR^{\str{A}}$ for some~$\relR \in \sigma$.\\
+
+\noindent \textbf{Guarded fragments.}
+We start by recalling the definition of the \emph{guarded fragment}~\cite{AndrekaNB98}, \ie the fragment of $\FO$ obtained by requiring that blocks of quantifiers are appropriately relativised by atoms.
+Formally $\GF$ is the smallest fragment of $\FO$  such that:
+\begin{itemize}\itemsep0em
+    \item Every atomic formula is in $\GF$;
+    \item $\GF$ is closed under boolean connectives $\land, \lor, \neg, \to$;
+    \item If $\varphi(\vartuplex, \vartupley)$ is in $\GF$ and $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$ and $\vartupley$ is a tuple of variables then both $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are in $\GF$; 
+    \item If $\varphi(\varx)$ has only a single free-variable $\varx$, then $\forall{\varx}\; \varphi$ and $\exists{\varx}\; \varphi$ are in $\GF$.
+\end{itemize}
+The atoms $\alpha$ appearing in the 3rd item of the above definition are called \emph{guard}.
+We stress that in definition of a quantifier rank for $\GF$ we count treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as as a single quantifier (not as an abbreviation for a block of quantifiers).
+
+The \emph{forward guarded fragment} $\FGF$~\cite{Bednarczyk21} restrict $\GF$ in a way that the allowed sequences of atoms are \emph{infixes} (a.k.a.\@ contiguous subsequences) of the sequence of already-introduced variables in the order of their quantification.
+A formal definition comes next, which will be follow by a bunch of examples.
+$\FGF(n)$ for $n \in \N$ is the smallest fragment of $\FO$ satisfying:
+\begin{itemize}\itemsep0em
+    \item An atom $\alpha(\vartuplex)$ belongs to $\FGF(n)$ if $\alpha$ is equality-free and $\vartuplex$ is an infix of $\vartuplexfromto{1}{n}$.
+    \item $\FGF(n)$ is closed under boolean connectives $\land, \lor, \neg, \to, \iff$;
+    \item If $\varphi$ is in $\FGF(n{+}k)$ for a positive $k$ and $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$ and $\vartupley$ is a $k$-tuple of variables then  $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are both in $\FGF(n)$; 
+    \item If $\varphi(\varx_1) \in \FGF(1)$ has only a single free-variable $\varx_1$, then $\forall{\varx_1}\; \varphi$ and $\exists{\varx_1}\; \varphi$ are in $\FGF(0)$.
+\end{itemize}
+We use $\FGF$ to denote $\FGF(0)$. 
+Note that $\FGF(0)$ is solely composed of sentences. 
+
+\bbebox{TODO:\@ Introduce some examples of sentences that (i) are in $\FGF$ (ii) are in $\GF$ but not in $\FO$ and sentences that are (iii) in $\GF$ but not in $\FGF$.}
+
+\noindent \textbf{Bisimulations for guarded fragments.}
+%
+We next present notion of bisimulation relations tailored towards $\GF$ and $\FGF$.
+Fix a logic $\logicL$, a finite signature~$\sigma$, a $\sigma$-structure $\str{A}$ and an $n$-tuple of elements $\elemtuplea \sqin A$. 
+The $\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL[\sigma]}{\str{A}}{\elemtuplea}$, consists of all $\logicL[\sigma]$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$. 
+
+For a signature $\sigma$ and $\sigma$-structures $\str{A}$ and $\str{B}$ we denote with $\PartIso{\str{A}}{\str{B}}$ the set of all partial isomorphisms between $\str{A}$ and $\str{B}$.\bbeside{Parametrize by $\sigma$.} 
+For $\bisimZ, \bisimZ' \in \PartIso{\str{A}}{\str{B}}$ we say that $\bisimZ'$ satisfies back-and-forth conditions for $\bisimZ$ if for every partial isomorphism $\partisof \in \bisimZ$ we have:
+%
+\begin{description}\itemsep0em
+  \item[\desclabel{(gForth)}{desc:gforth}] For any $\sigma$-live $\elemtuplea \sqin A$, there is $\partisog \in \bisimZ'$ with the domain $\elemtuplea$ such that $\partisof$ and $\partisog$ agree on their common domain. 
+  \item[\desclabel{(gBack)}{desc:gback}] For any $\sigma$-live $\elemtupleb \sqin B$, there is $\partisog \in \bisimZ'$ with the image $\elemtuplea$ such that $\partisof$ and $\partisog$ agree on their common domain. 
+\end{description}
+The set $\bisimZ$ is a $\GF[\sigma]$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies \ref{desc:gforth} and~\ref{desc:gback} conditions given above.
+An $\ell$-$\GF[\sigma]$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of partial isomorphisms from $\PartIso{\str{A}}{\str{B}}$ such that for all $i > 0$ we have that $\bisimZ$ satisfies~\ref{desc:gforth} and~\ref{desc:gback} conditions for $\bisimZ_{i{-}1}$.
+We say that pointed structures $(\str{A}, \elemtuplea)$\bbeside{pointed structures undef} and $(\str{B}, \elemtupleb)$ are $\GF[\sigma]$-\emph{bisimilar}, denoted $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]} (\str{B}, \elemtupleb)$ if there exists a $\GF[\sigma]$-bisimulation  between $\str{A}$ and $\str{B}$ containing the partial isomorphism $\elemtuplea \mapsto \elemtupleb$.
+Analogously we speak about $\ell$-$\GF[\sigma]$-\emph{bisimilar}; Notation: $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]}^{\ell} (\str{B}, \elemtupleb)$.
+We links bisimulations and logical equivalence as follows:
+
+\begin{lemma}
+For any finite signature $\sigma$ and $\sigma$-structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ we have that:\\
+(a) $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF[\sigma]} (\str{B}, \elemtupleb)$;\\
+(b) $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]}^{\ell} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF_\ell[\sigma]} (\str{B}, \elemtupleb)$;\\
+Moreover, if $\str{A}$ and $\str{B}$ are $\omega$-saturated\bbeside{undef}, then the reverse implication hold.
+\end{lemma}
+\begin{proof}
+\bbebox{TODO: Benno. Either prove it or find a suitable reference (the second option is preferred.)}
+\end{proof}
+
+
+\clearpage
+\bibliography{references}
+
+\end{document}

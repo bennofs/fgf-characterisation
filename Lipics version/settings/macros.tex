@@ -1,0 +1,197 @@
+% Inline comments
+\definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
+\definecolor{brickred}{rgb}{0.8, 0.25, 0.33}
+\newcommand{\myundef}[1]{\textcolor{brickred}{\textbf{#1}}}
+\newcommand{\possiblelie}[1]{\textcolor{brickred}{\textbf{#1}}}
+\newcommand{\becareful}[1]{\textcolor{brickred}{\textbf{#1}}}
+\newcommand{\bennof}[1]{\textcolor{blue}{\textbf{#1}}}
+\newcommand{\bbe}[1]{\textcolor{ao(english)}{#1}}
+\newcommand{\bbebox}[1]{\todo[inline,color=green!30]{\textbf{BB\@: }#1}\xspace}
+\newcommand{\bbeside}[1]{\todo[color=green!30,size=\scriptsize,fancyline]{\textbf{BB\@: }#1}\xspace}
+\newcommand{\bfbox}[1]{\todo[inline,color=blue!30]{\textbf{BF\@: }#1}\xspace}
+\newcommand{\bfside}[1]{\todo[color=blue!30,size=\scriptsize,fancyline]{\textbf{BF\@: }#1}\xspace}
+
+% logics:
+\newcommand{\Logic}[1]{\ensuremath{\mathsf{#1}}} % a Logic
+\newcommand{\logicL}{\Logic{L}} % some logic L
+\newcommand{\Laffix}{\Logic{L}_{\mathsf{affix}}}   % L_affix
+\newcommand{\Linfix}{\Logic{L}_{\mathsf{inf}}}   % L_infix
+\newcommand{\Lsuffix}{\Logic{L}_{\mathsf{suf}}} % L_suffix
+\newcommand{\Lprefix}{\Logic{L}_{\mathsf{pre}}} % L_prefix
+
+\newcommand{\Gaffix}{\Logic{G}_{\mathsf{affix}}}   % G_affix
+\newcommand{\Ginfix}{\Logic{G}_{\mathsf{inf}}}     % G_infix
+\newcommand{\Gsuffix}{\Logic{G}_{\mathsf{suf}}}    % G_suffix
+\newcommand{\Gprefix}{\Logic{G}_{\mathsf{pre}}}    % G_prefix
+
+\newcommand{\GF}{\Logic{GF}}   % Guarded Fragment
+\newcommand{\FGF}{\Logic{FGF}}   % Forward Guarded Fragment
+\newcommand{\FO}{\Logic{FO}}   % First-Order Logic
+
+% Complexity classses:
+\newcommand{\complexityclass}[1]{\textsc{#1}} % any complexity class
+\newcommand{\ExpTime}{\complexityclass{ExpTime}} % exponential time
+\hyphenation{Exp-Time} % prevent "Ex-PTime" (see, e.g. Tobies'01, Glimm'07 ;-)
+\newcommand{\NExpTime}{\complexityclass{NExpTime}} % nondeterministic exponential time
+\hyphenation{NExp-Time} % prevent "Ex-PTime" (see, e.g. Tobies'01, Glimm'07 ;-)
+\newcommand{\TwoExpTime}{\complexityclass{2ExpTime}} % doubly-exponential time
+\newcommand{\TwoNExpTime}{\complexityclass{2NExpTime}} % doubly-nondeterministic-exponential time
+\newcommand{\coNExpTime}{\complexityclass{coNExpTime}} % co nondeterministic exponential time
+\hyphenation{coNExp-Time} 
+\newcommand{\Tower}{\complexityclass{Tower}}
+\newcommand{\LogSpace}{\complexityclass{LogSpace}}
+\newcommand{\PSpace}{\complexityclass{PSpace}}
+\newcommand{\PTime}{\complexityclass{PTime}}
+
+% Others
+\newcommand{\str}[1]{{\mathfrak{#1}}}
+\newcommand{\deff}{\coloneqq}
+\newcommand{\arity}{\mathsf{ar}}
+\renewcommand{\iff}{\leftrightarrow}
+
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\Z}{{\mathbb{Z}}} 
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\V}{\mathbf{V}} 
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\sigSigma}{\Sigma}
+
+\newcommand{\sqin}{%
+  \mathrel{\vphantom{\sqsubset}\text{%
+    \mathsurround=0pt
+    \ooalign{$\sqsubset$\cr$-$\cr}%
+  }}%
+}
+
+% Rel symbols
+\newcommand{\rel}[1]{\mathrm{#1}}
+\newcommand{\relP}{\rel{P}}
+\newcommand{\relR}{\rel{R}}
+\newcommand{\relQ}{\rel{Q}}
+\newcommand{\relS}{\rel{S}}
+\newcommand{\relT}{\rel{T}}
+\newcommand{\relU}{\rel{U}}
+\newcommand{\relA}{\rel{A}}
+\newcommand{\relB}{\rel{B}}
+\newcommand{\relC}{\rel{C}}
+\newcommand{\relD}{\rel{D}}
+\newcommand{\relE}{\rel{E}}
+\newcommand{\relH}{\rel{H}}
+\newcommand{\sig}{\mathsf{sig}}
+
+% Empty tuple
+\newcommand{\emptytupl}{\epsilon}
+
+% Domain elements
+\newcommand{\elem}[1]{\mathrm{#1}}                           % domain element
+\newcommand{\elema}{\elem{a}}                             % domain element a
+\newcommand{\elemb}{\elem{b}}                             % domain element b
+\newcommand{\elemc}{\elem{c}}                             % domain element c
+\newcommand{\elemd}{\elem{d}}                             % domain element d
+\newcommand{\eleme}{\elem{e}}                             % domain element e
+\newcommand{\elemf}{\elem{f}}                               % domain element f
+\newcommand{\elemg}{\elem{g}}                             % domain element g
+\newcommand{\elemh}{\elem{h}}                             % domain element h
+\newcommand{\elemi}{\elem{i}}                             % domain element i
+\newcommand{\elemj}{\elem{j}}                             % domain element j
+\newcommand{\elemw}{\elem{w}}                             % domain element w
+\newcommand{\elemv}{\elem{v}}                             % domain element v
+\newcommand{\elemu}{\elem{u}}                             % domain element u
+\newcommand{\elemtuplea}{\overline{\elema}}                         % tuple of domain element a
+\newcommand{\elemtupleb}{\overline{\elemb}}                         % tuple of domain element b
+\newcommand{\elemtuplec}{\overline{\elemc}}                         % tuple of domain element c
+\newcommand{\elemtupled}{\overline{\elemd}}                         % tuple of domain element d
+\newcommand{\elemtuplee}{\overline{\eleme}}                         % tuple of domain element e
+\newcommand{\elemtuplef}{\overline{\elemf}}                           % tuple of domain element f
+\newcommand{\elemtupleg}{\overline{\elemg}}                         % tuple of domain element g
+\newcommand{\elemtupleh}{\overline{\elemh}}                         % tuple of domain element h
+\newcommand{\elemtuplei}{\overline{\elemi}}                         % tuple of domain element i
+\newcommand{\elemtuplej}{\overline{\elemj}}                         % tuple of domain element j
+\newcommand{\elemtuplew}{\overline{\elemw}}                         % tuple of domain element w
+\newcommand{\elemtupleu}{\overline{\elemu}}                         % tuple of domain element u
+\newcommand{\elemtuplev}{\overline{\elemv}}                         % tuple of domain element v
+
+\newcommand{\elemtupledfromto}[2]{\overline{\elemd}_{#1\ldots#2}}  % tuple of domelements d from #1 to #2
+\newcommand{\elemtupleefromto}[2]{\overline{\eleme}_{#1\ldots#2}}  % tuple of domelements e from #1 to #2
+\newcommand{\elemtuplecfromto}[2]{\overline{\elemc}_{#1\ldots#2}}  % tuple of domelements c from #1 to #2
+\newcommand{\elemtuplebfromto}[2]{\overline{\elemb}_{#1\ldots#2}}  % tuple of domelements b from #1 to #2
+\newcommand{\elemtupleafromto}[2]{\overline{\elema}_{#1\ldots#2}}  % tuple of domelements a from #1 to #2
+\newcommand{\elemtupleffromto}[2]{{\elemtuplef}_{#1\dots#2}} % tuple of domelements f from #1 to #2
+\newcommand{\elemtuplegfromto}[2]{{\elemtupleg}_{#1\dots#2}} % tuple of domelements g from #1 to #2
+
+
+\newcommand{\elemtuptuplea}{\vv{\elema}}                         % tuple of domain element a
+\newcommand{\elemtuptupleb}{\vv{\elemb}}                         % tuple of domain element b
+\newcommand{\elemtuptuplec}{\vv{\elemc}}                         % tuple of domain element c
+\newcommand{\elemtuptupled}{\vv{\elemd}}                         % tuple of domain element d
+\newcommand{\elemtuptuplee}{\vv{\eleme}}                         % tuple of domain element e
+\newcommand{\elemtuptuplef}{\vv{\elemf}}                           % tuple of domain element f
+\newcommand{\elemtuptupleg}{\vv{\elemg}}                         % tuple of domain element g
+\newcommand{\elemtuptupleh}{\vv{\elemh}}                         % tuple of domain element h
+\newcommand{\elemtuptuplei}{\vv{\elemi}}                         % tuple of domain element i
+\newcommand{\elemtuptuplej}{\vv{\elemj}}                         % tuple of domain element j
+\newcommand{\elemtuptuplew}{\vv{\elemw}}                         % tuple of domain element w
+\newcommand{\elemtuptupleu}{\vv{\elemu}}                         % tuple of domain element u
+\newcommand{\elemtuptuplev}{\vv{\elemv}}                         % tuple of domain element v
+
+
+
+
+
+% Variables:
+\newcommand{\var}[1]{\mathit{#1}}       % variable
+\newcommand{\varx}{\var{x}}             % variable x
+\newcommand{\vary}{\var{y}}             % variable y
+\newcommand{\varz}{\var{z}}             % variable z
+\newcommand{\varv}{\var{v}}             % variable v
+\newcommand{\varu}{\var{u}}             % variable u
+\newcommand{\varw}{\var{w}}             % variable w
+\newcommand{\varh}{\var{h}}             % variable h
+\newcommand{\vartuplex}{\overline{\varx}}    % tuple of variables x
+\newcommand{\vartuplexomega}{\overline{\varx_{\omega}}}      % tuple of variables x_omega
+\newcommand{\vartupley}{\overline{\vary}}                    % tuple of variables y
+\newcommand{\vartupleyone}{\overline{\vary_1}}                    % tuple of variables y_1
+\newcommand{\vartupleytwo}{\overline{\vary_2}}                    % tuple of variables y_2
+\newcommand{\vartuplez}{\overline{\varz}}                    % tuple of variables z
+\newcommand{\vartuplev}{\overline{\varv}}                    % tuple of variables v
+\newcommand{\vartupleu}{\overline{\varu}}                    % tuple of variables u
+\newcommand{\vartuplew}{\overline{\varw}}                    % tuple of variables w
+\newcommand{\vartupleh}{\overline{\varh}}                    % tuple of variables h
+\newcommand{\vartuplexfromto}[2]{\overline{\varx}_{#1\ldots#2}}  % tuple of variables x from #1 to #2
+\newcommand{\vartupleyfromto}[2]{\overline{\vary}_{#1\ldots#2}}  % tuple of variables y from #1 to #2
+\newcommand{\vartupleufromto}[2]{\overline{\varu}_{#1\ldots#2}}  % tuple of variables u from #1 to #2
+\newcommand{\vartuplevfromto}[2]{\overline{\varv}_{#1\ldots#2}}  % tuple of variables v from #1 to #2
+\newcommand{\vartuplewfromto}[2]{\overline{\varw}_{#1\ldots#2}}  % tuple of variables v from #1 to #2
+
+% Theory
+\newcommand{\theory}[1]{\mathcal{#1}}   % theory
+\newcommand{\theoryT}{\theory{T}}       % theory T
+
+% Types
+\newcommand{\tp}[3]{\mathsf{tp}^{#1}_{#2}(#3)}
+
+
+% Restrictions
+\renewcommand{\restriction}{\mathord{\upharpoonright}}
+\newcommand{\restr}[2]{#1\restriction_{#2}} % the restriction of #1 to #2
+
+% morphisms
+\newcommand{\homo}[1]{\mathfrak{#1}}    % homomorphism
+\newcommand{\homof}{\homo{f}}           % homomorphism f
+\newcommand{\homog}{\homo{g}}           % homomorphism g
+\newcommand{\homoh}{\homo{h}}           % homomorphism h
+\newcommand{\ishomoto}{\vartriangleleft} % is homomorhic to
+\newcommand{\homeq}{\rightleftarrows} % homomorphically equivalent
+\newcommand{\isoeq}{\cong} % isomorphic
+\newcommand{\elemext}{\preceq} % elementary extension
+\newcommand{\omegasat}[1]{\widehat{#1}}
+\newcommand{\partisof}{\homo{f}}           % partial isomorphism f
+\newcommand{\partisog}{\homo{g}}           % partial isomorphism g
+\newcommand{\partisoh}{\homo{h}}           % partial isomorphism h
+
+% bisimulations
+\newcommand{\bisimulation}[1]{\mathcal{#1}} % a bisimulation
+\newcommand{\bisimZ}{\bisimulation{Z}}
+\newcommand{\bisimto}{\sim} % bisimilarity relation
+\newcommand{\strbisimto}{\approx} % strong bisimilarity relation
+\newcommand{\PartIso}[2]{\mathsf{Part}(#1,#2)}

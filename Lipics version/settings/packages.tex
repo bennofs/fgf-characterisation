@@ -1,0 +1,127 @@
+%!TEX root = ../main.tex
+
+\frenchspacing % Spacing and typesetting
+\usepackage{microtype} % Micro typing improvements
+\usepackage{ellipsis} % improves whitespacing around "..."s
+\usepackage[abbreviations,british]{foreign} % for better typing i.e., e.g. etc. 
+
+% Knowledge package
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
+\definecolor{persianplum}{rgb}{0.44, 0.11, 0.11}
+
+\hypersetup{
+  colorlinks  = true, % Colours links instead of ugly boxes
+  citecolor   = persianplum, % Colour of citations
+  urlcolor    = persianplum, % Colour for external hyperlinks,
+  linkcolor   = persianplum
+}
+
+% TODO notes
+\usepackage{tikz}
+\usepackage{todonotes}
+\usepackage{xspace}
+
+% Math stuff
+\let\Bbbk\relax
+\usepackage{mathtools}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+% Pictures
+\usepackage{caption}
+\usepackage{float}
+\usepackage{subcaption}
+
+% Arrows
+\usepackage[h]{esvect}
+
+% Descriptions 
+\makeatletter
+\def\desclabel#1#2{\begingroup
+\def\@currentlabel{#1}%
+#1\label{#2}\endgroup
+}
+\makeatother
+
+% Tikz settings by Nicolas Markey
+\usetikzlibrary{arrows, decorations.markings, shapes, calc}
+
+\colorlet{jaune}{yellow!80!green}
+\def\enjaune#1{\textcolor{jaune!70!red!70!green}{#1}}
+\colorlet{vert}{green!45!black}
+\def\envert#1{\textcolor{vert}{#1}}
+\colorlet{bleu}{blue!70!black}
+\def\enbleu#1{\textcolor{bleu}{#1}}
+\colorlet{rouge}{red!80!black}
+\def\enrouge#1{\textcolor{rouge}{#1}}
+
+\tikzstyle{minirond}=[draw, circle, minimum height=2mm, inner sep=0pt]
+\tikzstyle{ptrond}=[draw, circle, minimum height=2.5mm]
+\tikzstyle{medrond}=[draw, circle, minimum height=5mm]
+\tikzstyle{rond}=[draw, circle, minimum height=7mm]
+
+\tikzstyle{carre}=[draw,minimum width=6mm,minimum height=6mm]
+\tikzstyle{medcarre}=[draw,minimum width=4mm,minimum height=4mm]
+\tikzstyle{ptcarre}=[draw,minimum width=2.8mm,minimum height=2.8mm]
+\tikzstyle{minicarre}=[draw,minimum width=1.5mm,minimum height=1.5mm,inner sep=0pt]
+%
+\tikzstyle{rouge}=[draw=red,fill=red!20!white]
+\tikzstyle{vert}=[draw=green!80!black,fill=green!80!black!20!white]
+\tikzstyle{jaune}=[draw=yellow!60!red,fill=yellow!60!red!30!white]
+\tikzstyle{bleu}=[draw=blue,fill=blue!40!white]
+\tikzstyle{gris}=[draw=black!80!white,fill=black!40!white]
+%
+\tikzstyle{rougef}=[draw=red,fill=red!60!white]
+\tikzstyle{vertf}=[draw=green!80!black,fill=green!80!black!60!white]
+\tikzstyle{jaunef}=[draw=yellow!80!black,fill=yellow!80!black!60!white]
+\tikzstyle{bleuf}=[draw=blue,fill=blue!70!white]
+%
+\tikzstyle{rjaune}=[style=rond,style=jaune]
+\tikzstyle{rbleu}=[style=rond,style=bleu]
+\tikzstyle{rvert}=[style=rond,style=vert]
+\tikzstyle{rrouge}=[style=rond,style=rouge]
+\tikzstyle{rgris}=[style=rond,style=gris]
+%
+\tikzstyle{cjaune}=[style=carre,style=jaune]
+\tikzstyle{cbleu}=[style=carre,style=bleu]
+\tikzstyle{cvert}=[style=carre,style=vert]
+\tikzstyle{crouge}=[style=carre,style=rouge]
+\tikzstyle{cgris}=[style=carre,style=gris]
+%
+\tikzstyle{rjaunef}=[style=rond,style=jaunef]
+\tikzstyle{rbleuf}=[style=rond,style=bleuf]
+\tikzstyle{rvertf}=[style=rond,style=vertf]
+\tikzstyle{rrougef}=[style=rond,style=rougef]
+
+% Double colours in nodes: https://tex.stackexchange.com/questions/343354/tikz-rectangle-with-diagonal-fill-two-colors
+\usetikzlibrary{shadows}
+\tikzset{
+diagonal fill/.style 2 args={fill=#2, path picture={
+\fill[#1, sharp corners] (path picture bounding box.south west) -|
+                         (path picture bounding box.north east) -- cycle;}},
+reversed diagonal fill/.style 2 args={fill=#2, path picture={
+\fill[#1, sharp corners] (path picture bounding box.north west) |- 
+                         (path picture bounding box.south east) -- cycle;}}
+}
+
+\usetikzlibrary{hobby,backgrounds,calc,trees}
+
+% Category-theory-like diagrams
+% https://tikzcd.yichuanshen.de/
+\usepackage{tikz-cd}
+\usetikzlibrary{matrix}
+\usepackage{stmaryrd}
+\usepackage{stackengine}
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommfont}
+\SetKwInput{KwData}{Input}
+\renewcommand*{\algorithmcfname}{Procedure}
+\renewcommand*{\algorithmautorefname}{procedure}
+\newtheorem{fact}{Fact}
