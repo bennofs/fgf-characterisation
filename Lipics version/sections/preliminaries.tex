@@ -46,7 +46,10 @@ The atoms $\alpha$ appearing in the 3rd item of the above definition are called 
 We stress that in definition of a quantifier rank for $\GF$ we count treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as as a single quantifier (not as an abbreviation for a block of quantifiers).
 
 \begin{example}
-\bbe{TODO: Benno, please add here an example of a formulae in $\GF$ and an example of a formula that is in $\FO$ but not in $\GF$.}
+  \begin{align*}
+  \phi &= \exists{x_{1}x_{2}x_{3}} (\alpha(x_{1}, x_{2}, x_{3}) \and \forall x_{4}(\alpha(x_{4}, x_{4}, x_{1}) \to \alpha(x_{1}, x_{4}, x_{1}))) \in \GF \\
+  \psi &= \exists{x_{1}x_{2}x_{3}} (E(x_{1}, x_{2}) \land E(x_{2}, x_{3}) \land E(x_{3}, x_{1})) \notin GF
+  \end{align*}
 \end{example}
 
 The \emph{forward guarded fragment} $\FGF$~\cite[Sec. 3.1]{Bednarczyk21} restrict $\GF$ in a way that the allowed sequences of atoms are infixes of the sequence of already-introduced variables in the order of their quantification.
@@ -62,7 +65,12 @@ We use $\FGF$ to denote $\FGF(0)$.
 Note that $\FGF(0)$ is solely composed of sentences. 
 
 \begin{example}
-\bbe{TODO: Benno, please include examples of formulae that are in $\FGF$ but not in $\GF$.}
+  \begin{align*}
+    \phi_{1} &= \exists{x_1x_{2}x_{3}}(\alpha(x_{1}, x_{2}, x_{3}) \land \forall{x_{4}x_{5}}(\beta(x_{3}, x_{4}, x_{5}) \to \delta(x_{4})) \land \exists{x_{3}}(\gamma(x_{1}, x_{2}, x_{3}))) \in \FGF \\
+    \phi_{2} &= \forall{x_{1}} (\alpha(x_{1}) \lor \beta(x_{1})) \in \FGF \\
+    \phi_{3} &= \exists{x_{1}} E(x_{1}, x_{1}) \notin \FGF,\ \text{but} \in \GF \qquad \text{$x_1x_1$ is not an infix of $x_1$} \\
+    \phi_{3} &= \exists{x_{1}} (\forall{x_{2}} \epsilon(x_{1}, x_{2})) \notin \FGF, \GF \qquad \text{$x_{1}, x_{2}$ is not guarded}
+  \end{align*}
 \end{example}
 
 \noindent \textbf{Bisimulations for guarded fragments.}
@@ -93,7 +101,35 @@ Moreover, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$.
 
 The following example presents two structures that are $\GF$-bisimilar but can be distinguished by a first-order formula.
 \begin{example}
-\bbe{TODO: Benno}
+  Let $\phi = \exists{x_{1}, x_{2}, x_{3}}(E(x_{1}, x_{2}) \land E(x_{2}, x_{3}) \land E(x_{3}, x_{1}))$. Then $\str{A} \models \phi$ but $\str{B} \not\models \phi$, for the structures:
+  \begin{tikzpicture}[every node/.style={draw,circle}, baseline=(current bounding box.north)]
+    \begin{scope}[xshift=-70]
+    \node[draw=none, font=\Large] {$\str{A}$};
+    \path[->]
+      (1,-1) node(n1) {}
+      (0,1) node(n2) {}
+      (-1,-1) node(n3) {}
+      (n1) edge (n2)
+      (n2) edge (n3)
+      (n3) edge (n1);
+    \end{scope}
+
+    \node[draw=none, font=\Large] {$\bisimto_{\GF}$};
+
+    \begin{scope}[xshift=70]
+    \node[draw=none, font=\Large] {$\str{B}$};
+    \path[->]
+      (1,-1) node(n1) {}
+      (1,1) node(n2) {}
+      (-1,1) node(n3) {}
+      (-1,-1) node(n4) {}
+      (n1) edge (n2)
+      (n2) edge (n3)
+      (n3) edge (n4)
+      (n4) edge (n1);
+    \end{scope}
+  \end{tikzpicture}
+
 \end{example}
 
 Now a similar characterisation can be provided for $\FGF$. 
@@ -121,10 +157,55 @@ For any finite signature $\sigma$ and $\sigma$-structures $(\str{A}, \elemtuplea
 Moreover, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$.
 \end{lemma}
 \begin{proof}
-\bbe{TODO: Benno, please provide a proof here.}
+  We show ``(b)'' analogously to the proof of ``(a)'' found in~\cite[appendix]{BednarczykJ22}.
+
+  For the ``$\implies$'' direction, first consider quantifier-free (quantifier rank zero) formulae.
+  If $\str{A}, \elemtuplea \bisimto_{\FGF[\sigma]}^{\ell} \str{B}, \elemtupleb$ then $\elemtuplea$ and $\elemtupleb$ must have equal forward types by \ref{bisim:atomiceq}.
+  This means that they satisfy the same atomic formulae.
+  By structural induction, this also holds for boolean combinations of formulae.
+  Therefore, $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$ satisfy the same quantifier-free FGF-formulae.
+
+  Now by strong induction, let $\phi(x_{1}, \ldots, x_{n})$ be a FGF-formulae and assume the lemma is true for all $\ell$ less than the quantifier rank of $\phi$.
+  By symmetry, assume w.l.o.g. $\str{A}, (a_{1}, \ldots, a_{n}) \models \phi$.
+
+  Consider the case where $\phi(x_{1}, \ldots, x_{n}) = \exists{x_{(n+1)}\cdots{}x_{m}} \alpha(x_{i}, \ldots, x_{j}) \land \psi(x_{i}, \ldots, x_{j})$ ($\alpha$ is the atomic guard).
+  Let $\ell$ be the quantifier rank of $\phi$, then $\alpha(x_{i},\ldots,x_{j}) \land \psi(x_{i}, x_{j})$ has quantifier rank $\ell - 1$.
+  Thus there exist $a_{n+1}, \ldots, a_{j}$ such that $\str{A} \models \alpha(a_{i}, \ldots, a_{j}) \land \psi(a_{i}, \ldots, a_{j})$.
+  As $(a_{i}, \ldots, a_{j})$ is guarded by $\alpha$, we can apply~\ref{bisim:fforth} to find $b_{n+1}, b_{j}$ with $\str{A}, (a_{i}, \ldots, a_{j}) \sim_{\FGF}^{\ell-1} \str{B}, (b_{i}, \ldots, b_{j})$.
+  By the induction hypothesis, $\str{B}, (b_{i}, \ldots, b_{j}) \models \alpha(b_{i}, \ldots, b_{j}) \land \psi(b_{i}, \ldots, b_{j})$ and therefore also $\str{B}, (b_{1}, \ldots, b_{n}) \models \phi$.
+
+  For the case that $\phi = \exists{x_{1}} \psi(x_{1})$, we know that $\str{A}, a_{1} \models \psi$.
+  \possiblelie{Because the bisimulation must map every element to some element}, there must be $b_{1}$ with $\str{A}, a_{1} \bisimto_{\FGF}^{\ell-1} \str{B}, b_{1}$.
+  Since $\psi$ has quantifier rank $\ell - 1$ we get $\str{B}, b_{1} \models \psi$ by the induction hypothesis and therefore also $\str{B} \models \phi$ as wanted.
+
+  Again, we have that the above also holds for all boolean combinations of formulae as the lemma is preserved under boolean combinations.
+  As $\forall{\bar{x}} \alpha(\bar{x}) \rightarrow \psi(\bar{x}) = \neg \exists{\bar{x}} \alpha(\bar{x}) \land \neg \psi(\bar{x})$, this also handles the case of universal quantification.
+
+  For the converse, we show that the sets $Z_{0}, \ldots, Z_{\ell}$ defined as follows are a system of forward partial maps obeying the laws of a $\ell$-$\FGF$-bisimulation:
+  \begin{equation*}
+  \mathcal{Z}_{k} = \left\{ (\elemtuplea, \elemtupleb) \in \bigcup_{n < \omega} (A^{n} \times B^{n}) \mid \str{A}, \elemtuplea \equiv_{\FGF_{k}} \str{B},\elemtupleb \right\}
+  \end{equation*}
+  Each $Z_{k}$ satisfies~\ref{bisim:atomiceq} as $\str{A}, \elemtuplea \equiv_{\FGF_{k}} \str{B},\elemtupleb$ implies that $\elemtuplea$ and $\elemtupleb$ satisfy the same atomic formulae.
+
+  To show~\ref{bisim:fforth} (\ref{bisim:fback} is symmetric), let $(\elemtuplea, \elemtupleb) \in Z_{k}$ and $\elemtuplec = \elemtuplea_{i\ldots{}j}\elemtuplee$ be a live tuple in $\str{A}$.
+  Consider the $|e|$-type (over $\elemtupleb_{i\ldots{}j}$) of all tuples $\bar{f}$ for which $\str{A}, \elemtuplea_{i\ldots{}j}\elemtuplee \equiv_{\FGF}^{k-1} \str{B}, \elemtupleb_{i\ldots{j}}\bar{f}$:
+  \begin{align*}
+    \Sigma^{\elemtupleb_{i\ldots{j}}}(\bar{f}) = \left\{ \phi(\elemtupleb_{i\ldots{}j}\bar{f}) \mid \phi(\bar{x}) \in {\FGF(|c|)_{k-1}}\ \text{and}\ \str{A}, \elemtuplec \models \phi(\bar{x}) \right\}
+  \end{align*}
+  We claim that $\Sigma^{\elemtupleb_{i\ldots{}j}}(\bar{f})$ is realized in $\str{B}$.
+  By $\omega$-saturation and compactness it suffices to show that it is finitely satisfiable in $\str{B}$.
+  Let $\Delta \subseteq \Sigma^{\elemtupleb_{i\ldots{}j}}(\bar{f})$ be a finite subset.
+  Then $\delta(\bar{x}_{i\ldots{}i+|c|}) = \bigwedge \Delta[\elemtupleb_{i\ldots{}j} \mapsto \bar{x}_{i\ldots{}j}, \bar{f} \mapsto \bar{x}_{(j+1)\ldots{}(j+|e|)}]$ is a $\mathrm{FGF}_{k-1}$ formula.
+  Since $\elemtuplec$ is live, there must a relation $\alpha$ such that $\elemtuplea, \elemtuplec \models \alpha(x_{1\ldots{}|c|})$.
+  We can now construct the $\mathrm{FGF}_{k}$-formula $\chi = \exists{x_{j+1}\cdots{}x_{j+|e|}} (\alpha(x_{i\ldots{}i+|c|}) \land \delta(\bar{x}_{i\ldots{}i+|c|}))$.
+  We have $\str{A}, \elemtuplea \models \chi$ (witnessed by $\elemtuplee$) and thus also $\str{B}, \elemtupleb \models \chi$ as they satisfy the same $\mathrm{FGF}_{k}$ formulae by assumption.
+  So there must be $\bar{f}$ satisfying $\str{B}, \elemtupleb_{i\ldots{}j}\bar{f} \models \delta(\bar{x}_{i\ldots{}i+|c|})$, which by construction means that $\str{B}, \bar{f} \models \Delta$.
 \end{proof}
 
 The following example presents two structures that are $\FGF$-bisimilar but not $\GF$-bisimilar.
-\begin{example}
-\bbe{TODO: Benno}
+\begin{example} Let $\phi = \exists{x_{1}} E(x_{1}, x_{1})$. Consider the structures
+  $\str{A}$ (\begin{tikzpicture}[baseline=(n1.base), trim left=-10pt, trim right=10pt] \node[draw,circle] (n1) {}; \draw[->] (n1) edge[loop] (n1); \end{tikzpicture}) and
+  $\str{B}$~(\begin{tikzpicture}[baseline=-3pt] \node[draw,circle] (n1) {}; \node[draw,circle] (n2) at (1,0) {}; \draw[->] (n1) edge (n2); \end{tikzpicture}).
+  There is a $\FGF$-bisimulation between $\str{A}$ and $\str{B}$ which maps every element of $\str{B}$ to the single element in $\str{A}$.
+  But $\str{A} \not\bisimto_{\GF} \str{B}$ as they can be distinguished by the $\GF$-sentence $\phi = \exists{x_{1}} E(x_{1}, x_{1})$: $\str{A} \models \phi$ and $\str{B} \not\models \phi$.
 \end{example}
