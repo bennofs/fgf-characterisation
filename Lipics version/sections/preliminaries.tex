@@ -48,7 +48,7 @@ A formula $\exists{x_{1}x_{2}x_{3}}\; (\relR(x_{1}, x_{2}, x_{3}) \land \forall 
 \end{example}
 
 The \emph{forward guarded fragment}~\cite[Sec. 3.1]{Bednarczyk21} (or $\FGF$) restricts $\GF$ in a way that the allowed sequences of atoms are infixes of the sequence of already-introduced variables (in the order of their quantification).
-A formal definition comes next, which will be follow by a bunch of examples.
+A formal definition comes next, which will be followed by a bunch of examples.
 Let $\FGF(n)$ for $n \in \N$ be the smallest fragment of $\FO$ satisfying:
 \begin{itemize}\itemsep0em
     \item An atom $\alpha(\vartuplex)$ belongs to $\FGF(n)$ if $\alpha$ is equality-free and $\vartuplex$ is an infix of $\vartuplexfromto{1}{n}$.
@@ -60,9 +60,9 @@ Let $\FGF(n)$ for $n \in \N$ be the smallest fragment of $\FO$ satisfying:
 We use $\FGF$ to denote $\FGF(0)$. Note that $\FGF(0)$ is solely composed of sentences. 
 
 \begin{example}
-A formula $\exists{x_1x_{2}x_{3}}[\relR(x_{1}, x_{2}, x_{3}) \land \forall{x_{4}x_{5}}(\relS(x_{3}, x_{4}, x_{5}) \to \relT(x_{4})) \land \exists{x_{3}}(\relR(x_{1}, x_{2}, x_{3}))]$ belongs to $\FGF$.
+A formula $\exists{x_1x_{2}x_{3}}\; [\relR(x_{1}, x_{2}, x_{3}) \land \forall{x_{4}x_{5}}(\relS(x_{3}, x_{4}, x_{5}) \to \relT(x_{4})) \land \exists{x_{3}}(\relR(x_{1}, x_{2}, x_{3}))]$ belongs to $\FGF$.
 Moreover, first-order translations of (polyadic) modal and description logics are also in $\FGF$.
-In contrasts, formulae $\exists{x_{1}} \relE(x_{1}, x_{1})$ and $\exists{x_{1}} (\forall{x_{2}} \relT(x_{1}, x_{2}))$ are not in $\FGF$. 
+In contrast, formulae $\exists{x_{1}}\; \relE(x_{1}, x_{1})$ and $\exists{x_{1}}\; (\forall{x_{2}} \relT(x_{1}, x_{2}))$ are not in $\FGF$.
 For the former formula the reason is that the sequence $x_1x_1$ is not an infix of the sequence~$x_1$.
 The latter formula is not even in $\GF$ as the sequence $x_{1}, x_{2}$ is not guarded.
 \end{example}
