@@ -39,7 +39,7 @@ Formally $\GF$ is the smallest fragment of $\FO$  such that:
 \begin{itemize}\itemsep0em
     \item Every atomic formula is in $\GF$;
     \item $\GF$ is closed under boolean connectives $\land, \lor, \neg, \to$;
-    \item If $\varphi(\vartuplex, \vartupley)$ is in $\GF$, $\relA(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$, and $\vartupley$ is a tuple of variables then both $\forall{\vartupley} \; (\relA(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\relA(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are in $\GF$; 
+    \item If $\varphi(\vartuplex, \vartupley)$ is in $\GF$, $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$, and $\vartupley$ is a tuple of variables then both $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are in $\GF$; 
     \item If $\varphi(\varx)$ has only a single free-variable $\varx$, then $\forall{\varx}\; \varphi(\varx)$ and $\exists{\varx}\; \varphi(\varx)$ are in $\GF$.
 \end{itemize}
 The predicates $\relA$ appearing in the 3rd item of the above definition are called \emph{guard}.
