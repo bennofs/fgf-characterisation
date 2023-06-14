@@ -28,8 +28,8 @@ Moreover, we use $\logicL_\ell[\sigma]$ to denote the restriction of $\logicL[\s
 %
 The $\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL[\sigma]}{\str{A}}{\elemtuplea}$, consists of all atomic and negated atomic $\logicL[\sigma]$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
 We write $\str{A} \equiv_\logicL \str{B}$ if $\str{A}$ and~$\str{B}$ satisfy the same $\logicL$-sentences.
-For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ we use the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to express that for all $\varphi \in \logicL$ with at most\bfside{``at most'' refering to a variable tuple $\vartuplexfromto{1}{|\elemtuplea|}$ sounds strange to me} $\vartuplexfromto{1}{|\elemtuplea|}$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$ (variable $\varx_i$ is substituted with $\elema_i$\bfside{the variable $x_{i}$ is substituted by $b_i$ on the other side of the equality}).
-A similar notation is used for $\logicL[\sigma]$ instead of $\logicL$.\\
+For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ with $n$-tuples $\elemtuplea$ and~$\elemtupleb$ we employ the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to indicate that for all $\varphi \in \logicL$ with free variables contained in the set $\{ \varx_1, \ldots, \varx_n \}$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$ (here variables $\varx_i$ are substituted, respectively, for $\elema_i$ and $b_i$).
+A similar notation is used for $\logicL[\sigma]$.\\
 
 \noindent \textbf{Guarded fragments.}
 We recall the definition of the \emph{guarded fragment}~\cite[Sec. 4.1]{AndrekaNB98}, \ie the fragment of $\FO$ obtained by requiring that blocks of quantifiers are appropriately relativised by atoms.
