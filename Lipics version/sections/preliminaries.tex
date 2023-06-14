@@ -37,10 +37,10 @@ Formally $\GF$ is the smallest fragment of $\FO$  such that:
 \begin{itemize}\itemsep0em
     \item Every atomic formula is in $\GF$;
     \item $\GF$ is closed under boolean connectives $\land, \lor, \neg, \to$;
-    \item If $\varphi(\vartuplex, \vartupley)$ is in $\GF$ and $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$ and $\vartupley$ is a tuple of variables then both $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are in $\GF$; 
-    \item If $\varphi(\varx)$ has only a single free-variable $\varx$, then $\forall{\varx}\; \varphi$\bfside{using $\varphi(x)$ here would be more consistent} and $\exists{\varx}\; \varphi$ are in $\GF$.
+    \item If $\varphi(\vartuplex, \vartupley)$ is in $\GF$, $\relA(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$, and $\vartupley$ is a tuple of variables then both $\forall{\vartupley} \; (\relA(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\relA(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are in $\GF$; 
+    \item If $\varphi(\varx)$ has only a single free-variable $\varx$, then $\forall{\varx}\; \varphi(\varx)$ and $\exists{\varx}\; \varphi(\varx)$ are in $\GF$.
 \end{itemize}
-The atoms $\alpha$\bfside{here and in the definition: use $\relA$ instead of $\alpha$ for atoms? or not because this any atom, not a concrete relation?} appearing in the 3rd item of the above definition are called \emph{guard}.
+The predicates $\relA$ appearing in the 3rd item of the above definition are called \emph{guard}.
 We stress that in definition of a quantifier rank for $\GF$ we treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as a single quantifier (not as an abbreviation for a block of quantifiers).
 
 \begin{example}
