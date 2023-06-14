@@ -1,0 +1,50 @@
+%!TEX root = ../main.tex
+
+\begin{proof}
+  A proof for condition \textbf{(a)} is provided in~\cite[Lemma 3]{BednarczykJ22}, and thus we proceed with condition \textbf{(b)}.
+  We start from the ``if'' direction. 
+  Let us $\sigma$-structures $\str{A}$ and $\str{B}$.
+  We want to establish that for all $\ell \in \N$, $\elemtuplea$ in $\str{A}$, and $\elemtupleb$ in $\str{B}$ the following condition holds:
+  \[
+    (\heartsuit_\ell)(\elemtuplea, \elemtupleb){:} \ \ \ \  (\str{A}, \elemtuplea) \bisimto_{\FGF[\sigma]}^{\ell} (\str{B}, \elemtupleb) \ \text{implies} \ (\str{A}, \elemtuplea) \equiv_{\FGF_\ell[\sigma]} (\str{B}, \elemtupleb).
+  \]
+  We proceed by induction. 
+  For the inductive base, take any $\elemtuplea$ from $\str{A}$ any $\elemtupleb$ from $\str{B}$, and suppose that the antecedent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$ holds.
+  Thus, by \ref{bisim:atomiceq} we know that $\elemtuplea$ and~$\elemtupleb$ have equal $\FGF[\sigma]$-types.
+  This means that for all atomic $\varphi$ of $\FGF[\sigma]$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$.
+  Hence, a routine case analysis employing obvious properties of $\models$ relation, we the above equivalence is lifted to the case of all quantifier-free $\FGF[\sigma]$-formulae, establishing the consequent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$.
+  For the inductive step, fix any positive $\ell$ and assume that for all $k$ smaller than $\ell$ and the condition $(\heartsuit_k)(\elemtuplea,\elemtupleb)$ is satisfied for all tuples $\elemtuplea$ and $\elemtupleb$.
+  Now take any tuple $\elemtuplea$ from $\str{A}$ and $\elemtupleb$ from $\str{B}$.
+  To show the consequent of $(\heartsuit_\ell)(\elemtuplea,\elemtupleb)$, we take any formula $\varphi(x_1, \ldots, x_n) \in \FGF_\ell[\sigma]$.
+  If the quantifier rank of $\varphi$ is smaller than $\ell$, then we are done by $(\heartsuit_{\ell{-}1})(\elemtuplea,\elemtupleb)$.
+  Hence, suppose that the quantifier rank of $\varphi$ is precisely~$\ell$.
+  By structural induction (relying on properties of $\models$ relation) it amounts to establish the equivalence for $\varphi$ of the form $\exists{x_{n}} \ldots \exists{x_{m}}\ \relR(x_{i}, \ldots, x_{j}) \land \psi(x_{i}, \ldots, x_{j})$, where $\relR \in \R$ serves as a guard, $i \geq 1$ and $j \leq m$.
+  Note that the quantifier rank of $\psi$ is less than $\ell$.
+  Suppose that $\str{A} \models \varphi[\elemtuplea]$ (the case of $\str{B} \models \varphi[\elemtupleb]$ is symmetric).
+  Let $\elemtuplec$ be the (possibly empty) infix $\elemtupleafromto{i}{n{-}1}$ of~$\elemtuplea$.\bbeside{tricky case here!}
+  Then there exists a (possibly empty) tuple $\elemtuplee$ in $\str{A}$ such that $\str{A} \models \relR[\elemtuplec\elemtuplee] \land \psi[\elemtuplec\elemtuplee]$.
+  Note that $\elemtuplec\elemtuplee$ is $\sigma$-live. 
+  By~\ref{bisim:fforth} we can find a (possibly empty) tuple $\elemtuplef$ in $\str{B}$ such that $(\str{A}, \elemtuplec\elemtuplee) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elemtupled\elemtuplef)$ for~$\elemtupled$ equal to $\elemtuplebfromto{i}{n{-}1}$.
+  Applying inductive hypothesis, namely $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$, we know that the consequent of $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$ holds true.
+  This clearly implies $\str{B} \models \relR[\elemtupled\elemtuplef] \land \psi[\elemtupled\elemtuplef]$, which finally lead us to the conclusion $\str{B} \models \varphi[\elemtupleb]$.
+
+  For the converse, we show that the sets $Z_{0}, \ldots, Z_{\ell}$ defined as follows are a system of forward partial maps obeying the laws of a $\ell$-$\FGF$-bisimulation:
+  \begin{equation*}
+  \mathcal{Z}_{k} = \left\{ (\elemtuplea, \elemtupleb) \in \bigcup_{n < \omega} (A^{n} \times B^{n}) \mid \str{A}, \elemtuplea \equiv_{\FGF_{k}} \str{B},\elemtupleb \right\}
+  \end{equation*}
+  Each $Z_{k}$ satisfies~\ref{bisim:atomiceq} as $\str{A}, \elemtuplea \equiv_{\FGF_{k}} \str{B},\elemtupleb$ implies that $\elemtuplea$ and $\elemtupleb$ satisfy the same atomic formulae.
+
+  To show~\ref{bisim:fforth} (\ref{bisim:fback} is symmetric), let $(\elemtuplea, \elemtupleb) \in Z_{k}$ and $\elemtuplec = \elemtuplea_{i\ldots{}j}\elemtuplee$ be a live tuple in $\str{A}$.
+  Consider the $|e|$-type (over $\elemtupleb_{i\ldots{}j}$) of all tuples $\bar{f}$ for which $\str{A}, \elemtuplea_{i\ldots{}j}\elemtuplee \equiv_{\FGF}^{k-1} \str{B}, \elemtupleb_{i\ldots{j}}\bar{f}$:
+  \begin{align*}
+    \Sigma^{\elemtupleb_{i\ldots{j}}}(\bar{f}) = \left\{ \phi(\elemtupleb_{i\ldots{}j}\bar{f}) \mid \phi(\bar{x}) \in {\FGF(|c|)_{k-1}}\ \text{and}\ \str{A}, \elemtuplec \models \phi(\bar{x}) \right\}
+  \end{align*}
+  We claim that $\Sigma^{\elemtupleb_{i\ldots{}j}}(\bar{f})$ is realized in $\str{B}$.
+  By $\omega$-saturation and compactness it suffices to show that it is finitely satisfiable in $\str{B}$.
+  Let $\Delta \subseteq \Sigma^{\elemtupleb_{i\ldots{}j}}(\bar{f})$ be a finite subset.
+  Then $\delta(\bar{x}_{i\ldots{}i+|c|}) = \bigwedge \Delta[\elemtupleb_{i\ldots{}j} \mapsto \bar{x}_{i\ldots{}j}, \bar{f} \mapsto \bar{x}_{(j+1)\ldots{}(j+|e|)}]$ is a $\mathrm{FGF}_{k-1}$ formula.
+  Since $\elemtuplec$ is live, there must a relation $\alpha$ such that $\elemtuplea, \elemtuplec \models \alpha(x_{1\ldots{}|c|})$.
+  We can now construct the $\mathrm{FGF}_{k}$-formula $\chi = \exists{x_{j+1}\cdots{}x_{j+|e|}} (\alpha(x_{i\ldots{}i+|c|}) \land \delta(\bar{x}_{i\ldots{}i+|c|}))$.
+  We have $\str{A}, \elemtuplea \models \chi$ (witnessed by $\elemtuplee$) and thus also $\str{B}, \elemtupleb \models \chi$ as they satisfy the same $\mathrm{FGF}_{k}$ formulae by assumption.
+  So there must be $\bar{f}$ satisfying $\str{B}, \elemtupleb_{i\ldots{}j}\bar{f} \models \delta(\bar{x}_{i\ldots{}i+|c|})$, which by construction means that $\str{B}, \bar{f} \models \Delta$.
+\end{proof}
