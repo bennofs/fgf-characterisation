@@ -28,7 +28,7 @@ Moreover, we use $\logicL_\ell[\sigma]$ to denote the restriction of $\logicL[\s
 %
 The $\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL[\sigma]}{\str{A}}{\elemtuplea}$, consists of all atomic and negated atomic $\logicL[\sigma]$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
 We write $\str{A} \equiv_\logicL \str{B}$ if $\str{A}$ and~$\str{B}$ satisfy the same $\logicL$-sentences.
-For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ we use the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to express that for all $\varphi \in \logicL$ with at most $\vartuplexfromto{1}{|\elemtuplea|}$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$ (variable $\varx_i$ is substituted with $\elemtuplea_i$). 
+For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ we use the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to express that for all $\varphi \in \logicL$ with at most\bfside{``at most'' refering to a variable tuple $\vartuplexfromto{1}{|\elemtuplea|}$ sounds strange to me} $\vartuplexfromto{1}{|\elemtuplea|}$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$ (variable $\varx_i$ is substituted with $\elema_i$\bfside{the variable $x_{i}$ is substituted by $b_i$ on the other side of the equality}).
 A similar notation is used for $\logicL[\sigma]$ instead of $\logicL$.\\
 
 \noindent \textbf{Guarded fragments.}
@@ -38,9 +38,9 @@ Formally $\GF$ is the smallest fragment of $\FO$  such that:
     \item Every atomic formula is in $\GF$;
     \item $\GF$ is closed under boolean connectives $\land, \lor, \neg, \to$;
     \item If $\varphi(\vartuplex, \vartupley)$ is in $\GF$ and $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$ and $\vartupley$ is a tuple of variables then both $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are in $\GF$; 
-    \item If $\varphi(\varx)$ has only a single free-variable $\varx$, then $\forall{\varx}\; \varphi$ and $\exists{\varx}\; \varphi$ are in $\GF$.
+    \item If $\varphi(\varx)$ has only a single free-variable $\varx$, then $\forall{\varx}\; \varphi$\bfside{using $\varphi(x)$ here would be more consistent} and $\exists{\varx}\; \varphi$ are in $\GF$.
 \end{itemize}
-The atoms $\alpha$ appearing in the 3rd item of the above definition are called \emph{guard}.
+The atoms $\alpha$\bfside{here and in the definition: use $\relA$ instead of $\alpha$ for atoms? or not because this any atom, not a concrete relation?} appearing in the 3rd item of the above definition are called \emph{guard}.
 We stress that in definition of a quantifier rank for $\GF$ we treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as a single quantifier (not as an abbreviation for a block of quantifiers).
 
 \begin{example}
@@ -53,7 +53,8 @@ Let $\FGF(n)$ for $n \in \N$ be the smallest fragment of $\FO$ satisfying:
 \begin{itemize}\itemsep0em
     \item An atom $\alpha(\vartuplex)$ belongs to $\FGF(n)$ if $\alpha$ is equality-free and $\vartuplex$ is an infix of $\vartuplexfromto{1}{n}$.
     \item $\FGF(n)$ is closed under boolean connectives $\land, \lor, \neg, \to, \iff$;
-    \item If $\varphi$ is in $\FGF(n{+}k)$ for a positive $k$ and $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$ and $\vartupley$ is a $k$-tuple of variables then  $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are both in $\FGF(n)$; 
+  \item If $\varphi$ is in $\FGF(n{+}k)$ for a positive $k$ and $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$ and $\vartupley$ is a $k$-tuple of variables then  $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are both in $\FGF(n)$;
+        \bfside{It is not clear to me here what $\alpha(\vartuplex, \vartupley)$ means. I think this could be interpreted as: if $\vartuplex$ is the set of variables $x_{1}, x_{2}$ and $\vartupley$ is the set of variables $x_{3}$, then $\relR (x_{1}, x_{3}, x_{2})$ could be such an $\alpha(\vartuplex, \vartupley)$? But then variables would no longer be ordered, which is not what we want}
     \item If $\varphi(\varx_1) \in \FGF(1)$ has only a single free-variable $\varx_1$, then $\forall{\varx_1}\; \varphi$ and $\exists{\varx_1}\; \varphi$ are in $\FGF(0)$.
 \end{itemize}
 We use $\FGF$ to denote $\FGF(0)$. Note that $\FGF(0)$ is solely composed of sentences. 
@@ -73,11 +74,13 @@ We next present notion of bisimulation relations tailored towards $\GF$ and $\FG
 For a signature $\sigma \subseteq \R$ and $\sigma$-structures $\str{A}$ and $\str{B}$ we denote with $\PartIso{\str{A}}{\str{B}}$ the set of all partial isomorphisms between $\str{A}$ and $\str{B}$. 
 For $\bisimZ, \bisimZ' \in \PartIso{\str{A}}{\str{B}}$ we say that $\bisimZ'$ satisfies back-and-forth conditions for $\bisimZ$ if for every partial isomorphism $\partisof \in \bisimZ$ we have:
 %
+\bfside{This definition mixes tuples and sets: the domain of partial isomorphisms is a set but liveness is a property of tuples}
 \begin{description}\itemsep0em
   \item[\desclabel{(Forth)}{bisim:forth}] For every $\sigma$-live $\elemtuplea$ in $\str{A}$, there is $\partisog \in \bisimZ'$ with the domain $\elemtuplea$ such that $\partisof$ and $\partisog$ agree on their common domain. 
   \item[\desclabel{(Back)}{bisim:back}] For every $\sigma$-live $\elemtupleb$ in $\str{B}$, there is $\partisog \in \bisimZ'$ with the image $\elemtuplea$ such that $\partisof$ and $\partisog$ agree on their common domain. 
 \end{description}
 The set $\bisimZ$ is a $\GF[\sigma]$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies \ref{bisim:forth} and~\ref{bisim:back} conditions given above and every partial isomorphism $\partisof \in \bisimZ$ maps $\sigma$-live tuples to $\sigma$-live tuples.
+\bfside{$\bisimZ$ should at least be non-empty}% A question: do we want to require that every live tuple from $\str{A}$ has a bisimilar tuple in the other structure? Otto's definition does not require that, and neither does the original definition in Andreka et al 1998}
 An $\ell$-$\GF[\sigma]$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of partial isomorphisms from $\PartIso{\str{A}}{\str{B}}$ mapping $\sigma$-live tuples to $\sigma$-live tuples  such that for all $i > 0$ we have that $\bisimZ_i$ satisfies~\ref{bisim:forth} and~\ref{bisim:back} conditions for $\bisimZ_{i{-}1}$.
 We say that pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ are $\GF[\sigma]$-\emph{bisimilar}, denoted $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]} (\str{B}, \elemtupleb)$ if there exists a $\GF[\sigma]$-bisimulation  between $\str{A}$ and $\str{B}$ containing the partial isomorphism $\elemtuplea \mapsto \elemtupleb$.
 We analogously speak about $\ell$-$\GF[\sigma]$-\emph{bisimilarity} and employ the notation $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]}^{\ell} (\str{B}, \elemtupleb)$.
@@ -130,7 +133,7 @@ The following example presents $\GF$-bisimilar structures that can be distinguis
 
 Now a similar characterisation can be provided for $\FGF$. 
 Due to the ``forwardness'' of the underlying logic, it is convenient to think about maps as tuples.
-A \emph{system of forward partial maps} between $\sigma$-structures $\str{A}$ and $\str{B}$ is any non-empty subset of $\bigcup_{i=0}^{\infty} (A^i \times B^i)$ satisfying:
+A \emph{system of forward partial maps} between $\sigma$-structures $\str{A}$ and $\str{B}$ is any non-empty subset of \bfside{should this be $i=1$?}$\bigcup_{i=0}^{\infty} (A^i \times B^i)$ satisfying:
 \begin{description}\itemsep0em
   \item[\desclabel{(AtomicEq)}{bisim:atomiceq}] For all $(\elemtuplea, \elemtupleb) \in \bisimZ$ we have that $\elemtuplea$, $\elemtupleb$ are $\sigma$-live and $\tp{\FGF[\sigma]}{\str{A}}{\elemtuplea} = \tp{\FGF[\sigma]}{\str{B}}{\elemtupleb}$~holds.
 \end{description}
