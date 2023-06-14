@@ -159,9 +159,17 @@ Moreover, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$.
 \input{proofs/FGF-bisimulations-work-well}
 
 The following example presents two structures that are $\FGF$-bisimilar but not $\GF$-bisimilar.
-\begin{example} Let $\phi = \exists{x_{1}} E(x_{1}, x_{1})$. Consider the structures
-  $\str{A}$ (\begin{tikzpicture}[baseline=(n1.base), trim left=-10pt, trim right=10pt] \node[draw,circle] (n1) {}; \draw[->] (n1) edge[loop] (n1); \end{tikzpicture}) and
-  $\str{B}$~(\begin{tikzpicture}[baseline=-3pt] \node[draw,circle] (n1) {}; \node[draw,circle] (n2) at (1,0) {}; \draw[->] (n1) edge (n2); \end{tikzpicture}).
-  There is a $\FGF$-bisimulation between $\str{A}$ and $\str{B}$ which maps every element of $\str{B}$ to the single element in $\str{A}$.
-  But $\str{A} \not\bisimto_{\GF} \str{B}$ as they can be distinguished by the $\GF$-sentence $\phi = \exists{x_{1}} E(x_{1}, x_{1})$: $\str{A} \models \phi$ and $\str{B} \not\models \phi$.
+\begin{example} 
+Consider a binary predicate $\relE$.
+Let $\str{A}$ be a single-element, in which all $\relE$ is interpreted as the full relation, and let $\str{B}$ be a $\relE$-cycle of length two. These two structures are $\FGF[\{\relE\}]$-bisimilar, while a $\GF$-sentence $\exists{\varx_1}\relE(\varx_1,\varx_1)$ can distinguish them.
 \end{example}
+
+Let $\logicL$ be a fragment of $\FO$. 
+A first-order formula~$\varphi$ is called \emph{$\logicL$-invariant}
+if for all pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$ we have that  
+$(\str{A},\elemtuplea) \bisimto_{\logicL[\sig(\varphi)]} (\str{B}, \elemtupleb)$ implies
+$\str{A} \models \varphi[\elemtuplea] \Leftrightarrow \str{B} \models \varphi[\elemtupleb]$, \ie if $\logicL[\sig(\varphi)]$-bisimilar structures agree on the satisfaction of $\varphi$.
+Similarly, $\varphi$ is called \emph{$\logicL$-invariant in the finite} if the above implication holds for all \emph{finite} pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$.
+A logic $\logicL$ is a \emph{$\bisimto_{\logicL}$-invariant fragment} (in the finite) of $\FO$ if every formula of~$\logicL$ is $\logicL$-invariant (in the finite) and every $\logicL$-invariant first-order formula is equivalent (in the finite) to some formula of $\logicL$.
+
+\bbebox{Say something about previous results on $\GF$ and $\FGF$.}
