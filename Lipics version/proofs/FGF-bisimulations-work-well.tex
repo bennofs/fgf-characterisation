@@ -3,16 +3,16 @@
 \begin{proof}
   A proof for condition \textbf{(a)} is provided in~\cite[Lemma 3]{BednarczykJ22}, and thus we proceed with condition \textbf{(b)}.
   We start from the ``if'' direction. 
-  Let us $\sigma$-structures $\str{A}$ and $\str{B}$.
+  Let us\bfside{missing word} $\sigma$-structures $\str{A}$ and $\str{B}$.
   We want to establish that for all $\ell \in \N$, $\elemtuplea$ in $\str{A}$, and $\elemtupleb$ in $\str{B}$ the following condition holds:
   \[
     (\heartsuit_\ell)(\elemtuplea, \elemtupleb){:} \ \ \ \  (\str{A}, \elemtuplea) \bisimto_{\FGF[\sigma]}^{\ell} (\str{B}, \elemtupleb) \ \text{implies} \ (\str{A}, \elemtuplea) \equiv_{\FGF_\ell[\sigma]} (\str{B}, \elemtupleb).
   \]
   We proceed by induction. 
-  For the inductive base, take any $\elemtuplea$ from $\str{A}$ any $\elemtupleb$ from $\str{B}$, and suppose that the antecedent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$ holds.
+  For the inductive base, take any $\elemtuplea$ from $\str{A}$, any $\elemtupleb$ from $\str{B}$, and suppose that the antecedent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$ holds.
   Thus, by \ref{bisim:atomiceq} we know that $\elemtuplea$ and~$\elemtupleb$ have equal $\FGF[\sigma]$-types.
   This means that for all atomic $\varphi$ of $\FGF[\sigma]$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$.
-  Hence, a routine case analysis employing obvious properties of $\models$ relation, we the above equivalence is lifted to the case of all quantifier-free $\FGF[\sigma]$-formulae, establishing the consequent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$.
+  Hence, by a routine case analysis employing obvious properties of $\models$ relation, the above equivalence is lifted to the case of all quantifier-free $\FGF[\sigma]$-formulae, establishing the consequent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$.
   For the inductive step, fix any positive $\ell$ and assume that for all $k$ smaller than $\ell$ and the condition $(\heartsuit_k)(\elemtuplea,\elemtupleb)$ is satisfied for all tuples $\elemtuplea$ and $\elemtupleb$.
   Now take any tuple $\elemtuplea$ from $\str{A}$ and $\elemtupleb$ from $\str{B}$.
   To show the consequent of $(\heartsuit_\ell)(\elemtuplea,\elemtupleb)$, we take any formula $\varphi(x_1, \ldots, x_n) \in \FGF_\ell[\sigma]$.
@@ -21,8 +21,8 @@
   By structural induction (relying on properties of $\models$ relation) it amounts to establish the equivalence for $\varphi$ in one of the following forms: 
   \begin{itemize}\itemsep0em
 
-  \item $\varphi$ is of the form $\exists{x_{n}} \ldots \exists{x_{m}}\ \relR(x_{i}, \ldots, x_{j}) \land \psi(x_{i}, \ldots, x_{j})$, where $\relR \in \R$ serves as a guard, $i \geq 1$ and $j \leq m$.
-  Note that the quantifier rank of $\psi$ is less than $\ell$.
+  \item $\varphi$ is of the form \bfside{should be $x_{n+1}$ here, since $\varphi(x_{1}, \ldots, x_{n})$ by definition may use $x_{n}$ as free variable. Also, shouldn't this be a single quantifier introducing a tuple instead of many quantifiers introducing one variable at a time?}$\exists{x_{n}} \ldots \exists{x_{m}}\ \relR(x_{i}, \ldots, x_{j}) \land \psi(x_{i}, \ldots, x_{j})$, where $\relR \in \R$ serves as a guard, $i \geq 1$ and $j \leq m$.
+  Note that the quantifier rank of $\psi$ is less than $\ell$.\bfside{why highlight the quantifier rank of $\psi$ here, when we use $\heartsuit$ property for $R \land \psi$ below?}
   Suppose that $\str{A} \models \varphi[\elemtuplea]$ (the case of $\str{B} \models \varphi[\elemtupleb]$ is symmetric).
   Let $\elemtuplec$ be the (possibly empty) infix $\elemtupleafromto{i}{n{-}1}$ of~$\elemtuplea$.\bbeside{tricky case here!}
   Then there exists a (possibly empty) tuple $\elemtuplee$ in $\str{A}$ such that $\str{A} \models \relR[\elemtuplec\elemtuplee] \land \psi[\elemtuplec\elemtuplee]$.
@@ -31,7 +31,7 @@
   Applying inductive hypothesis, namely $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$, we know that the consequent of $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$ holds true.
   This clearly implies $\str{B} \models \relR[\elemtupled\elemtuplef] \land \psi[\elemtupled\elemtuplef]$, which finally lead us to the conclusion $\str{B} \models \varphi[\elemtupleb]$.
 
-  \item $\varphi$ is of the form $\exists{x_{1}} \psi(x_1)$. Then the quantifier rank of $\psi$ is $0$.
+  \item $\varphi$ is of the form $\exists{x_{1}} \psi(x_1)$. Then the quantifier rank of $\psi$ is $0$\bfside{this is not true, the quantifier rank may be nonzero. But the rest of the proof works fine if we assume rank $\ell - 1$ here}.
   Suppose that $\str{A} \models \varphi[\elemtuplea]$ (the case of $\str{B} \models \varphi[\elemtupleb]$ is symmetric).
   Then there exists an element $\elem{c}$ in $\str{A}$ for which $\str{A} \models \psi[\elem{c}]$.
   As $\elem{c}$ is trivially guarded, we apply~\ref{bisim:fforth} to find $\elem{d}$ in $\str{B}$ for which $(\str{A}, \elem{c}) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elem{d})$.
