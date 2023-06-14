@@ -14,7 +14,9 @@ A formula without free variables is called a \emph{sentence}.
 Given a structure $\str{A}$ and $B \subseteq A$, we use $\restr{\str{A}}{B}$ to denote the \emph{substructure} of $\str{A}$ induced by $B$.\\
 
 \noindent \textbf{Tuples and subsequences.}
-An $n$-tuple is a list of $n$ elements. The $0$-tuple is denoted with~$\emptytupl$.
+An $n$-tuple is a list of $n$ elements.
+Given a tuple $\elemtuplea$ we use $\set(\elemtuplea)$ to denote the set of its coordinates.
+The $0$-tuple is denoted with~$\emptytupl$.
 We use $\vartuplexfromto{i}{j}$ to denote the $(j{-}i{+}1)$-tuple $\varx_i, \varx_{i+1}, \ldots, \varx_j$.
 We say that $\vartuplexfromto{i}{j}$ is an infix of a tuple $\vartuplexfromto{k}{l}$ if $k \leq i \leq j \leq l$ holds. 
 To improve readability, tuples of tuples are denoted by arrows, for instance with $\elemtuptuplea$.
@@ -74,10 +76,9 @@ We next present notion of bisimulation relations tailored towards $\GF$ and $\FG
 For a signature $\sigma \subseteq \R$ and $\sigma$-structures $\str{A}$ and $\str{B}$ we denote with $\PartIso{\str{A}}{\str{B}}$ the set of all partial isomorphisms between $\str{A}$ and $\str{B}$. 
 For $\bisimZ, \bisimZ' \in \PartIso{\str{A}}{\str{B}}$ we say that $\bisimZ'$ satisfies back-and-forth conditions for $\bisimZ$ if for every partial isomorphism $\partisof \in \bisimZ$ we have:
 %
-\bfside{This definition mixes tuples and sets: the domain of partial isomorphisms is a set but liveness is a property of tuples}
 \begin{description}\itemsep0em
-  \item[\desclabel{(Forth)}{bisim:forth}] For every $\sigma$-live $\elemtuplea$ in $\str{A}$, there is $\partisog \in \bisimZ'$ with the domain $\elemtuplea$ such that $\partisof$ and $\partisog$ agree on their common domain. 
-  \item[\desclabel{(Back)}{bisim:back}] For every $\sigma$-live $\elemtupleb$ in $\str{B}$, there is $\partisog \in \bisimZ'$ with the image $\elemtuplea$ such that $\partisof$ and $\partisog$ agree on their common image.
+  \item[\desclabel{(Forth)}{bisim:forth}] For every $\sigma$-live $\elemtuplea$ in $\str{A}$, there is $\partisog \in \bisimZ'$ with the domain $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common domain. 
+  \item[\desclabel{(Back)}{bisim:back}] For every $\sigma$-live $\elemtupleb$ in $\str{B}$, there is $\partisog \in \bisimZ'$ with the image $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common image.
 \end{description}
 The set $\bisimZ$ is a $\GF[\sigma]$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies \ref{bisim:forth} and~\ref{bisim:back} conditions given above and every partial isomorphism $\partisof \in \bisimZ$ maps $\sigma$-live tuples to $\sigma$-live tuples.
 \bfside{$\bisimZ$ should at least be non-empty}% A question: do we want to require that every live tuple from $\str{A}$ has a bisimilar tuple in the other structure? Otto's definition does not require that, and neither does the original definition in Andreka et al 1998}
