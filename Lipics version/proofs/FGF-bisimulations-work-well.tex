@@ -18,7 +18,10 @@
   To show the consequent of $(\heartsuit_\ell)(\elemtuplea,\elemtupleb)$, we take any formula $\varphi(x_1, \ldots, x_n) \in \FGF_\ell[\sigma]$.
   If the quantifier rank of $\varphi$ is smaller than $\ell$, then we are done by $(\heartsuit_{\ell{-}1})(\elemtuplea,\elemtupleb)$.
   Hence, suppose that the quantifier rank of $\varphi$ is precisely~$\ell$.
-  By structural induction (relying on properties of $\models$ relation) it amounts to establish the equivalence for $\varphi$ of the form $\exists{x_{n}} \ldots \exists{x_{m}}\ \relR(x_{i}, \ldots, x_{j}) \land \psi(x_{i}, \ldots, x_{j})$, where $\relR \in \R$ serves as a guard, $i \geq 1$ and $j \leq m$.
+  By structural induction (relying on properties of $\models$ relation) it amounts to establish the equivalence for $\varphi$ in one of the following forms: 
+  \begin{itemize}\itemsep0em
+
+  \item $\varphi$ is of the form $\exists{x_{n}} \ldots \exists{x_{m}}\ \relR(x_{i}, \ldots, x_{j}) \land \psi(x_{i}, \ldots, x_{j})$, where $\relR \in \R$ serves as a guard, $i \geq 1$ and $j \leq m$.
   Note that the quantifier rank of $\psi$ is less than $\ell$.
   Suppose that $\str{A} \models \varphi[\elemtuplea]$ (the case of $\str{B} \models \varphi[\elemtupleb]$ is symmetric).
   Let $\elemtuplec$ be the (possibly empty) infix $\elemtupleafromto{i}{n{-}1}$ of~$\elemtuplea$.\bbeside{tricky case here!}
@@ -27,6 +30,15 @@
   By~\ref{bisim:fforth} we can find a (possibly empty) tuple $\elemtuplef$ in $\str{B}$ such that $(\str{A}, \elemtuplec\elemtuplee) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elemtupled\elemtuplef)$ for~$\elemtupled$ equal to $\elemtuplebfromto{i}{n{-}1}$.
   Applying inductive hypothesis, namely $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$, we know that the consequent of $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$ holds true.
   This clearly implies $\str{B} \models \relR[\elemtupled\elemtuplef] \land \psi[\elemtupled\elemtuplef]$, which finally lead us to the conclusion $\str{B} \models \varphi[\elemtupleb]$.
+
+  \item $\varphi$ is of the form $\exists{x_{1}} \psi(x_1)$. Then the quantifier rank of $\psi$ is $0$.
+  Suppose that $\str{A} \models \varphi[\elemtuplea]$ (the case of $\str{B} \models \varphi[\elemtupleb]$ is symmetric).
+  Then there exists an element $\elem{c}$ in $\str{A}$ for which $\str{A} \models \psi[\elem{c}]$.
+  As $\elem{c}$ is trivially guarded, we apply~\ref{bisim:fforth} to find $\elem{d}$ in $\str{B}$ for which $(\str{A}, \elem{c}) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elem{d})$.
+  Note that $\ell{-}1$ is non-negative by positivity of $\ell$. 
+  Thus, by $(\heartsuit_{\ell{-}1})(\elem{c},\elem{d})$ we know that $(\str{A}, \elem{c}) \equiv_{\FGF_{\ell{-}1}[\sigma]} (\str{B}, \elem{d})$ holds. 
+  In particular, this implies $\str{B} \models \psi[\elem{d}]$, concluding the proof.
+\end{itemize}
 
   For the converse, we show that the sets $Z_{0}, \ldots, Z_{\ell}$ defined as follows are a system of forward partial maps obeying the laws of a $\ell$-$\FGF$-bisimulation:
   \begin{equation*}
