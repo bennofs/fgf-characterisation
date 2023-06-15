@@ -173,9 +173,16 @@ A logic $\logicL$ is the \emph{$\bisimto_{\logicL}$-invariant fragment} (in the 
 A celebrated result of van Benthem states that modal logic $\mathrm{K}$ is the bisimulation-invariant fragment of first-order logic~\cite[Thm.~2.2.1]{AndrekaNB98}. The constructive version of the theorem (which works also in the finite) was provided later by Rosen~\cite[Prop.~4]{Rosen97}.
 A~constructive analogous of van Benthem's theorem for $\GF$ was given by Otto~\cite{Otto2012}.
 \begin{theorem}\label{thm:vanBenthem-for-GF}
-For any finite signature $\sigma$, there is an \possiblelie{exponential}\bbeside{Asked Otto. Waiting for the answer.} function $\homof \colon \N \to \N$ such that every $\FO[\sigma]$-formula of quantifier rank $q$ that is $\bisimto_{\logicL}$-invariant (in the finite) is logically-equivalent (in the finite) to a $\GF[\sigma]$-formula of quantifier rank at most $\homof(q)$.
+For any finite signature $\sigma$, there is an \possiblelie{exponential}\bbeside{Asked Otto. Waiting for the answer.} function $\homoe \colon \N \to \N$ such that every $\FO[\sigma]$-formula $\varphi$ of quantifier rank $q$ that is $\bisimto_{\GF[\sigma]}$-invariant (in the finite) is also $\bisimto^{\homoe(q)}_{\GF[\sigma]}$-invariant (in the finite) and logically-equivalent (in the finite) to a $\GF[\sigma]$-formula of quantifier rank at most $\homoe(q)$.
 \end{theorem}
 
 In~\cite[Thm. 5]{BednarczykJ22} a non-constructive version of van Benthem's theorem for $\FGF$ is given. 
-Unfortunately their proof is unconstructive and heavily relies on model-theoretic toolkit like compactness, that is well-known to fail in the finite~\cite[Prop.~3.2]{Libkin04}. Thus the proof of~\cite[Thm.~5]{BednarczykJ22} does not provide any results in the finite model scenario.
-The goal of this paper is to provide its constructive analogue, that can also be applied in the finite realm.
+Unfortunately the proof heavily relies on model-theoretic toolkit like compactness, that is well-known to fail in the finite~\cite[Prop.~3.2]{Libkin04}. Thus the proof of~\cite[Thm.~5]{BednarczykJ22} does not provide any results in the finite model scenario.
+The goal of this paper is to provide its constructive analogue, that can also be applied to the finite case.
+Our main technical contribution is:
+\begin{theorem}
+Let $\sigma$ be a finite signature, and let $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ be a pair of $\ell$-$\FGF[\sigma]$-\emph{bisimilar} $\sigma$-structures.
+Then there exist $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$ (that are finite if $\str{A}$ and $\str{B}$ are) such that $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\GF[\sigma]} (\str{B}', \elemtupleb')$ for some polynomial~function~$\homop$.
+\end{theorem}
+
+\bbebox{here we add how this implies the main theorem of the paper}
