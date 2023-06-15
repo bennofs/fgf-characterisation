@@ -81,7 +81,6 @@ For non-empty $\bisimZ, \bisimZ' \subseteq \PartIso{\str{A}}{\str{B}}$ we say th
   \item[\desclabel{(Back)}{bisim:back}] For every $\sigma$-live $\elemtupleb$ in $\str{B}$, there is $\partisog \in \bisimZ'$ with the image $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common image.
 \end{description}
 A non-empty set $\bisimZ \subseteq \PartIso{\str{A}}{\str{B}}$ is a $\GF[\sigma]$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies \ref{bisim:forth} and~\ref{bisim:back} conditions given above. 
-\bfside{$\bisimZ$ should at least be non-empty}% A question: do we want to require that every live tuple from $\str{A}$ has a bisimilar tuple in the other structure? Otto's definition does not require that, and neither does the original definition in Andreka et al 1998}
 An $\ell$-$\GF[\sigma]$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of partial isomorphisms from $\PartIso{\str{A}}{\str{B}}$ mapping $\sigma$-live tuples to $\sigma$-live tuples  such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:forth} and~\ref{bisim:back} conditions for $\bisimZ_{i{+}1}$.
 We say that pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ are $\GF[\sigma]$-\emph{bisimilar}, denoted $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]} (\str{B}, \elemtupleb)$, if there exists a $\GF[\sigma]$-bisimulation  between $\str{A}$ and $\str{B}$ containing the partial isomorphism that maps $\elemtuplea$ to $\elemtupleb$.
 We analogously speak about $\ell$-$\GF[\sigma]$-\emph{bisimilarity} and employ the notation $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]}^{\ell} (\str{B}, \elemtupleb)$.
@@ -165,16 +164,18 @@ Let $\str{A}$ be a single-element, in which all $\relE$ is interpreted as the fu
 \end{example}
 
 Let $\logicL$ be a fragment of $\FO$. 
-A first-order formula~$\varphi$ is called \emph{$\logicL$-invariant}
+A first-order formula~$\varphi$ is called \emph{$\bisimto_{\logicL}$-invariant}
 if for all pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$ we have that  
 $(\str{A},\elemtuplea) \bisimto_{\logicL[\sig(\varphi)]} (\str{B}, \elemtupleb)$ implies
 $\str{A} \models \varphi[\elemtuplea] \Leftrightarrow \str{B} \models \varphi[\elemtupleb]$, \ie if $\logicL[\sig(\varphi)]$-bisimilar structures agree on the satisfaction of $\varphi$.
-Similarly, $\varphi$ is called \emph{$\logicL$-invariant in the finite} if the above implication holds for all \emph{finite} pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$.
+Similarly, $\varphi$ is called \emph{$\bisimto_{\logicL}$-invariant in the finite} if the above implication holds for all \emph{finite} pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$.
 A logic $\logicL$ is the \emph{$\bisimto_{\logicL}$-invariant fragment} (in the finite) of $\FO$ if every formula of~$\logicL$ is $\logicL$-invariant (in the finite) and every $\logicL$-invariant first-order formula is equivalent (in the finite) to some formula of $\logicL$.
-A classical result of van Benthem states that the classical modal logic $\mathrm{K}$ is the bisimulation-invariant fragment of first-order logic~\cite[Thm.~2.2.1]{AndrekaNB98}. The constructive version of the theorem (that also works in the finite) was provided later by Rosen~\cite[
-Prop.~4]{Rosen97}.
-A constructive analogous of van Benthem's theorem was shown for the guarded fragment by Otto~\cite{Otto2012}.
+A celebrated result of van Benthem states that modal logic $\mathrm{K}$ is the bisimulation-invariant fragment of first-order logic~\cite[Thm.~2.2.1]{AndrekaNB98}. The constructive version of the theorem (which works also in the finite) was provided later by Rosen~\cite[Prop.~4]{Rosen97}.
+A~constructive analogous of van Benthem's theorem for $\GF$ was given by Otto~\cite{Otto2012}.
 \begin{theorem}\label{thm:vanBenthem-for-GF}
-\bbebox{Benno, you must do some painful work here and say precisely what we get for the $\GF$.}
+For any finite signature $\sigma$, there is an \possiblelie{exponential}\bbeside{Asked Otto. Waiting for the answer.} function $\homof \colon \N \to \N$ such that every $\FO[\sigma]$-formula of quantifier rank $q$ that is $\bisimto_{\logicL}$-invariant (in the finite) is logically-equivalent (in the finite) to a $\GF[\sigma]$-formula of quantifier rank at most $\homof(q)$.
 \end{theorem}
 
+In~\cite[Thm. 5]{BednarczykJ22} a non-constructive version of van Benthem's theorem for $\FGF$ is given. 
+Unfortunately their proof is unconstructive and heavily relies on model-theoretic toolkit like compactness, that is well-known to fail in the finite~\cite[Prop.~3.2]{Libkin04}. Thus the proof of~\cite[Thm.~5]{BednarczykJ22} does not provide any results in the finite model scenario.
+The goal of this paper is to provide its constructive analogue, that can also be applied in the finite realm.
