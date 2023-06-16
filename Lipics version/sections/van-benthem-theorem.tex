@@ -1,71 +1,63 @@
 %!TEX root = ../main.tex
 
+\section{Expressive Completeness}\label{sec:van-benthem-theorem}
 
-\section{Van Benthem's Theorem}\label{sec:van-benthem-theorem}
-Van Benthem's theorem shows that modal logic corresponds to the bisimulation-invariant subset of first order logic~\cite{van1983modal}, which holds even in finite structures~\cite{Rosen97}.
-We can prove an analogous theorem for the forward guarded fragment, using our modified notion of bisimulation:
 
-\begin{theorem}
-  The following two statements are equivalent:
-  \begin{enumerate}
-    \item $\phi(\bar{x}) \in \Logic{FO}$ is invariant under \FGF-bisimulation in finite models
-    \item $\phi(\bar{x})$ is logically equivalent to a \FGF~formula in finite models
-  \end{enumerate}
+Let $\logicL$ be a fragment of $\FO$. 
+A first-order formula~$\varphi$ is called \emph{$\bisimto_{\logicL}$-invariant}
+if for all pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$ we have that  
+$(\str{A},\elemtuplea) \bisimto_{\logicL[\sig(\varphi)]} (\str{B}, \elemtupleb)$ implies
+$\str{A} \models \varphi[\elemtuplea] \Leftrightarrow \str{B} \models \varphi[\elemtupleb]$, \ie if $\logicL[\sig(\varphi)]$-bisimilar structures agree on the satisfaction of $\varphi$.
+Similarly, $\varphi$ is called \emph{$\bisimto_{\logicL}$-invariant in the finite} if the above implication holds for all \emph{finite} pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$.
+A logic $\logicL$ is the \emph{$\bisimto_{\logicL}$-invariant fragment} (in the finite) of $\FO$ if every formula of~$\logicL$ is $\logicL$-invariant (in the finite) and every $\logicL$-invariant first-order formula is equivalent (in the finite) to some formula of $\logicL$.
+A celebrated result of van Benthem states that modal logic $\mathrm{K}$ is the bisimulation-invariant fragment of first-order logic~\cite[Thm.~2.2.1]{AndrekaNB98}. The constructive version of the theorem (which works also in the finite) was provided later by Rosen~\cite[Prop.~4]{Rosen97}.
+A~constructive analogous of van Benthem's theorem for $\GF$ was given by Otto~\cite{Otto2012}.
+\begin{theorem}\label{thm:vanBenthem-for-GF}
+  The guarded fragment is the $\bisimto_{\GF}$-invariant fragment of $\FO$, both in a sense of classical model theory and in the finite.
+  More specifically, for any finite signature $\sigma$, there is an \possiblelie{exponential}\bbeside{Asked Otto. Waiting for the answer. EDIT: He thinks that this is true. But I'm not sure whether we can write it this way...} function $\homoe \colon \N \to \N$ such that every $\FO[\sigma]$-formula $\varphi$ of quantifier rank $q$ that is $\bisimto_{\GF[\sigma]}$-invariant (in the finite) is also $\bisimto^{\homoe(q)}_{\GF[\sigma]}$-invariant (in the finite) and logically-equivalent (in the finite) to a $\GF[\sigma]$-formula of quantifier rank at most $\homoe(q)$.
 \end{theorem}
-
-The prove this theorem, we use the following oberservation by Otto~\cite{Otto04}:
-\begin{observation}
-  Let $\bisimto$ have finite approximations $\bisimto^{\ell}, \ell \in \mathbb{N}$.
-  Assume that each $\bisimto^{\ell}$ has finite index for every finite relational vocabulary.
-  Let $\Logic{L} = \bigcup_{\ell}{\Logic{L}^{\ell}}$ be a logic, each stratum $\Logic{L}^{\ell}$ closed under disjunctions.
-  Assume that each $\Logic{L}^{\ell}$ is invariant under $\bisimto^{\ell}$ and that each $\bisimto^{\ell}$-class is definable by a formula of $\Logic{L}^{\ell}$.
-
-  Then the following are equivalent, both in the sense of classical model theory and of finite model theory:
-  \begin{enumerate}[(i)]
-    \item Every FO formula that is $\bisimto$-invariant is invariant under $\bisimto^{\ell}$ for some $\ell$.
-    \item Every FO formula that is $\bisimto$-invariant is equivalent to some formula in $\Logic{L}$.
-  \end{enumerate}
-\end{observation}
-
-We have shown previously that $\FGF$, $\bisimto_{\FGF}$ and $\bisimto_{\FGF}^{\ell}$ satisfy the preconditions of this observation.
-Hence it is sufficient to show condition (i).
-Following Otto, we prove this condition by upgrading \FGF~bisimulation to a stronger form of bisimulation: \GF~bisimulation:
-
+In~\cite[Thm. 5]{BednarczykJ22} a non-constructive version of van Benthem's theorem for $\FGF$ is given. 
+Unfortunately the proof heavily relies on model-theoretic toolkit like compactness, that is well-known to fail in the finite~\cite[Prop.~3.2]{Libkin04}. Thus the proof of~\cite[Thm.~5]{BednarczykJ22} does not provide any results in the finite model scenario.
+The goal of this paper is to provide its constructive analogue, that can also be applied to the finite case.
+Our main technical contribution is:
+\begin{theorem}\label{thm:main-technical-thm}
+  Let $\sigma$ be a finite signature. 
+  There exists a positive polynomial function~$\homop$ such that for every $\ell$ and every pair of $\ell$-$\FGF[\sigma]$-bisimilar pointed $\sigma$-structures, there exists $\FGF[\sigma]$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$ (that are finite if $\str{A}$ and $\str{B}$ are) of $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ such that $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\GF[\sigma]} (\str{B}', \elemtupleb')$.
+\end{theorem}
+We next show how~\cref{thm:main-technical-thm} implies a van Benthem's style characterisation of $\FGF$. More precisely:
+\begin{theorem}
+The forward guarded fragment is the $\bisimto_{\FGF}$-invariant fragment of $\FO$, both in a sense of classical model theory and in the finite.
+\end{theorem}
 \begin{proof}
-  Let $\phi$ be an $\FO$ formula invariant under $\bisimto_{\FGF}$.
-  $\phi$ is then also invariant under $\bisimto_{\GF}$, since $\bisimto_{\GF}$ is stronger than $\bisimto_{\FGF}$.
-  This implies that there exists a finite $g$ such that $\phi$ is invariant under $\bisimto_{\GF}^{g}$, as a result of Otto's proof of the van Benthem theorem for \GF~\cite{Otto2012}.
+By employing previous developments of Otto~\cite[Obs.~13]{Otto04}, uniformly stated for fragments of first-order logic, it suffices to show that for every first-order formula that is $\bisimto_{\FGF}$-invariant (in the finite) is also $\bisimto_{\FGF}^{\ell}$-invariant (in the finite) for some $\ell \in \N$.
 
-  By theorem \todo[inline,inlinewidth=5cm,noinlinepar]{TODO: upgrading theorem}, there is a finite $\ell$ and $\theta$ for this $g$ such that for arbitrary models, $~^{\ell}$-\FGF-bisimilarity implies that their $\theta$-unravelings are $g$-\GF-bisimilar.
-  Let $\str{A}, \bar{a} \bisimto_{\FGF}^{\ell} \str{B}, \bar{b}$ be two $\ell$-\FGF-bisimilar models.
-  Then, $\str{A}, \bar{a} \models \phi(\bar{x}) \implies \str{B}, \bar{b} \models \phi(\bar{x})$ (and vice-versa by symmetry), as can be seen following \cref{fig:fgf-to-gf-upgrade}:
-  \begin{itemize}
-    \item $\phi(\bar{x})$ is preserved in $\str{A}^{\rightarrow}_{\theta}, \overrightarrow{a}$, since $\phi(\bar{x})$ is preserved under \FGF-bisimulation by assumption and the unraveling is fully \FGF-bisimlar
-    \item $\phi(\bar{x})$ is preserved in $\str{B}^{\rightarrow}_{\theta}, \overrightarrow{b}$ since the unravelings are $\bisimto_{\GF}^{g}$ equivalent and $\phi$ is invariant under $\bisimto_{\GF}^{g}$
-    \item $\phi(\bar{x})$ is preserved in $\str{B}, \bar{b}$ again since the unravelings are \FGF-bisimilar
-  \end{itemize}
-  This shows that $\phi$ is invariant under $\bisimto_{\FGF}^{\ell}$, completing the proof.
-\end{proof}
-
-\begin{figure}
+Take any such first-order formula $\varphi$, and let $\homog$ be the function provided by~\cref{thm:main-technical-thm}. 
+As $\FGF$ is a fragment of $\GF$, we know that $\varphi$ is $\bisimto_{\GF}$-invariant (in the finite).
+Thus $\varphi$ is also $\bisimto_{\GF}^{\mathit{g}}$-invariant (in the finite) for $\mathit{g} \in \N$ provided by~\cref{thm:vanBenthem-for-GF}.
+Let $\ell$ be minimal number for which $\homop(\ell) \geq \mathit{g}$ holds (it exists by the positivity of $\homop$).
+We will show that $\varphi$ is $\bisimto_{\FGF}^{\ell}$-invariant (in the finite).
+To do so, let $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ be $\ell$-$\FGF[\sigma]$-bisimilar pointed $\sigma$-structures, and suppose that $(\str{A}, \elemtuplea) \models \varphi$. It remains to show that $(\str{B}, \elemtupleb) \models \varphi$.
+From~\cref{thm:main-technical-thm} we infer the existence of $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$, that are finite if $\str{A}$ and $\str{B}$ are, for which $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\GF[\sigma]} (\str{B}', \elemtupleb')$ holds. 
+The following diagram depicts what will happen next.
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     \matrix[row sep=2em, column sep=3em]
     {
-        \node (a) {$\str{A}, \bar{a}$}; &
-        \node[font=\large] (sim_ab) {$\bisimto_{\FGF}^{\ell}$}; &
-        \node (b) {$\str{B}, \bar{b}$}; &
-        \node[anchor=west] {$\ell$ depends on $g$}; \\
+        \node (a) {$(\str{A}, \elemtuplea)$}; &
+         \node[font=\large] (sim_ab) {$\bisimto_{\FGF}^{\ell}$}; &
+        \node (b) {$(\str{B}, \elemtupleb)$}; &
+        \node[anchor=west] {}; \\
 
         \node[font=\large] (sim_a_unravel) {$\bisimto_{\FGF}$}; &
         \node {}; &
         \node[font=\large] (sim_b_unravel) {$\bisimto_{\FGF}$}; &
-        \node[anchor=west] {full FGF-bisimilarity, without bound}; \\
+        \node[anchor=west] {}; \\
 
-        \node (a_unravel) {$\str{A}^{\rightarrow}_{\theta}, \overrightarrow{a}$}; &
-        \node[font=\large] (sim_unravel) {$\bisimto_{\GF}^{g}$}; &
-        \node (b_unravel) {$\str{B}^{\rightarrow}_{\theta}, \overrightarrow{b}$}; &
-        \node[anchor=west] {$g$ given by Otto, depends on the quantifier rank of $\phi$}; \\
+        \node (a_unravel) {$(\str{A}', \elemtuplea')$}; &
+        \node[font=\large] (sim_unravel) {$\bisimto_{\GF}^{\mathit{g}}$}; &
+        \node (b_unravel) {$(\str{B}', \elemtupleb')$}; 
+        \node[anchor=west] {}; \\
     };
 
     \draw[->] (a) -- (sim_ab) -> (b);
@@ -73,6 +65,89 @@ Following Otto, we prove this condition by upgrading \FGF~bisimulation to a stro
     \draw[->] (a_unravel) -- (sim_unravel) -> (b_unravel);
     \draw[dashed,->] (b_unravel) -- (sim_b_unravel) -> (b);
   \end{tikzpicture}
-  \caption{Upgrading FGF to GF bisimulation}
+  % \caption{Upgrading $\bisimto_{\FGF}^{\ell}$-bisimulation to $\bisimto_{\GF}^{\mathit{g}}$-bisimulation.}
   \label{fig:fgf-to-gf-upgrade}
 \end{figure}
+
+It is now clear that: 
+(i) $(\str{A}, \elemtuplea) \models \varphi$ (by assumption),
+(ii) $(\str{A}', \elemtuplea') \models \varphi$ (by $\FGF[\sigma]$-bisimilarity and $\bisimto_{\FGF}$-invariance of $\varphi$),
+(iii) $(\str{B}', \elemtupleb') \models \varphi$ (by $\bisimto_{\GF}^{\mathit{g}}$-invariance of $\varphi$ and the choice of $\ell$),
+(iv) $(\str{B}, \elemtupleb) \models \varphi$ (by $\FGF[\sigma]$-bisimilarity and $\bisimto_{\FGF}$-invariance of $\varphi$). 
+This concludes the proof.
+\end{proof}
+
+% Van Benthem's theorem shows that modal logic corresponds to the bisimulation-invariant subset of first order logic~\cite{van1983modal}, which holds even in finite structures~\cite{Rosen97}.
+% We can prove an analogous theorem for the forward guarded fragment, using our modified notion of bisimulation:
+
+% \begin{theorem}
+%   The following two statements are equivalent:
+%   \begin{enumerate}
+%     \item $\phi(\bar{x}) \in \Logic{FO}$ is invariant under \FGF-bisimulation in finite models
+%     \item $\phi(\bar{x})$ is logically equivalent to a \FGF~formula in finite models
+%   \end{enumerate}
+% \end{theorem}
+
+% The prove this theorem, we use the following oberservation by Otto~\cite{Otto04}:
+% \begin{observation}
+%   Let $\bisimto$ have finite approximations $\bisimto^{\ell}, \ell \in \mathbb{N}$.
+%   Assume that each $\bisimto^{\ell}$ has finite index for every finite relational vocabulary.
+%   Let $\Logic{L} = \bigcup_{\ell}{\Logic{L}^{\ell}}$ be a logic, each stratum $\Logic{L}^{\ell}$ closed under disjunctions.
+%   Assume that each $\Logic{L}^{\ell}$ is invariant under $\bisimto^{\ell}$ and that each $\bisimto^{\ell}$-class is definable by a formula of $\Logic{L}^{\ell}$.
+
+%   Then the following are equivalent, both in the sense of classical model theory and of finite model theory:
+%   \begin{enumerate}[(i)]
+%     \item Every FO formula that is $\bisimto$-invariant is invariant under $\bisimto^{\ell}$ for some $\ell$.
+%     \item Every FO formula that is $\bisimto$-invariant is equivalent to some formula in $\Logic{L}$.
+%   \end{enumerate}
+% \end{observation}
+
+% We have shown previously that $\FGF$, $\bisimto_{\FGF}$ and $\bisimto_{\FGF}^{\ell}$ satisfy the preconditions of this observation.
+% Hence it is sufficient to show condition (i).
+% Following Otto, we prove this condition by upgrading \FGF~bisimulation to a stronger form of bisimulation: \GF~bisimulation:
+
+% \begin{proof}
+%   Let $\phi$ be an $\FO$ formula invariant under $\bisimto_{\FGF}$.
+%   $\phi$ is then also invariant under $\bisimto_{\GF}$, since $\bisimto_{\GF}$ is stronger than $\bisimto_{\FGF}$.
+%   This implies that there exists a finite $g$ such that $\phi$ is invariant under $\bisimto_{\GF}^{g}$, as a result of Otto's proof of the van Benthem theorem for \GF~\cite{Otto2012}.
+
+%   By theorem \todo[inline,inlinewidth=5cm,noinlinepar]{TODO: upgrading theorem}, there is a finite $\ell$ and $\theta$ for this $g$ such that for arbitrary models, $~^{\ell}$-\FGF-bisimilarity implies that their $\theta$-unravelings are $g$-\GF-bisimilar.
+%   Let $\str{A}, \bar{a} \bisimto_{\FGF}^{\ell} \str{B}, \bar{b}$ be two $\ell$-\FGF-bisimilar models.
+%   Then, $\str{A}, \bar{a} \models \phi(\bar{x}) \implies \str{B}, \bar{b} \models \phi(\bar{x})$ (and vice-versa by symmetry), as can be seen following \cref{fig:fgf-to-gf-upgrade}:
+%   \begin{itemize}
+%     \item $\phi(\bar{x})$ is preserved in $\str{A}^{\rightarrow}_{\theta}, \overrightarrow{a}$, since $\phi(\bar{x})$ is preserved under \FGF-bisimulation by assumption and the unraveling is fully \FGF-bisimlar
+%     \item $\phi(\bar{x})$ is preserved in $\str{B}^{\rightarrow}_{\theta}, \overrightarrow{b}$ since the unravelings are $\bisimto_{\GF}^{g}$ equivalent and $\phi$ is invariant under $\bisimto_{\GF}^{g}$
+%     \item $\phi(\bar{x})$ is preserved in $\str{B}, \bar{b}$ again since the unravelings are \FGF-bisimilar
+%   \end{itemize}
+%   This shows that $\phi$ is invariant under $\bisimto_{\FGF}^{\ell}$, completing the proof.
+% \end{proof}
+
+% \begin{figure}
+%   \centering
+%   \begin{tikzpicture}
+%     \matrix[row sep=2em, column sep=3em]
+%     {
+%         \node (a) {$\str{A}, \bar{a}$}; &
+%         \node[font=\large] (sim_ab) {$\bisimto_{\FGF}^{\ell}$}; &
+%         \node (b) {$\str{B}, \bar{b}$}; &
+%         \node[anchor=west] {$\ell$ depends on $g$}; \\
+
+%         \node[font=\large] (sim_a_unravel) {$\bisimto_{\FGF}$}; &
+%         \node {}; &
+%         \node[font=\large] (sim_b_unravel) {$\bisimto_{\FGF}$}; &
+%         \node[anchor=west] {full FGF-bisimilarity, without bound}; \\
+
+%         \node (a_unravel) {$\str{A}^{\rightarrow}_{\theta}, \overrightarrow{a}$}; &
+%         \node[font=\large] (sim_unravel) {$\bisimto_{\GF}^{g}$}; &
+%         \node (b_unravel) {$\str{B}^{\rightarrow}_{\theta}, \overrightarrow{b}$}; &
+%         \node[anchor=west] {$g$ given by Otto, depends on the quantifier rank of $\phi$}; \\
+%     };
+
+%     \draw[->] (a) -- (sim_ab) -> (b);
+%     \draw[dashed,->] (a) -- (sim_a_unravel) -> (a_unravel);
+%     \draw[->] (a_unravel) -- (sim_unravel) -> (b_unravel);
+%     \draw[dashed,->] (b_unravel) -- (sim_b_unravel) -> (b);
+%   \end{tikzpicture}
+%   \caption{Upgrading FGF to GF bisimulation}
+%   \label{fig:fgf-to-gf-upgrade}
+% \end{figure}

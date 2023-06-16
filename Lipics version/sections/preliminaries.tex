@@ -162,27 +162,3 @@ The following example presents two structures that are $\FGF$-bisimilar but not 
 Consider a binary predicate $\relE$.
 Let $\str{A}$ be a single-element, in which all $\relE$ is interpreted as the full relation, and let $\str{B}$ be a $\relE$-cycle of length two. These two structures are $\FGF[\{\relE\}]$-bisimilar, while a $\GF$-sentence $\exists{\varx_1}\relE(\varx_1,\varx_1)$ can distinguish them.
 \end{example}
-
-Let $\logicL$ be a fragment of $\FO$. 
-A first-order formula~$\varphi$ is called \emph{$\bisimto_{\logicL}$-invariant}
-if for all pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$ we have that  
-$(\str{A},\elemtuplea) \bisimto_{\logicL[\sig(\varphi)]} (\str{B}, \elemtupleb)$ implies
-$\str{A} \models \varphi[\elemtuplea] \Leftrightarrow \str{B} \models \varphi[\elemtupleb]$, \ie if $\logicL[\sig(\varphi)]$-bisimilar structures agree on the satisfaction of $\varphi$.
-Similarly, $\varphi$ is called \emph{$\bisimto_{\logicL}$-invariant in the finite} if the above implication holds for all \emph{finite} pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$.
-A logic $\logicL$ is the \emph{$\bisimto_{\logicL}$-invariant fragment} (in the finite) of $\FO$ if every formula of~$\logicL$ is $\logicL$-invariant (in the finite) and every $\logicL$-invariant first-order formula is equivalent (in the finite) to some formula of $\logicL$.
-A celebrated result of van Benthem states that modal logic $\mathrm{K}$ is the bisimulation-invariant fragment of first-order logic~\cite[Thm.~2.2.1]{AndrekaNB98}. The constructive version of the theorem (which works also in the finite) was provided later by Rosen~\cite[Prop.~4]{Rosen97}.
-A~constructive analogous of van Benthem's theorem for $\GF$ was given by Otto~\cite{Otto2012}.
-\begin{theorem}\label{thm:vanBenthem-for-GF}
-For any finite signature $\sigma$, there is an \possiblelie{exponential}\bbeside{Asked Otto. Waiting for the answer.} function $\homoe \colon \N \to \N$ such that every $\FO[\sigma]$-formula $\varphi$ of quantifier rank $q$ that is $\bisimto_{\GF[\sigma]}$-invariant (in the finite) is also $\bisimto^{\homoe(q)}_{\GF[\sigma]}$-invariant (in the finite) and logically-equivalent (in the finite) to a $\GF[\sigma]$-formula of quantifier rank at most $\homoe(q)$.
-\end{theorem}
-
-In~\cite[Thm. 5]{BednarczykJ22} a non-constructive version of van Benthem's theorem for $\FGF$ is given. 
-Unfortunately the proof heavily relies on model-theoretic toolkit like compactness, that is well-known to fail in the finite~\cite[Prop.~3.2]{Libkin04}. Thus the proof of~\cite[Thm.~5]{BednarczykJ22} does not provide any results in the finite model scenario.
-The goal of this paper is to provide its constructive analogue, that can also be applied to the finite case.
-Our main technical contribution is:
-\begin{theorem}
-Let $\sigma$ be a finite signature, and let $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ be a pair of $\ell$-$\FGF[\sigma]$-\emph{bisimilar} $\sigma$-structures.
-Then there exist $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$ (that are finite if $\str{A}$ and $\str{B}$ are) such that $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\GF[\sigma]} (\str{B}', \elemtupleb')$ for some polynomial~function~$\homop$.
-\end{theorem}
-
-\bbebox{here we add how this implies the main theorem of the paper}
