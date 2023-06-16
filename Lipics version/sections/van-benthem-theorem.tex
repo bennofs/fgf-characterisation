@@ -21,8 +21,9 @@ Unfortunately the proof heavily relies on model-theoretic toolkit like compactne
 The goal of this paper is to provide its constructive analogue, that can also be applied to the finite case.
 Our main technical contribution is:
 \begin{theorem}\label{thm:main-technical-thm}
-  Let $\sigma$ be a finite signature. 
+  Let $\sigma$ be a finite signature.
   There exists a positive polynomial function~$\homop$ such that for every $\ell$ and every pair of $\ell$-$\FGF[\sigma]$-bisimilar pointed $\sigma$-structures, there exists $\FGF[\sigma]$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$ (that are finite if $\str{A}$ and $\str{B}$ are) of $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ such that $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\GF[\sigma]} (\str{B}', \elemtupleb')$.
+  \bfside{the bisimulation bounds here should be reversed: it should say that if $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\FGF[\sigma]} (\str{B}', \elemtupleb')$ then $(\str{A}', \elemtuplea') \bisimto^{\ell}_{\GF[\sigma]} (\str{B}', \elemtupleb')$, since $\homop(\ell) > \ell$}
 \end{theorem}
 We next show how~\cref{thm:main-technical-thm} implies a van Benthem's style characterisation of $\FGF$. More precisely:
 \begin{theorem}
@@ -31,13 +32,15 @@ The forward guarded fragment is the $\bisimto_{\FGF}$-invariant fragment of $\FO
 \begin{proof}
 By employing previous developments of Otto~\cite[Obs.~13]{Otto04}, uniformly stated for fragments of first-order logic, it suffices to show that for every first-order formula that is $\bisimto_{\FGF}$-invariant (in the finite) is also $\bisimto_{\FGF}^{\ell}$-invariant (in the finite) for some $\ell \in \N$.
 
-Take any such first-order formula $\varphi$, and let $\homog$ be the function provided by~\cref{thm:main-technical-thm}. 
+Take any such first-order formula $\varphi$, and let $\homog$ be the function provided by~\cref{thm:main-technical-thm}.
+\bfside{Is it clear that ``FGF is a fragment of GF'' means that $\bisimto_{\FGF}$-invariance implies $\bisimto_{\GF}$-invariance?}
 As $\FGF$ is a fragment of $\GF$, we know that $\varphi$ is $\bisimto_{\GF}$-invariant (in the finite).
 Thus $\varphi$ is also $\bisimto_{\GF}^{\mathit{g}}$-invariant (in the finite) for $\mathit{g} \in \N$ provided by~\cref{thm:vanBenthem-for-GF}.
 Let $\ell$ be minimal number for which $\homop(\ell) \geq \mathit{g}$ holds (it exists by the positivity of $\homop$).
+\bfside{here we will show that $\varphi$ is $\bisimto_{\FGF}^{\homop(\ell)}$-invariant (after fixing \cref{thm:main-technical-thm})}
 We will show that $\varphi$ is $\bisimto_{\FGF}^{\ell}$-invariant (in the finite).
 To do so, let $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ be $\ell$-$\FGF[\sigma]$-bisimilar pointed $\sigma$-structures, and suppose that $(\str{A}, \elemtuplea) \models \varphi$. It remains to show that $(\str{B}, \elemtupleb) \models \varphi$.
-From~\cref{thm:main-technical-thm} we infer the existence of $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$, that are finite if $\str{A}$ and $\str{B}$ are, for which $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\GF[\sigma]} (\str{B}', \elemtupleb')$ holds. 
+From~\cref{thm:main-technical-thm} we infer the existence of $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$, that are finite if $\str{A}$ and $\str{B}$ are, for which $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\GF[\sigma]} (\str{B}', \elemtupleb')$\bfside{should be $\bisimto^g_{\GF}$ here} holds.
 The following diagram depicts what will happen next.
 \begin{figure}[H]
   \centering
