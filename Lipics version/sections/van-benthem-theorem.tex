@@ -11,10 +11,10 @@ $\str{A} \models \varphi[\elemtuplea] \Leftrightarrow \str{B} \models \varphi[\e
 Similarly, $\varphi$ is called \emph{$\bisimto_{\logicL}$-invariant in the finite} if the above implication holds for all \emph{finite} pointed structures $(\str{A},\elemtuplea)$ and $(\str{B}, \elemtupleb)$.
 A logic $\logicL$ is the \emph{$\bisimto_{\logicL}$-invariant fragment} (in the finite) of $\FO$ if every formula of~$\logicL$ is $\logicL$-invariant (in the finite) and every $\logicL$-invariant first-order formula is equivalent (in the finite) to some formula of $\logicL$.
 A celebrated result of van Benthem states that modal logic $\mathrm{K}$ is the bisimulation-invariant fragment of first-order logic~\cite[Thm.~2.2.1]{AndrekaNB98}. The constructive version of the theorem (which works also in the finite) was provided later by Rosen~\cite[Prop.~4]{Rosen97}.
-A~constructive analogous of van Benthem's theorem for $\GF$ was given by Otto~\cite{Otto2012}.
+A~constructive analogous of van Benthem's theorem for $\GF$ was given by Otto~\cite[Thm.~4.7]{Otto2012}.
 \begin{theorem}\label{thm:vanBenthem-for-GF}
   The guarded fragment is the $\bisimto_{\GF}$-invariant fragment of $\FO$, both in a sense of classical model theory and in the finite.
-  More specifically, for any finite signature $\sigma$, there is an \possiblelie{exponential}\bbeside{Asked Otto. Waiting for the answer. EDIT: He thinks that this is true. But I'm not sure whether we can write it this way...} function $\homoe \colon \N \to \N$ such that every $\FO[\sigma]$-formula $\varphi$ of quantifier rank $q$ that is $\bisimto_{\GF[\sigma]}$-invariant (in the finite) is also $\bisimto^{\homoe(q)}_{\GF[\sigma]}$-invariant (in the finite) and logically-equivalent (in the finite) to a $\GF[\sigma]$-formula of quantifier rank at most $\homoe(q)$.
+  More specifically, for any finite signature $\sigma$, there is a computable function $\homof \colon \N \to \N$ such that every $\FO[\sigma]$-formula $\varphi$ of quantifier rank $q$ that is $\bisimto_{\GF[\sigma]}$-invariant (in the finite) is also $\bisimto^{\homof(q)}_{\GF[\sigma]}$-invariant (in the finite) and logically-equivalent (in the finite) to a $\GF[\sigma]$-formula of quantifier rank at most $\homof(q)$.
 \end{theorem}
 In~\cite[Thm. 5]{BednarczykJ22} a non-constructive version of van Benthem's theorem for $\FGF$ is given. 
 Unfortunately the proof heavily relies on model-theoretic toolkit like compactness, that is well-known to fail in the finite~\cite[Prop.~3.2]{Libkin04}. Thus the proof of~\cite[Thm.~5]{BednarczykJ22} does not provide any results in the finite model scenario.
@@ -22,8 +22,7 @@ The goal of this paper is to provide its constructive analogue, that can also be
 Our main technical contribution is:
 \begin{theorem}\label{thm:main-technical-thm}
   Let $\sigma$ be a finite signature.
-  There exists a positive polynomial function~$\homop$ such that for every $\ell$ and every pair of $\ell$-$\FGF[\sigma]$-bisimilar pointed $\sigma$-structures, there exists $\FGF[\sigma]$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$ (that are finite if $\str{A}$ and $\str{B}$ are) of $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ such that $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\GF[\sigma]} (\str{B}', \elemtupleb')$.
-  \bfside{the bisimulation bounds here should be reversed: it should say that if $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\FGF[\sigma]} (\str{B}', \elemtupleb')$ then $(\str{A}', \elemtuplea') \bisimto^{\ell}_{\GF[\sigma]} (\str{B}', \elemtupleb')$, since $\homop(\ell) > \ell$}
+  There exists a positive polynomial function~$\homop$ such that for every $\ell$ and every pair of $\homop(\ell)$-$\FGF[\sigma]$-bisimilar pointed $\sigma$-structures, there exists $\FGF[\sigma]$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$ (that are finite if $\str{A}$ and $\str{B}$ are) of $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ such that $(\str{A}', \elemtuplea') \bisimto^{\ell}_{\GF[\sigma]} (\str{B}', \elemtupleb')$.
 \end{theorem}
 We next show how~\cref{thm:main-technical-thm} implies a van Benthem's style characterisation of $\FGF$. More precisely:
 \begin{theorem}
@@ -32,15 +31,13 @@ The forward guarded fragment is the $\bisimto_{\FGF}$-invariant fragment of $\FO
 \begin{proof}
 By employing previous developments of Otto~\cite[Obs.~13]{Otto04}, uniformly stated for fragments of first-order logic, it suffices to show that for every first-order formula that is $\bisimto_{\FGF}$-invariant (in the finite) is also $\bisimto_{\FGF}^{\ell}$-invariant (in the finite) for some $\ell \in \N$.
 
-Take any such first-order formula $\varphi$, and let $\homog$ be the function provided by~\cref{thm:main-technical-thm}.
-\bfside{Is it clear that ``FGF is a fragment of GF'' means that $\bisimto_{\FGF}$-invariance implies $\bisimto_{\GF}$-invariance?}
-As $\FGF$ is a fragment of $\GF$, we know that $\varphi$ is $\bisimto_{\GF}$-invariant (in the finite).
-Thus $\varphi$ is also $\bisimto_{\GF}^{\mathit{g}}$-invariant (in the finite) for $\mathit{g} \in \N$ provided by~\cref{thm:vanBenthem-for-GF}.
+Take any such first-order formula $\varphi$, and let $\homop$ be the function provided by~\cref{thm:main-technical-thm}.
+As $\FGF$ is a fragment of $\GF$ (and hence $\bisimto_{\FGF}$-invariance implies $\bisimto_{\GF}$-invariance), we know that $\varphi$ is $\bisimto_{\GF}$-invariant (in the finite).
+Thus $\varphi$ is also $\bisimto_{\GF}^{\mathit{g}}$-invariant (in the finite) for certain threshold $\mathit{g} \in \N$ provided by~\cref{thm:vanBenthem-for-GF}
 Let $\ell$ be minimal number for which $\homop(\ell) \geq \mathit{g}$ holds (it exists by the positivity of $\homop$).
-\bfside{here we will show that $\varphi$ is $\bisimto_{\FGF}^{\homop(\ell)}$-invariant (after fixing \cref{thm:main-technical-thm})}
-We will show that $\varphi$ is $\bisimto_{\FGF}^{\ell}$-invariant (in the finite).
-To do so, let $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ be $\ell$-$\FGF[\sigma]$-bisimilar pointed $\sigma$-structures, and suppose that $(\str{A}, \elemtuplea) \models \varphi$. It remains to show that $(\str{B}, \elemtupleb) \models \varphi$.
-From~\cref{thm:main-technical-thm} we infer the existence of $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$, that are finite if $\str{A}$ and $\str{B}$ are, for which $(\str{A}', \elemtuplea') \bisimto^{\homop(\ell)}_{\GF[\sigma]} (\str{B}', \elemtupleb')$\bfside{should be $\bisimto^g_{\GF}$ here} holds.
+We aim to show that $\varphi$ is $\bisimto_{\FGF}^{\homop(\mathit{g})}$-invariant (in the finite).
+To do so, let $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ be $\homop(\mathit{g})$-$\FGF[\sigma]$-bisimilar pointed $\sigma$-structures, and suppose that $(\str{A}, \elemtuplea) \models \varphi$. It remains to show that $(\str{B}, \elemtupleb) \models \varphi$.
+From~\cref{thm:main-technical-thm} we infer the existence of $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$, that are finite if $\str{A}$ and $\str{B}$ are, for which $(\str{A}', \elemtuplea') \bisimto^{\mathit{g}}_{\GF[\sigma]} (\str{B}', \elemtupleb')$ holds.
 The following diagram depicts what will happen next.
 \begin{figure}[H]
   \centering
@@ -48,7 +45,7 @@ The following diagram depicts what will happen next.
     \matrix[row sep=2em, column sep=3em]
     {
         \node (a) {$(\str{A}, \elemtuplea)$}; &
-         \node[font=\large] (sim_ab) {$\bisimto_{\FGF}^{\ell}$}; &
+         \node[font=\large] (sim_ab) {$\bisimto_{\FGF}^{\homop(\mathit{g})}$}; &
         \node (b) {$(\str{B}, \elemtupleb)$}; &
         \node[anchor=west] {}; \\
 
@@ -75,7 +72,7 @@ The following diagram depicts what will happen next.
 It is now clear that: 
 (i) $(\str{A}, \elemtuplea) \models \varphi$ (by assumption),
 (ii) $(\str{A}', \elemtuplea') \models \varphi$ (by $\FGF[\sigma]$-bisimilarity and $\bisimto_{\FGF}$-invariance of $\varphi$),
-(iii) $(\str{B}', \elemtupleb') \models \varphi$ (by $\bisimto_{\GF}^{\mathit{g}}$-invariance of $\varphi$ and the choice of $\ell$),
+(iii) $(\str{B}', \elemtupleb') \models \varphi$ (by $\bisimto_{\GF}^{\mathit{g}}$-invariance of $\varphi$),
 (iv) $(\str{B}, \elemtupleb) \models \varphi$ (by $\FGF[\sigma]$-bisimilarity and $\bisimto_{\FGF}$-invariance of $\varphi$). 
 This concludes the proof.
 \end{proof}
