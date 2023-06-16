@@ -24,10 +24,10 @@
   \item $\varphi$ is of the form $\exists{\vartuplexfromto{n{+}1}{m}}\ \relR(\vartuplexfromto{i}{j}) \land \psi(\vartuplexfromto{i}{j})$, where a predicate $\relR$ serves as a guard, $i \geq 1$ and $j \leq m$.
   Note that the quantifier rank of $\relR(\vartuplexfromto{i}{j}) \land \psi(\vartuplexfromto{i}{j})$ is less than $\ell$.
   Suppose that $\str{A} \models \varphi[\elemtuplea]$ (the case of $\str{B} \models \varphi[\elemtupleb]$ is symmetric).
-  Let $\elemtuplec$ be the (possibly empty) infix $\elemtupleafromto{i}{n{-}1}$ of~$\elemtuplea$.
+  Let $\elemtuplec$ be the (possibly empty) infix $\elemtupleafromto{i}{n}$ of~$\elemtuplea$.
   Then there exists a (possibly empty) tuple $\elemtuplee$ in $\str{A}$ such that $\str{A} \models \relR[\elemtuplec\elemtuplee] \land \psi[\elemtuplec\elemtuplee]$.
   Note that $\elemtuplec\elemtuplee$ is $\sigma$-live. 
-  By~\ref{bisim:fforth} we can find a (possibly empty) tuple $\elemtuplef$ in $\str{B}$ such that $(\str{A}, \elemtuplec\elemtuplee) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elemtupled\elemtuplef)$ for~$\elemtupled$ equal to $\elemtuplebfromto{i}{n{-}1}$.
+  By~\ref{bisim:fforth} we can find a (possibly empty) tuple $\elemtuplef$ in $\str{B}$ such that $(\str{A}, \elemtuplec\elemtuplee) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elemtupled\elemtuplef)$ for~$\elemtupled$ equal to $\elemtuplebfromto{i}{n}$.
   Applying inductive hypothesis, namely $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$, we know that the consequent of $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$ holds true.
   This clearly implies $\str{B} \models \relR[\elemtupled\elemtuplef] \land \psi[\elemtupled\elemtuplef]$, which finally lead us to $\str{B} \models \varphi[\elemtupleb]$.
 
