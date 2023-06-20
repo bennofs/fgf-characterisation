@@ -1,0 +1,57 @@
+%!TEX root = ../main.tex
+
+\section{Tree-Like Unraveling}\label{sec:unraveling}
+We will now describe the construction of the companion structures required in \cref{thm:main-technical-thm}.
+Let $\str{A}$ be a structure with an associated binary relation $\relNext \subseteq A \times A$.
+A \emph{parent} of an element $e \in A$ is an element $p_{e} \in A$ such that $(p_{e}, e) \in A$.
+A \emph{root} is an element which has no parents.
+The structure $\str{A}$ is a \emph{forest} if every element has at most one parent and there is at least one root.
+A \emph{tree} is a forest with exactly one root.
+Using the well-known unraveling for transation systems, it can be shown that every satisfiable modal logic formula is satisfiable in a tree model.
+The same holds true for \FGF-formula, using the HAF-unraveling introduced by Bednarczyk~\cite[Sec 3.3]{Bednarczyk21}.
+Even though the tree unraveling of a structure $\str{A}, \elemtuplea$ can be infinite for finite $\str{A}$,
+for many modal logic variants, companions for a van Benthem style characterisation can be constructed based on the infinite unraveling~\cite{Otto04}.
+
+Unfortuntately, constructing a finite version of the HAF-unraveling is not enough to prove \cref{thm:main-technical-thm}.
+Consider the two finite structures shown in \cref{fig:unravel-haf}, which are both already fully HAF-unraveled, but can be distinguished by the GF sentence $\forall b,c. E(b,c) \implies \exists a. P(a,b,c)$.
+This shows that even if the HAF-unraveling is finite, it does not provide GF-bisimilar companions.
+\begin{figure}
+  \centering
+    \begin{tikzpicture}[baseline=(current bounding box.north)]
+        \draw[tolbrightGreen, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
+        \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
+
+        \draw [black, line width=0.1em, fill=white] (0em, 8em) circle [radius=0.8em] node[anchor=center] {1};
+        \draw [black, line width=0.1em, fill=white] (0em, 4em) circle [radius=0.8em] node[anchor=center] {2};
+        \draw [black, line width=0.1em, fill=white] (0em, 0em) circle [radius=0.8em] node[anchor=center] {3};
+
+        \begin{scope}[xshift=10em]
+            \draw[tolbrightGreen, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
+            \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0em,4em) -> (6em,2em);
+            \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
+
+            \draw [black, line width=0.1em, fill=white] (0em, 8em) circle [radius=0.8em] node[anchor=center] {1};
+            \draw [black, line width=0.1em, fill=white] (0em, 4em) circle [radius=0.8em] node[anchor=center] {2};
+            \draw [black, line width=0.1em, fill=white] (0em, 0em) circle [radius=0.8em] node[anchor=center] {3};
+            \draw [black, line width=0.1em, fill=white] (6em, 2em) circle [radius=0.8em] node[anchor=center] {3'};
+
+            \node[tolbrightGreen] at (-2em, 6em) {P};
+            \node[tolbrightYellow] at (-1.5em, 2em) {E};
+            \node[tolbrightYellow] at (3em, 4em) {E};
+        \end{scope}
+
+        \node[font=\Large] at (5em, 4em) {$\sim_{FGF}$};
+
+        \node[tolbrightGreen] at (-2em, 6em) {P};
+        \node[tolbrightYellow] at (-1.5em, 2em) {E};
+    \end{tikzpicture}%
+    \caption{relations are always top to bottom, so the green area marks the relation $\relP(1,2,3)$}%
+    \label{fig:unravel-haf}
+\end{figure}
+
+% introduce unraveling domain
+    % bisimulation sequences
+    % counter
+% describe finite unraveling
+% proof: finite unraveling is FGF-bisimilar to orig structure
+% lemma: intersection between any two live tuples is infix
