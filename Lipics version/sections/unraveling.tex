@@ -108,7 +108,12 @@ The \emph{unraveling domain} for the structure $\str{A}$ is defined as the follo
 \unraveldom{A} = \Seq{A} \times \mathbb{N} \setminus \left\{ (\sigma(i,j)\bar{a}, k) \mid k \le j-i+1\ \text{or}\ k > |a| \right\}
 \end{equation*}
 For elements $e = (\rho, k) \in \unraveldom{A}$ of this domain, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to refer to the sequence and counter of $e$ respectively.
-The element can also be projected into the original structure, using the projection $\pi(e) = \elemtuplea_{k}$ where $\elemtuplea$ is the tuple such that $\rho = \cdots \elemtuplea$.
+The element can also be projected into the original structure, using the projection $\pi(e) = \elemtuplea_{k}$ where $\elemtuplea$ is the tuple such that $\rho = \cdots \elemtuplea$. We define the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ such that $(s, t) \in \relNext$ iff either:
+\begin{description}
+  \item[(addCtr)] $\seq{s} = \seq{t}$ and $\ctr{t} = \ctr{s} + 1$, or
+  \item[(addSeq)] $\seq{t} = \seq{s} (i,j) \elemtuplea$ for some $i, j, \elemtuplea$ and $\ctr{s} = j, \ctr{t} = j - i + 1$
+\end{description}
+Note that $\unraveldom{A}$ with the relation $\relNext$ is a forest.
 
 % describe finite unraveling
 % proof: finite unraveling is FGF-bisimilar to orig structure
