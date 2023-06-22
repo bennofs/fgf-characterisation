@@ -45,6 +45,7 @@
 
 % Others
 \newcommand{\str}[1]{{\mathfrak{#1}}}
+\newcommand{\unravel}[1]{{\vv{\mathfrak{#1}}}}
 \newcommand{\deff}{\coloneqq}
 \newcommand{\arity}{\mathsf{ar}}
 \renewcommand{\iff}{\leftrightarrow}
@@ -96,6 +97,10 @@
 \newcommand{\elemh}{\elem{h}}                             % domain element h
 \newcommand{\elemi}{\elem{i}}                             % domain element i
 \newcommand{\elemj}{\elem{j}}                             % domain element j
+\newcommand{\elemp}{\elem{p}}                             % domain element j
+\newcommand{\elemq}{\elem{q}}                             % domain element j
+\newcommand{\elems}{\elem{s}}                             % domain element j
+\newcommand{\elemt}{\elem{t}}                             % domain element j
 \newcommand{\elemw}{\elem{w}}                             % domain element w
 \newcommand{\elemv}{\elem{v}}                             % domain element v
 \newcommand{\elemu}{\elem{u}}                             % domain element u
@@ -108,7 +113,10 @@
 \newcommand{\elemtupleg}{\overline{\elemg}}                         % tuple of domain element g
 \newcommand{\elemtupleh}{\overline{\elemh}}                         % tuple of domain element h
 \newcommand{\elemtuplei}{\overline{\elemi}}                         % tuple of domain element i
-\newcommand{\elemtuplej}{\overline{\elemj}}                         % tuple of domain element j
+\newcommand{\elemtuplep}{\overline{\elemp}}                         % tuple of domain element j
+\newcommand{\elemtupleq}{\overline{\elemq}}                         % tuple of domain element j
+\newcommand{\elemtuples}{\overline{\elems}}                         % tuple of domain element j
+\newcommand{\elemtuplet}{\overline{\elemt}}                         % tuple of domain element j
 \newcommand{\elemtuplew}{\overline{\elemw}}                         % tuple of domain element w
 \newcommand{\elemtupleu}{\overline{\elemu}}                         % tuple of domain element u
 \newcommand{\elemtuplev}{\overline{\elemv}}                         % tuple of domain element v
@@ -176,6 +184,8 @@
 \newcommand{\seq}[1]{\mathsf{seq}(#1)}
 \newcommand{\ctr}[1]{\mathsf{ctr}(#1)}
 \newcommand{\relNext}{\rel{Next}}
+\newcommand{\unraveldom}[1]{\vv{#1}}
+\newcommand{\Seq}[1]{\mathsf{Seq}(\str{#1})}
 
 % Restrictions
 \renewcommand{\restriction}{\mathord{\upharpoonright}}
