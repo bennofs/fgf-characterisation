@@ -4,7 +4,7 @@
 We employ standard terminology from (finite and classical) model theory~\cite[Sec. 1--3]{Libkin04}.
 
 All the logics considered in this paper are fragments of the first-order logic ($\FO$) over purely-relational equality-free vocabularies, under the usual syntax and semantics. 
-We fix a countably infinite set $\V \deff \{x_i \mid i \in \N\}$ of variables and a countably infinite set~$\R$ of predicates (we employ $\arity(\relR)$ to denote the arity of $\relR$ from $\R$). 
+We fix a countably infinite set $\V \deff \{x_i \colon\, i \in \N\}$ of variables and a countably infinite set~$\R$ of predicates (we employ $\arity(\relR)$ to denote the arity of $\relR$ from $\R$).
 Throughout this paper all formulae use variables from $\V$ and predicates from $\R$.
 Given a formula $\varphi$ we use $\sig(\varphi)$ to denote the set of predicates appearing in $\varphi$. 
 We write $\varphi(\vartuplex)$ to indicate that all free variables from $\varphi$ are members of $\vartuplex$. 
@@ -25,7 +25,7 @@ For a signature $\sigma$ we call a tuple $\elemtuplea \sqin A$ is \emph{$\sigma$
 
 \noindent \textbf{Types and logical equivalence.}
 Fix a logic $\logicL$ and a finite signature~$\sigma \subseteq \R$. 
-We~employ~$\logicL[\sigma]$ in place of~$\{ \varphi \in \logicL \mid \sig(\varphi) \subseteq \sigma \}$.
+We~employ~$\logicL[\sigma]$ in place of~$\{ \varphi \in \logicL \colon\,  \sig(\varphi) \subseteq \sigma \}$.
 Moreover, we use $\logicL_\ell[\sigma]$ to denote the restriction of $\logicL[\sigma]$ to formulae of quantifier rank (i.e.\ the maximal number of nested quantifiers) at most~$\ell$.  
 %
 The $\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL[\sigma]}{\str{A}}{\elemtuplea}$, consists of all atomic and negated atomic $\logicL[\sigma]$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.

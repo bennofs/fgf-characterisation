@@ -105,7 +105,7 @@ Let $\Seq{A}$ be the set of bisimulation sequences for a structure $\str{A}$.
 The \emph{unraveling domain} for the structure $\str{A}$ is defined as the following set:
 \bfside{This looks really ugly. Any way to write this in a better way?}
 \begin{equation*}
-\unraveldom{A} = \Seq{A} \times \mathbb{N} \setminus \left\{ (\sigma(i,j)\bar{a}, k) \mid k \le j-i+1\ \text{or}\ k > |a| \right\}
+\unraveldom{A} = \Seq{A} \times \mathbb{N} \setminus \left\{ (\sigma(i,j)\bar{a}, k) \colon\, k \le j-i+1\ \text{or}\ k > |a| \right\}
 \end{equation*}
 For elements $e = (\rho, k) \in \unraveldom{A}$ of this domain, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to refer to the sequence and counter of $e$ respectively.
 The element can also be projected into the original structure, using the projection $\pi(e) = \elemtuplea_{k}$ where $\elemtuplea$ is the tuple such that $\rho = \cdots \elemtuplea$. We define the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ such that $(s, t) \in \relNext$ iff either:

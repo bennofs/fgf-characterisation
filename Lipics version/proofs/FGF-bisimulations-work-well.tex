@@ -44,7 +44,7 @@ For the opposite direction, take $\ell \in \N$ and a pair of $\omega$-saturated 
 Suppose that $(\str{A}, \elemtuplea) \equiv_{\FGF_\ell[\sigma]} (\str{B}, \elemtupleb)$.
 We construct a family $\bisimZ_0, \ldots, \bisimZ_\ell$ of systems of forward partial maps as follows:
 \[
-  \bisimZ_\mathit{k} \coloneqq \{ (\elemtuplec, \elemtupled) \in \bigcup_{i=0}^{\infty} (A^i \times B^i) \mid  (\str{A}, \elemtuplec) \equiv_{\FGF_\mathit{k}[\sigma]} (\str{B}, \elemtupled), \ \text{and} \ \elemtuplec, \elemtupled \ \text{are $\sigma$-live} \}. 
+  \bisimZ_\mathit{k} \coloneqq \{ (\elemtuplec, \elemtupled) \in \bigcup_{i=0}^{\infty} (A^i \times B^i) \colon\,  (\str{A}, \elemtuplec) \equiv_{\FGF_\mathit{k}[\sigma]} (\str{B}, \elemtupled), \ \text{and} \ \elemtuplec, \elemtupled \ \text{are $\sigma$-live} \}.
 \]
 We claim that such a family is an $\ell$-$\FGF[\sigma]$-bisimulation between $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$. 
 Note that the condition \ref{bisim:atomiceq} is trivially satisfied by all the $\bisimZ_\mathit{k}$ above, and that $(\elemtuplea, \elemtupleb)$ belongs to all the sets $\bisimZ_\mathit{k}$ by design.
@@ -55,7 +55,7 @@ Let $(\elemtuplec, \elemtupled) \in \bisimZ_\mathit{k}$, $\elemtuplecfromto{i}{j
 and $\elemtuplee$ be any tuple in $\str{A}$ such that $\elemtuplecfromto{i}{j}\elemtuplee$ is $\sigma$-live.
 We are going to show that the set 
 \[
-  \Gamma \deff \{ \varphi \mid \str{A} \models \varphi[\elemtuplecfromto{i}{j}\elemtuplee], \varphi \in \FGF_{\mathit{k}{-}1}[\sigma] \}
+  \Gamma \deff \{ \varphi \colon\, \str{A} \models \varphi[\elemtuplecfromto{i}{j}\elemtuplee], \varphi \in \FGF_{\mathit{k}{-}1}[\sigma] \}
 \] 
 is realized in $\str{B}$ by $\elemtupledfromto{i}{j}\elemtuplef$ for some $|\elemtuplee|$-tuple $\elemtuplef$ from $\str{B}$.
 By $\omega$-saturation of $\str{B}$ it suffices
