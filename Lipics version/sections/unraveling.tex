@@ -3,8 +3,9 @@
 \section{Tree-Like Unraveling}\label{sec:unraveling}
 We will now describe the construction of the companion structures required in \cref{thm:main-technical-thm}.
 Let $\str{A}$ be a structure with an associated binary relation $\relNext \subseteq A \times A$.
-A \emph{parent} of an element $e \in A$ is an element $p_{e} \in A$ such that $(p_{e}, e) \in A$.
+For $(e_{1}, e_{2}) \in \relNext$, we call $e_{2}$ a \emph{child} of $e_{1}$ and $e_{1}$ a $\emph{parent}$ of $e_{2}$.
 A \emph{root} is an element which has no parents.
+The set of $\emph{descendants}$ for an element $e$ is the smallest set which contains $e$ itself and every child of each element in the set.
 The structure $\str{A}$ is a \emph{forest} if every element has at most one parent and there is at least one root.
 A \emph{tree} is a forest with exactly one root.
 Using the well-known unraveling for transation systems, it can be shown that every satisfiable modal logic formula is satisfiable in a tree model.
@@ -49,7 +50,7 @@ This shows that even if the HAF-unraveling is finite, it does not provide GF-bis
     \label{fig:unravel-haf}
 \end{figure}
 We construct an unraveling that fulfills the following theorem:
-\begin{theorem}
+\begin{theorem}\label{thm:inf-unraveling-upgrading}
   Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed $\sigma$-structures.
   Then there are unravelings $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$ which are both:
   \begin{itemize}
@@ -58,6 +59,7 @@ We construct an unraveling that fulfills the following theorem:
   \end{itemize}
 \end{theorem}
 
+\noindent \textbf{Domain of the unraveling}
 Let $\str{A}, \elemtuplea^{(0)}$ be a pointed $\sigma$-structure.
 A \emph{bisimulation sequence} of length $\ell$ is a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple in $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices such that $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
 These bisimulation sequences arise naturally when considering bisimilar structures to $\str{A}$.
@@ -100,21 +102,68 @@ This is illustrated in the following examples of bisimulation sequences.
     \caption{Examples for bisimulation sequences}
 \end{figure}
 
-Each tuple in a bisimulation sequence has a prefix of elements which are shared with the preceding tuple, and following this prefix some ``new'' elements which are not shared.
 Let $\Seq{A}$ be the set of bisimulation sequences for a structure $\str{A}$.
-The \emph{unraveling domain} for the structure $\str{A}$ is defined as the following set:
+Consider the final tuple of a bisimulation sequence.
+This tuple has a prefix of elements which are shared with the previous tuple, and a suffix of unshared elements.
+We now introduce a counter to distinguish these unshared elements.
+The \emph{unraveling domain} for $\str{A}$ is a set, defined as follows:
 \bfside{This looks really ugly. Any way to write this in a better way?}
 \begin{equation*}
 \unraveldom{A} = \Seq{A} \times \mathbb{N} \setminus \left\{ (\sigma(i,j)\bar{a}, k) \colon\, k \le j-i+1\ \text{or}\ k > |a| \right\}
 \end{equation*}
-For elements $e = (\rho, k) \in \unraveldom{A}$ of this domain, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to refer to the sequence and counter of $e$ respectively.
-The element can also be projected into the original structure, using the projection $\pi(e) = \elemtuplea_{k}$ where $\elemtuplea$ is the tuple such that $\rho = \cdots \elemtuplea$. We define the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ such that $(s, t) \in \relNext$ iff either:
+For an element $e \in \unraveldom{A}$ where $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the sequence and the counter of this element, respectively.
+Let $\elemtuplea$ be the final tuple of $\seq{e}$, so $\seq{e} = \cdots \elemtuplea$.
+Since the counter is an index into final tuple, we can define the projection $\pi(e)$ as: $\pi(e) = \elema_{\ctr{e}}$.
+The unraveling domain is a forest\bfside{does this require some justification or is it obvious enough?}, with the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ defined such that $(s, t) \in \relNext$ iff either:
 \begin{description}
-  \item[(addCtr)] $\seq{s} = \seq{t}$ and $\ctr{t} = \ctr{s} + 1$, or
-  \item[(addSeq)] $\seq{t} = \seq{s} (i,j) \elemtuplea$ for some $i, j, \elemtuplea$ and $\ctr{s} = j, \ctr{t} = j - i + 1$
+  \item[\desclabel{(addCtr)}{next:addctr}] $\seq{s} = \seq{t}$, $\ctr{t} = \ctr{s} + 1$, or
+  \item[\desclabel{(addSeq)}{next:addseq}] $\seq{t} = \seq{s} (i,j) \elemtuplea$ for some $i, j, \elemtuplea$ and $\ctr{s} = j, \ctr{t} = j - i + 1$
 \end{description}
-Note that $\unraveldom{A}$ with the relation $\relNext$ is a forest.
 
-% describe finite unraveling
-% proof: finite unraveling is FGF-bisimilar to orig structure
-% lemma: intersection between any two live tuples is infix
+\noindent \textbf{Relations in the unraveling}
+Now, we describe how relations are interpreted in the unraveling.
+Let $\str{A}, \elemtuplea$ be a $\sigma$-structure and $\unraveldom{A}$ be the unraveling domain.
+Let $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
+The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ is the tree with root $(\elemtuplea, 1)$ and all descendants according to the relation $\relNext$.
+If $\relR \in \sigma$, then $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:
+\begin{enumerate}
+  \item $\pi[\elemtuptupler] \in \relR^{}$,
+  \item $\bigwedge_{k=1}^{|\elemtuptupler|-1}{(\elemr_{k},\elemr_{k+1}) \in \relNext}$, and
+  \item $|\elemtuptupler| \le \mathtt{bound}(\elemtuptupler)$, where $\mathtt{bound}(\elemtuptupler) = \ctr{\elemtuptupler_{|\elemtuptupler|}}$ (the counter of the last element of $\elemtuptupler$)
+\end{enumerate}
+The third condition is illustrated in the following example.
+Recall the left structure from \cref{fig:unravel-haf}.
+Let $\elemtuplep = (1,2,3)$ and $\elemtuplee = (2,3)$.
+The picture below shows the tree unraveling with root $(\elemtuplep, 1)$.
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \draw[tolbrightGreen, line cap=round, line width=2.2em] (-0em,8em) -- ++(0,-8em);
+    \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0em,4em) -> (6em,1em);
+    \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
+
+    \draw [black, line width=0.1em, fill=white] (0em, 8em) ellipse (1em and 0.8em) node[anchor=center] {$(\elemtuplep, 1)$};
+    \draw [black, line width=0.1em, fill=white] (0em, 4em) ellipse (1em and 0.8em) node[anchor=center] {$(\elemtuplep, 2)$};
+    \draw [black, line width=0.1em, fill=white] (0em, 0em) ellipse (1em and 0.8em) node[anchor=center] {$(\elemtuplep, 3)$};
+    \draw [black, line width=0.1em, fill=white] (6em, 0em) ellipse (3em and 1em) node[anchor=center] {$(\elemtuplep(2,2)\elemtuplee, 2)$};
+
+    \node[tolbrightGreen] at (-2em, 6em) {P};
+    \node[tolbrightYellow] at (-1.5em, 2em) {E};
+    \node[tolbrightYellow] at (3em, 4em) {E};
+  \end{tikzpicture}
+\end{figure}
+First, observe that the structure is isomorphic to the structure on the right in \cref{fig:unravel-haf}.
+Thus, at least in this example, \cref{thm:inf-unraveling-upgrading} is not violated.
+Consider the tuples $\elemtuptuplea = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep, 3))$ and $\elemtuptupleb = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep(2,2)\elemtuplee, 2))$.
+These tuples have equal projections: $\pi(\elemtuptuplea) = \pi(\elemtuptupleb) = \elemtuplep$.
+But $\elemtuptuplea \in \relP^{\unravel{A}}$ while $\elemtuptupleb \notin \relP^{\unravel{A}}$.
+This is because $\mathtt{bound}(\elemtuptupleb) = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
+Note how the bisimulation sequence of the last element of $\elemtuptupleb$ is $\elemtuplep(2,2)\elemtuplee$, which has the final tuple $\elemtuplee$.
+So this element represents choosing the tuple $\elemtuplee$ during \FGF-bisimulation.
+Once we are at the tuple $\elemtuplee$, we cannot go back to $\elemtuplep$ again, since $\elemtuplep$ does not have a prefix that is shared with $\elemtuplee$.
+Thus, the element does not need to be included in the relation $\relP$.
+
+We now prove \cref{thm:inf-unraveling-upgrading} for this unraveling.
+\begin{proof}
+  \bfbox{write proof}
+\end{proof}
