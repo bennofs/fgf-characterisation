@@ -1,0 +1,123 @@
+%!TEX root = ../main.tex
+
+\section{Finite Companions}\label{sec:finite}
+Let $\unravel{A}, \elemtuptuplea$ be a tree unraveling.
+We describe the finite unraveling $\unravel{A}_{\ell}$ which will be $\ell$-$\FGF$-bisimilar to this unraveling (and also to the base structure by transitivity of bisimilarity).
+For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}_{r,\ell}(\unravel{A})$ as follows:
+\begin{equation*}
+  \mathcal{T}_{r,\ell}(\unravel{A}) = \left\{ e \in \unraveldom{A}:\, e\ \text{is a descendant of $r$ and the length of $\seq{e}$ is at most $2 * \ell$} \right\}
+\end{equation*}
+Note that this is a tree since for elements $a$ and $b$, if $b$ is a descendant of $a$ then the length of $\seq{b}$ is never less than that of $\seq{a}$.
+The tree is finite since the number of elements for a fixed sequence length is finite, and the sequence length is bounded by $2 * \ell$.
+Consider the set $S$ of all such trees for which the length of $\seq{r}$ is at most $\ell$.
+An element $b$ is a \emph{cut element} of a tree if it is not contained in that tree but there exists an element $a$ in the tree such that $(a,b) \in \relNext$.
+Let $M \in \mathbb{N}$ be such that each cut element can be assigned an index from $1, \ldots, M$.
+The domain of the structure $\unravel{A}_{\ell}$ consists of $m$ copies of each tree in $S$.
+The relations are defined as in $\unravel{A}$, but with the relation $\relNext$ replaced by the finite variant $\relNext_{\ell}$, where $(a,b) \in \relNext_{\ell}$ if and only if:
+\begin{itemize}
+  \item $(a,b) \in \relNext$, or
+  \item $(a,a') \in \relNext$ where $a'$ is a cut element with associated index $m$, and all of the following are true:
+        \begin{enumerate}
+          \item $b$ is the root of the $m$-th copy of tree in $S$
+          \item $\ctr{b} = \ctr{a'}$
+          \item $\seq{b}$ is the length-$\ell$ suffix of $\seq{a'}$
+        \end{enumerate}
+\end{itemize}
+
+\noindent
+The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following lemma:
+\begin{lemma}\label{lem:companion-tree-like}
+  Let $D_{a, \ell}(\unravel{A}_{\ell})$ be the set of elements for which there exists a directed path of length at most $\ell$ from $a$.
+  For any element $a \in \unraveldom{A}_{\ell}$, the set $D_{a, \ell}$ is a tree.
+\end{lemma}
+\begin{proof}
+  \bfbox{write proof}
+\end{proof}
+For two finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ and sufficient large $\ell$, we can use the tree-like property to show that tuples with equal $\FGF$-types induce a partial isomorphism.
+Let $W$ be such that any relation in $\sigma$ has arity of at most $W$.
+Let $\ell > W$ and consider the tuples $\elemtuptuples \sqin \unraveldom{A}_{\ell}$ and $\elemtuptuplet \sqin \unraveldom{B}_{\ell}$ with equal $\FGF$-types.
+We claim that the map $\mu_{(\elemtuptuples, \elemtuptuplet)}$, mapping $s_{i}$ to $t_{i}$ for all $i$, is a partial isomorphism.
+Let $\relR$ be any relation which we realized by a tuple $\elemtuptupler \sqin \set(\elemtuptuples)$.
+We first show that $\elemtuptupler$ is an infix of $\elemtuptuples$.
+Suppose to the contrary that $\elemtuptupler$ is not an infix, thus there is an $i$ such that $r_{i} = s_{v}$ and $r_{i+1} = s_{w}$ with $v \ne w - 1$.
+But then both $(s_{v}, s_{w}) \in \relNext_{\ell}$ and $(s_{w-1}, s_{w}) \in \relNext_{\ell}$ since $\elemtuptupler$ and $\elemtuptuples$ are live.
+This is a contradiction, since $D_{s_{1}, W}$ includes $s_{v}, s_{w-1}$ and $s_{w}$ but cannot be a tree since $s_{w}$ would have two parents $s_{v}$ and $s_{w-1}$.
+Therefore, $\elemtuptupler$ must be an infix of $\elemtuptuples$.
+It follows from equality of $\FGF$-types that $\mu_{(\elemtuptuples, \elemtuptuplet)}[\elemtuptupler]$ realizes $\relR$ as well.
+Since the argument is symmetric, we conclude that elements of $\elemtuptuples$ and $\elemtuptuplet$ realize the same relations and so $\mu_{(\elemtuptuples, \elemtuptuplet)}$ is a partial isomorphism.
+
+Next, we describe a symmetric relation ``$\approx_{z}$'' between elements of $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, with the following properties:
+\begin{description}
+  \item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx f_{i}$ for live tuples $\elemtuptuplee$ and $\elemtuptuplef$, then $\elemtuptuples$ and $\elemtuptuplef$ have the same $\FGF$-type.
+  \item[\desclabel{(global)}{elemeq:global}] If $\str{A} \bisimto_{\FGF}^{2*z + 1} \str{B}$, then for any $e \in \unraveldom{A}_{\ell}$, there is $f \in \unraveldom{B}_{\ell}$ such that $e \approx_{z} f$.
+  \item[\desclabel{(succ)}{elemeq:succ}] If $(e, e') \in \relNext_{\ell}$ and $e \approx_{z} f$, then there is $f'$ with $e' \approx_{z-1} f'$ and $(f, f') \in \relNext_{\ell}$.
+  \item[\desclabel{(pred)}{elemeq:pred}] If $(e, e') \in \relNext_{\ell}$ and $e' \approx_{z} f'$, then there is $f$ with $e \approx_{z-1} f$ and $(f, f') \in \relNext_{\ell}$.
+\end{description}
+We define $\approx_{z}$ as follows: for elements $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ with $\seq{e} = \elemtuples^{(0)}\cdots(i^{(n)}, j^{(n)})\elemtuples^{(n)}$ and $\seq{f} = \elemtuplet^{(0)}\cdots(v^{(m)}, w^{(m)})\elemtuplet^{(m)}$, let $e \approx_{z} f$ if and only if:
+\begin{enumerate}
+  \item $\ctr{e} = \ctr{f}$
+  \item $i^{(n-x)} = v^{(m-x)} \wedge j^{(n-x)} = w^{(m-x)}$ for $x \le z$ (last $z$ indices are equal)
+  \item $\elemtuples^{(n-x)} \bisimto_{\FGF}^{z} \elemtuplet^{(m-x)}$ for $x \le z$ (last $z$ tuples are $z$-$\FGF$-bisimilar)
+\end{enumerate}
+\begin{proof}
+We show that $\approx_{z}$ obeys all of the properties:
+
+\noindent
+\textbf{\ref{elemeq:harmony}}
+
+\noindent
+\textbf{\ref{elemeq:global}}
+Let $e \in \unraveldom{A}_{\ell}$ with $\seq{e} = \elemtuples^{(0)}\cdots{}(i^{(n)}, j^{(n)})\elemtuples^{(n)}$.
+Let $\bisimZ_{0}, \ldots, \bisimZ_{2*z + 1}$ be the bisimulation between $\str{A}$ and $\str{B}$.
+Let $m$ be the smaller of $z$ and $n$.
+Using~\ref{bisim:fforth} $m$ times, we obtain live tuples $\elemtuplet^{(0)}, \ldots, \elemtuplet^{(m)}$ with $(\elemtuples^{(n-m)}, \elemtuplet^{(0)}) \in \bisimZ_{2*z}, \ldots, (\elemtuples^{(n)}, \elemtuplet^{(m)}) \in \bisimZ_{2*z - m}$ such that $\elemtuplet^{(0)}(i^{(n-m+1)}, j^{(n-m+1)})\elemtuplet^{(1)}\cdots{}\elemtuplet^{(m)}$ is a bisimulation sequence.
+For any bisimulation it holds that $\bisimZ_{0} \supseteq \bisimZ_{1} \supseteq \cdots{} \supseteq \bisimZ_{2*z+1}$, thus
+$(\elemtuples^{(n-m+x)}, \elemtuplet^{(x)}) \in \bisimZ_{2*z - m}$ for all $x$.
+Hence, since $z \le 2*z - m$, the tuples $\elemtuples^{(n-m+x)}$ and $\elemtuplet^{(x)}$ are $z$-$\FGF$-bisimilar for any $x$.
+We let $f$ be the element of $\unraveldom{B}_{\ell}$ with $\seq{f} = \elemtuplet^{(0)}(i^{(n-m+1)}, j^{(n-m+1)})\elemtuplet^{(1)}\cdots{}\elemtuplet^{(m)}$ and $\ctr{f} = \ctr{e}$.
+This satisfies $e \approx_{z} f$ as required.
+
+\noindent
+\textbf{\ref{elemeq:succ}}
+
+\noindent
+\textbf{\ref{elemeq:pred}}
+\end{proof}
+
+We claim the the following sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{\ell} \subseteq \PartIso{\unravel{A}_{\ell}}{\unravel{B}_{\ell}}$ is a $\ell$-$\GF$-bisimulation:
+\begin{equation*}
+  \bisimZ_{k} = \left\{
+    \mu_{(\elemtuptuples, \elemtuptuplet)}:\,
+    \elemtuptuples\ \text{and}\ \elemtuptuplet\ \text{are live in}\ \unravel{A}_{\ell}\ \text{and}\ \unravel{B}_{\ell}\
+    \text{and}\ s_{i} \approx_{W * k} t_{i}\ \text{for all indices $i$}
+  \right\}
+\end{equation*}
+
+\bfside{restructure this to be more clear}
+First, we show that each map $s_{i} \mapsto t_{i} \in \bisimZ_{k}$ is a partial isomorphism.
+We know that $(s_{i}, s_{i+1}) \in \relNext_{\ell}$ for all $i$ since $\elemtuptuples$ is live.
+By \cref{lem:companion-tree-like} and since $\ell > W$, elements of $\elemtuptuples$ form a tree so $(s_{j}, s_{i+1}) \notin \relNext_{\ell}$ for $j \ne i$ since parents must be unique in a tree.
+Therefore, tuples which use elements from $\elemtuptuples$ but are not infixes of $\elemtuptuples$ cannot realize any relations since they do not satisfy the $\relNext_{\ell}$ constraint.
+Let us now consider infixes of $\elemtuptuples$ and $\elemtuptuplet$.
+First, observe that if $\elemtuptuplec$ is a live tuple such that $\elemtuplec = (\elemc_{1}, \ldots, \elemc_{n})$ and $\seq{c_{n}} = \cdots \elemtuplef$, then $\pi(\elemc_{i}) = f_{i}$.
+Thus, from $\elemtuptuples \approx_{W * k} \elemtuptuplet$ follows that $\pi[\elemtuptuples] \bisimto_{\FGF}^{W * k} \pi[\elemtuptuplet]$.
+Therefore, by~\ref{bisim:atomiceq}, infixes of $\pi[\elemtuptuples]$ and $\pi[\elemtuptuplet]$ realize the same relations.
+This implies that infixes of $\elemtuptuples$ and $\elemtuptuplet$ realize the same relations.
+
+Second, we show the~\ref{bisim:forth} property.
+The proof for~\ref{bisim:back} is symmetric.
+Let $s_i \mapsto t_i \in \bisimZ_{k}$ and $\elemtuptupleq$ be a $\sigma$-live tuple.
+We show that there is a $\elemtuptupler$ such that $\elemtuptupleq_{i} \mapsto \elemtuptupler_{i} \in \bisimZ_{k-1}$ and the common domain is preserved.
+We begin with the case that $\elemtuptuples$ and $\elemtuptupleq$ share at least one element.
+Because $\unravel{A}_{\ell}$ is tree-like, there must be $i,j,v,w$ such that $\elemtuptuples_{i\ldots{j}}$ contains all shared elements and $\elemtuptuples_{i\ldots{}j} = \elemtuptupleq_{v\ldots{}w}$.
+The proof uses the following two lemmas:
+\begin{align*}
+  (\leftarrow_{\alpha})(x):&\, \text{for $\elemq_{x} \approx_{\alpha} \elemr_{x}$, there is $\elemr_{x-1}$ such that $\elemq_{x-1} \approx_{\alpha-1} \elemr_{x-1}$ and $(r_{x-1}, r_{x}) \in \relNext_{\ell}$} \\
+  (\rightarrow_{\alpha})(x):&\, \text{for $\elemq_{x} \approx_{\alpha} \elemr_{x}$, there is $\elemr_{x+1}$ such that $\elemq_{x+1} \approx_{\alpha+1} \elemr_{x+1}$ and $(r_{x}, r_{x+1}) \in \relNext_{\ell}$}
+\end{align*}
+Let $\elemtuptupler_{v\ldots{}w} = \elemtuptuplet_{i\ldots{}j}$, preserving the common domain.
+Note that $\elemtuptupler_{v\ldots{}w} \approx_{W * k} \elemtuptupleq_{v\ldots{}w}$.
+To extend this infix to the full tuple $\elemtuptupler$, we proceed as follows.
+We apply $(\leftarrow_{\alpha})(x)$ to find elements $\elemtuptupler_{1\ldots{}v-1}$, since we already have $\elemq_{v} \approx_{W * k} \elemr_{v}$,
+Similarly, we apply $(\rightarrow_{\alpha})(x)$ to find elements $\elemtuptupler_{w+1\ldots{}|\elemtuptupleq|}$.
+Since in both cases we need to apply the lemma at most $W$ times, we get $\elemtuptupleq \approx_{W * (k-1)} \elemtuptupler$ and so $\elemtuptupleq_{i} \mapsto \elemtuptupler_{i} \in Z_{k-1}$ as we wanted.
