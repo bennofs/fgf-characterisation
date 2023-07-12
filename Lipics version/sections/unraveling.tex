@@ -1,7 +1,7 @@
 %!TEX root = ../main.tex
 
 \section{Tree-Like Unraveling}\label{sec:unraveling}
-We will now describe the construction of the companion structures required in \cref{thm:main-technical-thm}.
+We now describe a tree unraveling for \FGF, which we later use to construct the companion structures required in \cref{thm:main-technical-thm}.
 Let $\str{A}$ be a structure with an associated binary relation $\relNext \subseteq A \times A$.
 For $(e_{1}, e_{2}) \in \relNext$, we call $e_{2}$ a \emph{child} of $e_{1}$ and $e_{1}$ a $\emph{parent}$ of $e_{2}$.
 A \emph{root} is an element which has no parents.
@@ -121,7 +121,8 @@ The unraveling domain is a forest\bfside{does this require some justification or
 \end{description}
 
 \noindent \textbf{Relations in the unraveling}
-Now, we describe how relations are interpreted in the unraveling.
+A tuple of elements $(e_{1}, \ldots, e_{n})$ is a \emph{next chain} if adjacent elements are related by $\relNext$, so $(e_{i}, e_{i+1}) \in \relNext$ for all $i$.
+We define the tree unraveling such that relations are only realized by tuples which are next chains.
 Let $\str{A}, \elemtuplea$ be a $\sigma$-structure and $\unraveldom{A}$ be the unraveling domain.
 Let $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
 The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ is the tree with root $(\elemtuplea, 1)$ and all descendants according to the relation $\relNext$.
@@ -131,6 +132,7 @@ If $\relR \in \sigma$, then $\elemtuptupler \in \relR^{\unravel{A}}$ if and only
   \item $\bigwedge_{k=1}^{|\elemtuptupler|-1}{(\elemr_{k},\elemr_{k+1}) \in \relNext}$, and
   \item $|\elemtuptupler| \le \mathtt{bound}(\elemtuptupler)$, where $\mathtt{bound}(\elemtuptupler) = \ctr{\elemtuptupler_{|\elemtuptupler|}}$ (the counter of the last element of $\elemtuptupler$)
 \end{enumerate}
+The second condition ensures that live tuples are next chains.
 The third condition is illustrated in the following example.
 Recall the left structure from \cref{fig:unravel-haf}.
 Let $\elemtuplep = (1,2,3)$ and $\elemtuplee = (2,3)$.
