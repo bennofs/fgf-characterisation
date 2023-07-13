@@ -117,10 +117,20 @@ Since the counter is an index into final tuple, we can define the projection $\p
 The unraveling domain is a forest\bfside{does this require some justification or is it obvious enough?}, with the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ defined such that $(s, t) \in \relNext$ iff either:
 \begin{description}
   \item[\desclabel{(addCtr)}{next:addctr}] $\seq{s} = \seq{t}$, $\ctr{t} = \ctr{s} + 1$, or
-  \item[\desclabel{(addSeq)}{next:addseq}] $\seq{t} = \seq{s} (i,j) \elemtuplea$ for some $i, j, \elemtuplea$ and $\ctr{s} = j, \ctr{t} = j - i + 1$
+  \item[\desclabel{(addSeq)}{next:addseq}] $\seq{t} = \seq{s} (i,j) \elemtuplea$ for some $i, j, \elemtuplea$ and $\ctr{s} = j, \ctr{t} = (j - i + 1) + 1$
 \end{description}
 
-\noindent \textbf{Relations in the unraveling}
+\noindent
+The definition of $\relNext$ has the following nice property: if $(s,t) \in \relNext$ and $t$ projects to $a_{k}$ for $k > 1$, then $s$ projects to $a_{k-1}$, where $k = \ctr{t}$ and $\elemtuplea$ is the tuple such that $\seq{t} = \cdots \elemtuplea$.
+We prove this by case analysis on the two cases of $\relNext$.
+The~\ref{next:addctr} case is simple: in this case $\seq{s} = \seq{t}$ and $\ctr{s} = k - 1$, so the property follows directly from the definition of $\pi$.
+For the~\ref{next:addseq} case, let $\seq{t} = \seq{s} (i,j) \elemtuplea$ and $\seq{s} = \cdots \elemtupleb$.
+Further, in this case $k = (j - i + 1) + 1$ and $\ctr{s} = j$.
+By the fact that $\seq{t}$ is a bisimulation sequence, we know that $\elemtupleafromto{1}{j-i+1} = \elemtuplebfromto{i}{j}$.
+In particular, this implies $\pi(s) = b_{j} = a_{j-i+1} = a_{k-1}$ as wanted.
+
+\noindent
+\textbf{Relations in the unraveling}
 A tuple of elements $(e_{1}, \ldots, e_{n})$ is a \emph{next chain} if adjacent elements are related by $\relNext$, so $(e_{i}, e_{i+1}) \in \relNext$ for all $i$.
 We define the tree unraveling such that relations are only realized by tuples which are next chains.
 Let $\str{A}, \elemtuplea$ be a $\sigma$-structure and $\unraveldom{A}$ be the unraveling domain.
