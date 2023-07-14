@@ -127,23 +127,27 @@ The~\ref{next:addctr} case is simple: in this case $\seq{s} = \seq{t}$ and $\ctr
 For the~\ref{next:addseq} case, let $\seq{t} = \seq{s} (i,j) \elemtuplea$ and $\seq{s} = \cdots \elemtupleb$.
 Further, in this case $k = (j - i + 1) + 1$ and $\ctr{s} = j$.
 By the fact that $\seq{t}$ is a bisimulation sequence, we know that $\elemtupleafromto{1}{j-i+1} = \elemtuplebfromto{i}{j}$.
-In particular, this implies $\pi(s) = b_{j} = a_{j-i+1} = a_{k-1}$ as wanted.
+In particular, it follows that $\pi(s) = b_{j} = a_{j-i+1} = a_{k-1}$, concluding the proof.
 
 \noindent
 \textbf{Relations in the unraveling}
 A tuple of elements $(e_{1}, \ldots, e_{n})$ is a \emph{next chain} if adjacent elements are related by $\relNext$, so $(e_{i}, e_{i+1}) \in \relNext$ for all $i$.
+If the length $n$ of the next chain is less than $\ctr{e_{n}}$, then we know by the previous observation that the projection of the chain is $\elemtuplee_{(\ctr{e_{n}}-n+1)\ldots{}\ctr{e_{n}}}$, where $\elemtuples$ is the final tuple of $\seq{e_{n}}$.
 We define the tree unraveling such that relations are only realized by tuples which are next chains.
+Additionally, we limit the length of the chain to be less than the counter of the last element of the tuple.
+For this, let $\mathtt{bound}(\elemtuptupler)$ of some tuple $\elemtuptupler$ be equal to $\ctr{\elemtuptupler_{|\elemtuptupler|}}$ (the counter of the last element of the tuple).
 Let $\str{A}, \elemtuplea$ be a $\sigma$-structure and $\unraveldom{A}$ be the unraveling domain.
 Let $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
 The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ is the tree with root $(\elemtuplea, 1)$ and all descendants according to the relation $\relNext$.
-If $\relR \in \sigma$, then $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:
+For relations $\relR \in \sigma$, we let $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:
 \begin{enumerate}
   \item $\pi[\elemtuptupler] \in \relR^{}$,
   \item $\bigwedge_{k=1}^{|\elemtuptupler|-1}{(\elemr_{k},\elemr_{k+1}) \in \relNext}$, and
-  \item $|\elemtuptupler| \le \mathtt{bound}(\elemtuptupler)$, where $\mathtt{bound}(\elemtuptupler) = \ctr{\elemtuptupler_{|\elemtuptupler|}}$ (the counter of the last element of $\elemtuptupler$)
+  \item $|\elemtuptupler| \le \mathtt{bound}(\elemtuptupler)$
 \end{enumerate}
-The second condition ensures that live tuples are next chains.
-The third condition is illustrated in the following example.
+The second and third condition restrict live tuples to be next chains with a length bounded by the counter of the last element of the tuple, as discussed before.
+
+We illustrate the construction with an example.
 Recall the left structure from \cref{fig:unravel-haf}.
 Let $\elemtuplep = (1,2,3)$ and $\elemtuplee = (2,3)$.
 The picture below shows the tree unraveling with root $(\elemtuplep, 1)$.
@@ -165,15 +169,12 @@ The picture below shows the tree unraveling with root $(\elemtuplep, 1)$.
   \end{tikzpicture}
 \end{figure}
 First, observe that the structure is isomorphic to the structure on the right in \cref{fig:unravel-haf}.
+It is easy to see that the structure on the right also unravels to an isomorphic structure with this construction.
 Thus, at least in this example, \cref{thm:inf-unraveling-upgrading} is not violated.
 Consider the tuples $\elemtuptuplea = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep, 3))$ and $\elemtuptupleb = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep(2,2)\elemtuplee, 2))$.
 These tuples have equal projections: $\pi(\elemtuptuplea) = \pi(\elemtuptupleb) = \elemtuplep$.
 But $\elemtuptuplea \in \relP^{\unravel{A}}$ while $\elemtuptupleb \notin \relP^{\unravel{A}}$.
 This is because $\mathtt{bound}(\elemtuptupleb) = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
-Note how the bisimulation sequence of the last element of $\elemtuptupleb$ is $\elemtuplep(2,2)\elemtuplee$, which has the final tuple $\elemtuplee$.
-So this element represents choosing the tuple $\elemtuplee$ during \FGF-bisimulation.
-Once we are at the tuple $\elemtuplee$, we cannot go back to $\elemtuplep$ again, since $\elemtuplep$ does not have a prefix that is shared with $\elemtuplee$.
-Thus, the element does not need to be included in the relation $\relP$.
 
 We now prove \cref{thm:inf-unraveling-upgrading} for this unraveling.
 \begin{proof}

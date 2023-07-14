@@ -9,8 +9,8 @@ For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}
 \end{equation*}
 Note that this is a tree since for elements $a$ and $b$, if $b$ is a descendant of $a$ then the length of $\seq{b}$ is never less than that of $\seq{a}$.
 The tree is finite since the number of elements for a fixed sequence length is finite, and the sequence length is bounded by $2 * \ell$.
-Consider the set $S$ of all such trees for which the length of $\seq{r}$ is at most $\ell$.
-An element $b$ is a \emph{cut element} of a tree if it is not contained in that tree but there exists an element $a$ in the tree such that $(a,b) \in \relNext$.
+Consider the set $S$ of trees for roots $r$ where the length of $\seq{r}$ is at most $\ell$.
+An element $b$ is a \emph{cut element} of a tree if it itself is not part of the tree but $(a,b) \in \relNext$ for some $a$ in the tree.
 Let $M \in \mathbb{N}$ be such that each cut element can be assigned an index from $1, \ldots, M$.
 The domain of the structure $\unravel{A}_{\ell}$ consists of $m$ copies of each tree in $S$.
 The relations are defined as in $\unravel{A}$, but with the relation $\relNext$ replaced by the finite variant $\relNext_{\ell}$, where $(a,b) \in \relNext_{\ell}$ if and only if:
@@ -46,9 +46,9 @@ Therefore, $\elemtuptupler$ must be an infix of $\elemtuptuples$.
 It follows from equality of $\FGF$-types that $\mu_{(\elemtuptuples, \elemtuptuplet)}[\elemtuptupler]$ realizes $\relR$ as well.
 Since the argument is symmetric, we conclude that elements of $\elemtuptuples$ and $\elemtuptuplet$ realize the same relations and so $\mu_{(\elemtuptuples, \elemtuptuplet)}$ is a partial isomorphism.
 
-Next, we describe a symmetric relation ``$\approx_{z}$'' between elements of $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, with the following properties:
+Next, we describe a symmetric relation ``$\approx_{z}$'' between elements of $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, with these properties:
 \begin{description}
-  \item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx f_{i}$ for live tuples $\elemtuptuplee$ and $\elemtuptuplef$, then $\elemtuptuples$ and $\elemtuptuplef$ have the same $\FGF$-type.
+  \item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx_{z} f_{i}$ for all indices $i$ of live tuples $\elemtuptuplee$ and $\elemtuptuplef$ of equal size, then $\elemtuptuples$ and $\elemtuptuplef$ have the same $\FGF$-type.
   \item[\desclabel{(global)}{elemeq:global}] If $\str{A} \bisimto_{\FGF}^{2*z + 1} \str{B}$, then for any $e \in \unraveldom{A}_{\ell}$, there is $f \in \unraveldom{B}_{\ell}$ such that $e \approx_{z} f$.
   \item[\desclabel{(succ)}{elemeq:succ}] If $(e, e') \in \relNext_{\ell}$ and $e \approx_{z} f$, then there is $f'$ with $e' \approx_{z-1} f'$ and $(f, f') \in \relNext_{\ell}$.
   \item[\desclabel{(pred)}{elemeq:pred}] If $(e, e') \in \relNext_{\ell}$ and $e' \approx_{z} f'$, then there is $f$ with $e \approx_{z-1} f$ and $(f, f') \in \relNext_{\ell}$.
@@ -64,6 +64,21 @@ We show that $\approx_{z}$ obeys all of the properties:
 
 \noindent
 \textbf{\ref{elemeq:harmony}}
+Let $\elemtuptuplee = (e_{1}, \ldots, e_{n})$ and $\elemtuptuplef = (f_{1}, \ldots, f_{n})$.
+Let $\elemtuples$ and $\elemtuplet$ be the tuples of $\str{A}$ and $\str{B}$ such that $\seq{e_{n}} = \cdots \elemtuples$ and $\seq{f_{n}} = \cdots \elemtuplet$.
+Since $\elemtuplee \approx_z \elemtuplef$, we know that $\elemtuples \bisimto_{\FGF}^{z} \elemtuplet$ which in particular means that $\elemtuples$ and $\elemtuplet$ have the same $\FGF$-type.
+By the properties of $\relNext$, we also know that $\pi[\elemtuplee] = \elemtuples_{\ctr{e_{n}}-n\ldots{}\ctr{e_{n}}}$ and $\pi[\elemtuplet] = \elemtuplet_{\ctr{f_{n}}-n\ldots{}\ctr{f_{n}}}$.
+As $\ctr{e_{n}} = \ctr{f_{n}}$, both $\elemtuptuplee$ and $\elemtuptupleb$ project to infixes of $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i = \ctr{e_{n}} - n$ and $j = \ctr{e_{n}}$.
+Hence, $\FGF$-types of $\pi[\elemtuptuplee]$ and $\pi[\elemtuptuplef]$ are also equal.
+Now consider an infix $\elemtuptuplee_{i\ldots{}j}$ and the corresponding infix $\elemtuptuplef_{i\ldots{}j}$.
+We show that the three conditions of the definition of relations in the unraveling are satisfied for $\elemtuptuplee_{i\ldots{}j}$ exactly if they are satified for $\elemtuptuplef_{i\ldots{}j}$:
+\begin{enumerate}
+  \item $\pi[\elemtuptuplee_{i\ldots{}j}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplef_{i\ldots{}j}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplee]$ and $\pi[\elemtuptuplef]$ have equal $\FGF$-types,
+  \item $\elemtuptuplee_{i\ldots{}j}$ is a next chain if and only if $\elemtuptuplef_{i\ldots{}j}$ is a next chain, because both infixes are always next chains since $\elemtuptuplee$ and $\elemtuptuplef$ are next chains,
+  \item $|\elemtuptuplee_{i\ldots{}j}| \le \mathtt{bound}(\elemtuptuplee_{i\ldots{}j})$ if and only if $|\elemtuptuplef_{i\ldots{}j}| \le \mathtt{bound}(\elemtuptuplef_{i\ldots{}j})$ because both infixes are of length $j-i+1$, and $\mathtt{bound}$ is equal since the precondition $e_{j} \approx_{z} f_{j}$ implies $\ctr{e_{j}} = \ctr{f_{j}}$.
+\end{enumerate}
+Therefore, infixes of $\elemtuptuplee$ and $\elemtuptuplef$ realize the same relations.
+We conclude that $\elemtuptuplee$ and $\elemtuptuplef$ have equal $\FGF$-types.
 
 \noindent
 \textbf{\ref{elemeq:global}}
