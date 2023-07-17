@@ -50,8 +50,8 @@ Next, we describe a symmetric relation ``$\approx_{z}$'' between elements of $\u
 \begin{description}
   \item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx_{z} f_{i}$ for all indices $i$ of live tuples $\elemtuptuplee$ and $\elemtuptuplef$ of equal size, then $\elemtuptuples$ and $\elemtuptuplef$ have the same $\FGF$-type.
   \item[\desclabel{(global)}{elemeq:global}] If $\str{A} \bisimto_{\FGF}^{2*z + 1} \str{B}$, then for any $e \in \unraveldom{A}_{\ell}$, there is $f \in \unraveldom{B}_{\ell}$ such that $e \approx_{z} f$.
-  \item[\desclabel{(succ)}{elemeq:succ}] If $(e, e') \in \relNext_{\ell}$ and $e \approx_{z} f$, then there is $f'$ with $e' \approx_{z-1} f'$ and $(f, f') \in \relNext_{\ell}$.
-  \item[\desclabel{(pred)}{elemeq:pred}] If $(e, e') \in \relNext_{\ell}$ and $e' \approx_{z} f'$, then there is $f$ with $e \approx_{z-1} f$ and $(f, f') \in \relNext_{\ell}$.
+  \item[\desclabel{(succ)}{elemeq:succ}] For $z \le \ell$, if $(e, e') \in \relNext_{\ell}$ and $e \approx_{z} f$, then there is $f'$ with $e' \approx_{z-1} f'$ and $(f, f') \in \relNext_{\ell}$.
+  \item[\desclabel{(pred)}{elemeq:pred}] For $z \le \ell$, if $(e, e') \in \relNext_{\ell}$ and $e' \approx_{z} f'$, then there is $f$ with $e \approx_{z-1} f$ and $(f, f') \in \relNext_{\ell}$.
 \end{description}
 We define $\approx_{z}$ as follows: for elements $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ with $\seq{e} = \elemtuples^{(0)}\cdots(i^{(n)}, j^{(n)})\elemtuples^{(n)}$ and $\seq{f} = \elemtuplet^{(0)}\cdots(v^{(m)}, w^{(m)})\elemtuplet^{(m)}$, let $e \approx_{z} f$ if and only if:
 \begin{enumerate}
@@ -94,6 +94,28 @@ This satisfies $e \approx_{z} f$ as required.
 
 \noindent
 \textbf{\ref{elemeq:succ}}
+Let $(e, e') \in \relNext_{\ell}$ and $e \approx_{z} f$ for some $f \in \unraveldom{B}_{\ell}$.
+We proceed by case analysis on the definition of $\relNext_{\ell}$.
+The~\ref{next:addctr}~case has $\seq{e'} = \seq{e}$ and $\ctr{e'} = \ctr{e} + 1$.
+We set $f'$ such that $\seq{f'} = \seq{f}$ and $\ctr{f'} = \ctr{f} + 1$, so clearly $(f, f') \in \relNext_{\ell}$.
+Additionally, if $e \approx_{z} f$, then also $e' \approx_{z} f'$, which implies $e' \approx_{z-1} f'$ as wanted.
+In the~\ref{next:addseq}~case, the sequence $\seq{e'}$ is equal to $\seq{e} (i, j) \elemtuples$ or the $\ell$-length suffix of that sequence.
+Let $\elemtupleo$ and $\elemtuplep$ be tuples such that $\seq{e} = \cdots \elemtupleo$ and $\seq{f} = \cdots \elemtuplep$.
+By $e \approx_{z} f$, we know that $\elemtupleo \bisimto_{\FGF}^{z} \elemtuplep$.
+It follows from the laws of forward guarded bisimulation that there is a tuple $\elemtuplet$ such that $\elemtuples \bisimto_{\FGF}^{z-1} \elemtuplet$ and $\seq{f} (i,j) \elemtuplet$ is a bisimulation sequence.
+Let $\seq{f'}$ be equal to $\seq{f} (i,j) \elemtuplet$ or if that sequence is longer than $2 * \ell$, to the length-$\ell$ suffix of that sequence.
+Let $\ctr{f'} = (j-i+1) + 1$, which is equal to $\ctr{e'}$.
+By construction $(f, f') \in \relNext_{\ell}$.
+Next, we show that $f \approx_{z-1} f'$.
+First, consider the length of $\seq{e'}$ and $\seq{f'}$.
+We need to show that if either sequence has length less than $z-1$, then the other sequence has the same length.
+So suppose that one of the sequences is shorter than $z-1$.
+Since $z - 1 < \ell$, this is only possible if $\seq{e}$ or $\seq{f}$ is shorter than $z-1$.
+Since $e \approx_{z} f$, the length of $\seq{e}$ must be equal to $\seq{f}$ in this case.
+But then both $\seq{e} (i,j) \elemtuples$ and $\seq{f} (i,j) \elemtuplet$ have equal lengths shorter than $2 * \ell$, so the lengths of $\seq{e'}$ and $\seq{f'}$ are equal.
+Finally, observe that the conditions for $e' \approx_{z-1} f'$ all carry over from $e \approx_{z} f$, except for the last step of the sequence in $\seq{e'}$ and $\seq{f'}$.
+But we chose $\elemtuplet$ such that $\elemtuples \bisimto_{\FGF}^{z-1} \elemtuplet$, so the conditions also hold for the last step.
+Therefore $e' \approx_{z-1} f'$ as required.
 
 \noindent
 \textbf{\ref{elemeq:pred}}
@@ -107,32 +129,3 @@ We claim the the following sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{\ell}
     \text{and}\ s_{i} \approx_{W * k} t_{i}\ \text{for all indices $i$}
   \right\}
 \end{equation*}
-
-\bfside{restructure this to be more clear}
-First, we show that each map $s_{i} \mapsto t_{i} \in \bisimZ_{k}$ is a partial isomorphism.
-We know that $(s_{i}, s_{i+1}) \in \relNext_{\ell}$ for all $i$ since $\elemtuptuples$ is live.
-By \cref{lem:companion-tree-like} and since $\ell > W$, elements of $\elemtuptuples$ form a tree so $(s_{j}, s_{i+1}) \notin \relNext_{\ell}$ for $j \ne i$ since parents must be unique in a tree.
-Therefore, tuples which use elements from $\elemtuptuples$ but are not infixes of $\elemtuptuples$ cannot realize any relations since they do not satisfy the $\relNext_{\ell}$ constraint.
-Let us now consider infixes of $\elemtuptuples$ and $\elemtuptuplet$.
-First, observe that if $\elemtuptuplec$ is a live tuple such that $\elemtuplec = (\elemc_{1}, \ldots, \elemc_{n})$ and $\seq{c_{n}} = \cdots \elemtuplef$, then $\pi(\elemc_{i}) = f_{i}$.
-Thus, from $\elemtuptuples \approx_{W * k} \elemtuptuplet$ follows that $\pi[\elemtuptuples] \bisimto_{\FGF}^{W * k} \pi[\elemtuptuplet]$.
-Therefore, by~\ref{bisim:atomiceq}, infixes of $\pi[\elemtuptuples]$ and $\pi[\elemtuptuplet]$ realize the same relations.
-This implies that infixes of $\elemtuptuples$ and $\elemtuptuplet$ realize the same relations.
-
-Second, we show the~\ref{bisim:forth} property.
-The proof for~\ref{bisim:back} is symmetric.
-Let $s_i \mapsto t_i \in \bisimZ_{k}$ and $\elemtuptupleq$ be a $\sigma$-live tuple.
-We show that there is a $\elemtuptupler$ such that $\elemtuptupleq_{i} \mapsto \elemtuptupler_{i} \in \bisimZ_{k-1}$ and the common domain is preserved.
-We begin with the case that $\elemtuptuples$ and $\elemtuptupleq$ share at least one element.
-Because $\unravel{A}_{\ell}$ is tree-like, there must be $i,j,v,w$ such that $\elemtuptuples_{i\ldots{j}}$ contains all shared elements and $\elemtuptuples_{i\ldots{}j} = \elemtuptupleq_{v\ldots{}w}$.
-The proof uses the following two lemmas:
-\begin{align*}
-  (\leftarrow_{\alpha})(x):&\, \text{for $\elemq_{x} \approx_{\alpha} \elemr_{x}$, there is $\elemr_{x-1}$ such that $\elemq_{x-1} \approx_{\alpha-1} \elemr_{x-1}$ and $(r_{x-1}, r_{x}) \in \relNext_{\ell}$} \\
-  (\rightarrow_{\alpha})(x):&\, \text{for $\elemq_{x} \approx_{\alpha} \elemr_{x}$, there is $\elemr_{x+1}$ such that $\elemq_{x+1} \approx_{\alpha+1} \elemr_{x+1}$ and $(r_{x}, r_{x+1}) \in \relNext_{\ell}$}
-\end{align*}
-Let $\elemtuptupler_{v\ldots{}w} = \elemtuptuplet_{i\ldots{}j}$, preserving the common domain.
-Note that $\elemtuptupler_{v\ldots{}w} \approx_{W * k} \elemtuptupleq_{v\ldots{}w}$.
-To extend this infix to the full tuple $\elemtuptupler$, we proceed as follows.
-We apply $(\leftarrow_{\alpha})(x)$ to find elements $\elemtuptupler_{1\ldots{}v-1}$, since we already have $\elemq_{v} \approx_{W * k} \elemr_{v}$,
-Similarly, we apply $(\rightarrow_{\alpha})(x)$ to find elements $\elemtuptupler_{w+1\ldots{}|\elemtuptupleq|}$.
-Since in both cases we need to apply the lemma at most $W$ times, we get $\elemtuptupleq \approx_{W * (k-1)} \elemtuptupler$ and so $\elemtuptupleq_{i} \mapsto \elemtuptupler_{i} \in Z_{k-1}$ as we wanted.
