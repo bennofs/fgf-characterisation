@@ -48,7 +48,7 @@ Since the argument is symmetric, we conclude that elements of $\elemtuptuples$ a
 
 Next, we describe a symmetric relation ``$\approx_{z}$'' between elements of $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, with these properties:
 \begin{description}
-  \item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx_{z} f_{i}$ for all indices $i$ of live tuples $\elemtuptuplee$ and $\elemtuptuplef$ of equal size, then $\elemtuptuples$ and $\elemtuptuplef$ have the same $\FGF$-type.
+  \item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx_{z} f_{i}$ for all indices $i$ of live tuples $\elemtuptuplee$ and $\elemtuptuplef$ of equal size, then $\elemtuptuplee$ and $\elemtuptuplef$ have the same $\FGF$-type.
   \item[\desclabel{(global)}{elemeq:global}] If $\str{A} \bisimto_{\FGF}^{2*z + 1} \str{B}$, then for any $e \in \unraveldom{A}_{\ell}$, there is $f \in \unraveldom{B}_{\ell}$ such that $e \approx_{z} f$.
   \item[\desclabel{(succ)}{elemeq:succ}] For $1 \le z$ and $z \le \ell$, if $(e, e') \in \relNext_{\ell}$ and $e \approx_{z} f$, then there is $f'$ with $e' \approx_{z-1} f'$ and $(f, f') \in \relNext_{\ell}$.
   \item[\desclabel{(pred)}{elemeq:pred}] For $1 \le z$ and $z \le \ell$, if $(e, e') \in \relNext_{\ell}$ and $e' \approx_{z} f'$, then there is $f$ with $e \approx_{z-1} f$ and $(f, f') \in \relNext_{\ell}$.
@@ -126,14 +126,15 @@ Since $e' \approx_{z} f'$, first $\ctr{e'} = \ctr{f'} = (j-i+1) + 1$ and second 
 With $f = (\theta, j)$, we have $(f, f') \in \relNext_{\ell}$ and $(\sigma, j) \approx_{z-1} f$.
 If $\sigma$ is not equal to $\seq{e}$, it is of length $\ell-1$ so it still contains the last $z-1$ elements of $\seq{e}$ since $z \le \ell$.
 Therefore, the required property $e \approx_{z-1} f$ follows from $(\sigma, j) \approx_{z-1} f$.
-
 \end{proof}
 
-We claim the the following sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{\ell} \subseteq \PartIso{\unravel{A}_{\ell}}{\unravel{B}_{\ell}}$ is a $\ell$-$\GF$-bisimulation:
+We claim that the following sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{\ell} \subseteq \PartIso{\unravel{A}_{W * \ell}}{\unravel{B}_{W * \ell}}$ is a $\ell$-$\GF$-bisimulation:
 \begin{equation*}
   \bisimZ_{k} = \left\{
     \mu_{(\elemtuptuples, \elemtuptuplet)}:\,
-    \elemtuptuples\ \text{and}\ \elemtuptuplet\ \text{are live in}\ \unravel{A}_{\ell}\ \text{and}\ \unravel{B}_{\ell}\
-    \text{and}\ s_{i} \approx_{W * k} t_{i}\ \text{for all indices $i$}
+    \elemtuptuples\ \text{and}\ \elemtuptuplet\ \text{are live and}\ \
+    s_{i} \approx_{W * k} t_{i}\ \text{for all indices $i$}
   \right\}
 \end{equation*}
+\begin{proof}
+\end{proof}
