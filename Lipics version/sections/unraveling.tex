@@ -1,27 +1,33 @@
 %!TEX root = ../main.tex
 
 \section{Tree-Like Unraveling}\label{sec:unraveling}
+We next describe a notion of \emph{tree unravellings} for $\FGF$.
+A truncated form of these unravellings will be employed afterwards in the construction of the companion structures required in~\cref{thm:main-technical-thm}.
+The truncation is necessary because the tree unraveling must sometimes be infinite even for finite structures, since it is an acyclic structure.
+This is similar to the approach taken by Otto to construct the finite companions for the van Benthem charactisation of modal logic with universal modalities~\cite[Proof of Lemma 38]{Otto04}.
 
-We next describe a suitable notion of \emph{tree unravellings} for $\FGF$ that we will employ afterwards in the construction of model companions required in~\cref{thm:main-technical-thm}.
 Let $\str{A}$ be a structure with an associated binary relation $\relNext^{\str{A}}$.
 For a pair $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
 A \emph{root} is an element without parents.
-The set of $\emph{descendants}$ of an element $\eleme$ is the smallest set containing $\eleme$ that is closed under taking children (\ie if an element is in the set then so are its children).
-We call a structure $\str{A}$ a \emph{forest} if $\relNext^{\str{A}}$ is acyclic, every element has at most one parent and $\str{A}$ contains at least one root.\bbeside{There are still some problems with the definition.}
-It is well-known that with a suitable notion of unravelling\bbeside{citation} one can show that every satisfiable modal logic formula has a tree model~\bbeside{tree model undef.}.
-The same holds for $\FGF$ as it was shown by Bednarczyk~\cite[Sec 3.3]{Bednarczyk21} with a suitable notion of HAF-unravellings.\bbeside{do we want to define them here?}
-Even though the tree unraveling of finite structures can be infinite, model companions used in van Benthem style characterisations for many modal logics~\cite{Otto04}\bbeside{be more specific} can be constructed based on such infinite unravellings.
+The set of $\emph{descendants}$ of an element $\eleme$ is the smallest set containing $\eleme$ that is closed under taking children (\ie{} if an element is in the set then so are its children).
+We call a structure $\str{A}$ a \emph{forest} if $\relNext^{\str{A}}$ every element has at most one parent and is a descendant of some root.
+A model is a tree model if it is a forest and has exactly one root.
+It is well-known that with a suitable notion of unravelling\cite[Prop. 3]{Rosen97} one can show that every satisfiable modal logic formula has a tree model.
 
-
-% Comments:
-% The structure $\str{A}$ is a \emph{forest} if every element has at most one parent and there is at least one root.
-% Not really, I wouldn't call a cycle+isolated_node a forest :D
-% Also notice that according to the current definiton we would have the possibility that there is a copy of Z (integer) + an isolated node. We would like to avoid it, right?
-% So maybe after all, the language theoretic definition is better?
-
-Unfortunately, constructing a finite version of the HAF-unraveling is not enough to prove \cref{thm:main-technical-thm}.
-Consider the two finite structures shown in \cref{fig:unravel-haf}, which are both already fully HAF-unraveled\bbeside{undef}, but can be distinguished by the $\GF$ sentence $\forall{x,y}. \relE(x,y) \to \exists a. \relP(x,y,z)$.\bbeside{use $\to$ rather than $\implies$.}
-This shows that even if the HAF-unraveling is finite, it does not provide $\GF$-bisimilar companions\bbeside{why should they?}\bbeside{maybe this needs to be expanded to make it clearer what you want?}.
+Our goal is to have an unravelling for $\FGF$ satisfying the following theorem:
+\begin{theorem}\label{thm:inf-unraveling-upgrading}
+  Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed $\sigma$-structures.
+  Then there are tree models $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$ which are both:
+  \begin{itemize}
+    \item $\FGF$-similar to the original structures: $\unravel{A}, \elemtuptuplea \bisimto_{\FGF} \str{A}, \elemtuplea$ and $\unravel{B}, \elemtuptupleb \bisimto_{\FGF} \str{B}, \elemtupleb$
+    \item $\GF$-bisimilar: $\unravel{A}, \elemtuptuplea \bisimto_{\GF} \unravel{B}, \elemtuptupleb$
+  \end{itemize}
+\end{theorem}
+Bednarczyk previously described an unraveling for $\FGF$ that yields a tree model, the \emph{HAF-unraveling}~\cite[Sec 3.3]{Bednarczyk21}.
+Unfortunately, this unravelling fails the above theorem.
+Consider the two finite structures shown in \cref{fig:unravel-haf}, which are both identical to their HAF-unravelling as they are already HAFs.
+Yet, they can be distinguished by the $\GF$ sentence $\forall{x,y}. \relE(x,y) \to \exists a. \relP(x,y,z)$.
+Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do not satisfy \ref{thm:inf-unraveling-upgrading} even in the finite case.
 \begin{figure}
   \centering
     \begin{tikzpicture}[baseline=(current bounding box.north)]
@@ -55,18 +61,12 @@ This shows that even if the HAF-unraveling is finite, it does not provide $\GF$-
     \caption{Two FGF-bisimilar HAFs which are not GF-bisimilar. Relations are drawn top to bottom, so the green area marks the relation $\relP(1,2,3)$}%
     \label{fig:unravel-haf}
 \end{figure}
-We construct an unraveling that fulfills the following theorem:
-\begin{theorem}\label{thm:inf-unraveling-upgrading}
-  Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed $\sigma$-structures.
-  Then there are unravelings\bbeside{undef} $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$ which are both:
-  \begin{itemize}
-    \item $\FGF$-similar to the original structures: $\unravel{A}, \elemtuptuplea \bisimto_{\FGF} \str{A}, \elemtuplea$ and $\unravel{B}, \elemtuptupleb \bisimto_{\FGF} \str{B}, \elemtupleb$
-    \item $\GF$-bisimilar: $\unravel{A}, \elemtuptuplea \bisimto_{\GF} \unravel{B}, \elemtuptupleb$
-  \end{itemize}
-\end{theorem}
+
+For our new \FGF-unravelling, we use the natural interpretation of \FGF-bisimulation as a game.
+\bfbox{TODO: Insert description of FGF game here}
 
 \noindent \textbf{Domain of the unraveling}
-\bbebox{It would make sense to define $\FGF$ and $\GF$-games. Then it would be easier to explain bisimulation sequences, as they are just histories of the play.}
+%\bbebox{It would make sense to define $\FGF$ and $\GF$-games. Then it would be easier to explain bisimulation sequences, as they are just histories of the play.}
 Let $\str{A}, \elemtuplea^{(0)}$ be a pointed $\sigma$-structure.
 A \emph{bisimulation sequence} of length $\ell$ is a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple in $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices such that $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.\bbeside{we can say something that they indicate the overlap between two consecutive tuples.}
 These bisimulation sequences arise naturally when considering bisimilar structures to $\str{A}$.
@@ -87,7 +87,7 @@ This is illustrated in the following examples of bisimulation sequences.
       \newcommand{\tupp}{{\color{tolbrightCyanDarker}\elemtuplep}}%
       \newcommand{\tupt}{{\color{tolbrightGreen}\elemtuplet}}%
       \newcommand{\tupq}{{\color{tolbrightPurple}\elemtupleq}}%
-      The picture on the left shows a structure with the relations: $\relS(1,2,3)$, $\relP(2,3,4)$, $\relT(3,4,5)$, $\relQ(4,5)$\bbeside{you shoudl write $(1,2,3) \in \relS^{\str{A}}$ rather than $\relS(1,2,3)$.}
+      The picture on the left shows a structure with the relations: $(1,2,3) \in \relS^{\str{A}}$, $(2,3,4) \in \relP^{\str{A}}$, $(3,4,5) \in \relT^{\str{A}}$, $(4,5) \in \relQ^{\str{A}}$
 
       \vspace{1ex}
       Let $\tups = (1, 2, 3), \tupp = (2, 3, 4), \tupt = (3, 4, 5), \tupq = (4,5)$.
@@ -110,18 +110,18 @@ This is illustrated in the following examples of bisimulation sequences.
 \end{figure}
 
 Let $\Seq{A}$ be the set of bisimulation sequences for a structure $\str{A}$.
-Consider the final tuple\bbeside{maybe use ``last''?} of a bisimulation sequence.
+Consider the last tuple of a bisimulation sequence.
 This tuple has a prefix of elements which are shared with the previous tuple, and a suffix of unshared elements.
-We now introduce a counter to distinguish these unshared elements.\bbeside{ok}
-The \emph{unraveling domain} for $\str{A}$ is a set, defined as follows:
-\bfside{This looks really ugly. Any way to write this in a better way?}\bbeside{Rewrite it to get rid of setminus.}
-\begin{equation*}
-\unraveldom{A} = \Seq{A} \times \mathbb{N} \setminus \left\{ (\sigma(i,j)\bar{a}, k) \colon\, k \le j-i+1\ \text{or}\ k > |a| \right\}
-\end{equation*}
+We now introduce a counter to distinguish these unshared elements.
+The \emph{unraveling domain} $\unraveldom{A}$ for $\str{A}$ is a set, with $(\sigma, k) \in \unraveldom{A} \subseteq \seq{A} \times \mathbb{N}$ if:
+\begin{itemize}
+  \item $\sigma = \elemtuplea$, then $k \ge 1$ and $k \le |\elemtuplea|$, or
+  \item $\sigma = \cdots (i,j) \elemtuplea$, then $k \ge (j-i+1) + 1$ and $k \le |\elemtuplea|$
+\end{itemize}
 For an element $e \in \unraveldom{A}$ where $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the sequence and the counter of this element, respectively.
-Let $\elemtuplea$ be the final tuple of $\seq{e}$, so $\seq{e} = \cdots \elemtuplea$.
-Since the counter is an index into final tuple, we can define the projection $\pi(e)$ as: $\pi(e) = \elema_{\ctr{e}}$.
-The unraveling domain is a forest\bfside{does this require some justification or is it obvious enough?}\bbeside{yes, more explaination = better}, with the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ defined such that $(s, t) \in \relNext$ iff either\bbeside{if instead of iff, as we define it right now}:
+Let $\elemtuplea$ be the last tuple of $\seq{e}$, so $\seq{e} = \cdots \elemtuplea$.
+Since the counter is an index into last tuple, we can define the projection $\pi(e)$ as: $\pi(e) = \elema_{\ctr{e}}$.
+The unraveling domain is a forest\bfside{does this require some justification or is it obvious enough?}\bbeside{yes, more explaination = better}, with the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ defined such that $(s, t) \in \relNext$ if either:
 \begin{description}
   \item[\desclabel{(addCtr)}{next:addctr}] $\seq{s} = \seq{t}$, $\ctr{t} = \ctr{s} + 1$, or
   \item[\desclabel{(addSeq)}{next:addseq}] $\seq{t} = \seq{s} (i,j) \elemtuplea$ for some $i, j, \elemtuplea$ and $\ctr{s} = j, \ctr{t} = (j - i + 1) + 1$
@@ -139,7 +139,7 @@ In particular, it follows that $\pi(s) = b_{j} = a_{j-i+1} = a_{k-1}$, concludin
 \noindent
 \textbf{Relations in the unraveling}
 A tuple of elements $(e_{1}, \ldots, e_{n})$ is a \emph{next chain} if adjacent elements are related by $\relNext$, so $(e_{i}, e_{i+1}) \in \relNext$ for all $i$.
-If the length $n$ of the next chain is less than $\ctr{e_{n}}$, then we know by the previous observation that the projection of the chain is $\elemtuplee_{(\ctr{e_{n}}-n+1)\ldots{}\ctr{e_{n}}}$, where $\elemtuples$ is the final tuple of $\seq{e_{n}}$.
+If the length $n$ of the next chain is less than $\ctr{e_{n}}$, then we know by the previous observation that the projection of the chain is $\elemtuplee_{(\ctr{e_{n}}-n+1)\ldots{}\ctr{e_{n}}}$, where $\elemtuples$ is the last tuple of $\seq{e_{n}}$.
 We define the tree unraveling such that relations are only realized by tuples which are next chains.
 Additionally, we limit the length of the chain to be less than the counter of the last element of the tuple.
 For this, let $\mathtt{bound}(\elemtuptupler)$ of some tuple $\elemtuptupler$ be equal to $\ctr{\elemtuptupler_{|\elemtuptupler|}}$ (the counter of the last element of the tuple).
