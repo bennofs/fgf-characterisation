@@ -23,8 +23,7 @@ Our goal is to have an unravelling for $\FGF$ satisfying the following theorem:
     \item $\GF$-bisimilar: $\unravel{A}, \elemtuptuplea \bisimto_{\GF} \unravel{B}, \elemtuptupleb$
   \end{itemize}
 \end{theorem}
-Bednarczyk previously described an unraveling for $\FGF$ that yields a tree model, the \emph{HAF-unraveling}~\cite[Sec 3.3]{Bednarczyk21}.
-Unfortunately, this unravelling fails the above theorem.
+The \emph{HAF}-unravelling~\cite[Sec 3.3]{Bednarczyk21} introduced by Bednarczyk for $\FGF$ yields a tree model, but unfortunately fails the above theorem.
 Consider the two finite structures shown in \cref{fig:unravel-haf}, which are both identical to their HAF-unravelling as they are already HAFs.
 Yet, they can be distinguished by the $\GF$ sentence $\forall{x,y}. \relE(x,y) \to \exists a. \relP(x,y,z)$.
 Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do not satisfy \ref{thm:inf-unraveling-upgrading} even in the finite case.
@@ -62,17 +61,29 @@ Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do 
     \label{fig:unravel-haf}
 \end{figure}
 
-For our new \FGF-unravelling, we use the natural interpretation of \FGF-bisimulation as a game.
-\bfbox{TODO: Insert description of FGF game here}
+For our new \FGF-unravelling, we make use of the equivalence between bisimulation and games~\cite[Sec. 1.2.1]{Gradel014}.
+The $\FGF$-\emph{bisimulation game} is played on two structures $\str{A}$ and $\str{B}$ by two players, Spoiler and Duplicator.
+We initialize the game by selecting a live tuple from each structure, $\elemtuplea$ and $\elemtupleb$.
+In each turn, Spoiler first chooses a structure.
+The game is symmetric, so let us assume that spoiler chooses the structure $\str{A}$.
+Spoiler then selects an infix $\elemtupleafromto{i}{j}$ of the currently selected tuple and a new live tuple $\elemtuplec$ which has $\elemtupleafromto{i}{j}$ as a prefix.
+We use the terms \emph{shared elements} for the prefix $\elemtuplecfromto{1}{j-i+1}$ and \emph{unshared elements} for the remaining elements $\elemtuplecfromto{j-i+1+1}{|\elemtuplec|}$.
+Duplicator must then find a live tuple $\elemtupled$ in $\str{B}$ which has $\elemtuplebfromto{i}{j}$ as a prefix.
+Note that some of the unshared elements may still be elements from $\elemtuplea$, but Duplicator is not required to preserve equivalences between the unshared elements and elements from $\elemtuplea$, while Duplicator must preserve the shared prefix.
+The game then continues with the next turn, with $\elemtuplec$ and $\elemtupled$ as the new selected tuples.
+Spoiler wins the game if Duplicator is unable to find matching elements.
+The possible actions of Spoiler are equivalent to the back-and-forth conditions for $\FGF$-bisimulation.
+A winning strategy for Duplicator is thus equivalent to a $\FGF$-bisimulation between the two structures, and vice-versa.
+We next describe the domain of the unravelling, which is based on a sequence of actions in this game.
 
 \noindent \textbf{Domain of the unraveling}
-%\bbebox{It would make sense to define $\FGF$ and $\GF$-games. Then it would be easier to explain bisimulation sequences, as they are just histories of the play.}
 Let $\str{A}, \elemtuplea^{(0)}$ be a pointed $\sigma$-structure.
-A \emph{bisimulation sequence} of length $\ell$ is a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple in $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices such that $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.\bbeside{we can say something that they indicate the overlap between two consecutive tuples.}
-These bisimulation sequences arise naturally when considering bisimilar structures to $\str{A}$.
-If $\str{B}, \elemtupleb^{(0)}$ is a $\sigma$-structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply \ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
-Note that the infix selected by the indices $(i^{(k)}, j^{(k)})$ is not required to be maximal.\bbeside{Again, introducing games would make all of this perfectly clear.}
-This is illustrated in the following examples of bisimulation sequences.
+We define a bisimulation sequence as the sequence of actions that Spoiler may take in a $\FGF$-bisimulation game involving this structure.
+Formally, a \emph{bisimulation sequence} of length $\ell$ is a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple in $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices such that $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
+The set $\Seq{A}$ of all bisimulation sequences for a structure $\str{A}$ collects all possible ways in which Spoiler can explore this structure.
+For any length $\ell$ bisimulation sequence, if $\str{B}, \elemtupleb^{(0)}$ is a $\sigma$-structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply \ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
+These represent the actions of Duplicator in the game.
+Below are some examples of bisimulation sequences:
 \begin{figure}[H]
   \centering
     \begin{minipage}[t]{0.2\textwidth}
@@ -109,11 +120,10 @@ This is illustrated in the following examples of bisimulation sequences.
     \caption{Examples for bisimulation sequences}
 \end{figure}
 
-Let $\Seq{A}$ be the set of bisimulation sequences for a structure $\str{A}$.
 Consider the last tuple of a bisimulation sequence.
-This tuple has a prefix of elements which are shared with the previous tuple, and a suffix of unshared elements.
+This tuple has a prefix of elements which are shared with the previous tuple, and a suffix of unshared elements, as in the \FGF-bisimulation game.
 We now introduce a counter to distinguish these unshared elements.
-The \emph{unraveling domain} $\unraveldom{A}$ for $\str{A}$ is a set, with $(\sigma, k) \in \unraveldom{A} \subseteq \seq{A} \times \mathbb{N}$ if:
+The \emph{unraveling domain} $\unraveldom{A} \subseteq \Seq{A} \times \mathbb{N}$ for $\str{A}$ is a set, with $(\sigma, k) \in \unraveldom{A}$ if:
 \begin{itemize}
   \item $\sigma = \elemtuplea$, then $k \ge 1$ and $k \le |\elemtuplea|$, or
   \item $\sigma = \cdots (i,j) \elemtuplea$, then $k \ge (j-i+1) + 1$ and $k \le |\elemtuplea|$
@@ -121,13 +131,19 @@ The \emph{unraveling domain} $\unraveldom{A}$ for $\str{A}$ is a set, with $(\si
 For an element $e \in \unraveldom{A}$ where $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the sequence and the counter of this element, respectively.
 Let $\elemtuplea$ be the last tuple of $\seq{e}$, so $\seq{e} = \cdots \elemtuplea$.
 Since the counter is an index into last tuple, we can define the projection $\pi(e)$ as: $\pi(e) = \elema_{\ctr{e}}$.
-The unraveling domain is a forest\bfside{does this require some justification or is it obvious enough?}\bbeside{yes, more explaination = better}, with the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ defined such that $(s, t) \in \relNext$ if either:
+On the unraveling domain, the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ is defined such that $(s, t) \in \relNext$ if either:
 \begin{description}
   \item[\desclabel{(addCtr)}{next:addctr}] $\seq{s} = \seq{t}$, $\ctr{t} = \ctr{s} + 1$, or
   \item[\desclabel{(addSeq)}{next:addseq}] $\seq{t} = \seq{s} (i,j) \elemtuplea$ for some $i, j, \elemtuplea$ and $\ctr{s} = j, \ctr{t} = (j - i + 1) + 1$
 \end{description}
+The unraveling domain with the $\relNext$ relation is a forest.
+The roots are elements with counters equal to one and sequences of length one.
+Every other element has a unique parent: for elements with counters not equal to $(j - i + 1) + 1$ (where $i$ and $j$ are the indices for the last action in the sequence), the only element that links to this element is the element with the counter decreased by one.
+For elements with counter equal to $(j - i + 1) + 1$, the element with counter decreased by one is not part of the unraveling domain.
+Therefore, the only element linking to this element is the one where the last action is removed from the sequence, by the~\ref{next:addseq} case of the definition.
+As the parent in each case has either a shorter sequence or a lower counter and a sequence of the same length, taking parents repeatedly must end in a root at some point.
+So every element is a descendant of some root and has at most one parent, as wanted.
 
-\noindent
 The definition of $\relNext$ has the following nice property: if $(s,t) \in \relNext$ and $t$ projects to $a_{k}$ for $k > 1$, then $s$ projects to $a_{k-1}$, where $k = \ctr{t}$ and $\elemtuplea$ is the tuple such that $\seq{t} = \cdots \elemtuplea$.
 We prove this by case analysis on the two cases of $\relNext$.
 The~\ref{next:addctr} case is simple: in this case $\seq{s} = \seq{t}$ and $\ctr{s} = k - 1$, so the property follows directly from the definition of $\pi$.
