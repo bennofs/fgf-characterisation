@@ -3,16 +3,16 @@
 \section{Tree-Like Unraveling}\label{sec:unraveling}
 We next describe a notion of \emph{tree unravellings} for $\FGF$.
 A truncated form of these unravellings will be employed afterwards in the construction of the companion structures required in~\cref{thm:main-technical-thm}.
-The truncation is necessary because the tree unraveling must sometimes be infinite even for finite structures, since it is an acyclic structure.\bbebox{Don't like it. Rewrite. How about: As tree unravellings of structures containing cycles are infinite, the truncation is necessary here.}
+As tree unravellings of structures containing cycles are infinite, the truncation is necessary here.
 This is similar to the approach taken by Otto to construct the finite companions for the van Benthem charactisation of modal logic with universal modalities~\cite[Proof of Lemma 38]{Otto04}.
 
 Let $\str{A}$ be a structure with an associated binary relation $\relNext^{\str{A}}$.
 For a pair $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
 A \emph{root} is an element without parents.
 The set of $\emph{descendants}$ of an element $\eleme$ is the smallest set containing $\eleme$ that is closed under taking children (\ie{} if an element is in the set then so are its children).
-We call a structure $\str{A}$ a \emph{forest} if $\relNext^{\str{A}}$ every element has at most one parent and is a descendant of some root.\bbeside{Better :)}
+We call a structure $\str{A}$ a \emph{forest} if $\relNext^{\str{A}}$ every element has at most one parent and is a descendant of some root.
 A model is a tree model if it is a forest and has exactly one root.
-It is well-known that with a suitable notion of unravelling~\cite[Prop. 3]{Rosen97}\bbeside{Always use tilde before cite.} one can show that every satisfiable modal logic formula has a tree model.
+It is well-known that with a suitable notion of unravelling~\cite[Prop. 3]{Rosen97} one can show that every satisfiable modal logic formula has a tree model.
 
 Our goal is to have an unravelling for $\FGF$ satisfying the following theorem:
 \begin{theorem}\label{thm:inf-unraveling-upgrading}
@@ -25,8 +25,8 @@ Our goal is to have an unravelling for $\FGF$ satisfying the following theorem:
 \end{theorem}
 The \emph{HAF}-unravelling~\cite[Sec 3.3]{Bednarczyk21}\bbeside{It would be nice to introduce HAFs. Otherwise it is hard to verify your claims. Moreover, it would be nice for the thesis to have the comparison.} introduced by Bednarczyk for $\FGF$ yields a tree model, but unfortunately fails the above theorem.
 Consider the two finite structures shown in \cref{fig:unravel-haf}, which are both identical to their HAF-unravelling as they are already HAFs.
-Yet, they can be distinguished by the $\GF$ sentence $\forall{x,y}. \relE(x,y) \to \exists a. \relP(x,y,z)$.\bbeside{Should a be z?}
-Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do not satisfy \ref{thm:inf-unraveling-upgrading}\bbeside{cref not ref} even in the finite case.
+Yet, they can be distinguished by the $\GF$ sentence $\forall{x,y}. \relE(x,y) \to \exists z. \relP(x,y,z)$.
+Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do not satisfy \cref{thm:inf-unraveling-upgrading} even in the finite case.
 \begin{figure}
   \centering
     \begin{tikzpicture}[baseline=(current bounding box.north)]
@@ -61,31 +61,42 @@ Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do 
     \label{fig:unravel-haf}
 \end{figure}
 
-For our new\bbeside{notion of?} \FGF-unravelling, we make use of the equivalence between bisimulation\bbeside{s?} and games~\cite[Sec. 1.2.1]{Gradel014}.
-The $\FGF$-\emph{bisimulation game} is played on two structures $\str{A}$ and $\str{B}$ by two players, Spoiler and Duplicator.
-We initialize the game by selecting a live tuple from each structure, $\elemtuplea$ and $\elemtupleb$.
-In each turn, Spoiler first chooses a structure.
+For our new notion of \FGF-unravelling, we make use of the equivalence between bisimulations and games~\cite[Sec. 1.2.1]{Gradel014}.
+The $\FGF$-\emph{bisimulation game} is played on two structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$ by two players, Spoiler and Duplicator.
+The game starts by selecting the tuples $\elemtuplea$ and $\elemtupleb$ from each structure.
+The game is played in rounds.
+In each round, Spoiler first chooses a structure.
 The game is symmetric, so let us assume that spoiler chooses the structure $\str{A}$.
 Spoiler then selects an infix $\elemtupleafromto{i}{j}$ of the currently selected tuple and a new live tuple $\elemtuplec$ which has $\elemtupleafromto{i}{j}$ as a prefix.
 We use the terms \emph{shared elements} for the prefix $\elemtuplecfromto{1}{j-i+1}$ and \emph{unshared elements} for the remaining elements $\elemtuplecfromto{j-i+1+1}{|\elemtuplec|}$.
-Duplicator must then find a live tuple $\elemtupled$ in $\str{B}$ which has $\elemtuplebfromto{i}{j}$ as a prefix.
-\bbeside{Important! It looks like that you missed the fact that types of freshly created tuples should be the same.}
+Duplicator must then find a live tuple $\elemtupled$ in $\str{B}$ with $\elemtuplebfromto{i}{j}$ as prefix and equal $\FGF$-type to $\elemtuplec$.
 Note that some of the unshared elements may still be elements from $\elemtuplea$, but Duplicator is not required to preserve equivalences between the unshared elements and elements from $\elemtuplea$, while Duplicator must preserve the shared prefix.
-The game then continues with the next turn, with $\elemtuplec$ and $\elemtupled$ as the new selected tuples.
+The game then continues with the next round, with $\elemtuplec$ and $\elemtupled$ as the new selected tuples.
 Spoiler wins the game if Duplicator is unable to find matching elements.
-The possible actions of Spoiler are equivalent to the back-and-forth conditions for $\FGF$-bisimulation.
+Duplicator wins if Spoiler cannot win.
+The possible moves of Spoiler are equivalent to the back-and-forth conditions for $\FGF$-bisimulation.
+To win, Duplicator must be able to respond to any move that Spoiler makes.
 A winning strategy for Duplicator is thus equivalent to a $\FGF$-bisimulation between the two structures, and vice-versa.
-We next describe the domain of the unravelling, which is based on a sequence of actions in this game.
+If we restrict the game to only $\ell$-rounds, where Duplicator wins if Spoiler cannot win in the first $\ell$-rounds, then the game is equivalent to $\ell$-FGF-bisimulation.
+We collect these observations in the following lemma:
+\begin{lemma}
+  In the $\FGF$-game played on structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$:
+  \begin{itemize}
+    \item Duplicator has as winning strategy if and only if $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$,
+    \item Duplicator has a winning strategy for $\ell$ rounds if and only if $\str{A}, \elemtuplea \bisimto_{\FGF}^{\ell} \str{B}, \elemtupleb$.
+  \end{itemize}
+\end{lemma}
 
-\bbebox{It would be nice to add some lemma here, e.g. that duplicator has a winning strategy if and only if there is a bisimulation between... I know that you said this, but it makes sense to make it more explicit. I also think that a good idea would be to introduce $\ell$-round games, as we will use them afterwards.}
+\noindent
+We next describe the domain of the unravelling, which is based on a sequence of moves in this game.
 
 \noindent \textbf{Domain of the unraveling}
 Let $\str{A}, \elemtuplea^{(0)}$ be a pointed $\sigma$-structure.
-We define a bisimulation sequence as the sequence of actions that Spoiler may take in a $\FGF$-bisimulation game involving this structure.
+We define a bisimulation sequence as a sequence of moves that Spoiler takes in one possible play of the $\FGF$-bisimulation game involving this structure.
 Formally, a \emph{bisimulation sequence} of length $\ell$ is a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple in $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices such that $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
 The set $\Seq{A}$ of all bisimulation sequences for a structure $\str{A}$ collects all possible ways in which Spoiler can explore this structure.
 For any length $\ell$ bisimulation sequence, if $\str{B}, \elemtupleb^{(0)}$ is a $\sigma$-structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply \ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
-These represent the actions of Duplicator in the game.
+These represent the moves of Duplicator in the game.
 Below are some examples of bisimulation sequences:
 \begin{figure}[H]
   \centering
@@ -141,9 +152,9 @@ On the unraveling domain, the binary relation $\relNext \subseteq \unraveldom{A}
 \end{description}
 The unraveling domain with the $\relNext$ relation is a forest.
 The roots are elements with counters equal to one and sequences of length one.
-Every other element has a unique parent: for elements with counters not equal to $(j - i + 1) + 1$ (where $i$ and $j$ are the indices for the last action in the sequence), the only element that links to this element is the element with the counter decreased by one.
+Every other element has a unique parent: for elements with counters not equal to $(j - i + 1) + 1$ (where $i$ and $j$ are the indices for the last move in the sequence), the only element that links to this element is the element with the counter decreased by one.
 For elements with counter equal to $(j - i + 1) + 1$, the element with counter decreased by one is not part of the unraveling domain.
-Therefore, the only element linking to this element is the one where the last action is removed from the sequence, by the~\ref{next:addseq} case of the definition.
+Therefore, the only element linking to this element is the one where the last move is removed from the sequence, by the~\ref{next:addseq} case of the definition.
 As the parent in each case has either a shorter sequence or a lower counter and a sequence of the same length, taking parents repeatedly must end in a root at some point.
 So every element is a descendant of some root and has at most one parent, as wanted.
 
