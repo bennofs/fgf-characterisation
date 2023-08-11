@@ -1,19 +1,21 @@
 %!TEX root = ../main.tex
 
 \section{Finite Companions}\label{sec:finite}
-Let $\unravel{A}, \elemtuptuplea$ be a tree unraveling.
-We describe the finite unraveling $\unravel{A}_{\ell}$ which will be $\ell$-$\FGF$-bisimilar to this unraveling (and also to the base structure by transitivity of bisimilarity).
+Let $\unravel{A}, \elemtuptuplea$ be a tree unraveling \bbe{of ...}.
+We describe the finite unraveling $\unravel{A}_{\ell}$ which will be $\ell$-$\FGF$-bisimilar to this unraveling \bbe{better: to $\unravel{A}, \elemtuptuplea$} (and also to the base structure by transitivity of bisimilarity).
 For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}_{r,\ell}(\unravel{A})$ as follows:
 \begin{equation*}
-  \mathcal{T}_{r,\ell}(\unravel{A}) = \left\{ e \in \unraveldom{A}:\, e\ \text{is a descendant of $r$ and the length of $\seq{e}$ is at most $2 * \ell$} \right\}
+  \mathcal{T}_{r,\ell}(\unravel{A}) = \left\{ e \in \unraveldom{A}:\, e\ \text{is a descendant of $r$ and the length of $\seq{e}$ is at most $2 * \ell$} \right\}\bbe{.}
 \end{equation*}
 Note that this is a tree since for elements $a$ and $b$, if $b$ is a descendant of $a$ then the length of $\seq{b}$ is never less than that of $\seq{a}$.
 The tree is finite since the number of elements for a fixed sequence length is finite, and the sequence length is bounded by $2 * \ell$.
-Consider the set $S$ of trees for roots $r$ where the length of $\seq{r}$ is at most $\ell$.
-An element $b$ is a \emph{cut element} of a tree if it itself is not part of the tree but $(a,b) \in \relNext$ for some $a$ in the tree.
-Let $M \in \mathbb{N}$ be such that each cut element can be assigned an index from $1, \ldots, M$.
+\bbe{But is it really? Don't we need to assume that the input structure is ``finitely-branching?''}
+Consider the set $S$ \bbe{composed} of trees for roots $r$ where the length of $\seq{r}$ is at most $\ell$.
+An element $b$ is \bbe{called} a \emph{cut element} of a tree if it itself is not part of the tree but $(a,b) \in \relNext$ for some $a$ in the tree. \bbe{I think that here you need to say more explicitly that you have the trees of $S$ in mind. Otherwise this notation doesn't make any sense.}
+Let $M \in \mathbb{N}$ be such that each cut element can be assigned an index from $1, \ldots, M$. \bbe{Again: we can do it by finite branching.}
 The domain of the structure $\unravel{A}_{\ell}$ consists of $m$ copies of each tree in $S$.
-The relations are defined as in $\unravel{A}$, but with the relation $\relNext$ replaced by the finite variant $\relNext_{\ell}$, where $(a,b) \in \relNext_{\ell}$ if and only if:
+The relations are defined as in $\unravel{A}$, but with the relation $\relNext$ replaced by the finite \bbe{by its finitary variant?} variant $\relNext_{\ell}$, where $(a,b) \in \relNext_{\ell}$ if and only if:
+\bbe{Missing . and , below.}
 \begin{itemize}
   \item $(a,b) \in \relNext$, or
   \item $(a,a') \in \relNext$ where $a'$ is a cut element with associated index $m$, and all of the following are true:
@@ -27,26 +29,30 @@ The relations are defined as in $\unravel{A}$, but with the relation $\relNext$ 
 \noindent
 The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following lemma:
 \begin{lemma}\label{lem:companion-tree-like}
-  Let $D_{a, \ell}(\unravel{A}_{\ell})$ be the set of elements for which there exists a directed path of length at most $\ell$ from $a$.
+  Let $D_{a, \ell}(\unravel{A}_{\ell})$ be the set of elements for which there exists a directed path \bbe{is it defined? and is it clear that we mean next-path?} of length at most $\ell$ from $a$.
   For any element $a \in \unraveldom{A}_{\ell}$, the set $D_{a, \ell}$ is a tree.
 \end{lemma}
 \begin{proof}
   \bfbox{write proof}
 \end{proof}
-For two finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ and sufficient large $\ell$, we can use the tree-like property to show that tuples with equal $\FGF$-types induce a partial isomorphism.
-Let $W$ be such that any relation in $\sigma$ has arity of at most $W$.
-Let $\ell > W$ and consider the tuples $\elemtuptuples \sqin \unraveldom{A}_{\ell}$ and $\elemtuptuplet \sqin \unraveldom{B}_{\ell}$ with equal $\FGF$-types.
-We claim that the map $\mu_{(\elemtuptuples, \elemtuptuplet)}$, mapping $s_{i}$ to $t_{i}$ for all $i$, is a partial isomorphism.
-Let $\relR$ be any relation which we realized by a tuple $\elemtuptupler \sqin \set(\elemtuptuples)$.
+For two finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ \bbe{of some ...} and sufficient large $\ell$, we can use \bbe{employ?} the tree-like property \bbe{of what?} to show that tuples with equal $\FGF$-types induce a partial isomorphism \bbe{between what?}.
+Let $W$ be \bbe{a positive integer} such that any relation in $\sigma$ \bbe{where $\sigma$ is undef/fixed/appear where?} has arity of at most $W$. \bbe{wouldn't it be better to say ``Let $W$ be the maximal arity of symbols from $\sigma$?''}
+Let $\ell > W$ and consider the \bbe{remove the?} tuples $\elemtuptuples \sqin \unraveldom{A}_{\ell}$ and $\elemtuptuplet \sqin \unraveldom{B}_{\ell}$ with equal $\FGF$-types.
+We claim that the map $\mu_{(\elemtuptuples, \elemtuptuplet)}$, mapping \bbe{better: that maps} $s_{i}$ to $t_{i}$ for all $i$ \bbe{what's the range of $i$}, is a partial isomorphism. \bbe{is it defined?}
+Let $\relR$ be any relation which we realized \bbe{undef} by a tuple $\elemtuptupler \sqin \set(\elemtuptuples)$.
 We first show that $\elemtuptupler$ is an infix of $\elemtuptuples$.
-Suppose to the contrary that $\elemtuptupler$ is not an infix, thus there is an $i$ such that $r_{i} = s_{v}$ and $r_{i+1} = s_{w}$ with $v \ne w - 1$.
-But then both $(s_{v}, s_{w}) \in \relNext_{\ell}$ and $(s_{w-1}, s_{w}) \in \relNext_{\ell}$ since $\elemtuptupler$ and $\elemtuptuples$ are live.
-This is a contradiction, since $D_{s_{1}, W}$ includes $s_{v}, s_{w-1}$ and $s_{w}$ but cannot be a tree since $s_{w}$ would have two parents $s_{v}$ and $s_{w-1}$.
-Therefore, $\elemtuptupler$ must be an infix of $\elemtuptuples$.
+Suppose to the contrary that $\elemtuptupler$ is not an infix \bbe{of...}, thus there is an $i$ such that $r_{i} = s_{v}$ and $r_{i+1} = s_{w}$ with $v \ne w - 1$.
+But then both $(s_{v}, s_{w}) \in \relNext_{\ell}$ and $(s_{w-1}, s_{w}) \in \relNext_{\ell}$ since $\elemtuptupler$ and $\elemtuptuples$ are \bbe{sigma- ?}live.
+This is a contradiction, since $D_{s_{1}, W}$ \bbe{(defined in lemma ...)} includes $s_{v}, s_{w-1}$ and $s_{w}$ but cannot be a tree since $s_{w}$ would have two parents $s_{v}$ and $s_{w-1}$.
+Therefore, $\elemtuptupler$ must \bbe{better: is} be an infix of $\elemtuptuples$.
 It follows from equality of $\FGF$-types that $\mu_{(\elemtuptuples, \elemtuptuplet)}[\elemtuptupler]$ realizes $\relR$ as well.
 Since the argument is symmetric, we conclude that elements of $\elemtuptuples$ and $\elemtuptuplet$ realize the same relations and so $\mu_{(\elemtuptuples, \elemtuptuplet)}$ is a partial isomorphism.
 
-Next, we describe a symmetric relation ``$\approx_{z}$'' between elements of $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, with these properties:
+
+Next, we describe a symmetric relation ``$\approx_{z}$'' between elements of $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, with these properties: \bbe{include some intuitions first... }
+
+\bbebox{stopped here.}
+
 \begin{description}
   \item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx_{z} f_{i}$ for all indices $i$ of live tuples $\elemtuptuplee$ and $\elemtuptuplef$ of equal size, then $\elemtuptuplee$ and $\elemtuptuplef$ have the same $\FGF$-type.
   \item[\desclabel{(global)}{elemeq:global}] If $\str{A} \bisimto_{\FGF}^{2*z + 1} \str{B}$, then for any $e \in \unraveldom{A}_{\ell}$, there is $f \in \unraveldom{B}_{\ell}$ such that $e \approx_{z} f$.
