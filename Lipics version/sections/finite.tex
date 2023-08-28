@@ -1,8 +1,8 @@
 %!TEX root = ../main.tex
 
 \section{Finite Companions}\label{sec:finite}
-Let $\unravel{A}, \elemtuptuplea$ be a tree unraveling \bbe{of ...}.
-We describe the finite unraveling $\unravel{A}_{\ell}$ which will be $\ell$-$\FGF$-bisimilar to this unraveling \bbe{better: to $\unravel{A}, \elemtuptuplea$} (and also to the base structure by transitivity of bisimilarity).
+Let $\unravel{A}, \elemtuptuplea$ be a tree unraveling of $\str{A}, \elemtuplea$.
+We describe the finite unraveling $\unravel{A}_{\ell}, \elemtuptuplea_{\ell}$ which will be $\ell$-$\FGF$-bisimilar to $\unravel{A}, \elemtuptuplea$ (and also to $\str{A}, \elemtuplea$ by transitivity of bisimilarity).
 For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}_{r,\ell}(\unravel{A})$ as follows:
 \begin{equation*}
   \mathcal{T}_{r,\ell}(\unravel{A}) = \left\{ e \in \unraveldom{A}:\, e\ \text{is a descendant of $r$ and the length of $\seq{e}$ is at most $2 * \ell$} \right\}\bbe{.}
@@ -80,7 +80,7 @@ Now consider an infix $\elemtuptuplee_{i\ldots{}j}$ and the corresponding infix 
 We show that the three conditions of the definition of relations in the unraveling are satisfied for $\elemtuptuplee_{i\ldots{}j}$ exactly if they are satified for $\elemtuptuplef_{i\ldots{}j}$:
 \begin{enumerate}
   \item $\pi[\elemtuptuplee_{i\ldots{}j}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplef_{i\ldots{}j}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplee]$ and $\pi[\elemtuptuplef]$ have equal $\FGF$-types,
-  \item $\elemtuptuplee_{i\ldots{}j}$ is a next chain if and only if $\elemtuptuplef_{i\ldots{}j}$ is a next chain, because both infixes are always next chains since $\elemtuptuplee$ and $\elemtuptuplef$ are next chains,
+  \item $\elemtuptuplee_{i\ldots{}j}$ is a next-chain if and only if $\elemtuptuplef_{i\ldots{}j}$ is a next-chain, because both infixes are always next-chains since $\elemtuptuplee$ and $\elemtuptuplef$ are next-chains,
   \item $|\elemtuptuplee_{i\ldots{}j}| \le \mathtt{bound}(\elemtuptuplee_{i\ldots{}j})$ if and only if $|\elemtuptuplef_{i\ldots{}j}| \le \mathtt{bound}(\elemtuptuplef_{i\ldots{}j})$ because both infixes are of length $j-i+1$, and $\mathtt{bound}$ is equal since the precondition $e_{j} \approx_{z} f_{j}$ implies $\ctr{e_{j}} = \ctr{f_{j}}$.
 \end{enumerate}
 Therefore, infixes of $\elemtuptuplee$ and $\elemtuptuplef$ realize the same relations.

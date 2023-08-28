@@ -18,7 +18,9 @@ An $n$-tuple is a list of $n$ elements.
 Given a tuple $\elemtuplea$ we use $\set(\elemtuplea)$ to denote the set of its components. 
 The $0$-tuple is denoted with~$\emptytupl$.
 We use $\vartuplexfromto{i}{j}$ to denote the $(j{-}i{+}1)$-tuple $\varx_i, \varx_{i+1}, \ldots, \varx_j$.
-We say that $\vartuplexfromto{i}{j}$ is an infix of a tuple $\vartuplexfromto{k}{l}$ if $k \leq i \leq j \leq l$ holds. 
+We say that $\vartuplexfromto{i}{j}$ is an infix of a tuple $\vartuplexfromto{k}{l}$ if $k \leq i \leq j \leq l$ holds.
+We use the notation ``$\cdots e$'' for a tuple where the last element is equal to $e$ and preceding elements are not important.
+For a function $f$ and tuple $\elemtuplea_{1\ldots\ell}$, we write $f[\elemtuplea]$ for the tuple $(f(a_{1}), \ldots, f(a_{\ell}))$.
 To improve readability, tuples of tuples are denoted by arrows, for instance with $\elemtuptuplea$.
 For a set $S$, we write $\vartuplex \sqin S$ iff $\varx_i \in S$ for all indices $1 \leq i \leq |\vartuplex|$, where $|\vartuplex|$ denotes the length of~$\vartuplex$. 
 For a signature $\sigma$ we call a tuple $\elemtuplea \sqin A$ is \emph{$\sigma$-live} (or simply \emph{live} if $\sigma$ can be deduced from the context) in $\str{A}$ if $|\elemtuplea| \leq 1$ or~$\elemtuplea \in \relR^{\str{A}}$ for some~$\relR \in \sigma$.\\ 
