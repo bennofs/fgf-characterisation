@@ -2,7 +2,7 @@
   \tikzset{element/.style = {inner sep=0.25em, fill=white, solid, rounded corners=0.7em, draw=black}};
   \tikzset{edge from parent/.style = {draw, thick}};
 
-  \begin{scope}[xshift=10em, yshift=2.5em]
+  \begin{scope}[xshift=-12em, yshift=2.5em]
     \draw[tolbrightGreen, line width=0.4em, -{Stealth[round]}] (0,0) -- +(3em, 0) node[anchor=west] { $P$ };
     \draw[tolbrightYellow, line width=0.25em, -{Stealth[round]}] (0,-1.5em) -- +(3em, 0) node[anchor=west] { $E$ };
     \draw[black, thick] (0,-3em) -- +(3em, 0) node[anchor=west] { $\relNext$ };
@@ -67,21 +67,21 @@
       \begin{scope}[tolbrightGreen, line width=0.4em, relation/.style={
           -{Stealth[round]}, shorten >= 0.4em
         }]
-        \draw[relation] (p1c2) to node[above=0.5em]{P} (p2c1) to[->] (p12p3c1);
-        \draw[relation] (p1c3) to[out=-130, in=30] node[below=0.5em]{P} (p2c2) to[out=-60, in=60] (p3c1);
-        \draw[relation] (p1c1) to node[above=0.5em]{P} (p11p2c1) to[out=20, in=160] (p11p3c1);
-        \draw[relation] (p1c4) to node[below left=0.2em]{P} (p11p2c2) to (p11p12p3c1);
+        \draw[relation] (p1c2) to (p2c1) to (p12p3c1);
+        \draw[relation] (p1c3) to[out=-130, in=30] (p2c2) to[out=-60, in=60] (p3c1);
+        \draw[relation] (p1c1) to (p11p2c1) to[out=20, in=160] (p11p3c1);
+        \draw[relation] (p1c4) to (p11p2c2) to (p11p12p3c1);
       \end{scope}
 
       \begin{scope}[tolbrightYellow, line width=0.25em, relation/.style={
           -{Stealth[round]}, shorten >= 0.2em
         }]
-        \draw[relation] (p2c3) to node[right=0.1em]{E} (p3c2);
-        \draw[relation] (p2c4) to[out=-135,in=45] node[below right=-0.2em]{E} (p22e2c1);
-        \draw[relation] (p2c5) to node[below left=0.2em]{E} (p12p3c2);
-        \draw[relation] (p11p2c3) to node[below=0.2em]{E} (p11p3c2);
-        \draw[relation] (p11p2c4) to node[below left]{E} (p11p22e2c1);
-        \draw[relation] (p11p2c5) to node[left]{E} (p11p12p3c2);
+        \draw[relation] (p2c3) to (p3c2);
+        \draw[relation] (p2c4) to[out=-135,in=45] (p22e2c1);
+        \draw[relation] (p2c5) to (p12p3c2);
+        \draw[relation] (p11p2c3) to (p11p3c2);
+        \draw[relation] (p11p2c4) to (p11p22e2c1);
+        \draw[relation] (p11p2c5) to (p11p12p3c2);
       \end{scope}
     \end{scope}
 \end{tikzpicture}
