@@ -222,3 +222,13 @@
 \newcommand{\bisimto}{\sim} % bisimilarity relation
 \newcommand{\strbisimto}{\approx} % strong bisimilarity relation
 \newcommand{\PartIso}[2]{\mathsf{Part}(#1,#2)}
+
+% tikz helpers
+\newcommand{\tikzdbg}{%
+  \draw[step=5em,color=lightgray]%
+    (current bounding box.south west) grid (0,0)%
+    (current bounding box.north west) grid (0,0)%
+    (current bounding box.south east) grid (0,0)%
+    (current bounding box.north east) grid (0,0);%
+  \fill[red] (0,0) circle (0.1);%
+}
