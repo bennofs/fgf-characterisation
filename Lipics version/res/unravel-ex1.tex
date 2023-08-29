@@ -2,7 +2,7 @@
   \tikzset{element/.style = {inner sep=0.25em, fill=white, solid, rounded corners=0.7em, draw=black}};
   \tikzset{edge from parent/.style = {draw, thick}};
 
-  \begin{scope}[xshift=-12em, yshift=2.5em]
+  \begin{scope}[xshift=-14em, yshift=2.5em]
     \draw[tolbrightGreen, line width=0.4em, -{Stealth[round]}] (0,0) -- +(3em, 0) node[anchor=west] { $P$ };
     \draw[tolbrightYellow, line width=0.25em, -{Stealth[round]}] (0,-1.5em) -- +(3em, 0) node[anchor=west] { $E$ };
     \draw[black, thick] (0,-3em) -- +(3em, 0) node[anchor=west] { $\relNext$ };
@@ -25,44 +25,47 @@
       child[grow=-10]  { node[element]               (p11p3) {$(\elemtuplep(1,1)\elemtuplep, 3)$} }
     };
 
-    \begin{scope}[fill opacity=0.5, text opacity=1]
+    \begin{scope}[text opacity=1]
       \begin{scope}[every path/.style={draw}, black, thick]
         \draw (p1.west) to (p2);
         \draw (p1.east) to (p11p2);
       \end{scope}
 
-      \fill[tolbrightGreen] ($(p1.center) + (1em, 1em)$) circle[radius=0.7em] coordinate (p1c1);
-      \fill[tolbrightGreen] ($(p1.center) + (-1em, 1em)$) circle[radius=0.7em] coordinate (p1c2);
-      \fill[tolbrightGreen] ($(p1.center) + (-1em, -1em)$) circle[radius=0.7em] coordinate (p1c3);
-      \fill[tolbrightGreen] ($(p1.center) + (1em, -1em)$) circle[radius=0.7em] coordinate (p1c4);
+      \tikzset{green/.style={fill opacity=0.3, tolbrightGreen}};
+      \tikzset{yellow/.style={fill opacity=0.5, tolbrightYellow}};
 
-      \fill[tolbrightGreen] ($(p2.center) + (-1em,0.5em)$) circle[radius=0.7em] coordinate (p2c1);
-      \fill[tolbrightGreen] ($(p2.center) + (1.3em,0.3em)$) circle[radius=0.7em] coordinate (p2c2);
-      \fill[tolbrightYellow] ($(p2.center) + (0.5em,-1em)$) circle[radius=0.4em] coordinate (p2c3);
-      \fill[tolbrightYellow] ($(p2.center) + (-0.4em,-0.8em)$) circle[radius=0.4em] coordinate (p2c4);
-      \fill[tolbrightYellow] ($(p2.west) + (0.1em,-0.4em)$) circle[radius=0.4em] coordinate (p2c5);
+      \fill[green] ($(p1.center) + (1em, 1em)$) circle[radius=0.7em] coordinate (p1c1);
+      \fill[green] ($(p1.center) + (-1em, 1em)$) circle[radius=0.7em] coordinate (p1c2);
+      \fill[green] ($(p1.center) + (-1em, -1em)$) circle[radius=0.7em] coordinate (p1c3);
+      \fill[green] ($(p1.center) + (1em, -1em)$) circle[radius=0.7em] coordinate (p1c4);
 
-      \fill[tolbrightGreen] ($(p3.center) + (1.3em, 0)$) circle[radius=0.7em] coordinate (p3c1);
-      \fill[tolbrightYellow] ($(p3.center) + (0.6em, 0.8em)$) circle[radius=0.4em] coordinate (p3c2);
+      \fill[green] ($(p2.center) + (-1em,0.5em)$) circle[radius=0.7em] coordinate (p2c1);
+      \fill[green] ($(p2.center) + (1.3em,0.3em)$) circle[radius=0.7em] coordinate (p2c2);
+      \fill[yellow] ($(p2.center) + (0.5em,-1em)$) circle[radius=0.4em] coordinate (p2c3);
+      \fill[yellow] ($(p2.center) + (-0.4em,-0.8em)$) circle[radius=0.4em] coordinate (p2c4);
+      \fill[yellow] ($(p2.west) + (0.1em,-0.4em)$) circle[radius=0.4em] coordinate (p2c5);
 
-      \fill[tolbrightYellow] ($(p22e2.center) + (2em, 0.8em)$) circle[radius=0.4em] coordinate (p22e2c1);
+      \fill[green] ($(p3.center) + (1.3em, 0)$) circle[radius=0.7em] coordinate (p3c1);
+      \fill[yellow] ($(p3.center) + (0.6em, 0.8em)$) circle[radius=0.4em] coordinate (p3c2);
 
-      \fill[tolbrightGreen] ($(p12p3.north) + (1em, 0em)$) circle[radius=0.7em] coordinate (p12p3c1);
-      \fill[tolbrightYellow] ($(p12p3.east) + (0em, -0.5em)$) circle[radius=0.4em] coordinate (p12p3c2);
+      \fill[yellow] ($(p22e2.center) + (2em, 0.8em)$) circle[radius=0.4em] coordinate (p22e2c1);
 
-      \fill[tolbrightGreen] ($(p11p2.north) + (0,0)$) circle[radius=0.7em] coordinate (p11p2c1);
-      \fill[tolbrightGreen] ($(p11p2.south west) + (0,0)$) circle[radius=0.7em] coordinate (p11p2c2);
-      \fill[tolbrightYellow] ($(p11p2.east) + (0,0)$) circle[radius=0.4em] coordinate (p11p2c3);
-      \fill[tolbrightYellow] ($(p11p2.center) + (1em,-0.9em)$) circle[radius=0.4em] coordinate (p11p2c4);
-      \fill[tolbrightYellow] ($(p11p2.south) + (-0.9em,-0.1em)$) circle[radius=0.4em] coordinate (p11p2c5);
+      \fill[green] ($(p12p3.north) + (1em, 0em)$) circle[radius=0.7em] coordinate (p12p3c1);
+      \fill[yellow] ($(p12p3.east) + (0em, -0.5em)$) circle[radius=0.4em] coordinate (p12p3c2);
 
-      \fill[tolbrightGreen] ($(p11p3.north) + (0,0)$) circle[radius=0.7em] coordinate (p11p3c1);
-      \fill[tolbrightYellow] ($(p11p3.north west) + (0.2em,-0.2em)$) circle[radius=0.4em] coordinate (p11p3c2);
+      \fill[green] ($(p11p2.north) + (0,0)$) circle[radius=0.7em] coordinate (p11p2c1);
+      \fill[green] ($(p11p2.south west) + (0,0)$) circle[radius=0.7em] coordinate (p11p2c2);
+      \fill[yellow] ($(p11p2.east) + (0,0)$) circle[radius=0.4em] coordinate (p11p2c3);
+      \fill[yellow] ($(p11p2.center) + (1em,-0.9em)$) circle[radius=0.4em] coordinate (p11p2c4);
+      \fill[yellow] ($(p11p2.south) + (-0.9em,-0.1em)$) circle[radius=0.4em] coordinate (p11p2c5);
 
-      \fill[tolbrightGreen] ($(p11p12p3.north) + (-2em,0)$) circle[radius=0.7em] coordinate (p11p12p3c1);
-      \fill[tolbrightYellow] ($(p11p12p3.north) + (-0.5em,0)$) circle[radius=0.4em] coordinate (p11p12p3c2);
+      \fill[green] ($(p11p3.north) + (0,0)$) circle[radius=0.7em] coordinate (p11p3c1);
+      \fill[yellow] ($(p11p3.north west) + (0.2em,-0.2em)$) circle[radius=0.4em] coordinate (p11p3c2);
 
-      \fill[tolbrightYellow] ($(p11p22e2.north) + (-3.5em,0)$) circle[radius=0.4em] coordinate (p11p22e2c1);
+      \fill[green] ($(p11p12p3.north) + (-2em,0)$) circle[radius=0.7em] coordinate (p11p12p3c1);
+      \fill[yellow] ($(p11p12p3.north) + (-0.5em,0)$) circle[radius=0.4em] coordinate (p11p12p3c2);
+
+      \fill[yellow] ($(p11p22e2.north) + (-3.5em,0)$) circle[radius=0.4em] coordinate (p11p22e2c1);
 
       \begin{scope}[tolbrightGreen, line width=0.4em, relation/.style={
           -{Stealth[round]}, shorten >= 0.4em
