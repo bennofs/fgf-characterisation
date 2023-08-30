@@ -45,7 +45,7 @@
 
 % Others
 \newcommand{\str}[1]{{\mathfrak{#1}}}
-\newcommand{\unravel}[1]{{\vv{\mathfrak{#1}}}}
+\DeclareRobustCommand{\unravel}[1]{\vv{\mathfrak{#1}}}
 \newcommand{\deff}{\coloneqq}
 \newcommand{\arity}{\mathsf{ar}}
 \renewcommand{\iff}{\leftrightarrow}
@@ -133,29 +133,24 @@
 \newcommand{\elemtupleffromto}[2]{{\elemtuplef}_{#1\dots#2}} % tuple of domelements f from #1 to #2
 \newcommand{\elemtuplegfromto}[2]{{\elemtupleg}_{#1\dots#2}} % tuple of domelements g from #1 to #2
 
-
-\newcommand{\elemtuptuplea}{\vv{\elema}}                         % tuple of domain element a
-\newcommand{\elemtuptupleb}{\vv{\elemb}}                         % tuple of domain element b
-\newcommand{\elemtuptuplec}{\vv{\elemc}}                         % tuple of domain element c
-\newcommand{\elemtuptupled}{\vv{\elemd}}                         % tuple of domain element d
-\newcommand{\elemtuptuplee}{\vv{\eleme}}                         % tuple of domain element e
-\newcommand{\elemtuptuplef}{\vv{\elemf}}                           % tuple of domain element f
-\newcommand{\elemtuptupleg}{\vv{\elemg}}                         % tuple of domain element g
-\newcommand{\elemtuptupleh}{\vv{\elemh}}                         % tuple of domain element h
-\newcommand{\elemtuptuplei}{\vv{\elemi}}                         % tuple of domain element i
-\newcommand{\elemtuptuplej}{\vv{\elemj}}                         % tuple of domain element j
-\newcommand{\elemtuptuplep}{\vv{\elemp}}                         % tuple of domain element p
-\newcommand{\elemtuptupleq}{\vv{\elemq}}                         % tuple of domain element q
-\newcommand{\elemtuptupler}{\vv{\elemr}}                         % tuple of domain element r
-\newcommand{\elemtuptuples}{\vv{\elems}}                         % tuple of domain element s
-\newcommand{\elemtuptuplet}{\vv{\elemt}}                         % tuple of domain element t
-\newcommand{\elemtuptuplew}{\vv{\elemw}}                         % tuple of domain element w
-\newcommand{\elemtuptupleu}{\vv{\elemu}}                         % tuple of domain element u
-\newcommand{\elemtuptuplev}{\vv{\elemv}}                         % tuple of domain element v
-
-
-
-
+\DeclareRobustCommand{\elemtuptuplea}{\vv{\elema}}                         % tuple of domain element a
+\DeclareRobustCommand{\elemtuptupleb}{\vv{\elemb}}                         % tuple of domain element b
+\DeclareRobustCommand{\elemtuptuplec}{\vv{\elemc}}                         % tuple of domain element c
+\DeclareRobustCommand{\elemtuptupled}{\vv{\elemd}}                         % tuple of domain element d
+\DeclareRobustCommand{\elemtuptuplee}{\vv{\eleme}}                         % tuple of domain element e
+\DeclareRobustCommand{\elemtuptuplef}{\vv{\elemf}}                           % tuple of domain element f
+\DeclareRobustCommand{\elemtuptupleg}{\vv{\elemg}}                         % tuple of domain element g
+\DeclareRobustCommand{\elemtuptupleh}{\vv{\elemh}}                         % tuple of domain element h
+\DeclareRobustCommand{\elemtuptuplei}{\vv{\elemi}}                         % tuple of domain element i
+\DeclareRobustCommand{\elemtuptuplej}{\vv{\elemj}}                         % tuple of domain element j
+\DeclareRobustCommand{\elemtuptuplep}{\vv{\elemp}}                         % tuple of domain element p
+\DeclareRobustCommand{\elemtuptupleq}{\vv{\elemq}}                         % tuple of domain element q
+\DeclareRobustCommand{\elemtuptupler}{\vv{\elemr}}                         % tuple of domain element r
+\DeclareRobustCommand{\elemtuptuples}{\vv{\elems}}                         % tuple of domain element s
+\DeclareRobustCommand{\elemtuptuplet}{\vv{\elemt}}                         % tuple of domain element t
+\DeclareRobustCommand{\elemtuptuplew}{\vv{\elemw}}                         % tuple of domain element w
+\DeclareRobustCommand{\elemtuptupleu}{\vv{\elemu}}                         % tuple of domain element u
+\DeclareRobustCommand{\elemtuptuplev}{\vv{\elemv}}                         % tuple of domain element v
 
 % Variables:
 \newcommand{\var}[1]{\mathit{#1}}       % variable
