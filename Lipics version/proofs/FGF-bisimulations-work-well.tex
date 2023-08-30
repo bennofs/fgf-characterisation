@@ -27,7 +27,7 @@
   Let $\elemtuplec$ be the (possibly empty) infix $\elemtupleafromto{i}{n}$ of~$\elemtuplea$.
   Then there exists a (possibly empty) tuple $\elemtuplee$ in $\str{A}$ such that $\str{A} \models \relR[\elemtuplec\elemtuplee] \land \psi[\elemtuplec\elemtuplee]$.
   Note that $\elemtuplec\elemtuplee$ is $\sigma$-live. 
-  By~\ref{bisim:fforth}\bfside{This requires that $\elemtuplea$ is live. Is this true? Example: $\varphi = \relS(x_{1}, x_{2}) \land \relT(x_{3}) \land \exists{x_{4}} (\relH(x_{2}, x_{3}, x_{4}))$ (according to our definitions, this should be an FGF-formula with free variables $x_{1}, x_{2}, x_{3}$, right?) could be satisfied at an $\elemtuplea$ that is not guarded. Perhaps we want to require that the free variables of formulae are guarded as well?} we can find a (possibly empty) tuple $\elemtuplef$ in $\str{B}$ such that $(\str{A}, \elemtuplec\elemtuplee) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elemtupled\elemtuplef)$ for~$\elemtupled$ equal to $\elemtuplebfromto{i}{n}$.
+  By~\ref{bisim:fforth} we can find a (possibly empty) tuple $\elemtuplef$ in $\str{B}$ such that $(\str{A}, \elemtuplec\elemtuplee) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elemtupled\elemtuplef)$ for~$\elemtupled$ equal to $\elemtuplebfromto{i}{n}$.
   Applying inductive hypothesis, namely $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$, we know that the consequent of $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$ holds true.
   This clearly implies $\str{B} \models \relR[\elemtupled\elemtuplef] \land \psi[\elemtupled\elemtuplef]$, which finally lead us to $\str{B} \models \varphi[\elemtupleb]$.
 
