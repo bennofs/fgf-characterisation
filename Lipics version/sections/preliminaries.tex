@@ -133,6 +133,7 @@ The following example presents $\GF$-bisimilar structures that can be distinguis
   By design we clearly have $\str{A}\models \phi$ and $\str{B} \not\models \phi$. On the other hand, $\str{A}$ and $\str{B}$ are $\GF$-bisimilar.
 \end{example}
 
+\noindent
 Now a similar characterisation can be provided for $\FGF$. 
 Due to the ``forwardness'' of the underlying logic, it is convenient to think about maps as tuples.
 A \emph{system of forward partial maps} between $\sigma$-structures $\str{A}$ and $\str{B}$ is any non-empty subset of $\bigcup_{i=1}^{\infty} (A^i \times B^i)$ satisfying:
@@ -145,9 +146,12 @@ If $\bisimZ, \bisimZ'$ are systems of forward partial maps between $\str{A}$ and
   %
   \item[\desclabel{(fBack)}{bisim:fback}] For every (possibly empty) infix $\elemtupledfromto{i}{j}$ of $\elemtupled$ and a $\sigma$-live tuple $\elemtuplef$ in $\str{B}$ such that $\elemtupledfromto{i}{j} = \elemtupleffromto{1}{j{-}i{+}1}$ there is a $\sigma$-live tuple $\elemtuplee$ with $\elemtuplecfromto{i}{j} = \elemtupleefromto{1}{j{-}i{+}1}$ such that $(\elemtuplee, \elemtuplef) \in \bisimZ'$~holds.
 \end{description}
-A system of forward partial maps $\bisimZ$ between $\str{A}$ and $\str{B}$ is a $\FGF[\sigma]$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies the above conditions.\bbeside{Say something that bisimulations are global due to the possibility of empty infix.}
+A system of forward partial maps $\bisimZ$ between $\str{A}$ and $\str{B}$ is a $\FGF[\sigma]$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies the above conditions.
 An $\ell$-$\FGF[\sigma]$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of systems of forward partial maps between $\str{A}$ and $\str{B}$ such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:fforth} and~\ref{bisim:fback} conditions for $\bisimZ_{i{+}1}$.
 We speak about $\FGF[\sigma]$-\emph{bisimilar} and $\ell$-$\FGF[\sigma]$-\emph{bisimilar} (pointed) structures in total analogy to the guarded-fragment case.
+Because the back-and-forth conditions allow choosing an empty infix, $\ell$-$\FGF$-bisimulations are not limited to the local neighbourhood of some tuple.
+Instead, even for $\ell = 1$, every guarded tuple must be mapped to a tuple in the other structure.
+
 A ``forward'' counterpart of \cref{lemma:GF-bisimulations-work-well} is presented below.
 \begin{lemma}\label{lemma:FGF-bisimulations-work-well}
 For every finite signature $\sigma$ and a pair of pointed $\sigma$-structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ we have that:
