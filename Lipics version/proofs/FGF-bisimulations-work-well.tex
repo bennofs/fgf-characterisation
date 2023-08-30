@@ -58,13 +58,16 @@ We are going to show that the set
   \Gamma \deff \{ \varphi \colon\, \str{A} \models \varphi[\elemtuplecfromto{i}{j}\elemtuplee], \varphi \in \FGF_{\mathit{k}{-}1}[\sigma] \}
 \] 
 is realized in $\str{B}$ by $\elemtupledfromto{i}{j}\elemtuplef$ for some $|\elemtuplee|$-tuple $\elemtuplef$ from $\str{B}$.
-By $\omega$-saturation of $\str{B}$ it suffices
-to establish that any finite subset of $\Gamma$ is realized by $\elemtupledfromto{i}{j}\elemtupleh$ for some $|\elemtuplee|$-tuple $\elemtupleh$. 
+By $\omega$-saturation of $\str{B}$ it suffices to establish that every finite subset of $\Gamma$ is realized by $\elemtupledfromto{i}{j}\elemtupleh$ for some $|\elemtuplee|$-tuple $\elemtupleh$.
 Let $\Delta$ be a finite subset of $\Gamma$.
-By design, we have 
-$(\str{A}, \elemtuplecfromto{i}{j}) \models \exists{\vartuplex} \textstyle\bigwedge \Delta$.\bbeside{Change $\bar{x}$... Btw, why is this in $\FGF$? Explain. use the guard of $\bar{c}\bar{e}$.}
-Moreover, as $\exists{\vartuplex} \textstyle\bigwedge \Delta$ is an $\FGF_\mathit{k}$-formula,
-we can invoke $\mathit{k}$-$\FGF$-equivalence of $(\str{A}, \elemtuplec)$ and $(\str{B}, \elemtupled)$ to deduce~$(\str{B}, \elemtupledfromto{i}{j}) \models \exists{\vartuplex} \textstyle\bigwedge \Delta$.
+Since $\elemtuplec\elemtuplee$ is $\sigma$-live, there must be an atomic formula $\alpha$ such $(\str{A}, \elemtuplec\elemtuplee) \models \alpha$.
+The formula
+\begin{equation*}
+  \phi(\vartuplex) \deff \exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \wedge \textstyle\bigwedge_{\delta \in \Delta} \delta(\vartuplex, \vartupley))
+\end{equation*}
+satisfies $(\str{A}, \elemtuplecfromto{i}{j}) \models \phi$ by design.
+Moreover, as $\phi$ is an $\FGF_\mathit{k}$-formula,
+we can invoke $\mathit{k}$-$\FGF$-equivalence of $(\str{A}, \elemtuplec)$ and $(\str{B}, \elemtupled)$ to deduce~$(\str{B}, \elemtupledfromto{i}{j}) \models \phi$.
 This implies that $\Gamma$ is indeed realized in $\str{B}$, and let $\elemtupledfromto{i}{j}\elemtuplef$ be a tuple witnessing this fact.
 By the choice of $\Gamma$, we know that  $(\str{A}, \elemtuplecfromto{i}{j}\elemtuplee) \equiv_{\FGF_{\mathit{k}{-}1}[\sigma]} (\str{B}, \elemtupledfromto{i}{j}\elemtuplef)$, and hence
 $(\elemtuplecfromto{i}{j}\elemtuplee, \elemtupledfromto{i}{j}\elemtuplef) \in \bisimZ_{\mathit{k}{-}1}$. 
