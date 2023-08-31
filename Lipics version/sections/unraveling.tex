@@ -100,15 +100,15 @@ This domain is based on a sequence of moves in this game.
 \noindent \textbf{Domain of the unraveling}
 Let $\str{A}, \elemtuplea^{(0)}$ be a pointed structure where $\elemtuplea^{(0)}$ is a standard tuple of elements, labelled with a zero index as it is the starting tuple for the unraveling.
 We define a bisimulation sequence as a sequence of moves that Spoiler takes in one of the possible plays of the $\FGF$-bisimulation game involving this structure.
-Formally, a \emph{bisimulation sequence} of length $\ell$ is a word in $A^*(\N\N{}A^{*})^{\ell}$, represented by a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
+Formally, a \emph{bisimulation sequence} of length $\ell$ is a word in $A^*{(\N\N{}A^{*})}^{\ell}$, represented by a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
 Intuitively, the set $\Seq{A}$ of all bisimulation sequences for a structure $\str{A}$ collects all possible ways in which Spoiler can explore this structure.
-For any bisimulation sequence of length $\ell$, if $\str{B}, \elemtupleb^{(0)}$ is a $\sigma$-structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply \ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
+For any bisimulation sequence of length $\ell$, if $\str{B}, \elemtupleb^{(0)}$ is a $\sigma$-structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
 These represent the moves of Duplicator in the game.
 Below are some examples of bisimulation sequences:
 \begin{figure}[H]
   \centering
     \begin{minipage}[t]{0.2\textwidth}
-        \raggedleft
+        \raggedleft%
         \vspace{0pt}
         \includegraphics[scale=0.5]{res/example-struct-1}
     \end{minipage}
@@ -191,6 +191,7 @@ Its bisimulation sequence $\tupp(1,1)\tupp$ is also an extension of the bisimula
 However, it represents a move from $\tupp$ to $\tupp$ sharing only the first element.
 The last (and only) shared element in this move is $(\tupp, 1)$, so there is no edge from $(\tupp, 2)$ to $(\tupp(1,1)\tupp, 3)$.
 Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\tupp(1,1)\tupp, 3)$ is not the first unshared element.
+}
 
 We show that the relation $\relNext$ forms a forest, where the roots are the elements with sequences of length zero and counters equal to 1.
 All other elements have an unique parent.
@@ -251,7 +252,7 @@ This is because $\mathtt{bound}(\elemtuptupleb) = 2$ and $|\elemtuptupleb| = 3$,
 
 Intuitively, the unraveling $\unravel{E}$ can be seen as extending the structure $\str{E}$ with additional structure that $\GF$ can distinguish but $\FGF$ cannot.
 For example, we saw in \cref{fig:unravel-haf} that there is a $\FGF$-bisimilar structure to $\str{E}$ satsifying the $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$, which is not satisfied in $\str{E}$.
-Note that this sentence is also satisfied in the unraveling $\unravel{E}$.
+But the unraveling $\unravel{E}$ has added the necessary extra elements so that this sentence is satisfied in the unraveling.
 In fact, the unraveling contains all such variations which can be distinguished by $\GF$ but not by $\FGF$.
 This means that for two structures $\str{A}$ and $\str{B}$ which are $\FGF$-bisimilar, the unraveling for both of them contains all the $\GF$-structure that is possible to add while staying $\FGF$-bisimilar.
 Since this only depends on staying $\FGF$-bisimilar but not on the concrete details of the structures $\str{A}$ and $\str{B}$, the resulting unravelings for both structures contain the same $\GF$-structure.
