@@ -51,9 +51,25 @@ Therefore, $\elemtuptupler$ is an infix of $\elemtuptuples$.
 It follows from equality of $\FGF$-types that $\mu_{(\elemtuptuples, \elemtuptuplet)}[\elemtuptupler] \in \relR^{\str{B}}$.
 Since the argument is symmetric, we conclude that elements of $\elemtuptuples$ and $\elemtuptuplet$ satisfy the same relations and so $\mu_{(\elemtuptuples, \elemtuptuplet)}$ is a partial isomorphism.
 
-Next, we describe a symmetric relation ``$\approx_{z}$'' between elements of $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, with these properties: \bbe{include some intuitions first... }
+Next, we show that the finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ are $n$-$\GF$-bisimilar given that the base structures $\str{A}$ and $\str{B}$ are $m$-$\FGF$-bisimilar for sufficient large $m$.
+To prove this, we construct a $\GF$-bisimulation based on a notion of ``similar'' elements.
+We start with an intuitive explanation, which is followed by a formal definition.
+Let $e \in \unravel{A}_{\ell}$ and $\seq{e} = \elemtuples^{(0)}\cdots(i^{(k)}, j^{(k)})\elemtuples^{(k)}$.
+Recall that $\seq{e}$ represents the moves of Spoiler in a play of the $\FGF$-bisimulation game.
+Because $\str{B}$ is $m$-$\FGF$-bisimilar to $\str{A}$, if $k < m$, Duplicator must provide tuples $\elemtuplet^{(0)}$, \ldots, $\elemtuplet^{{k}}$ in response to the moves of Spoiler.
+This yields a bisimulation sequence $\sigma$ with $\sigma = \elemtuplet^{(0)}\cdots(i^{(k)}, j^{(k)})\elemtuplet^{(k)}$ in $\str{B}$.
+We say that the bisimulation sequence $\sigma$ is ``similar'' to the sequence $\seq{e}$, since it mirrors the moves of $\seq{e}$ from the structure $\str{A}$ in the structure $\str{B}$.
+Analogously, the element $f$ in $\unravel{B}_{\ell}$ with $\seq{f} = \sigma$ and $\ctr{f} = \ctr{e}$ is said to be ``similar'' to the element $e$, because it has a similar sequence and the same counter.
+Because sequences in the finite unraveling are of bounded length, we introduce a relaxed form of similarity, where only the suffixes containing the last $z$ moves of both sequences need to be similar.
+This notion is captured by the relation $\approx_{z}$, defined as follows.
+For elements $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ with $\seq{e} = \elemtuples^{(0)}\cdots(i^{(n)}, j^{(n)})\elemtuples^{(n)}$ and $\seq{f} = \elemtuplet^{(0)}\cdots(v^{(m)}, w^{(m)})\elemtuplet^{(m)}$, let $e \approx_{z} f$ if:
+\begin{enumerate}
+  \item $\ctr{e} = \ctr{f}$
+  \item $i^{(n-x)} = v^{(m-x)} \wedge j^{(n-x)} = w^{(m-x)}$ for $x \le z$ (last $z$ indices are equal)
+  \item $\elemtuples^{(n-x)} \bisimto_{\FGF}^{z} \elemtuplet^{(m-x)}$ for $x \le z$ (last $z$ tuples are $z$-$\FGF$-bisimilar)
+\end{enumerate}
 
-\bbebox{stopped here.}
+The relation ``$\approx_{z}$'' has the following properties:
 
 \begin{description}
   \item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx_{z} f_{i}$ for all indices $i$ of live tuples $\elemtuptuplee$ and $\elemtuptuplef$ of equal size, then $\elemtuptuplee$ and $\elemtuptuplef$ have the same $\FGF$-type.
@@ -61,14 +77,8 @@ Next, we describe a symmetric relation ``$\approx_{z}$'' between elements of $\u
   \item[\desclabel{(succ)}{elemeq:succ}] For $1 \le z$ and $z \le \ell$, if $(e, e') \in \relNext_{\ell}$ and $e \approx_{z} f$, then there is $f'$ with $e' \approx_{z-1} f'$ and $(f, f') \in \relNext_{\ell}$.
   \item[\desclabel{(pred)}{elemeq:pred}] For $1 \le z$ and $z \le \ell$, if $(e, e') \in \relNext_{\ell}$ and $e' \approx_{z} f'$, then there is $f$ with $e \approx_{z-1} f$ and $(f, f') \in \relNext_{\ell}$.
 \end{description}
-We define $\approx_{z}$ as follows: for elements $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ with $\seq{e} = \elemtuples^{(0)}\cdots(i^{(n)}, j^{(n)})\elemtuples^{(n)}$ and $\seq{f} = \elemtuplet^{(0)}\cdots(v^{(m)}, w^{(m)})\elemtuplet^{(m)}$, let $e \approx_{z} f$ if and only if:
-\begin{enumerate}
-  \item $\ctr{e} = \ctr{f}$
-  \item $i^{(n-x)} = v^{(m-x)} \wedge j^{(n-x)} = w^{(m-x)}$ for $x \le z$ (last $z$ indices are equal)
-  \item $\elemtuples^{(n-x)} \bisimto_{\FGF}^{z} \elemtuplet^{(m-x)}$ for $x \le z$ (last $z$ tuples are $z$-$\FGF$-bisimilar)
-\end{enumerate}
-\begin{proof}
-We show that $\approx_{z}$ obeys all of the properties:
+
+\begin{proof}\mbox{}
 
 \noindent
 \textbf{\ref{elemeq:harmony}}
