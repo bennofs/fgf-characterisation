@@ -51,23 +51,42 @@ Therefore, $\elemtuptupler$ is an infix of $\elemtuptuples$.
 It follows from equality of $\FGF$-types that $\mu_{(\elemtuptuples, \elemtuptuplet)}[\elemtuptupler] \in \relR^{\str{B}}$.
 Since the argument is symmetric, we conclude that elements of $\elemtuptuples$ and $\elemtuptuplet$ satisfy the same relations and so $\mu_{(\elemtuptuples, \elemtuptuplet)}$ is a partial isomorphism.
 
-Next, we show that the finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ are $n$-$\GF$-bisimilar given that the base structures $\str{A}$ and $\str{B}$ are $m$-$\FGF$-bisimilar for sufficient large $m$.
-To prove this, we construct a $\GF$-bisimulation based on a notion of ``similar'' elements.
-We start with an intuitive explanation, which is followed by a formal definition.
-Let $e \in \unravel{A}_{\ell}$ and $\seq{e} = \elemtuples^{(0)}\cdots(i^{(k)}, j^{(k)})\elemtuples^{(k)}$.
-Recall that $\seq{e}$ represents the moves of Spoiler in a play of the $\FGF$-bisimulation game.
-Because $\str{B}$ is $m$-$\FGF$-bisimilar to $\str{A}$, if $k < m$, Duplicator must provide tuples $\elemtuplet^{(0)}$, \ldots, $\elemtuplet^{{k}}$ in response to the moves of Spoiler.
-This yields a bisimulation sequence $\sigma$ with $\sigma = \elemtuplet^{(0)}\cdots(i^{(k)}, j^{(k)})\elemtuplet^{(k)}$ in $\str{B}$.
-We say that the bisimulation sequence $\sigma$ is ``similar'' to the sequence $\seq{e}$, since it mirrors the moves of $\seq{e}$ from the structure $\str{A}$ in the structure $\str{B}$.
-Analogously, the element $f$ in $\unravel{B}_{\ell}$ with $\seq{f} = \sigma$ and $\ctr{f} = \ctr{e}$ is said to be ``similar'' to the element $e$, because it has a similar sequence and the same counter.
-Because sequences in the finite unraveling are of bounded length, we introduce a relaxed form of similarity, where only the suffixes containing the last $z$ moves of both sequences need to be similar.
+Next, we show that the finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ are $n$-$\GF$-bisimilar given that the base structures $\str{A}$ and $\str{B}$ are $m$-$\FGF$-bisimilar for sufficient large $m$ and $\ell$.
+The proof starts by describing a notion of $z$-\emph{similar} elements from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, for a natural number $z$ giving the level of similarity.
+We then show that relating tuples composed of $z$-similar elements forms a $n$-$GF$-bisimulation between $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, for sufficient large $z$.
+Consider the elements $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ with $\seq{e} = \cdots\elemtuples$ and $\seq{f} = \cdots\elemtuplet$.
+Assume that $\ctr{e} = \ctr{f}$ and that $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$ for some $z$.
+This means that Spoiler can make up to $z$ moves in starting from $\str{A}, \elemtuples$ in the bisimulation game, and all those moves are matched by Duplicator in $\str{B}, \elemtuplet$.
+Let $g$ be descendant of $e$ with distance $d$ from $e$ and $\seq{g} = \seq{e}\cdots(i,j)\elemtuple{v}$.
+Then there is descendant $h$ of $f$ with $\seq{h} = \seq{f}\cdots(i,j)\elemtuple{w}$ and $\str{A}, \elemtuplev \bisimto_{\FGF}^{z-d} \str{B}, \elemtuplew$.
+Thus, the subtrees rooted at $e$ and $f$ in $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ look similar.
+However, this tells us nothing about the parents of $e$ and $f$.
+The parents of $e$ and $f$ depend on their bisimulation sequences $\seq{e}$ and $\seq{f}$.
+For $z$-similar elements $e$ and $f$, we want the last $z$ moves of the bisimulation sequences to match.
+For example, if $\seq{e} = \cdots\elemtuplev(i,j)\elemtuples$, then we want $\seq{f} = \cdots\elemtuplew(i,j)\elemtuplet$ with $\str{A}, \elemtuplev \bisimto_{\FGF}^{z} \str{B}, \elemtuplew$, in addition to $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$, and so on for the moves before that.
+Formally, we define $z$-similar elements as follows:
+\begin{definition}[$z$-similar elements]
+ Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ and $z$ be a natural number.
+ Let $\seq{e}$ and $\seq{f}$ either have the same length or a length greater than $z$.
+ Let $h$ be this length or $z$, whichever is smaller.
+ Then $e$ and $f$ are $z$-similar, written $e \approx_{z} f$, if:
+ \begin{itemize}
+   \item $\ctr{e} = \ctr{f}$,
+   \item $\seq{e}$ has suffix $\elemtuples^{(0)}\cdots(i^{(h)},j^{(h)})\elemtuples^{(h)}$, and
+   \item $\seq{f}$ has suffix $\elemtuplet^{(0)}\cdots(i^{(h)},j^{(h)})\elemtuplet^{(h)}$
+ \end{itemize}
+ where $\str{A}, \elemtuples^{(k)} \bisimto_{\FGF}^{z} \str{B}, \elemtuplet^{(k)}$ for all $k \in [0,h]$.
+
+\end{definition}
+
 This notion is captured by the relation $\approx_{z}$, defined as follows.
-For elements $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ with $\seq{e} = \elemtuples^{(0)}\cdots(i^{(n)}, j^{(n)})\elemtuples^{(n)}$ and $\seq{f} = \elemtuplet^{(0)}\cdots(v^{(m)}, w^{(m)})\elemtuplet^{(m)}$, let $e \approx_{z} f$ if:
 \begin{enumerate}
   \item $\ctr{e} = \ctr{f}$
   \item $i^{(n-x)} = v^{(m-x)} \wedge j^{(n-x)} = w^{(m-x)}$ for $x \le z$ (last $z$ indices are equal)
   \item $\elemtuples^{(n-x)} \bisimto_{\FGF}^{z} \elemtuplet^{(m-x)}$ for $x \le z$ (last $z$ tuples are $z$-$\FGF$-bisimilar)
 \end{enumerate}
+
+
 
 The relation ``$\approx_{z}$'' has the following properties:
 
