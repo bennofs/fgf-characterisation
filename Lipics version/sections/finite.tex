@@ -57,8 +57,8 @@ We then show that relating tuples composed of $z$-similar elements forms a $n$-$
 Consider the elements $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ with $\seq{e} = \cdots\elemtuples$ and $\seq{f} = \cdots\elemtuplet$.
 Assume that $\ctr{e} = \ctr{f}$ and that $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$ for some $z$.
 This means that Spoiler can make up to $z$ moves in starting from $\str{A}, \elemtuples$ in the bisimulation game, and all those moves are matched by Duplicator in $\str{B}, \elemtuplet$.
-Let $g$ be descendant of $e$ with distance $d$ from $e$ and $\seq{g} = \seq{e}\cdots(i,j)\elemtuple{v}$.
-Then there is descendant $h$ of $f$ with $\seq{h} = \seq{f}\cdots(i,j)\elemtuple{w}$ and $\str{A}, \elemtuplev \bisimto_{\FGF}^{z-d} \str{B}, \elemtuplew$.
+Let $g$ be descendant of $e$ with distance $d$ from $e$ and $\seq{g} = \seq{e}\cdots(i,j)\elemtuplev$.
+Then there is descendant $h$ of $f$ with $\seq{h} = \seq{f}\cdots(i,j)\elemtuplew$ and $\str{A}, \elemtuplev \bisimto_{\FGF}^{z-d} \str{B}, \elemtuplew$.
 Thus, the subtrees rooted at $e$ and $f$ in $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ look similar.
 However, this tells us nothing about the parents of $e$ and $f$.
 The parents of $e$ and $f$ depend on their bisimulation sequences $\seq{e}$ and $\seq{f}$.
@@ -76,25 +76,60 @@ Formally, we define $z$-similar elements as follows:
    \item $\seq{f}$ has suffix $\elemtuplet^{(0)}\cdots(i^{(h)},j^{(h)})\elemtuplet^{(h)}$
  \end{itemize}
  where $\str{A}, \elemtuples^{(k)} \bisimto_{\FGF}^{z} \str{B}, \elemtuplet^{(k)}$ for all $k \in [0,h]$.
-
 \end{definition}
 
-This notion is captured by the relation $\approx_{z}$, defined as follows.
-\begin{enumerate}
-  \item $\ctr{e} = \ctr{f}$
-  \item $i^{(n-x)} = v^{(m-x)} \wedge j^{(n-x)} = w^{(m-x)}$ for $x \le z$ (last $z$ indices are equal)
-  \item $\elemtuples^{(n-x)} \bisimto_{\FGF}^{z} \elemtuplet^{(m-x)}$ for $x \le z$ (last $z$ tuples are $z$-$\FGF$-bisimilar)
-\end{enumerate}
+We now show that if elements $a$ and $b$ are $z$-similar, then following a $\relNext$-edge leads to $(z-1)$-similar elements.
+In other words, if $c$ is a parent or child of $a$, then there exists a parent respective child of $b$ which is $(z-1)$-similar to $c$:
+\begin{lemma}
+  Let $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$. If $a \approx_{z} b$ for $z \in [1,\ell]$, then:
+  \begin{description}
+  \item[\desclabel{(succ)}{elemeq:succ}] If $(a, c) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(b, d) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
+  \item[\desclabel{(pred)}{elemeq:pred}] If $(c, a) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(d, b) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
+\end{description}
+\end{lemma}
+\begin{proof}
+  First observe that if $\seq{a} = \seq{c}$ and we choose $d$ with $\seq{d} = \seq{b}$ and $\ctr{d} = \ctr{c}$, then $a \approx_{z} b$ if and only if $c \approx_{z} d$.
+  Further, if $(a,c) \in \relNext$ or $(c,a) \in \relNext_{\ell}$, then also $(b,d) \in \relNext_{\ell}$ or $(d,b) \in \relNext_{\ell}$, respectively.
+  This proves~\ref{elemeq:succ} and~\ref{elemeq:pred} for the case that $\seq{a} = \seq{c}$.
 
+  We now consider the case that $\seq{a} \neq \seq{c}$, which corresponds to~\ref{next:addseq} case from the definition of $\relNext$.
+  Let $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ with $a \approx_{z} b$.
+  Let
+  $\seq{a} = \cdots \elemtuples^{(0)} \cdots (i^{(h)}, j^{(h)})\elemtuples^{(h)}$ and $\seq{b} = \cdots \elemtuplet^{(0)} \cdots (i^{(h)}, j^{(h)})\elemtuplet^{(h)}$, where $h$ is $z$ or the length of the sequences, whichever is smaller, as in the definition of $\approx_{z}$.
+  For all $k \in [0,h]$, we have $\str{A}, \elemtuples^{(k)} \bisimto_{\FGF}^{z} \str{B}, \elemtuplet^{(k)}$ since $a \approx_{z} b$.
 
+  We treat~\ref{elemeq:succ} and~\ref{elemeq:pred} separately.
+  For~\ref{elemeq:succ}, let $c \in \unraveldom{A}_{\ell}$ with $\seq{c} \neq \seq{a}$ and $(a,c) \in \relNext_{\ell}$.
+  Then there are indices $v,w$ and a tuple $\elemtupleo \sqin A$ such that $\seq{c}$ is equal to $\seq{a} (v,w) \elemtupleo$ or the $\ell$-length suffix of that sequence.
+  We can find a tuple $\elemtuplep$ for which $\seq{b}(v,w)\elemtuplep$ is a bisimulation sequence and $\str{A}, \elemtupleo \bisimto_{\FGF}^{z-1} \str{B}, \elemtuplep$ by employing~\ref{bisim:fforth} since $\str{A}, \elemtuples^{(h)} \bisimto_{\FGF}^{z} \str{B}, \elemtuplet^{(h)}$.
+  Let $d \in \unraveldom{B}_{\ell}$ be the element with:
+  \begin{itemize}
+    \item $\seq{d}$ equal to $\seq{b} (v,w) \elemtuplep$ or if that sequence is longer than $2 * \ell$, to the length-$\ell$ suffix of that sequence,
+    \item $\ctr{d} = (w-v+1) + 1$, which by definition of $\relNext$ is equal to $\ctr{c}$.
+  \end{itemize}
+  By construction $(b, d) \in \relNext_{\ell}$.
+  Note that the length of $\seq{e}$ and $\seq{d}$ increases by exactly one compared to $\seq{a}$ and $\seq{b}$, except if one of them reaches the length $2 * \ell$ and is truncated to a suffix.
+  If no truncation occurs, then $\seq{c}$ and $\seq{d}$ have the same length if $\seq{a}$ and $\seq{b}$ have, so clearly $c \approx_{z-1} d$, as we extended them with bisimilar tuples and the same pair of indices.
+  Otherwise, to reach the truncation length of $2 * \ell$, either $\seq{a}$ or $\seq{b}$ must have a length of at least $\ell$.
+  As $z \le \ell$, by $a \approx_{z} b$ in this case both sequences are at least of length $z$, thus $h$ equals $z$.
+  Then $\seq{c}$ and $\seq{d}$ also are at least of length $z$, since even if they are truncated to a suffix of length $\ell$, still $\ell \ge z$.
+  It follows that the sequences $\elemtuples^{(2)}\cdots\elemtuples^{(z)}(v,w)\elemtupleo$ and $\elemtuplet^{(2)}\cdots\elemtuples^{(z)}\elemtuplep$, which are of length $z-1$, are suffixes of $\seq{c}$ and $\seq{d}$ respectively.
+  Therefore, $c \approx_{z-1} d$ as wanted.
 
-The relation ``$\approx_{z}$'' has the following properties:
-
+  For~\ref{elemeq:pred}, let $c \in \unraveldom{A}_{\ell}$ with $\seq{c} \neq \seq{a}$ and $(c,a) \in \relNext_{\ell}$.
+  In this case, there are indices $v,w$ and a tuple $\elemtupleo \sqin A$ for which $\seq{a} = \sigma (v,w) \elemtupleo$, where $\sigma$ is either $\seq{c}$ or the $\ell-1$-length suffix $\seq{c}$.
+  Since $a \approx_{z} b$, we have $\ctr{a} = \ctr{b} = (w-v+1) + 1$ and $\seq{b} = \theta (v,w) \elemtuplep$ for some bisimulation sequence $\theta$ and a tuple $\elemtuplep \sqin B$.
+  Note that $\ctr{c} = w$ by definition of $\relNext$.
+  Further, $(\sigma, w) \approx_{z-1} (\theta, w)$, since $a \approx_{z} b$ and $\sigma$ and $\theta$ are constructed from $\seq{a}$ and $\seq{b}$ by removing the last step.
+  Let $d = (\theta, w)$.
+  Clearly $(d,b) \in \relNext_{\ell}$ and if $\sigma = \seq{c}$, then $c \approx_{z-1} d$ follows directly.
+  If $\seq{c} \neq \sigma$, then $\sigma$ is a suffix of $\seq{c}$ with length $\ell-1$.
+  As $\ell-1 \ge z-1$, the last $z-1$ steps of $\sigma$ and $\seq{c}$ are equal in this case.
+  Therefore, $(\sigma, w) \approx_{z-1} (\theta, w)$ implies $(\seq{c}, w) \approx_{z-1} (\theta, w)$, so $c \approx_{z-1} d$ as wanted.
+  \end{proof}
 \begin{description}
-  \item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx_{z} f_{i}$ for all indices $i$ of live tuples $\elemtuptuplee$ and $\elemtuptuplef$ of equal size, then $\elemtuptuplee$ and $\elemtuptuplef$ have the same $\FGF$-type.
+\item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx_{z} f_{i}$ for all indices $i$ of live tuples $\elemtuptuplee$ and $\elemtuptuplef$ of equal size, then $\elemtuptuplee$ and $\elemtuptuplef$ have the same $\FGF$-type.
   \item[\desclabel{(global)}{elemeq:global}] If $\str{A} \bisimto_{\FGF}^{2*z + 1} \str{B}$, then for any $e \in \unraveldom{A}_{\ell}$, there is $f \in \unraveldom{B}_{\ell}$ such that $e \approx_{z} f$.
-  \item[\desclabel{(succ)}{elemeq:succ}] For $1 \le z$ and $z \le \ell$, if $(e, e') \in \relNext_{\ell}$ and $e \approx_{z} f$, then there is $f'$ with $e' \approx_{z-1} f'$ and $(f, f') \in \relNext_{\ell}$.
-  \item[\desclabel{(pred)}{elemeq:pred}] For $1 \le z$ and $z \le \ell$, if $(e, e') \in \relNext_{\ell}$ and $e' \approx_{z} f'$, then there is $f$ with $e \approx_{z-1} f$ and $(f, f') \in \relNext_{\ell}$.
 \end{description}
 
 \begin{proof}\mbox{}
@@ -130,39 +165,6 @@ We let $f$ be the element of $\unraveldom{B}_{\ell}$ with $\seq{f} = \elemtuplet
 This satisfies $e \approx_{z} f$ as required.
 
 \noindent
-\textbf{\ref{elemeq:succ}}
-Let $(e, e') \in \relNext_{\ell}$ and $e \approx_{z} f$ for some $f \in \unraveldom{B}_{\ell}$.
-We proceed by case analysis on the definition of $\relNext_{\ell}$.
-The~\ref{next:addctr}~case has $\seq{e'} = \seq{e}$ and $\ctr{e'} = \ctr{e} + 1$.
-We set $f'$ such that $\seq{f'} = \seq{f}$ and $\ctr{f'} = \ctr{f} + 1$, so clearly $(f, f') \in \relNext_{\ell}$.
-Additionally, if $e \approx_{z} f$, then also $e' \approx_{z} f'$, which implies $e' \approx_{z-1} f'$ as wanted.
-In the~\ref{next:addseq}~case, the sequence $\seq{e'}$ is equal to $\seq{e} (i, j) \elemtuples$ or the $\ell$-length suffix of that sequence.
-Let $\elemtupleo$ and $\elemtuplep$ be tuples such that $\seq{e} = \cdots \elemtupleo$ and $\seq{f} = \cdots \elemtuplep$.
-By $e \approx_{z} f$, we know that $\elemtupleo \bisimto_{\FGF}^{z} \elemtuplep$.
-It follows from the laws of forward guarded bisimulation that there is a tuple $\elemtuplet$ such that $\elemtuples \bisimto_{\FGF}^{z-1} \elemtuplet$ and $\seq{f} (i,j) \elemtuplet$ is a bisimulation sequence.
-Let $\seq{f'}$ be equal to $\seq{f} (i,j) \elemtuplet$ or if that sequence is longer than $2 * \ell$, to the length-$\ell$ suffix of that sequence.
-Let $\ctr{f'} = (j-i+1) + 1$, which is equal to $\ctr{e'}$.
-By construction $(f, f') \in \relNext_{\ell}$.
-Next, we show that $f \approx_{z-1} f'$.
-First, consider the length of $\seq{e'}$ and $\seq{f'}$.
-We need to show that if either sequence has length less than $z-1$, then the other sequence has the same length.
-So suppose that one of the sequences is shorter than $z-1$.
-Since $z - 1 < \ell$, this is only possible if $\seq{e}$ or $\seq{f}$ is shorter than $z-1$.
-Since $e \approx_{z} f$, the length of $\seq{e}$ must be equal to $\seq{f}$ in this case.
-But then both $\seq{e} (i,j) \elemtuples$ and $\seq{f} (i,j) \elemtuplet$ have equal lengths shorter than $2 * \ell$, so the lengths of $\seq{e'}$ and $\seq{f'}$ are equal.
-Finally, observe that the conditions for $e' \approx_{z-1} f'$ all carry over from $e \approx_{z} f$, except for the last step of the sequence in $\seq{e'}$ and $\seq{f'}$.
-But we chose $\elemtuplet$ such that $\elemtuples \bisimto_{\FGF}^{z-1} \elemtuplet$, so the conditions also hold for the last step.
-Therefore $e' \approx_{z-1} f'$ as required.
-
-\noindent
-\textbf{\ref{elemeq:pred}}
-Let $(e, e') \in \relNext_{\ell}$ and $e' \approx_{z} f'$ for some $f' \in \unraveldom{B}_{\ell}$.
-If $\seq{e'} = \seq{e}$, then $\ctr{e} = \ctr{e'} - 1$ and we can set $f = (\seq{f'}, \ctr{f} - 1)$ which has the required properties.
-Otherwise, $\seq{e'} = \sigma (i,j) \elemtuples$ where $\sigma$ is equal to either $\seq{e}$ or the length $\ell-1$ suffix of $\seq{e}$.
-Since $e' \approx_{z} f'$, first $\ctr{e'} = \ctr{f'} = (j-i+1) + 1$ and second there must be a tuple $\elemtuplet$ and a sequence $\theta$ such that $\seq{f'} = \theta (i,j) \elemtuplet$.
-With $f = (\theta, j)$, we have $(f, f') \in \relNext_{\ell}$ and $(\sigma, j) \approx_{z-1} f$.
-If $\sigma$ is not equal to $\seq{e}$, it is of length $\ell-1$ so it still contains the last $z-1$ elements of $\seq{e}$ since $z \le \ell$.
-Therefore, the required property $e \approx_{z-1} f$ follows from $(\sigma, j) \approx_{z-1} f$.
 \end{proof}
 
 We claim that the following sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{\ell} \subseteq \PartIso{\unravel{A}_{W * \ell}}{\unravel{B}_{W * \ell}}$ is a $\ell$-$\GF$-bisimulation:
