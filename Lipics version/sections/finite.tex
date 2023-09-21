@@ -80,7 +80,7 @@ Formally, we define $z$-similar elements as follows:
 
 We now show that if elements $a$ and $b$ are $z$-similar, then following a $\relNext$-edge leads to $(z-1)$-similar elements.
 In other words, if $c$ is a parent or child of $a$, then there exists a parent respective child of $b$ which is $(z-1)$-similar to $c$:
-\begin{lemma}
+\begin{lemma}\label{lem:approx-next}
   Let $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$. If $a \approx_{z} b$ for $z \in [1,\ell]$, then:
   \begin{description}
   \item[\desclabel{(succ)}{elemeq:succ}] If $(a, c) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(b, d) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
@@ -128,46 +128,31 @@ In other words, if $c$ is a parent or child of $a$, then there exists a parent r
   Therefore, $(\sigma, w) \approx_{z-1} (\theta, w)$ implies $(\seq{c}, w) \approx_{z-1} (\theta, w)$, so $c \approx_{z-1} d$ as wanted.
   \end{proof}
 \begin{description}
-\item[\desclabel{(harmony)}{elemeq:harmony}] If $e_{i} \approx_{z} f_{i}$ for all indices $i$ of live tuples $\elemtuptuplee$ and $\elemtuptuplef$ of equal size, then $\elemtuptuplee$ and $\elemtuptuplef$ have the same $\FGF$-type.
   \item[\desclabel{(global)}{elemeq:global}] If $\str{A} \bisimto_{\FGF}^{2*z + 1} \str{B}$, then for any $e \in \unraveldom{A}_{\ell}$, there is $f \in \unraveldom{B}_{\ell}$ such that $e \approx_{z} f$.
 \end{description}
 
-\begin{proof}\mbox{}
-
-\noindent
-\textbf{\ref{elemeq:harmony}}
-Let $\elemtuptuplee = (e_{1}, \ldots, e_{n})$ and $\elemtuptuplef = (f_{1}, \ldots, f_{n})$.
-Let $\elemtuples$ and $\elemtuplet$ be the tuples of $\str{A}$ and $\str{B}$ such that $\seq{e_{n}} = \cdots \elemtuples$ and $\seq{f_{n}} = \cdots \elemtuplet$.
-Since $\elemtuplee \approx_z \elemtuplef$, we know that $\elemtuples \bisimto_{\FGF}^{z} \elemtuplet$ which in particular means that $\elemtuples$ and $\elemtuplet$ have the same $\FGF$-type.
-By the properties of $\relNext$, we also know that $\pi[\elemtuplee] = \elemtuples_{\ctr{e_{n}}-n\ldots{}\ctr{e_{n}}}$ and $\pi[\elemtuplet] = \elemtuplet_{\ctr{f_{n}}-n\ldots{}\ctr{f_{n}}}$.
-As $\ctr{e_{n}} = \ctr{f_{n}}$, both $\elemtuptuplee$ and $\elemtuptupleb$ project to infixes of $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i = \ctr{e_{n}} - n$ and $j = \ctr{e_{n}}$.
-Hence, $\FGF$-types of $\pi[\elemtuptuplee]$ and $\pi[\elemtuptuplef]$ are also equal.
-Now consider an infix $\elemtuptuplee_{i\ldots{}j}$ and the corresponding infix $\elemtuptuplef_{i\ldots{}j}$.
+Let us now consider tuples of $z$-similar elements.
+Let $\elemtuptuplea = (a_{1}, \ldots, a_{k})$ and $\elemtuptupleb = (b_{1}, \ldots, b_{k})$ where $a_{i} \in \unraveldom{A}_{\ell}$ and $b_{i} \in \unraveldom{B}_{\ell}$ for finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
+We show that if $\elemtuptuplea$ and $\elemtuptupleb$ are live and $a_{i} \approx_{z} b_{i}$ for every $i \in [1,k]$, then they have the same $\FGF$-type.
+As seen before, in finite unravelings this implies that there exists a partial isomorphism between $\elemtuptuplea$ and $\elemtuptupleb$.
+Let $\elemtuples$ and $\elemtuplet$ be the tuples from $\str{A}$ and $\str{B}$ such that $\seq{a_{k}} = \cdots \elemtuples$ and $\seq{b_{k}} = \cdots \elemtuplet$.
+Since $a_{k} \approx_z b_{k}$, we have $\elemtuples \bisimto_{\FGF}^{z} \elemtuplet$ which in particular implies that $\elemtuples$ and $\elemtuplet$ have the same $\FGF$-type.
+By the properties of $\relNext$, we know that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.
+As $\ctr{a_{k}} = \ctr{b_{k}}$, both $\elemtuptuplea$ and $\elemtuptupleb$ project to infixes $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i\ldots{}j$ for $i = \ctr{a_{k}} - k$ and $j = \ctr{a_{k}}$.
+Hence, $\FGF$-types of $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ are also equal.
+Now consider an infix $\elemtuptuplea_{x\ldots{}y}$ and the corresponding infix $\elemtuptupleb_{x\ldots{}y}$, for some indices $x$ and $y$.
 We show that the three conditions of the definition of relations in the unraveling are satisfied for $\elemtuptuplee_{i\ldots{}j}$ exactly if they are satified for $\elemtuptuplef_{i\ldots{}j}$:
 \begin{enumerate}
-  \item $\pi[\elemtuptuplee_{i\ldots{}j}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplef_{i\ldots{}j}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplee]$ and $\pi[\elemtuptuplef]$ have equal $\FGF$-types,
-  \item $\elemtuptuplee_{i\ldots{}j}$ is a next-chain if and only if $\elemtuptuplef_{i\ldots{}j}$ is a next-chain, because both infixes are always next-chains since $\elemtuptuplee$ and $\elemtuptuplef$ are next-chains,
-  \item $|\elemtuptuplee_{i\ldots{}j}| \le \mathtt{bound}(\elemtuptuplee_{i\ldots{}j})$ if and only if $|\elemtuptuplef_{i\ldots{}j}| \le \mathtt{bound}(\elemtuptuplef_{i\ldots{}j})$ because both infixes are of length $j-i+1$, and $\mathtt{bound}$ is equal since the precondition $e_{j} \approx_{z} f_{j}$ implies $\ctr{e_{j}} = \ctr{f_{j}}$.
+  \item $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ have equal $\FGF$-types,
+  \item $\elemtuptuplea_{x\ldots{}y}$ is a next-chain if and only if $\elemtuptupleb_{x\ldots{}y}$ is a next-chain, because both infixes are always next-chains since $\elemtuptuplea$ and $\elemtuptupleb$ are next-chains as they live,
+  \item $|\elemtuptuplea_{x\ldots{}y}| \le \mathtt{bound}(\elemtuptuplea_{x\ldots{}y})$ if and only if $|\elemtuptupleb_{x\ldots{}y}| \le \mathtt{bound}(\elemtuptuplef_{x\ldots{}y})$ because $|\elemtuptuplea_{x\ldots{}y}| = |\elemtuptupleb_{x\ldots{}y}| = y-x+1$ and $\mathtt{bound}$ is equal since $\ctr{e_{j}} = \ctr{f_{j}}$, which follows from the precondition $e_{j} \approx_{z} f_{j}$.
 \end{enumerate}
-Therefore, infixes of $\elemtuptuplee$ and $\elemtuptuplef$ realize the same relations.
-We conclude that $\elemtuptuplee$ and $\elemtuptuplef$ have equal $\FGF$-types.
+Therefore, infixes of $\elemtuptuplea$ and $\elemtuptupleb$ are in the same relations.
+We conclude that $\elemtuptuplea$ and $\elemtuptupleb$ have equal $\FGF$-types.
 
-\noindent
-\textbf{\ref{elemeq:global}}
-Let $e \in \unraveldom{A}_{\ell}$ with $\seq{e} = \elemtuples^{(0)}\cdots{}(i^{(n)}, j^{(n)})\elemtuples^{(n)}$.
-Let $\bisimZ_{0}, \ldots, \bisimZ_{2*z + 1}$ be the bisimulation between $\str{A}$ and $\str{B}$.
-Let $m$ be the smaller of $z$ and $n$.
-Using~\ref{bisim:fforth} $m$ times, we obtain live tuples $\elemtuplet^{(0)}, \ldots, \elemtuplet^{(m)}$ with $(\elemtuples^{(n-m)}, \elemtuplet^{(0)}) \in \bisimZ_{2*z}, \ldots, (\elemtuples^{(n)}, \elemtuplet^{(m)}) \in \bisimZ_{2*z - m}$ such that $\elemtuplet^{(0)}(i^{(n-m+1)}, j^{(n-m+1)})\elemtuplet^{(1)}\cdots{}\elemtuplet^{(m)}$ is a bisimulation sequence.
-For any bisimulation it holds that $\bisimZ_{0} \supseteq \bisimZ_{1} \supseteq \cdots{} \supseteq \bisimZ_{2*z+1}$, thus
-$(\elemtuples^{(n-m+x)}, \elemtuplet^{(x)}) \in \bisimZ_{2*z - m}$ for all $x$.
-Hence, since $z \le 2*z - m$, the tuples $\elemtuples^{(n-m+x)}$ and $\elemtuplet^{(x)}$ are $z$-$\FGF$-bisimilar for any $x$.
-We let $f$ be the element of $\unraveldom{B}_{\ell}$ with $\seq{f} = \elemtuplet^{(0)}(i^{(n-m+1)}, j^{(n-m+1)})\elemtuplet^{(1)}\cdots{}\elemtuplet^{(m)}$ and $\ctr{f} = \ctr{e}$.
-This satisfies $e \approx_{z} f$ as required.
-
-\noindent
-\end{proof}
-
-We claim that the following sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{\ell} \subseteq \PartIso{\unravel{A}_{W * \ell}}{\unravel{B}_{W * \ell}}$ is a $\ell$-$\GF$-bisimulation:
+Finally, we show that the partial isomorphisms between tuples with $z$-similar elements form a $\GF$-bisimulation.
+Let $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ be finite unravelings of $\sigma$-structures $\str{A}$ and $\str{B}$, for a finite signature $\sigma$.
+We define a sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{n} \subseteq \PartIso{\unravel{A}_{\ell}}{\unravel{B}_{\ell}}$ as follows:
 \begin{equation*}
   \bisimZ_{k} = \left\{
     \mu_{(\elemtuptuples, \elemtuptuplet)}:\,
@@ -175,5 +160,15 @@ We claim that the following sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{\ell
     s_{i} \approx_{W * k} t_{i}\ \text{for all indices $i$}
   \right\}
 \end{equation*}
-\begin{proof}
-\end{proof}
+where $W$ is the maximal arity of symbols from $\sigma$ and $\mu_{(\elemtuptuples, \elemtuptuplet)}$ is the partial isomorphism between $\elemtuptuples$ and $\elemtuptuplet$, which exists since they have $z$-similar elements.
+We claim that $\bisimZ_{k-1}$ satisfies the~\ref{bisim:back} and~\ref{bisim:forth} conditions for $\bisimZ_{k}$, for $k \in [1, n]$.
+We only show~\ref{bisim:forth} as the proof for~\ref{bisim:back} is symmetric.
+Let $\mu_{(\elemtuptuples, \elemtuptuplet)} \in \bisimZ_{k}$, for some live tuples $\elemtuptuples$ and $\elemtuptuplet$.
+
+For structures $\str{A}$ and $\str{B}$ and every element $a \in \unraveldom{A}_{\ell}$, we can find a $z$-similar element $b \in \unraveldom{B}_{\ell}$, given that $\str{A} \bisimto_{\FGF}^{z} \str{B}$, as follows.
+Let $\seq{a} = \elemtuples^{(0)}\cdots(i^{{n}}, j^{(n)})\elemtuples^{(n)}$ and $m$ be the minimum of $z$ and $n$.
+Using~\ref{bisim:fforth} $m$ times, we obtain live tuples $\elemtuplet^{(0)}, \ldots, \elemtuplet^{(m)}$ with $(\elemtuples^{(n-m)}, \elemtuplet^{(0)}) \in \bisimZ_{2*z}, \ldots, (\elemtuples^{(n)}, \elemtuplet^{(m)}) \in \bisimZ_{2*z - m}$ such that $\elemtuplet^{(0)}(i^{(n-m+1)}, j^{(n-m+1)})\elemtuplet^{(1)}\cdots{}(i^{n}, j^{n})\elemtuplet^{(m)}$ is a bisimulation sequence.
+For any bisimulation it holds that $\bisimZ_{0} \supseteq \bisimZ_{1} \supseteq \cdots{} \supseteq \bisimZ_{2*z+1}$, thus for every x, $(\elemtuples^{(n-m+x)}, \elemtuplet^{(x)}) \in \bisimZ_{2*z - m}$.
+Hence, since $z \le 2*z - m$, for every $x$, the tuples $\elemtuples^{(n-m+x)}$ and $\elemtuplet^{(x)}$ are $z$-$\FGF$-bisimilar.
+We can now construct the element $b$ with $\ctr{b} = \ctr{a}$ and $\seq{b} = \elemtuplet^{(0)}(i^{(n-m+1)}, j^{(n-m+1)})\elemtuplet^{(1)}\cdots{}(i^{n}, j^{n})\elemtuplet^{(m)}$.
+This satisfies $a \approx_{z} b$, as wanted.
