@@ -73,24 +73,13 @@ It follows from equality of $\FGF$-types that $\mu_{(\elemtuptuplea, \elemtuptup
 Since the argument is symmetric, we conclude that elements of $\elemtuptuplea$ and $\elemtuptupleb$ satisfy the same relations so $\mu_{(\elemtuptuplea, \elemtuptupleb)}$ is an isomorphism and $\elemtuptuplea \simeq \elemtuptupleb$.
 \end{proof}
 
-Next, we show that the finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ are $n$-$\GF$-bisimilar given that the base structures $\str{A}$ and $\str{B}$ are $m$-$\FGF$-bisimilar for sufficient large $m$ and $\ell$.
-The proof starts by describing a notion of $z$-\emph{similar} elements from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, for a natural number $z$ giving the level of similarity.
-We then show that relating tuples composed of $z$-similar elements forms a $n$-$GF$-bisimulation between $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$, for sufficient large $z$.
-Consider the elements $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ with $\seq{e} = \cdots\elemtuples$ and $\seq{f} = \cdots\elemtuplet$.
-Assume that $\ctr{e} = \ctr{f}$ and that $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$ for some $z$.
-This means that Spoiler can make up to $z$ moves in starting from $\str{A}, \elemtuples$ in the bisimulation game, and all those moves are matched by Duplicator in $\str{B}, \elemtuplet$.
-Let $g$ be descendant of $e$ with distance $d$ from $e$ and $\seq{g} = \seq{e}\cdots(i,j)\elemtuplev$.
-Then there is descendant $h$ of $f$ with $\seq{h} = \seq{f}\cdots(i,j)\elemtuplew$ and $\str{A}, \elemtuplev \bisimto_{\FGF}^{z-d} \str{B}, \elemtuplew$.
-Thus, the subtrees rooted at $e$ and $f$ in $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ look similar.
-However, this tells us nothing about the parents of $e$ and $f$.
-The parents of $e$ and $f$ depend on their bisimulation sequences $\seq{e}$ and $\seq{f}$.
-For $z$-similar elements $e$ and $f$, we want the last $z$ moves of the bisimulation sequences to match.
-For example, if $\seq{e} = \cdots\elemtuplev(i,j)\elemtuples$, then we want $\seq{f} = \cdots\elemtuplew(i,j)\elemtuplet$ with $\str{A}, \elemtuplev \bisimto_{\FGF}^{z} \str{B}, \elemtuplew$, in addition to $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$, and so on for the moves before that.
-Formally, we define $z$-similar elements as follows:
+Our main goal for the remainder of this section is to show that $\unravel{A}_{\ell} \bisimto_{\GF}^{n} \unravel{B}_{\ell}$, given that $\str{A} \bisimto_{\FGF}^{m} \str{B}$ for some $m$ and $\ell$ that depends on only $n$.
+For this proof, we first introduce the notion of $z$-\emph{similar} elements, which is a relation between elements from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
+We later lift this relation to tuples to construct the $n$-$\GF$-bisimulation.
 \begin{definition}[$z$-similar elements]
  Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ and $z$ be a natural number.
- Let $\seq{e}$ and $\seq{f}$ either have the same length or a length greater than $z$.
- Let $h$ be this length or $z$, whichever is smaller.
+ Let $\seq{e}$ and $\seq{f}$ either both have a length greater than $z$ or have the same length.
+ If they have lengths greater than $z$, let $h$ be $z$, otherwise let $h$ be their common length.
  Then $e$ and $f$ are $z$-similar, written $e \approx_{z} f$, if:
  \begin{itemize}
    \item $\ctr{e} = \ctr{f}$,
@@ -99,11 +88,26 @@ Formally, we define $z$-similar elements as follows:
  \end{itemize}
  where $\str{A}, \elemtuples^{(k)} \bisimto_{\FGF}^{z} \str{B}, \elemtuplet^{(k)}$ for all $k \in [0,h]$.
 \end{definition}
-
-We now show that if elements $a$ and $b$ are $z$-similar, then following a $\relNext$-edge leads to $(z-1)$-similar elements.
-In other words, if $c$ is a parent or child of $a$, then there exists a parent respective child of $b$ which is $(z-1)$-similar to $c$:
+We now give an intuitive description of this definition, followed by a lemma making this intuition precise.
+\bfside{I am not sure if this intuitive description is necessary. It is mostly a more vague version of the proof below. If you think that this is too vague, it might make sense to just remove it?}
+The role of $z$ in the definition of $z$-similar elements is twofold.
+First, $z$ determines the length of the suffixes of $\seq{e}$ and $\seq{f}$ that we consider.
+These suffixes correspond to the last $z$ moves in the play of the $\FGF$-game represented by $\seq{e}$ and $\seq{f}$, respectively.
+For $z$-similar elements, we require that the last $z$ moves of both $\seq{e}$ and $\seq{f}$ are equal (or all the moves, if these sequences are shorter than $z$ moves), i.e.\ they both pick the infix at indices $i^{(k)}\ldots{}j^{(k)}$.
+This allows us to ``go backwards'' along $\relNext$-edges in the tree, in the following sense:
+Let us say that an element $c \in A$ ``undoes'' the last move of an element $a \in A$ if it is a parent of $a$ and $\seq{c}$ is equal $\seq{a}$ but without the final move.
+Now, if $a \in A$ and $b \in B$ are $z$-similar elements, and there is an element $c \in A$ which ``undoes'' the last move of $a \in A$, then there is also an element $d \in B$ which ``undoes'' the same last move of $b$, since the last $z$ moves of $\seq{a}$ and $\seq{b}$ are the same.
+The resulting elements $b$ and $d$ are then $(z-1)$-similar, since the sequences $\seq{b}$ and $\seq{d}$ are one move shorter.
+Second, $z$ is the bound on the bisimulation equivalence $\elemtuples^{(k)} \bisimto_{\FGF}^{z} \elemtuplet^{(k)}$.
+In this role, $z$ determines how many turns we can play in the $\FGF$-game with the starting position $\str{A}, \elemtuples^{(k)}$ if we want each move to be matched in a play with the starting position $\str{B}, \elemtuplet^{(k)}$.
+This allows us to ``go forwards'' along $\relNext$-edges in the tree, in the following sense:
+Let us say that $c \in A$ ``adds'' a move to an element $a \in A$ if $c$ is a child of $a$ and $\seq{c}$ is equal to $\seq{a}$ but with one additional move at the end.
+Now, if $a \in A$ and $b \in B$ are $z$-similar elements, and there is an element $c \in A$ which ``adds'' a move to $a \in A$, then there is also an element $d \in B$ which ``adds'' a move to $b$.
+This is because the final tuples of $\seq{a}$ and $\seq{b}$ are $z$-$\FGF$-bisimilar, so if we extend $\seq{a}$ in some way, we can find a move in $\str{B}$ to extend $\seq{b}$ in the same way.
+The resulting elements $b$ and $d$ are then $(z-1)$-similar, since we used up one of the $z$ turns, leaving $z-1$ remaining turns.
+The fact that, starting from $z$-similar elements $a$ and $b$, we can go both ``backwards'' and ``forwards'', is stated in the following lemma:
 \begin{lemma}\label{lem:approx-next}
-  Let $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$. If $a \approx_{z} b$ for $z \in [1,\ell]$, then:
+  Let $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$. If $a \approx_{z} b$ for some $z \in [1,\ell]$, then:
   \begin{description}
   \item[\desclabel{(succ)}{elemeq:succ}] If $(a, c) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(b, d) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
   \item[\desclabel{(pred)}{elemeq:pred}] If $(c, a) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(d, b) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
