@@ -56,9 +56,9 @@ The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following l
 In the following, let $\elemtuplea \simeq \elemtupleb$ denote that $\restr{\str{A}}{\set(\elemtuplea)}$ is isomorphic to $\restr{\str{B}}{\set(\elemtupleb)}$, for tuples $\elemtuplea$ and $\elemtupleb$ from some structures $\str{A}$ and $\str{B}$.
 Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
 We employ \cref{lem:companion-tree-like} to show that $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, if $\ell$ is large enough:
-\begin{lemma}
+\begin{lemma}\label{lem:fgf-type-iso}
   Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of $\sigma$-structures $\str{A}$ and $\str{B}$ for a signature $\sigma$.
-  If $\ell > W$, where $W$ is the maximum arity of a relation in $\sigma$, then $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$.
+  If $\ell > W$, where $W$ is the maximum arity of a relation in $\sigma$, then $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
 \end{lemma}
 \begin{proof}
 Let $\ell > W$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal $\FGF$-types and equal size $k$.
@@ -93,12 +93,12 @@ We now give an intuitive description of this definition, followed by a lemma mak
 The role of $z$ in the definition of $z$-similar elements is twofold.
 First, $z$ determines the length of the suffixes of $\seq{e}$ and $\seq{f}$ that we consider.
 These suffixes correspond to the last $z$ moves in the play of the $\FGF$-game represented by $\seq{e}$ and $\seq{f}$, respectively.
-For $z$-similar elements, we require that the last $z$ moves of both $\seq{e}$ and $\seq{f}$ are equal (or all the moves, if these sequences are shorter than $z$ moves), i.e.\ they both pick the infix at indices $i^{(k)}\ldots{}j^{(k)}$.
+For $z$-similar elements, we require that the last $z$ moves of both $\seq{e}$ and $\seq{f}$ are equal (or all the moves, if these sequences are shorter than $z$ moves), i.e.\ at move $k$, they both pick the infix at same range of indices $i^{(k)}\ldots{}j^{(k)}$.
 This allows us to ``go backwards'' along $\relNext$-edges in the tree, in the following sense:
-Let us say that an element $c \in A$ ``undoes'' the last move of an element $a \in A$ if it is a parent of $a$ and $\seq{c}$ is equal $\seq{a}$ but without the final move.
+Let us say that a parent $c \in A$ of an element $a \in A$ ``undoes'' the last move of $a$ if its sequence $\seq{c}$ is equal $\seq{a}$ but without the final move.
 Now, if $a \in A$ and $b \in B$ are $z$-similar elements, and there is an element $c \in A$ which ``undoes'' the last move of $a \in A$, then there is also an element $d \in B$ which ``undoes'' the same last move of $b$, since the last $z$ moves of $\seq{a}$ and $\seq{b}$ are the same.
 The resulting elements $b$ and $d$ are then $(z-1)$-similar, since the sequences $\seq{b}$ and $\seq{d}$ are one move shorter.
-Second, $z$ is the bound on the bisimulation equivalence $\elemtuples^{(k)} \bisimto_{\FGF}^{z} \elemtuplet^{(k)}$.
+In the second role, $z$ is the bound on the bisimulation equivalence $\elemtuples^{(k)} \bisimto_{\FGF}^{z} \elemtuplet^{(k)}$.
 In this role, $z$ determines how many turns we can play in the $\FGF$-game with the starting position $\str{A}, \elemtuples^{(k)}$ if we want each move to be matched in a play with the starting position $\str{B}, \elemtuplet^{(k)}$.
 This allows us to ``go forwards'' along $\relNext$-edges in the tree, in the following sense:
 Let us say that $c \in A$ ``adds'' a move to an element $a \in A$ if $c$ is a child of $a$ and $\seq{c}$ is equal to $\seq{a}$ but with one additional move at the end.
@@ -152,26 +152,26 @@ The fact that, starting from $z$-similar elements $a$ and $b$, we can go both ``
   If $\seq{c} \neq \sigma$, then $\sigma$ is a suffix of $\seq{c}$ with length $\ell-1$.
   As $\ell-1 \ge z-1$, the last $z-1$ steps of $\sigma$ and $\seq{c}$ are equal in this case.
   Therefore, $(\sigma, w) \approx_{z-1} (\theta, w)$ implies $(\seq{c}, w) \approx_{z-1} (\theta, w)$, so $c \approx_{z-1} d$ as wanted.
-  \end{proof}
-\begin{description}
-  \item[\desclabel{(global)}{elemeq:global}] If $\str{A} \bisimto_{\FGF}^{2*z + 1} \str{B}$, then for any $e \in \unraveldom{A}_{\ell}$, there is $f \in \unraveldom{B}_{\ell}$ such that $e \approx_{z} f$.
-\end{description}
+\end{proof}
 
-Let us now consider tuples of $z$-similar elements.
-Let $\elemtuptuplea = (a_{1}, \ldots, a_{k})$ and $\elemtuptupleb = (b_{1}, \ldots, b_{k})$ where $a_{i} \in \unraveldom{A}_{\ell}$ and $b_{i} \in \unraveldom{B}_{\ell}$ for finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
-We show that if $\elemtuptuplea$ and $\elemtuptupleb$ are live and $a_{i} \approx_{z} b_{i}$ for every $i \in [1,k]$, then they have the same $\FGF$-type.
-As seen before, in finite unravelings this implies that there exists a partial isomorphism between $\elemtuptuplea$ and $\elemtuptupleb$.
+Let us now consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with $\elemtuptuplea = (a_{1}, \ldots, a_{k})$ and $\elemtuptupleb = (b_{1}, \ldots, b_{k})$ where $a_{i} \approx_{z} b_{i}$ for every $i \in [1,k]$.
+We say that $\elemtuptuplea$ and $\elemtuptupleb$ are \emph{tuples of $z$-similar elements}.
+We show that in this case, $\elemtuptuplea$ and $\elemtuptupleb$ have the same $\FGF$-type, which further implies by \cref{lem:fgf-type-iso} that they are isomorphic.
 Let $\elemtuples$ and $\elemtuplet$ be the tuples from $\str{A}$ and $\str{B}$ such that $\seq{a_{k}} = \cdots \elemtuples$ and $\seq{b_{k}} = \cdots \elemtuplet$.
 Since $a_{k} \approx_z b_{k}$, we have $\elemtuples \bisimto_{\FGF}^{z} \elemtuplet$ which in particular implies that $\elemtuples$ and $\elemtuplet$ have the same $\FGF$-type.
-By the properties of $\relNext$, we know that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.
+Observe that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.
+This follows from \cref{lem:projection-next} since $\elemtuptuplea$ and $\elemtuptupleb$ are live and thus must be next-chains.
 As $\ctr{a_{k}} = \ctr{b_{k}}$, both $\elemtuptuplea$ and $\elemtuptupleb$ project to infixes $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i\ldots{}j$ for $i = \ctr{a_{k}} - k$ and $j = \ctr{a_{k}}$.
 Hence, $\FGF$-types of $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ are also equal.
 Now consider an infix $\elemtuptuplea_{x\ldots{}y}$ and the corresponding infix $\elemtuptupleb_{x\ldots{}y}$, for some indices $x$ and $y$.
-We show that the three conditions of the definition of relations in the unraveling are satisfied for $\elemtuptuplee_{i\ldots{}j}$ exactly if they are satified for $\elemtuptuplef_{i\ldots{}j}$:
+Our claim is that $\elemtuptuplea_{x\ldots{}y}$ and $\elemtuptupleb_{x\ldots{}y}$ are in the same relations.
+We prove this claim by examining the three conditions of the definition of relations in the unraveling in turn.
+We show that each condition is true for $\elemtuptuplea_{x\ldots{}y}$ if and only if it is true for $\elemtuptupleb_{x\ldots{}y}$.
+Let $\relR$ be any relational symbol. Then:
 \begin{enumerate}
   \item $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ have equal $\FGF$-types,
-  \item $\elemtuptuplea_{x\ldots{}y}$ is a next-chain if and only if $\elemtuptupleb_{x\ldots{}y}$ is a next-chain, because both infixes are always next-chains since $\elemtuptuplea$ and $\elemtuptupleb$ are next-chains as they live,
-  \item $|\elemtuptuplea_{x\ldots{}y}| \le \mathtt{bound}(\elemtuptuplea_{x\ldots{}y})$ if and only if $|\elemtuptupleb_{x\ldots{}y}| \le \mathtt{bound}(\elemtuptuplef_{x\ldots{}y})$ because $|\elemtuptuplea_{x\ldots{}y}| = |\elemtuptupleb_{x\ldots{}y}| = y-x+1$ and $\mathtt{bound}$ is equal since $\ctr{e_{j}} = \ctr{f_{j}}$, which follows from the precondition $e_{j} \approx_{z} f_{j}$.
+  \item $\elemtuptuplea_{x\ldots{}y}$ is a next-chain if and only if $\elemtuptupleb_{x\ldots{}y}$ is a next-chain, because both infixes are always next-chains since $\elemtuptuplea$ and $\elemtuptupleb$ are next-chains as they are live,
+  \item $|\elemtuptuplea_{x\ldots{}y}| \le \mathtt{bound}(\elemtuptuplea_{x\ldots{}y})$ if and only if $|\elemtuptupleb_{x\ldots{}y}| \le \mathtt{bound}(\elemtuptupleb_{x\ldots{}y})$ because $|\elemtuptuplea_{x\ldots{}y}| = |\elemtuptupleb_{x\ldots{}y}| = y-x+1$ and $\mathtt{bound}(\elemtuptuplea_{x\ldots{}y}) = \mathtt{bound}(\elemtuptupleb_{x\ldots{}y})$ since $\ctr{a_{j}} = \ctr{b_{j}}$ follows from $a_{j} \approx_{z} b_{j}$.
 \end{enumerate}
 Therefore, infixes of $\elemtuptuplea$ and $\elemtuptupleb$ are in the same relations.
 We conclude that $\elemtuptuplea$ and $\elemtuptupleb$ have equal $\FGF$-types.

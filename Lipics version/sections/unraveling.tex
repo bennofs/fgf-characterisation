@@ -202,18 +202,24 @@ If the counter is minimal and cannot be further decreased, then the unique paren
 As the parent in each case either has a shorter sequence or has a sequence of the same length but a lower counter, taking parents repeatedly must end in a root at some point.
 So every element is a descendant of some root and has at most one parent, proving that $\relNext$ forms a forest.
 
-Finally, we formalize the property that $\relNext$ links elements that map to consecutive elements in the base structure: if $(s,t) \in \relNext$ and $t$ projects to $a_{k}$ for $k \ge 2$, then $s$ projects to $a_{k-1}$, where $k = \ctr{t}$ and $\elemtuplea$ is the tuple such that $\seq{t} = \cdots \elemtuplea$.
-We prove this by case analysis on the two cases of $\relNext$.
-The~\ref{next:addctr} case is simple: in this case $\seq{s} = \seq{t}$ and $\ctr{s} = k - 1$, so the property follows directly from the definition of $\pi$.
-For the~\ref{next:addseq} case, let $\seq{t} = \seq{s} (i,j) \elemtuplea$ and $\seq{s} = \cdots \elemtupleb$.
-Further, in this case $k = (j - i + 1) + 1$ and $\ctr{s} = j$.
-By the fact that $\seq{t}$ is a bisimulation sequence, we know that $\elemtupleafromto{1}{j-i+1} = \elemtuplebfromto{i}{j}$.
-In particular, it follows that $\pi(s) = b_{j} = a_{j-i+1} = a_{k-1}$, concluding the proof.
+Finally, we formalize the property that $\relNext$ links elements that map to consecutive elements in the base structure:
+\begin{lemma}\label{lem:projection-next}
+For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relNext$, if $\elemtuplea \sqin \unraveldom{A}$ is the tuple such that $\seq{t} = \cdots \elemtuplea$, then $\pi(s) = a_{k-1}$ and $\pi(t) = a_{k}$ for $k = \ctr{t}$.
+\end{lemma}
+\begin{proof}
+  Note that $\pi(t) = a_{\ctr{t}} = a_{k}$ by definition of the projection $\pi$.
+  We prove that $\pi(s) = a_{k-1}$ by case analysis on the two cases of $\relNext$.
+  The~\ref{next:addctr} case is simple: in this case $\seq{s} = \seq{t}$ and $\ctr{s} = k - 1$, so the property follows directly from the definition of $\pi$.
+  For the~\ref{next:addseq} case, let $\seq{t} = \seq{s} (i,j) \elemtuplea$ and $\seq{s} = \cdots \elemtupleb$.
+  Further, in this case $k = (j - i + 1) + 1$ and $\ctr{s} = j$.
+  By the fact that $\seq{t}$ is a bisimulation sequence, we know that $\elemtupleafromto{1}{j-i+1} = \elemtuplebfromto{i}{j}$.
+  In particular, it follows that $\pi(s) = b_{j} = a_{j-i+1} = a_{k-1}$, concluding the proof.
+\end{proof}
 
 \noindent
 \textbf{Relations in the unraveling}
 A tuple of elements $(e_{1}, \ldots, e_{n})$ is a \emph{next-chain} if consecutive elements are related by $\relNext$, namely $(e_{i}, e_{i+1}) \in \relNext$ for all $i < n$.
-If the length $n$ of the next-chain is less than $\ctr{e_{n}}$, then we know by the previous observation that the projection of the chain is $\elemtuplee_{(\ctr{e_{n}}-n+1)\ldots{}\ctr{e_{n}}}$, where $\elemtuples$ is the last tuple of $\seq{e_{n}}$.
+If the length $n$ of the next-chain is less than $\ctr{e_{n}}$, then we know by \cref{lem:projection-next} that the projection of the chain is $\elemtuplee_{(\ctr{e_{n}}-n+1)\ldots{}\ctr{e_{n}}}$, where $\elemtuples$ is the last tuple of $\seq{e_{n}}$.
 We define the tree unraveling such that relations are only realized by tuples which are next-chains.
 Additionally, we limit the length of the chain to be less than the counter of the last element of the tuple.
 For this, we define the \emph{bound} of a tuple to be equal to the counter of its last element.
