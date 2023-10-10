@@ -9,7 +9,7 @@ For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}
 \end{equation*}
 
 $\mathcal{T}_{r,\ell}$ is substructure of $\unravel{A}$.
-It is a tree with root $r$ because for every element $e \in \mathcal{T}_{r,\ell} \setminus {r}$, the parent of $e$ is also in $\mathcal{T}_{r,\ell}$.
+It is a tree with root $r$ because for every element $e \in \mathcal{T}_{r,\ell} \setminus \{r\}$, the parent of $e$ is also in $\mathcal{T}_{r,\ell}$.
 This is easy to see: if $p$ is the parent of $e$, then $\seq{p}$ has a length lower or equal to the length of $\seq{e}$ and clearly $p$ is a descendant of $r$ as well, so $p$ is in $\mathcal{T}_{r,\ell}$.
 Furthermore, this tree is finite:
 \begin{lemma}\label{lem:bounded-trees-are-finite}
@@ -57,8 +57,8 @@ In the following, let $\elemtuplea \simeq \elemtupleb$ denote that $\restr{\str{
 Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
 We employ \cref{lem:companion-tree-like} to show that $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, if $\ell$ is large enough:
 \begin{lemma}\label{lem:fgf-type-iso}
-  Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of $\sigma$-structures $\str{A}$ and $\str{B}$ for a signature $\sigma$.
-  If $\ell > W$, where $W$ is the maximum arity of a relation in $\sigma$, then $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
+  Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of $\sigma$-structures $\str{A}$ and $\str{B}$ for a signature $\sigma$ and a parameter $\ell$.
+  If $\ell > W$, where $W$ is the maximum arity\bbeside{Introduce a command for the max arity.} of a relation in $\sigma$, then $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
 \end{lemma}
 \begin{proof}
 Let $\ell > W$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal $\FGF$-types and equal size $k$.
@@ -77,8 +77,7 @@ Our main goal for the remainder of this section is to show that $\unravel{A}_{\e
 For this proof, we first introduce the notion of $z$-\emph{similar} elements, which is a relation between elements from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
 We later lift this relation to tuples to construct the $n$-$\GF$-bisimulation.
 \begin{definition}[$z$-similar elements]
- Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ and $z$ be a natural number.
- Let $\seq{e}$ and $\seq{f}$ either both have a length greater than $z$ or have the same length.
+ Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be domain elements, and $z$ be a natural number such that $\seq{e}$ and $\seq{f}$ (i) both have a length greater than $z$, or (ii) have the same length.
  If they have lengths greater than $z$, let $h$ be $z$, otherwise let $h$ be their common length.
  Then $e$ and $f$ are $z$-similar, written $e \approx_{z} f$, if:
  \begin{itemize}
