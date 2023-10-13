@@ -227,3 +227,7 @@
     (current bounding box.north east) grid (0,0);%
   \fill[red] (0,0) circle (0.1);%
 }
+
+% Proof sketchs
+\newenvironment{proofsketch}{%
+  \renewcommand{\proofname}{\normalfont\emph{Proof Sketch}}\proof}{\endproof}
