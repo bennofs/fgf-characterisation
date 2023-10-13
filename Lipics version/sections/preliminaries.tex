@@ -168,3 +168,32 @@ The following example presents two structures that are $\FGF$-bisimilar but not 
 Consider a binary predicate $\relE$.
 Let $\str{A}$ be a single-element, in which all $\relE$ is interpreted as the full relation, and let $\str{B}$ be an $\relE$-cycle of length two. These two structures are $\FGF[\{\relE\}]$-bisimilar, while a $\GF$-sentence $\exists{\varx_1}\relE(\varx_1,\varx_1)$ can distinguish them.
 \end{example}
+
+Both $GF$-bisimulation and $\FGF$-bisimulation naturally correspond to games~\cite[Sec. 1.2.1]{Gradel014}.
+We focus on the the game corresponding to $\FGF$-bisimulation here.
+The $\FGF$-\emph{bisimulation game} is played on two pointed structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$ by two players, Spoiler and Duplicator.
+The game starts by selecting the tuples $\elemtuplea$ and $\elemtupleb$ from each structure.
+The game is played in rounds.
+In each round, Spoiler first chooses a structure.
+The game is symmetric, so let us assume that spoiler chooses the structure $\str{A}$.
+Spoiler then selects an infix $\elemtupleafromto{i}{j}$ of the currently selected tuple and a new live tuple $\elemtuplec$ which has $\elemtupleafromto{i}{j}$ as a prefix.
+We use the terms \emph{shared elements} for the prefix $\elemtuplecfromto{1}{j-i+1}$ and \emph{unshared elements} for the remaining elements $\elemtuplecfromto{j-i+1+1}{|\elemtuplec|}$.
+Duplicator must then find a live tuple $\elemtupled$ in $\str{B}$ with $\elemtuplebfromto{i}{j}$ as prefix such that $\elemtuplec$ and $\elemtupled$ have equal $\FGF$-types.
+Note that Spoiler may choose a $j$ that is not maximal, so it is possible that even $a_{j+1} = c_{j-i+1+1}$.
+We still regard $c_{j-i+1+1}$ as an unshared element, since Duplicator is allowed to pick a tuple $\elemtupled$ where $b_{j+1} \neq d_{j-i+1+1}$.
+The game then continues with the next round, with $\elemtuplec$ and $\elemtupled$ as the new starting tuples.
+Spoiler wins the game if Duplicator is unable to find matching tuples.
+Duplicator wins if he can always find a matching tuple.
+It is easy to see that the possible moves of Spoiler are equivalent to the back-and-forth conditions for $\FGF$-bisimulation, as is also the case for the $\GF$-game~\cite[Sec.\ 3.2]{Gradel014}.
+To win, Duplicator must be able to respond to any move that Spoiler makes.
+A winning strategy for Duplicator thus corresponds to a $\FGF$-bisimulation between the two structures, and vice-versa.
+If we restrict the game to only $\ell$-rounds, where the winning condition for Duplicator is that Spoiler cannot win in the first $\ell$-rounds, then the game is equivalent (in the aforementioned sense) to the existence of a $\ell$-FGF-bisimulation between $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$.
+We collect these observations in the following lemma:
+
+\begin{lemma}
+  In the $\FGF$-game played on structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$:
+  \begin{itemize}
+    \item Duplicator has as winning strategy if and only if $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$,
+    \item Duplicator has a winning strategy for $\ell$ rounds if and only if $\str{A}, \elemtuplea \bisimto_{\FGF}^{\ell} \str{B}, \elemtupleb$.
+  \end{itemize}
+\end{lemma}

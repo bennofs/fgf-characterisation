@@ -25,6 +25,8 @@ Our goal is to design a notion of unravelling for $\FGF$ satisfying the followin
     \item $\GF$-bisimilar: $\unravel{A}, \elemtuptuplea \bisimto_{\GF} \unravel{B}, \elemtuptupleb$.
   \end{itemize}
 \end{theorem}
+
+\noindent
 The \emph{HAF}-unravelling~\cite[Sec 3.3]{Bednarczyk21} introduced by Bednarczyk produces a tree model which is \FGF-bisimilar to a given \FGF-model, but unfortunately fails to satisfy the above theorem.
 Consider the two finite structures depicted in \cref{fig:unravel-haf}.
 Both of them are identical to their HAF-unravelling as they are already HAFs.
@@ -65,39 +67,9 @@ Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do 
     \label{fig:unravel-haf}
 \end{figure}
 
-\bbebox{Consider moving the description of the game to preliminaries.}
-
-For our new notion of \FGF-unravelling, we make use of the equivalence between bisimulations and games~\cite[Sec. 1.2.1]{Gradel014}.
-The $\FGF$-\emph{bisimulation game} is played on two pointed structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$ by two players, Spoiler and Duplicator.
-The game starts by selecting the tuples $\elemtuplea$ and $\elemtupleb$ from each structure.
-The game is played in rounds.
-In each round, Spoiler first chooses a structure.
-The game is symmetric, so let us assume that spoiler chooses the structure $\str{A}$.
-Spoiler then selects an infix $\elemtupleafromto{i}{j}$ of the currently selected tuple and a new live tuple $\elemtuplec$ which has $\elemtupleafromto{i}{j}$ as a prefix.
-We use the terms \emph{shared elements} for the prefix $\elemtuplecfromto{1}{j-i+1}$ and \emph{unshared elements} for the remaining elements $\elemtuplecfromto{j-i+1+1}{|\elemtuplec|}$.
-Duplicator must then find a live tuple $\elemtupled$ in $\str{B}$ with $\elemtuplebfromto{i}{j}$ as prefix such that $\elemtuplec$ and $\elemtupled$ have equal $\FGF$-types.
-Note that Spoiler may choose a $j$ that is not maximal, so it is possible that even $a_{j+1} = c_{j-i+1+1}$.
-We still regard $c_{j-i+1+1}$ as an unshared element, since Duplicator is allowed to pick a tuple $\elemtupled$ where $b_{j+1} \neq d_{j-i+1+1}$.
-The game then continues with the next round, with $\elemtuplec$ and $\elemtupled$ as the new starting tuples.
-Spoiler wins the game if Duplicator is unable to find matching tuples.
-Duplicator wins if he can always find a matching tuple.
-It is easy to see that the possible moves of Spoiler are equivalent to the back-and-forth conditions for $\FGF$-bisimulation, as is also the case for the $\GF$-game~\cite[Sec.\ 3.2]{Gradel014}.
-To win, Duplicator must be able to respond to any move that Spoiler makes.
-A winning strategy for Duplicator thus corresponds to a $\FGF$-bisimulation between the two structures, and vice-versa.
-If we restrict the game to only $\ell$-rounds, where the winning condition for Duplicator is that Spoiler cannot win in the first $\ell$-rounds, then the game is equivalent (in the aforementioned sense) to the existence of a $\ell$-FGF-bisimulation between $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$.
-We collect these observations in the following lemma:
-
-\begin{lemma}
-  In the $\FGF$-game played on structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$:
-  \begin{itemize}
-    \item Duplicator has as winning strategy if and only if $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$,
-    \item Duplicator has a winning strategy for $\ell$ rounds if and only if $\str{A}, \elemtuplea \bisimto_{\FGF}^{\ell} \str{B}, \elemtupleb$.
-  \end{itemize}
-\end{lemma}
-
-\noindent
-We next describe the domain of the structures produced by our notion of unravelling.
-This domain is based on a sequence of moves in this game.
+We next describe a new notion of unraveling for $\FGF$ which, as we see later, satisfies \cref{thm:inf-unraveling-upgrading}.
+This unraveling is closely based on the $\FGF$-game, with elements that correspond to sequences of moves in this game.
+We begin with a description of the domain of the unraveling.
 
 \noindent \textbf{Domain of the unraveling}
 Let $\str{A}, \elemtuplea^{(0)}$ be a pointed structure where $\elemtuplea^{(0)}$ is a standard tuple of elements, labelled with a zero index as it is the starting tuple for the unraveling.
