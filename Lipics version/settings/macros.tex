@@ -190,6 +190,7 @@
 \newcommand{\relNext}{\rel{Next}}
 \newcommand{\unraveldom}[1]{\vv{#1}}
 \newcommand{\Seq}[1]{\mathsf{Seq}(\str{#1})}
+\newcommand{\hist}[2]{\mathsf{hist}_{#1}(#2)}
 
 % Restrictions
 \renewcommand{\restriction}{\mathord{\upharpoonright}}
@@ -229,5 +230,13 @@
 }
 
 % Proof sketchs
+\let\realproof\proof
+\let\realendproof\endproof
 \newenvironment{proofsketch}{%
-  \renewcommand{\proofname}{\normalfont\emph{Proof Sketch}}\proof}{\endproof}
+  \renewcommand{\proofname}{\normalfont\emph{Proof Sketch}}\realproof}{\realendproof}
+
+% hide proofs
+\usepackage{environ}
+\NewEnviron{killcontents}{}
+\let\proof\killcontents
+\let\endproof\endkillcontents

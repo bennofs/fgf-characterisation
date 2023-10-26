@@ -54,12 +54,12 @@ The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following l
   \bfbox{write proof}
 \end{proof}
 
-In the following, let $\elemtuplea \simeq \elemtupleb$ denote that $\restr{\str{A}}{\set(\elemtuplea)}$ is isomorphic to $\restr{\str{B}}{\set(\elemtupleb)}$, for tuples $\elemtuplea$ and $\elemtupleb$ from some structures $\str{A}$ and $\str{B}$.
+In the following, let $\elemtuplea \isoeq \elemtupleb$ denote that $\restr{\str{A}}{\set(\elemtuplea)}$ is isomorphic to $\restr{\str{B}}{\set(\elemtupleb)}$, for tuples $\elemtuplea$ and $\elemtupleb$ from some structures $\str{A}$ and $\str{B}$.
 Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
 We employ \cref{lem:companion-tree-like} to show that $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, if $\ell$ is large enough:
 \begin{lemma}\label{lem:fgf-type-iso}
   Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of $\sigma$-structures $\str{A}$ and $\str{B}$ for a signature $\sigma$ and a parameter $\ell$.
-  If $\ell > W$, where $W$ is the maximum arity\bbeside{Introduce a command for the max arity.} of a relation in $\sigma$, then $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
+  If $\ell > W$, where $W$ is the maximum arity\bbeside{Introduce a command for the max arity.} of a relation in $\sigma$, then $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
 \end{lemma}
 \begin{proof}
 Let $\ell > W$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal $\FGF$-types and equal size $k$.
@@ -77,6 +77,30 @@ Since the argument is symmetric, we conclude that elements of $\elemtuptuplea$ a
 Our main goal for the remainder of this section is to show that $\unravel{A}_{\ell} \bisimto_{\GF}^{n} \unravel{B}_{\ell}$, given that $\str{A} \bisimto_{\FGF}^{m} \str{B}$ for some $m$ and $\ell$ that only depends on $n$.
 For this proof, we first introduce the notion of $z$-\emph{similar} elements, which is a relation between elements from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
 We later lift this relation to tuples to construct the $n$-$\GF$-bisimulation.
+Intuitively, the idea behind the notion of $z$-similarity is to put elements in relation which behave similar for up to $z$ transitions along $\relNext$-edges, in both forward and backward direction.
+In other words, we want to define $z$-similarity such that if $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-similar elements, then for every parent (or child) $c \in \unraveldom{A}_{\ell}$ of $a$, there exists a parent (or child) $d \in \unraveldom{B}_{\ell}$ of $b$ which is $(z-1)$-similar to $c$.
+Let us first consider the simpler case of only achieving this property for children (i.e.\ forward transitions along $\relNext$-edges).
+We say that elements $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-\emph{forward-similar} if $\ctr{a} = \ctr{b}$, $\seq{a} = \cdots \elemtuples$ and $\seq{b} = \cdots \elemtuplet$ for tuples $\elemtuples$ and $\elemtuplet$ that satisfy $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$.
+Note that $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$ is equivalent to $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$ by \cref{lem:FGF-bisimulations-work-well}.
+If $c \in \unraveldom{A}_{\ell}$ is a child of $a$, then by definition of $\relNext_{\ell}$ there are two possible situations, either (\romannumeral1) $c$ has the same sequence as $a$ but an incremented counter, or (\romannumeral2) $c$ adds a move to the sequence of $a$ (possibly removing elements from the beginning of the sequence if the result is too long).
+In both cases, we can find a child $b$ that $(z-1)$-forward-similar to $c$: in case (\romannumeral1) we simply increment the counter of $b$, whereas in case (\romannumeral2) we employ~\ref{bisim:fforth} to find a move in $\str{B}$ that we can add to the end of the sequence of $b$ to obtain a child $d$ of $b$ so that the (new) last tuples of $\seq{c}$ and $\seq{d}$ have equal $\FGF_{z-1}$ types.
+
+We now consider the general case, including backward transitions.
+As we saw above, forward transitions along $\relNext$-edges extend the sequence of an element by adding moves to the end.
+If we allow backward transitions, we need to also consider the case that a move is removed from the end of a sequence.
+It is thus no longer sufficient to only look at the type of the last tuple in a sequence.
+Instead, we need to consider the types of the last $z$ tuples.
+For this, we introduce the auxilliary notion of $z$-histories:
+\begin{definition}[$z$-history]
+  Let $\str{A}$ be a structure and $\ell$ be a parameter.
+  The $z$-\emph{history} of an element $a \in \unraveldom{A}$ with $\seq{a} = \elemtuples^{(0)} \cdots (i^{n}, j^{n})\elemtuples^{n}$ for some $n \in \N$, tuples $\elemtuples^{(0)}, \ldots, \elemtuples^{(n)}$ and indices $i^{(1)}, \ldots, i^{(n)}$ and $j^{(1)}, \ldots, j^{(n)}$ is denoted by $\hist{z}{a}$ and defined as:
+  \begin{equation*}
+    \hist{z}{a} = \tp{\FGF_{z}}{\str{A}}{\elemtuples^{(n-h)}}(i^{(n-h+1)}, j^{(n-h+1)})\tp{\FGF_{z}}{\str{A}}{\elemtuples^{(n-h+1)}}\cdots(i^{n}, j^{n})\tp{\FGF_{z}}{\str{A}}{\elemtuples^{(n)}}
+  \end{equation*}
+  where $h = \mathsf{min}(z, n)$. If $h < z$, then $\hist{z}{a}$ is called a \emph{short $z$-history}.
+\end{definition}
+This definition is analogous to a construction used by Otto in the upgrading from global bisimulation for modal logic to two-way global bisismulation for modal logic~\cite[Def. 39]{Otto04}.
+
 \begin{definition}[$z$-similar elements]
  Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be domain elements, and $z$ be a natural number such that $\seq{e}$ and $\seq{f}$ (i) both have a length greater than $z$, or (ii) have the same length.
  If they have lengths greater than $z$, let $h$ be $z$, otherwise let $h$ be their common length.
@@ -203,8 +227,8 @@ Finally, we employ the notion of tuples with $z$-similar elements to construct a
     This satsifies the requirements for~\ref{bisim:forth}.
 
     \item
-    If $\elemtuptuplea$ and $\elemtuptuples$ have no common elements, then we first find an element $b_{1} \in \unraveldom{B}_{W * n}$ that is $W * k$-similar to $a_{1}$.
-    We can find such an element by employing~\ref{bisim:forth} $W * k$ times.\bfside{make more precise using $(W * k)$-ends}
+    If $\elemtuptuplea$ and $\elemtuptuples$ have no common elements, then we first find an element $b_{1} \in \unraveldom{B}_{W * n}$ that is $(W * k)$-similar to $a_{1}$.
+    We can find such an element by employing~\ref{bisim:forth} $W * k$ times.\bfside{make bit more precise using $(W * k)$-ends}
     Similar to case (i), we now use~\ref{elemeq:succ} to find elements $b_{2}, \ldots, b_{|\elemtuptuplea|} \in \unraveldom{B}_{W * n}$ such that the tuple $\elemtuptupleb$ with $\elemtuptupleb = (b_{1}, \ldots, b_{|\elemtuptuplea|})$ is $W * (k - 1)$-similar to $\elemtuptuplea$.
     Then $\mu_{(\elemtuptuplea, \elemtuptupleb)} \in Z_{k-1}$ satisfies the requirements for~\ref{bisim:forth}.
   \end{romanenumerate}
