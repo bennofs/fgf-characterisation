@@ -87,7 +87,7 @@ In both cases, we can find a child $b$ that $(z-1)$-forward-similar to $c$: in c
 
 We now consider the general case, including backward transitions.
 As we saw above, forward transitions along $\relNext$-edges extend the sequence of an element by adding moves to the end.
-If we allow backward transitions, we need to also consider the case that a move is removed from the end of a sequence.
+If we allow backward transitions, then we need to consider the opposite case: that moves are removed from the end of the sequence.
 It is thus no longer sufficient to only look at the type of the last tuple in a sequence.
 Instead, we need to consider the types of the last $z$ tuples.
 For this, we introduce the auxilliary notion of $z$-histories:
@@ -99,44 +99,57 @@ For this, we introduce the auxilliary notion of $z$-histories:
   \end{equation*}
   where $h = \mathsf{min}(z, n)$. If $h < z$, then $\hist{z}{a}$ is called a \emph{short $z$-history}.
 \end{definition}
-This definition is analogous to a construction used by Otto in the upgrading from global bisimulation for modal logic to two-way global bisismulation for modal logic~\cite[Def. 39]{Otto04}.
-
+This definition is analogous to a construction used by Otto in the upgrading from global bisimulation to two-way global bisismulation for modal logic~\cite[Def. 39]{Otto04}.
+We define $z$-similar elements to be those elements which have equal $z$-histories and equal counters:
 \begin{definition}[$z$-similar elements]
- Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be domain elements, and $z$ be a natural number such that $\seq{e}$ and $\seq{f}$ (i) both have a length greater than $z$, or (ii) have the same length.
- If they have lengths greater than $z$, let $h$ be $z$, otherwise let $h$ be their common length.
- Then $e$ and $f$ are $z$-similar, written $e \approx_{z} f$, if:
- \begin{itemize}
-   \item $\ctr{e} = \ctr{f}$,
-   \item $\seq{e}$ has suffix $\elemtuples^{(0)}\cdots(i^{(h)},j^{(h)})\elemtuples^{(h)}$, and
-   \item $\seq{f}$ has suffix $\elemtuplet^{(0)}\cdots(i^{(h)},j^{(h)})\elemtuplet^{(h)}$
- \end{itemize}
- where $\str{A}, \elemtuples^{(k)} \bisimto_{\FGF}^{z} \str{B}, \elemtuplet^{(k)}$ for all $k \in [0,h]$.
+ Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be domain elements, and $z$ be a natural number. Then $e$ and $f$ are $z$-similar, written $e \approx_{z} f$, if $\ctr{e} = \ctr{f}$ and $\hist{z}{e} = \hist{z}{f}$.
 \end{definition}
-We now give an intuitive description of this definition, followed by a lemma making this intuition precise.
-\bfside{I am not sure if this intuitive description is necessary. It is mostly a more vague version of the proof below. If you think that this is too vague, it might make sense to just remove it?}
-The role of $z$ in the definition of $z$-similar elements is twofold.
-First, $z$ determines the length of the suffixes of $\seq{e}$ and $\seq{f}$ that we consider.
-These suffixes correspond to the last $z$ moves in the play of the $\FGF$-game represented by $\seq{e}$ and $\seq{f}$, respectively.
-For $z$-similar elements, we require that the last $z$ moves of both $\seq{e}$ and $\seq{f}$ are equal (or all the moves, if these sequences are shorter than $z$ moves), i.e.\ at move $k$, they both pick the infix at same range of indices $i^{(k)}\ldots{}j^{(k)}$.
-This allows us to ``go backwards'' along $\relNext$-edges in the tree, in the following sense:
-Let us say that a parent $c \in A$ of an element $a \in A$ ``undoes'' the last move of $a$ if its sequence $\seq{c}$ is equal $\seq{a}$ but without the final move.
-Now, if $a \in A$ and $b \in B$ are $z$-similar elements, and there is an element $c \in A$ which ``undoes'' the last move of $a \in A$, then there is also an element $d \in B$ which ``undoes'' the same last move of $b$, since the last $z$ moves of $\seq{a}$ and $\seq{b}$ are the same.
-The resulting elements $b$ and $d$ are then $(z-1)$-similar, since the sequences $\seq{b}$ and $\seq{d}$ are one move shorter.
-In the second role, $z$ is the bound on the bisimulation equivalence $\elemtuples^{(k)} \bisimto_{\FGF}^{z} \elemtuplet^{(k)}$.
-In this role, $z$ determines how many turns we can play in the $\FGF$-game with the starting position $\str{A}, \elemtuples^{(k)}$ if we want each move to be matched in a play with the starting position $\str{B}, \elemtuplet^{(k)}$.
-This allows us to ``go forwards'' along $\relNext$-edges in the tree, in the following sense:
-Let us say that $c \in A$ ``adds'' a move to an element $a \in A$ if $c$ is a child of $a$ and $\seq{c}$ is equal to $\seq{a}$ but with one additional move at the end.
-Now, if $a \in A$ and $b \in B$ are $z$-similar elements, and there is an element $c \in A$ which ``adds'' a move to $a \in A$, then there is also an element $d \in B$ which ``adds'' a move to $b$.
-This is because the final tuples of $\seq{a}$ and $\seq{b}$ are $z$-$\FGF$-bisimilar, so if we extend $\seq{a}$ in some way, we can find a move in $\str{B}$ to extend $\seq{b}$ in the same way.
-The resulting elements $b$ and $d$ are then $(z-1)$-similar, since we used up one of the $z$ turns, leaving $z-1$ remaining turns.
-The fact that, starting from $z$-similar elements $a$ and $b$, we can go both ``backwards'' and ``forwards'', is stated in the following lemma:
+Note that if $\hist{z}{e}$ is a short $z$-history, then $\hist{z}{f}$ must also be a short $z$-history.
+So if either $\seq{e}$ or $\seq{f}$ has a length less than $z$ and $e$ is $z$-similar to $f$, then $\seq{e}$ and $\seq{f}$ have the same length.
+Compared to the notion of $z$-forward-similarity, $z$-similarity requires not just the $\FGF_{z}$-type of the last tuple in the sequences to match.
+Rather, it additionally requires that the types of the $z$ last tuples of the sequences are equal.
+Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z-1)$-similar parents, as stated in the next lemma:
 \begin{lemma}\label{lem:approx-next}
   Let $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$. If $a \approx_{z} b$ for some $z \in [1,\ell]$, then:
   \begin{description}
-  \item[\desclabel{(succ)}{elemeq:succ}] If $(a, c) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(b, d) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
-  \item[\desclabel{(pred)}{elemeq:pred}] If $(c, a) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(d, b) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
-\end{description}
+    \item[\desclabel{(succ)}{elemeq:succ}] If $(a, c) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(b, d) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
+    \item[\desclabel{(pred)}{elemeq:pred}] If $(c, a) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(d, b) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
+  \end{description}
 \end{lemma}
+\begin{proofsketch}
+  Since $(a,c) \in \relNext_{\ell}$ or $(c,a) \in \relNext_{\ell}$, we have three cases:
+  \begin{romanenumerate}
+    \item only counter changed: $\seq{a} = \seq{c}$ and $\ctr{c} = \ctr{a} \pm 1$,
+    \item sequence extended: $\seq{c} = \mathsf{trunc}_{\ell}[\seq{a} (i,j) \elemtuples]$ and $\ctr{c} = j-i+1$, or
+    \item sequence reduced: $\seq{c}$ is such that $\seq{a} = \mathsf{trunc}_{\ell}[\seq{c} (i,j) \elemtuples]$.
+  \end{romanenumerate}
+  where
+  \begin{displaymath}
+    \mathsf{trunc}_{\ell}[\sigma] =
+    \begin{cases}
+      \sigma & \text{if $\sigma$ has length at most $2 * \ell$} \\
+      \text{length-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has length greater than $2 * \ell$}
+    \end{cases}
+  \end{displaymath}.
+  Note that case (\romannumeral2) is possible only for~\ref{elemeq:succ} and (\romannumeral3) only for~\ref{elemeq:pred}.
+
+  In case (\romannumeral1), $a$ and $c$ have the same history.
+  We can find an element $d$ with $(b,d) \in \relNext_{\ell}$ (or $(d,b) \in \relNext_{\ell}$) by incrementing (or decrementing) the counter of $b$ accordingly, keeping the history the same, thus $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
+  It can be seen that $\hist{1}{a} = \hist{1}{b}$ and $c \in \unraveldom{A}_{\ell}$ implies $d \in \unraveldom{B}_{\ell}$.
+
+  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$ type.
+  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a bisimulation sequence and $\elemtuplet$ has the same $\FGF_{z-1}$ type as $\elemtuples$.
+  Next, we construct the element $d$ with $\seq{d} = \mathsf{trunc}_{\ell}[\seq{b}(i,j)\elemtuplet]$ and $\ctr{d} = (j-i+1) + 1$.
+  Cleary, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$.
+  The function $\mathsf{trunc}_{\ell}$ preserves suffixes of length $z$ since $z \le \ell$, so it does not affect $z$-histories.
+  By our choice of $\elemtuplet$, we have $\hist{z-1}{c} = \hist{z-1}{d}$.
+  It follows that $c \approx_{z-1} d$, as wanted.
+
+  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma \cdots(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a bismimulation sequence $\sigma$ of length at most $2 * \ell$.
+  Further, by equivalence of counters, $\ctr{b} = \ctr{a} = (j-i+1) + 1$.
+  By definition of the unraveling, there is an element $d \in \unraveldom{B}_{\ell}$ with $(d,b) \in \relNext_{\ell}$, which has $\seq{d} = \sigma$.
+  This element satisfies $c \approx_{z-1} d$.
+\end{proofsketch}
 \begin{proof}
   First observe that if $\seq{a} = \seq{c}$ and we choose $d$ with $\seq{d} = \seq{b}$ and $\ctr{d} = \ctr{c}$, then $a \approx_{z} b$ if and only if $c \approx_{z} d$.
   Further, if $(a,c) \in \relNext$ or $(c,a) \in \relNext_{\ell}$, then also $(b,d) \in \relNext_{\ell}$ or $(d,b) \in \relNext_{\ell}$, respectively.
