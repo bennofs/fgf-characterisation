@@ -198,8 +198,9 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   Hence, $c \approx_{z-1} d$ as required.
 \end{proof}
 
-Let us now consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with $\elemtuptuplea = (a_{1}, \ldots, a_{k})$ and $\elemtuptupleb = (b_{1}, \ldots, b_{k})$ where $a_{i} \approx_{z} b_{i}$ for every $i \in [1,k]$.
-We say that $\elemtuptuplea$ and $\elemtuptupleb$ are \emph{tuples of $z$-similar elements}.
+We now lift the notion of $z$-similarity from elements to tuples of elements.
+Let $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ be live tuples of equal size $k$ with $\elemtuptuplea = (a_{1}, \ldots, a_{k})$ and $\elemtuptupleb = (b_{1}, \ldots, b_{k})$.
+We say that $\elemtuptuplea$ and $\elemtuptupleb$ are \emph{tuples of $z$-similar elements} if $a_{i} \approx_{z} b_{i}$ for every $i \in [1,k]$.
 We show that in this case, $\elemtuptuplea$ and $\elemtuptupleb$ have the same $\FGF$-type, which further implies by \cref{lem:fgf-type-iso} that they are isomorphic.
 Let $\elemtuples$ and $\elemtuplet$ be the tuples from $\str{A}$ and $\str{B}$ such that $\seq{a_{k}} = \cdots \elemtuples$ and $\seq{b_{k}} = \cdots \elemtuplet$.
 Since $a_{k} \approx_z b_{k}$, we have $\elemtuples \bisimto_{\FGF}^{z} \elemtuplet$ which in particular implies that $\elemtuples$ and $\elemtuplet$ have the same $\FGF$-type.
