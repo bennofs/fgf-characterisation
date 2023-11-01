@@ -232,11 +232,10 @@
 % Proof sketchs
 \let\realproof\proof
 \let\realendproof\endproof
-\newenvironment{proofsketch}{%
-  \renewcommand{\proofname}{\normalfont\emph{Proof Sketch}}\realproof}{\realendproof}
+% \newenvironment{proofsketch}{%
+%   \renewcommand{\proofname}{\normalfont\emph{Proof Sketch}}\realproof}{\realendproof}
 
 % hide proofs
-\usepackage{environ}
-\NewEnviron{killcontents}{}
-\let\proof\killcontents
-\let\endproof\endkillcontents
+\usepackage{apxproof}
+\let\proof\appendixproof
+\let\endproof\endappendixproof

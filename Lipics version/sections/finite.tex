@@ -151,44 +151,51 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   This element satisfies $c \approx_{z-1} d$.
 \end{proofsketch}
 \begin{proof}
-  First observe that if $\seq{a} = \seq{c}$ and we choose $d$ with $\seq{d} = \seq{b}$ and $\ctr{d} = \ctr{c}$, then $a \approx_{z} b$ if and only if $c \approx_{z} d$.
-  Further, if $(a,c) \in \relNext$ or $(c,a) \in \relNext_{\ell}$, then also $(b,d) \in \relNext_{\ell}$ or $(d,b) \in \relNext_{\ell}$, respectively.
-  This proves~\ref{elemeq:succ} and~\ref{elemeq:pred} for the case that $\seq{a} = \seq{c}$.
+  Since $(a,c) \in \relNext_{\ell}$ or $(c,a) \in \relNext_{\ell}$, we have three cases:
+  \begin{romanenumerate}
+    \item only counter changed: $\seq{a} = \seq{c}$ and $\ctr{c} = \ctr{a} \pm 1$,
+    \item sequence extended: $\seq{c} = \mathsf{trunc}_{\ell}[\seq{a} (i,j) \elemtuples]$ and $\ctr{c} = j-i+1$, or
+    \item sequence reduced: $\seq{c}$ is such that $\seq{a} = \mathsf{trunc}_{\ell}[\seq{c} (i,j) \elemtuples]$.
+  \end{romanenumerate}
+  where
+  \begin{displaymath}
+    \mathsf{trunc}_{\ell}[\sigma] =
+    \begin{cases}
+      \sigma & \text{if $\sigma$ has length at most $2 * \ell$} \\
+      \text{length-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has length greater than $2 * \ell$}
+    \end{cases}
+  \end{displaymath}.
+  Note that case (\romannumeral2) is possible only for~\ref{elemeq:succ} and (\romannumeral3) only for~\ref{elemeq:pred}.
 
-  We now consider the case that $\seq{a} \neq \seq{c}$, which corresponds to~\ref{next:addseq} case from the definition of $\relNext$.
-  Let $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ with $a \approx_{z} b$.
-  Let
-  $\seq{a} = \cdots \elemtuples^{(0)} \cdots (i^{(h)}, j^{(h)})\elemtuples^{(h)}$ and $\seq{b} = \cdots \elemtuplet^{(0)} \cdots (i^{(h)}, j^{(h)})\elemtuplet^{(h)}$, where $h$ is $z$ or the length of the sequences, whichever is smaller, as in the definition of $\approx_{z}$.
-  For all $k \in [0,h]$, we have $\str{A}, \elemtuples^{(k)} \bisimto_{\FGF}^{z} \str{B}, \elemtuplet^{(k)}$ since $a \approx_{z} b$.
+  In case (\romannumeral1), $a$ and $c$ have the same history.
+  We can find an element $d$ with $(b,d) \in \relNext_{\ell}$ (or $(d,b) \in \relNext_{\ell}$) by incrementing (or decrementing) the counter of $b$ accordingly, keeping the history the same, thus $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
+  We claim that this element $d$ is in $\unraveldom{B}_{\ell}$.
+  We consider two cases: either $\seq{a} = \elemtuples$ or $\seq{a} = \cdots (i,j) \elemtuples$, for some tuple $\elemtuples$.
+  Since $b$ has the same $z$-history as $a$, there is a tuple $\elemtuplet$ with the same $\FGF_{z}$ type as $s$ such that $\seq{b} = \elemtuplet$ or $\seq{b} = \cdots (i,j) \elemtuplet$, respectively.
+  Since $\elemtuples$ and $\elemtuplet$ have equal types, $|\elemtuplet| = |\elemtuples|$.
+  Further, we have $\ctr{c} = \ctr{d}$.
+  We can see that in this case, the conditions for $d$ to be in $\unraveldom{B}_{\ell}$ are equivalent to the conditions for $c$ to be in $\unraveldom{A}_{\ell}$.
+  As we know that $c \in \unraveldom{A}_{\ell}$, it follows that $d$ is in $\unraveldom{B}_{\ell}$.
 
-  We treat~\ref{elemeq:succ} and~\ref{elemeq:pred} separately.
-  For~\ref{elemeq:succ}, let $c \in \unraveldom{A}_{\ell}$ with $\seq{c} \neq \seq{a}$ and $(a,c) \in \relNext_{\ell}$.
-  Then there are indices $v,w$ and a tuple $\elemtupleo \sqin A$ such that $\seq{c}$ is equal to $\seq{a} (v,w) \elemtupleo$ or the $\ell$-length suffix of that sequence.
-  We can find a tuple $\elemtuplep$ for which $\seq{b}(v,w)\elemtuplep$ is a bisimulation sequence and $\str{A}, \elemtupleo \bisimto_{\FGF}^{z-1} \str{B}, \elemtuplep$ by employing~\ref{bisim:fforth} since $\str{A}, \elemtuples^{(h)} \bisimto_{\FGF}^{z} \str{B}, \elemtuplet^{(h)}$.
-  Let $d \in \unraveldom{B}_{\ell}$ be the element with:
-  \begin{itemize}
-    \item $\seq{d}$ equal to $\seq{b} (v,w) \elemtuplep$ or if that sequence is longer than $2 * \ell$, to the length-$\ell$ suffix of that sequence,
-    \item $\ctr{d} = (w-v+1) + 1$, which by definition of $\relNext$ is equal to $\ctr{c}$.
-  \end{itemize}
-  By construction $(b, d) \in \relNext_{\ell}$.
-  Note that the length of $\seq{e}$ and $\seq{d}$ increases by exactly one compared to $\seq{a}$ and $\seq{b}$, except if one of them reaches the length $2 * \ell$ and is truncated to a suffix.
-  If no truncation occurs, then $\seq{c}$ and $\seq{d}$ have the same length if $\seq{a}$ and $\seq{b}$ have, so clearly $c \approx_{z-1} d$, as we extended them with bisimilar tuples and the same pair of indices.
-  Otherwise, to reach the truncation length of $2 * \ell$, either $\seq{a}$ or $\seq{b}$ must have a length of at least $\ell$.
-  As $z \le \ell$, by $a \approx_{z} b$ in this case both sequences are at least of length $z$, thus $h$ equals $z$.
-  Then $\seq{c}$ and $\seq{d}$ also are at least of length $z$, since even if they are truncated to a suffix of length $\ell$, still $\ell \ge z$.
-  It follows that the sequences $\elemtuples^{(2)}\cdots\elemtuples^{(z)}(v,w)\elemtupleo$ and $\elemtuplet^{(2)}\cdots\elemtuples^{(z)}\elemtuplep$, which are of length $z-1$, are suffixes of $\seq{c}$ and $\seq{d}$ respectively.
-  Therefore, $c \approx_{z-1} d$ as wanted.
+  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$ type, due to their equal $z$-histories.
+  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a bisimulation sequence and $\elemtuplet$ has the same $\FGF_{z-1}$ type as $\elemtuples$.
+  Next, we construct the element $d$ with $d = (\mathsf{trunc}_{\ell}[\sigma], \ctr{c})$ for $\sigma = \seq{b}(i,j)\elemtuplet$.
+  By construction, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$ (recall that $\ctr{c} = (j-i+1)+1$).
+  Observe that $\mathsf{trunc}_{\ell}$ preserves suffixes of length $z$, since $z \le \ell$.
+  Hence, the $(z-1)$-history of the element $c$ is equal to the $(z-1)$-history of an element $e$ with $e = (\seq{a}(i,j)\elemtuples, \ctr{c})$.
+  Similary, the $(z-1)$-history of $d$ is equal to the $(z-1)$-history of an element $f$ with $f = (\seq{b}(i,j)\elemtuplet, \ctr{d})$.
+  As $\elemtuples$ and $\elemtuplet$ have the same $\FGF_{z-1}$-type, we can see that $\hist{z-1}{e} = \hist{z-1}{f}$ and hence $\hist{z-1}{c} = \hist{z-1}{d}$.
+  It follows that $c \approx_{z-1} d$, as wanted.
 
-  For~\ref{elemeq:pred}, let $c \in \unraveldom{A}_{\ell}$ with $\seq{c} \neq \seq{a}$ and $(c,a) \in \relNext_{\ell}$.
-  In this case, there are indices $v,w$ and a tuple $\elemtupleo \sqin A$ for which $\seq{a} = \sigma (v,w) \elemtupleo$, where $\sigma$ is either $\seq{c}$ or the $\ell-1$-length suffix $\seq{c}$.
-  Since $a \approx_{z} b$, we have $\ctr{a} = \ctr{b} = (w-v+1) + 1$ and $\seq{b} = \theta (v,w) \elemtuplep$ for some bisimulation sequence $\theta$ and a tuple $\elemtuplep \sqin B$.
-  Note that $\ctr{c} = w$ by definition of $\relNext$.
-  Further, $(\sigma, w) \approx_{z-1} (\theta, w)$, since $a \approx_{z} b$ and $\sigma$ and $\theta$ are constructed from $\seq{a}$ and $\seq{b}$ by removing the last step.
-  Let $d = (\theta, w)$.
-  Clearly $(d,b) \in \relNext_{\ell}$ and if $\sigma = \seq{c}$, then $c \approx_{z-1} d$ follows directly.
-  If $\seq{c} \neq \sigma$, then $\sigma$ is a suffix of $\seq{c}$ with length $\ell-1$.
-  As $\ell-1 \ge z-1$, the last $z-1$ steps of $\sigma$ and $\seq{c}$ are equal in this case.
-  Therefore, $(\sigma, w) \approx_{z-1} (\theta, w)$ implies $(\seq{c}, w) \approx_{z-1} (\theta, w)$, so $c \approx_{z-1} d$ as wanted.
+  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a bismimulation sequence $\sigma$ of length at most $2 * \ell$.
+  Further, by equivalence of counters, $\ctr{b} = \ctr{a} = (j-i+1) + 1$.
+  By definition of the unraveling, there is an element $d \in \unraveldom{B}_{\ell}$ with $(d,b) \in \relNext_{\ell}$, which has $\seq{d} = \sigma$.
+  Again, because $\mathsf{trunc}_{\ell}$ preserves suffixes of length $z$, the $z$-history of $b$ is equal to the $z$-history of an element $b'$ with $b' = (\sigma(i,j)\elemtuplet, \ctr{b})$.
+  As $\seq{d} = \sigma$, the $(z-1)$-history of $d$ is equal to the $z$-history of $b'$ minus the last step.
+  As $b$ and $a$ have the same $z$-history and the $(z-1)$-history of $c$ is also equal to the $z$-history of $a$ minus the last step, it follows that $c$ and $d$ have equal $(z-1)$-histories.
+  Further, both $\ctr{c} = j$ and $\ctr{d} = j$.
+  This follows from $(c,a) \in \relNext_{\ell}$ and $(d,b) \in \relNext_{\ell}$.
+  Hence, $c \approx_{z-1} d$ as required.
 \end{proof}
 
 Let us now consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with $\elemtuptuplea = (a_{1}, \ldots, a_{k})$ and $\elemtuptupleb = (b_{1}, \ldots, b_{k})$ where $a_{i} \approx_{z} b_{i}$ for every $i \in [1,k]$.
