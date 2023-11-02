@@ -30,7 +30,9 @@ Fix a logic $\logicL$ and a finite signature~$\sigma \subseteq \R$.
 We~employ~$\logicL[\sigma]$ in place of~$\{ \varphi \in \logicL \colon\,  \sig(\varphi) \subseteq \sigma \}$.
 Moreover, we use $\logicL_\ell[\sigma]$ to denote the restriction of $\logicL[\sigma]$ to formulae of quantifier rank (i.e.\ the maximal number of nested quantifiers) at most~$\ell$.  
 %
-The $\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL[\sigma]}{\str{A}}{\elemtuplea}$, consists of all atomic and negated atomic $\logicL[\sigma]$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
+The $\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL[\sigma]}{\str{A}}{\elemtuplea}$, consists of all $\logicL[\sigma]$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
+If we restrict the type to only atomic and negated atomic $\logicL[\sigma]$-formulae, we obtain the the atomic-$\logicL[\sigma]$-type of $\elemtuplea$ in $\str{a}$, denoted with~$\atp{\logicL[\sigma]}{\str{A}}{\elemtuplea}$.
+The atomic-$\logicL[\sigma]$-type of $\elemtuplea$ is logically equivalent to the $\logicL_{0}[\sigma]$-type of $\elemtuplea$ in $\str{A}$.
 We write $\str{A} \equiv_\logicL \str{B}$ if $\str{A}$ and~$\str{B}$ satisfy the same $\logicL$-sentences.
 For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ with $n$-tuples $\elemtuplea$ and~$\elemtupleb$ we employ the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to indicate that for all $\varphi \in \logicL$ with free variables contained in the set $\{ \varx_1, \ldots, \varx_n \}$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$ (here variables $\varx_i$ are substituted, respectively, for $\elema_i$ and $b_i$).
 A similar notation is used for $\logicL[\sigma]$.\\
@@ -138,7 +140,7 @@ Now a similar characterisation can be provided for $\FGF$.
 Due to the ``forwardness'' of the underlying logic, it is convenient to think about maps as tuples.
 A \emph{system of forward partial maps} between $\sigma$-structures $\str{A}$ and $\str{B}$ is any non-empty subset of $\bigcup_{i=1}^{\infty} (A^i \times B^i)$ satisfying:
 \begin{description}\itemsep0em
-  \item[\desclabel{(AtomicEq)}{bisim:atomiceq}] For all $(\elemtuplea, \elemtupleb) \in \bisimZ$ we have that $\elemtuplea$, $\elemtupleb$ are $\sigma$-live and $\tp{\FGF[\sigma]}{\str{A}}{\elemtuplea} = \tp{\FGF[\sigma]}{\str{B}}{\elemtupleb}$~holds.
+  \item[\desclabel{(AtomicEq)}{bisim:atomiceq}] For all $(\elemtuplea, \elemtupleb) \in \bisimZ$ we have that $\elemtuplea$, $\elemtupleb$ are $\sigma$-live and $\atp{\FGF[\sigma]}{\str{A}}{\elemtuplea} = \atp{\FGF[\sigma]}{\str{B}}{\elemtupleb}$~holds.
 \end{description}
 If $\bisimZ, \bisimZ'$ are systems of forward partial maps between $\str{A}$ and $\str{B}$, we say that $\bisimZ'$ satisfies back-and-forth conditions for $\bisimZ$ if for every $(\elemtuplea, \elemtupleb) \in \bisimZ$ the following conditions hold:
 \begin{description}\itemsep0em

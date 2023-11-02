@@ -56,13 +56,13 @@ The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following l
 
 In the following, let $\elemtuplea \isoeq \elemtupleb$ denote that $\restr{\str{A}}{\set(\elemtuplea)}$ is isomorphic to $\restr{\str{B}}{\set(\elemtupleb)}$, for tuples $\elemtuplea$ and $\elemtupleb$ from some structures $\str{A}$ and $\str{B}$.
 Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
-We employ \cref{lem:companion-tree-like} to show that $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, if $\ell$ is large enough:
+We employ \cref{lem:companion-tree-like} to show that $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, if $\ell$ is large enough:
 \begin{lemma}\label{lem:fgf-type-iso}
   Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of $\sigma$-structures $\str{A}$ and $\str{B}$ for a signature $\sigma$ and a parameter $\ell$.
-  If $\ell > W$, where $W$ is the maximum arity\bbeside{Introduce a command for the max arity.} of a relation in $\sigma$, then $\tp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \tp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
+  If $\ell > W$, where $W$ is the maximum arity\bbeside{Introduce a command for the max arity.} of a relation in $\sigma$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
 \end{lemma}
 \begin{proof}
-Let $\ell > W$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal $\FGF$-types and equal size $k$.
+Let $\ell > W$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal atomic-$\FGF$-types and equal size $k$.
 We claim that the map $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for all $i \in [1, k]$, is an isomorphism between $\restr{\str{\unravel{A}_{\ell}}}{\set(\elemtuptuplea)}$ and $\restr{\str{\unravel{B}_{\ell}}}{\set(\elemtuptupleb)}$.
 Let $\elemtuptupler$ be a tuple with $\elemtuptupler \sqin \set(\elemtuptuplea)$ and $\elemtuptupler \in \relR^{\str{A}}$ for some relation $\relR \in \sigma$.
 We first show that $\elemtuptupler$ is an infix of $\elemtuptuplea$.
@@ -70,7 +70,7 @@ Suppose to the contrary that $\elemtuptupler$ is not an infix of $\elemtuptuplea
 But then both $(a_{v}, a_{w}) \in \relNext_{\ell}$ and $(a_{w-1}, a_{w}) \in \relNext_{\ell}$ since $\elemtuptupler$ and $\elemtuptuplea$ are $\sigma$-live.
 This is a contradiction, since $D_{a_{1}, W}$ defined in \cref{lem:companion-tree-like} includes $a_{v}, a_{w-1}$ and $a_{w}$ but cannot be a tree since $a_{w}$ would have two parents $a_{v}$ and $a_{w-1}$.
 Therefore, $\elemtuptupler$ is an infix of $\elemtuptuplea$.
-It follows from equality of $\FGF$-types that $\mu_{(\elemtuptuplea, \elemtuptupleb)}[\elemtuptupler] \in \relR^{\str{B}}$.
+It follows from equality of atomic-$\FGF$-types that $\mu_{(\elemtuptuplea, \elemtuptupleb)}[\elemtuptupler] \in \relR^{\str{B}}$.
 Since the argument is symmetric, we conclude that elements of $\elemtuptuplea$ and $\elemtuptupleb$ satisfy the same relations so $\mu_{(\elemtuptuplea, \elemtuptupleb)}$ is an isomorphism and $\elemtuptuplea \simeq \elemtuptupleb$.
 \end{proof}
 
@@ -83,7 +83,7 @@ Let us first consider the simpler case of only achieving this property for child
 We say that elements $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-\emph{forward-similar} if $\ctr{a} = \ctr{b}$, $\seq{a} = \cdots \elemtuples$ and $\seq{b} = \cdots \elemtuplet$ for tuples $\elemtuples$ and $\elemtuplet$ that satisfy $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$.
 Note that $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$ is equivalent to $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$ by \cref{lem:FGF-bisimulations-work-well}.
 If $c \in \unraveldom{A}_{\ell}$ is a child of $a$, then by definition of $\relNext_{\ell}$ there are two possible situations, either (\romannumeral1) $c$ has the same sequence as $a$ but an incremented counter, or (\romannumeral2) $c$ adds a move to the sequence of $a$ (possibly removing elements from the beginning of the sequence if the result is too long).
-In both cases, we can find a child $b$ that $(z-1)$-forward-similar to $c$: in case (\romannumeral1) we simply increment the counter of $b$, whereas in case (\romannumeral2) we employ~\ref{bisim:fforth} to find a move in $\str{B}$ that we can add to the end of the sequence of $b$ to obtain a child $d$ of $b$ so that the (new) last tuples of $\seq{c}$ and $\seq{d}$ have equal $\FGF_{z-1}$ types.
+In both cases, we can find a child $b$ that $(z-1)$-forward-similar to $c$: in case (\romannumeral1) we simply increment the counter of $b$, whereas in case (\romannumeral2) we employ~\ref{bisim:fforth} to find a move in $\str{B}$ that we can add to the end of the sequence of $b$ to obtain a child $d$ of $b$ so that the (new) last tuples of $\seq{c}$ and $\seq{d}$ have equal $\FGF_{z-1}$-types.
 
 We now consider the general case, including backward transitions.
 As we saw above, forward transitions along $\relNext$-edges extend the sequence of an element by adding moves to the end.
@@ -137,8 +137,8 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   We can find an element $d$ with $(b,d) \in \relNext_{\ell}$ (or $(d,b) \in \relNext_{\ell}$) by incrementing (or decrementing) the counter of $b$ accordingly, keeping the history the same, thus $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
   It can be seen that $\hist{1}{a} = \hist{1}{b}$ and $c \in \unraveldom{A}_{\ell}$ implies $d \in \unraveldom{B}_{\ell}$.
 
-  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$ type.
-  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a bisimulation sequence and $\elemtuplet$ has the same $\FGF_{z-1}$ type as $\elemtuples$.
+  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$-type.
+  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a bisimulation sequence and $\elemtuplet$ has the same $\FGF_{z-1}$-type as $\elemtuples$.
   Next, we construct the element $d$ with $\seq{d} = \mathsf{trunc}_{\ell}[\seq{b}(i,j)\elemtuplet]$ and $\ctr{d} = (j-i+1) + 1$.
   Cleary, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$.
   The function $\mathsf{trunc}_{\ell}$ preserves suffixes of length $z$ since $z \le \ell$, so it does not affect $z$-histories.
@@ -171,14 +171,14 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   We can find an element $d$ with $(b,d) \in \relNext_{\ell}$ (or $(d,b) \in \relNext_{\ell}$) by incrementing (or decrementing) the counter of $b$ accordingly, keeping the history the same, thus $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
   We claim that this element $d$ is in $\unraveldom{B}_{\ell}$.
   We consider two cases: either $\seq{a} = \elemtuples$ or $\seq{a} = \cdots (i,j) \elemtuples$, for some tuple $\elemtuples$.
-  Since $b$ has the same $z$-history as $a$, there is a tuple $\elemtuplet$ with the same $\FGF_{z}$ type as $s$ such that $\seq{b} = \elemtuplet$ or $\seq{b} = \cdots (i,j) \elemtuplet$, respectively.
+  Since $b$ has the same $z$-history as $a$, there is a tuple $\elemtuplet$ with the same $\FGF_{z}$-type as $s$ such that $\seq{b} = \elemtuplet$ or $\seq{b} = \cdots (i,j) \elemtuplet$, respectively.
   Since $\elemtuples$ and $\elemtuplet$ have equal types, $|\elemtuplet| = |\elemtuples|$.
   Further, we have $\ctr{c} = \ctr{d}$.
   We can see that in this case, the conditions for $d$ to be in $\unraveldom{B}_{\ell}$ are equivalent to the conditions for $c$ to be in $\unraveldom{A}_{\ell}$.
   As we know that $c \in \unraveldom{A}_{\ell}$, it follows that $d$ is in $\unraveldom{B}_{\ell}$.
 
-  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$ type, due to their equal $z$-histories.
-  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a bisimulation sequence and $\elemtuplet$ has the same $\FGF_{z-1}$ type as $\elemtuples$.
+  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$-type, due to their equal $z$-histories.
+  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a bisimulation sequence and $\elemtuplet$ has the same $\FGF_{z-1}$-type as $\elemtuples$.
   Next, we construct the element $d$ with $d = (\mathsf{trunc}_{\ell}[\sigma], \ctr{c})$ for $\sigma = \seq{b}(i,j)\elemtuplet$.
   By construction, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$ (recall that $\ctr{c} = (j-i+1)+1$).
   Observe that $\mathsf{trunc}_{\ell}$ preserves suffixes of length $z$, since $z \le \ell$.
@@ -201,9 +201,9 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
 We now lift the notion of $z$-similarity from elements to tuples of elements.
 Let $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ be live tuples of equal size $k$ with $\elemtuptuplea = (a_{1}, \ldots, a_{k})$ and $\elemtuptupleb = (b_{1}, \ldots, b_{k})$.
 We say that $\elemtuptuplea$ and $\elemtuptupleb$ are \emph{tuples of $z$-similar elements} if $a_{i} \approx_{z} b_{i}$ for every $i \in [1,k]$.
-We show that in this case, $\elemtuptuplea$ and $\elemtuptupleb$ have the same $\FGF$-type, which further implies by \cref{lem:fgf-type-iso} that they are isomorphic.
+We show that in this case, $\elemtuptuplea$ and $\elemtuptupleb$ have the same atomic-$\FGF$-type, which further implies by \cref{lem:fgf-type-iso} that they are isomorphic.
 Let $\elemtuples$ and $\elemtuplet$ be the tuples from $\str{A}$ and $\str{B}$ such that $\seq{a_{k}} = \cdots \elemtuples$ and $\seq{b_{k}} = \cdots \elemtuplet$.
-Since $a_{k} \approx_z b_{k}$, we have $\elemtuples \bisimto_{\FGF}^{z} \elemtuplet$ which in particular implies that $\elemtuples$ and $\elemtuplet$ have the same $\FGF$-type.
+Since $a_{k} \approx_z b_{k}$, we know that $\elemtuples$ and $\elemtuplet$ have the same atomic-$\FGF$-type.
 Observe that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.
 This follows from \cref{lem:projection-next} since $\elemtuptuplea$ and $\elemtuptupleb$ are live and thus must be next-chains.
 As $\ctr{a_{k}} = \ctr{b_{k}}$, both $\elemtuptuplea$ and $\elemtuptupleb$ project to infixes $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i\ldots{}j$ for $i = \ctr{a_{k}} - k$ and $j = \ctr{a_{k}}$.
