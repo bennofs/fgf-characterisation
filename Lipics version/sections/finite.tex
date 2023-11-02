@@ -1,7 +1,7 @@
 %!TEX root = ../main.tex
 
 \section{Finite Companions}\label{sec:finite}
-Let $\unravel{A}, \elemtuptuplea$ be a tree unraveling of a finite structure $\str{A}, \elemtuplea$ over a (finite) signature $\sigma$.
+Let $\unravel{A}, \elemtuptuplea$ be a tree unraveling of a finite structure $\str{A}, \elemtuplea$.
 We describe the finite unraveling $\unravel{A}_{\ell}, \elemtuptuplea_{\ell}$ which will be $\ell$-$\FGF$-bisimilar to $\unravel{A}, \elemtuptuplea$ (and also $\ell$-$\FGF$-bisimilar to $\str{A}, \elemtuplea$ by transitivity of bisimilarity).
 For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}_{r,\ell}(\unravel{A})$ as follows:
 \begin{equation*}
@@ -14,7 +14,7 @@ It is a tree with root $r$ because for every element $e \in \mathcal{T}_{r,\ell}
 This is easy to see: if $p$ is the parent of $e$, then $p$ is a descendant of $r$ and $\seq{p}$ has a length lower or equal to the length of $\seq{e}$, so $p$ is in $\mathcal{T}_{r,\ell}$.
 Furthermore, this tree is finite:
 \begin{lemma}\label{lem:bounded-trees-are-finite}
-  If $\unravel{A}$ is the unraveling of a finite structure $\str{A}$ with the finite signature $\sigma$, then $\mathcal{T}_{r,\ell}$ is finite for $\ell \in \N$ and $r \in \unraveldom{A}$.
+  If $\unravel{A}$ is the unraveling of a finite structure $\str{A}$, then $\mathcal{T}_{r,\ell}$ is finite for $\ell \in \N$ and $r \in \unraveldom{A}$.
 \end{lemma}
 \begin{proof}
 If $A$ is finite, then there only a finite number of live tuples in $A$.
@@ -58,16 +58,16 @@ In the following, let $\elemtuplea \isoeq \elemtupleb$ denote that $\restr{\str{
 Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
 We employ \cref{lem:companion-tree-like} to show that $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, if $\ell$ is large enough:
 \begin{lemma}\label{lem:fgf-type-iso}
-  Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of $\sigma$-structures $\str{A}$ and $\str{B}$ for a signature $\sigma$ and a parameter $\ell$.
-  If $\ell > W$, where $W$ is the maximum arity\bbeside{Introduce a command for the max arity.} of a relation in $\sigma$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
+  Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of structures $\str{A}$ and $\str{B}$ for a parameter $\ell$.
+  If $\ell > \arity{\Sigma}$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
 \end{lemma}
 \begin{proof}
 Let $\ell > W$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal atomic-$\FGF$-types and equal size $k$.
 We claim that the map $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for all $i \in [1, k]$, is an isomorphism between $\restr{\str{\unravel{A}_{\ell}}}{\set(\elemtuptuplea)}$ and $\restr{\str{\unravel{B}_{\ell}}}{\set(\elemtuptupleb)}$.
-Let $\elemtuptupler$ be a tuple with $\elemtuptupler \sqin \set(\elemtuptuplea)$ and $\elemtuptupler \in \relR^{\str{A}}$ for some relation $\relR \in \sigma$.
+Let $\elemtuptupler$ be a tuple with $\elemtuptupler \sqin \set(\elemtuptuplea)$ and $\elemtuptupler \in \relR^{\str{A}}$ for some relation $\relR \in \Sigma$.
 We first show that $\elemtuptupler$ is an infix of $\elemtuptuplea$.
 Suppose to the contrary that $\elemtuptupler$ is not an infix of $\elemtuptuplea$, thus there is an $i$ such that $r_{i} = a_{v}$ and $r_{i+1} = a_{w}$ with $v \ne w - 1$.
-But then both $(a_{v}, a_{w}) \in \relNext_{\ell}$ and $(a_{w-1}, a_{w}) \in \relNext_{\ell}$ since $\elemtuptupler$ and $\elemtuptuplea$ are $\sigma$-live.
+But then both $(a_{v}, a_{w}) \in \relNext_{\ell}$ and $(a_{w-1}, a_{w}) \in \relNext_{\ell}$ since $\elemtuptupler$ and $\elemtuptuplea$ are live.
 This is a contradiction, since $D_{a_{1}, W}$ defined in \cref{lem:companion-tree-like} includes $a_{v}, a_{w-1}$ and $a_{w}$ but cannot be a tree since $a_{w}$ would have two parents $a_{v}$ and $a_{w-1}$.
 Therefore, $\elemtuptupler$ is an infix of $\elemtuptuplea$.
 It follows from equality of atomic-$\FGF$-types that $\mu_{(\elemtuptuplea, \elemtuptupleb)}[\elemtuptupler] \in \relR^{\str{B}}$.
@@ -110,7 +110,8 @@ Compared to the notion of $z$-forward-similarity, $z$-similarity requires not ju
 Rather, it additionally requires that the types of the $z$ last tuples of the sequences are equal.
 Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z-1)$-similar parents, as stated in the next lemma:
 \begin{lemma}\label{lem:approx-next}
-  Let $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$. If $a \approx_{z} b$ for some $z \in [1,\ell]$, then:
+  Let $\str{A}_{\ell}$ and $\str{B}_{\ell}$ be the finite unravelings of structures $\str{A}$ and $\str{B}$ for some parameter $\ell \in \N$.
+  For elements $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$, if $a \approx_{z} b$ for some $z \in [1,\ell]$, then:
   \begin{description}
     \item[\desclabel{(succ)}{elemeq:succ}] If $(a, c) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(b, d) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
     \item[\desclabel{(pred)}{elemeq:pred}] If $(c, a) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(d, b) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
@@ -125,7 +126,7 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   \end{romanenumerate}
   where
   \begin{displaymath}
-    \mathsf{trunc}_{\ell}[\sigma] =
+    \mathsf{trunc}_{\ell} =
     \begin{cases}
       \sigma & \text{if $\sigma$ has length at most $2 * \ell$} \\
       \text{length-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has length greater than $2 * \ell$}
@@ -159,7 +160,7 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   \end{romanenumerate}
   where
   \begin{displaymath}
-    \mathsf{trunc}_{\ell}[\sigma] =
+    \mathsf{trunc}_{\ell} =
     \begin{cases}
       \sigma & \text{if $\sigma$ has length at most $2 * \ell$} \\
       \text{length-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has length greater than $2 * \ell$}
@@ -179,7 +180,7 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
 
   In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$-type, due to their equal $z$-histories.
   Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a bisimulation sequence and $\elemtuplet$ has the same $\FGF_{z-1}$-type as $\elemtuples$.
-  Next, we construct the element $d$ with $d = (\mathsf{trunc}_{\ell}[\sigma], \ctr{c})$ for $\sigma = \seq{b}(i,j)\elemtuplet$.
+  Next, we construct the element $d$ with $d = (\mathsf{trunc}_{\ell}, \ctr{c})$ for $\sigma = \seq{b}(i,j)\elemtuplet$.
   By construction, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$ (recall that $\ctr{c} = (j-i+1)+1$).
   Observe that $\mathsf{trunc}_{\ell}$ preserves suffixes of length $z$, since $z \le \ell$.
   Hence, the $(z-1)$-history of the element $c$ is equal to the $(z-1)$-history of an element $e$ with $e = (\seq{a}(i,j)\elemtuples, \ctr{c})$.
@@ -220,10 +221,16 @@ Let $\relR$ be any relational symbol. Then:
 \end{enumerate}
 Therefore, infixes of $\elemtuptuplea$ and $\elemtuptupleb$ are in the same relations.
 We conclude that $\elemtuptuplea$ and $\elemtuptupleb$ have equal $\FGF$-types.
+Combining this result with \cref{lem:fgf-type-iso}, we get the following corollary:
+\begin{corollary}
+  Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of structures $\str{A}$ and $\str{B}$ for a parameter $\ell$.
+
+  If $\ell > \arity(\Sigma)$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
+\end{corollary}
 
 Finally, we employ the notion of tuples with $z$-similar elements to construct a $n$-$\GF$-bisimulation between finite unravelings:
 \begin{lemma}
-  Let $\str{A}$ and $\str{B}$ be structures over a signature $\sigma$ and $W = \arity(\sigma)$.
+  Let $\str{A}$ and $\str{B}$ be structures and $W = \arity(\Sigma)$.
   If $\str{A} \bisimto_{\FGF}^{W * n} \str{B}$, then there is a $n$-$GF$-bisimulation between $\unravel{A}_{W * n}$ and $\unravel{B}_{W * n}$, given by the sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{n} \subseteq \PartIso{\unravel{A}_{W * n}}{\unravel{B}_{W * n}}$ defined as:
   \begin{equation*}
     \bisimZ_{k} = \left\{

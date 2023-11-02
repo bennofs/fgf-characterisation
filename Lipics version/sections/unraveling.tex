@@ -18,7 +18,7 @@ It is well-known that with a suitable notion of unravelling~\cite[Prop. 3]{Rosen
 
 Our goal is to design a notion of unravelling for $\FGF$ satisfying the following theorem:
 \begin{theorem}\label{thm:inf-unraveling-upgrading}
-  Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed $\sigma$-structures.
+  Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed structures.
   Then there are tree models $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$ which are both:
   \begin{itemize}
     \item $\FGF$-similar to the original structures: $\unravel{A}, \elemtuptuplea \bisimto_{\FGF} \str{A}, \elemtuplea$ and $\unravel{B}, \elemtuptupleb \bisimto_{\FGF} \str{B}, \elemtupleb$
@@ -76,7 +76,7 @@ Let $\str{A}, \elemtuplea^{(0)}$ be a pointed structure where $\elemtuplea^{(0)}
 We define a bisimulation sequence as a sequence of moves that Spoiler takes in one of the possible plays of the $\FGF$-bisimulation game involving this structure.
 Formally, a \emph{bisimulation sequence} of length $\ell$ is a word in $A^*{(\N\N{}A^{*})}^{\ell}$, represented by a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
 Intuitively, the set $\Seq{A}$ of all bisimulation sequences for a structure $\str{A}$ collects all possible ways in which Spoiler can explore this structure.
-For any bisimulation sequence of length $\ell$, if $\str{B}, \elemtupleb^{(0)}$ is a $\sigma$-structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
+For any bisimulation sequence of length $\ell$, if $\str{B}, \elemtupleb^{(0)}$ is a structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
 These represent the moves of Duplicator in the game.
 Below are some examples of bisimulation sequences:
 \begin{figure}[H]
@@ -198,10 +198,10 @@ We define the tree unraveling such that relations are only realized by tuples wh
 Additionally, we limit the length of the chain to be less than the counter of the last element of the tuple.
 For this, we define the \emph{bound} of a tuple to be equal to the counter of its last element.
 Formally, $\mathtt{bound}(\elemtuptupler) = \ctr{r_{|\elemtuptupler|}}$ for any tuple $\elemtuptupler$ from the domain of the unraveling.
-Let $\str{A}, \elemtuplea$ be a $\sigma$-structure and $\unraveldom{A}$ be the domain of the unraveling.
+Let $\str{A}, \elemtuplea$ be a structure and $\unraveldom{A}$ be the domain of the unraveling.
 Let $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
 The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ is the tree with root $(\elemtuplea, 1)$ and all descendants according to the relation $\relNext$.
-For relations $\relR \in \sigma$, we let $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:\begin{enumerate}
+For relations $\relR \in \Sigma$, we let $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:\begin{enumerate}
   \item $\pi[\elemtuptupler] \in \relR^{\str{A}}$,
   \item $\bigwedge_{k=1}^{|\elemtuptupler|-1}{(\elemr_{k},\elemr_{k+1}) \in \relNext}$, and
   \item $|\elemtuptupler| \le \mathtt{bound}(\elemtuptupler)$

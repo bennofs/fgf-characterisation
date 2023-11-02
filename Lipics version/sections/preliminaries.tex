@@ -36,7 +36,8 @@ A quick reference of all notation used in this paper is given in \cref{fig:notat
 
 All the logics considered in this paper are fragments of the first-order logic ($\FO$) over purely-relational equality-free vocabularies, under the usual syntax and semantics. 
 We fix a countably infinite set $\V \deff \{x_i \colon\, i \in \N\}$ of variables and a countably infinite set~$\R$ of predicates (we employ $\arity(\relR)$ to denote the arity of $\relR$ from $\R$).
-Throughout this paper all formulae use variables from $\V$ and predicates from $\R$.
+Throughout this paper all formulae use variables from $\V$ and predicates from a fixed, finite signature $\Sigma$ which is a subset of $\R$.
+Since $\Sigma$ is finite, there is a maximum arity of any relation in $\Sigma$, which we denote by $\arity(\Sigma)$.
 Given a formula $\varphi$ we use $\sig(\varphi)$ to denote the set of predicates appearing in $\varphi$. 
 We write $\varphi(\vartuplex)$ to indicate that all free variables from $\varphi$ are members of $\vartuplex$. 
 If $\vartuplex$ contains precisely the free
@@ -54,19 +55,19 @@ We use the notation ``$\cdots e$'' for a tuple where the last element is equal t
 For a function $f$ and tuple $\elemtuplea_{1\ldots\ell}$, we write $f[\elemtuplea]$ for the tuple $(f(a_{1}), \ldots, f(a_{\ell}))$.
 To improve readability, tuples of tuples are denoted by arrows, for instance with $\elemtuptuplea$.
 For a set $S$, we write $\vartuplex \sqin S$ iff $\varx_i \in S$ for all indices $1 \leq i \leq |\vartuplex|$, where $|\vartuplex|$ denotes the length of~$\vartuplex$. 
-For a signature $\sigma$ we call a tuple $\elemtuplea \sqin A$ is \emph{$\sigma$-live} (or simply \emph{live} if $\sigma$ can be deduced from the context) in $\str{A}$ if $|\elemtuplea| \leq 1$ or~$\elemtuplea \in \relR^{\str{A}}$ for some~$\relR \in \sigma$.\\ 
+We say that a tuple $\elemtuplea \sqin A$ is \emph{live} in $\str{A}$ if $|\elemtuplea| \leq 1$ or~$\elemtuplea \in \relR^{\str{A}}$ for some~$\relR \in \Sigma$.\\
 
 \noindent \textbf{Types and logical equivalence.}
 Fix a logic $\logicL$ and a finite signature~$\sigma \subseteq \R$. 
 We~employ~$\logicL[\sigma]$ in place of~$\{ \varphi \in \logicL \colon\,  \sig(\varphi) \subseteq \sigma \}$.
-Moreover, we use $\logicL_\ell[\sigma]$ to denote the restriction of $\logicL[\sigma]$ to formulae of quantifier rank (i.e.\ the maximal number of nested quantifiers) at most~$\ell$.  
+Since all structures and formulae throughout this paper use a fixed signature $\Sigma$, we omit the signature from now on and write just $\logicL$ instead of $\logicL[\Sigma]$.
+Moreover, we use $\logicL_\ell$ to denote the restriction of $\logicL$ to formulae of quantifier rank (i.e.\ the maximal number of nested quantifiers) at most~$\ell$.
 %
-The $\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL[\sigma]}{\str{A}}{\elemtuplea}$, consists of all $\logicL[\sigma]$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
-If we restrict the type to only atomic and negated atomic $\logicL[\sigma]$-formulae, we obtain the the atomic-$\logicL[\sigma]$-type of $\elemtuplea$ in $\str{a}$, denoted with~$\atp{\logicL[\sigma]}{\str{A}}{\elemtuplea}$.
-The atomic-$\logicL[\sigma]$-type of $\elemtuplea$ is logically equivalent to the $\logicL_{0}[\sigma]$-type of $\elemtuplea$ in $\str{A}$.
+The $\logicL$-type of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL}{\str{A}}{\elemtuplea}$, consists of all $\logicL$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
+If we restrict the type to only atomic and negated atomic $\logicL$-formulae, we obtain the the atomic-$\logicL$-type of $\elemtuplea$ in $\str{a}$, denoted with~$\atp{\logicL}{\str{A}}{\elemtuplea}$.
+The atomic-$\logicL$-type of $\elemtuplea$ is logically equivalent to the $\logicL_{0}$-type of $\elemtuplea$ in $\str{A}$.
 We write $\str{A} \equiv_\logicL \str{B}$ if $\str{A}$ and~$\str{B}$ satisfy the same $\logicL$-sentences.
-For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ with $n$-tuples $\elemtuplea$ and~$\elemtupleb$ we employ the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to indicate that for all $\varphi \in \logicL$ with free variables contained in the set $\{ \varx_1, \ldots, \varx_n \}$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$ (here variables $\varx_i$ are substituted, respectively, for $\elema_i$ and $b_i$).
-A similar notation is used for $\logicL[\sigma]$.\\
+For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ with $n$-tuples $\elemtuplea$ and~$\elemtupleb$ we employ the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to indicate that for all $\varphi \in \logicL$ with free variables contained in the set $\{ \varx_1, \ldots, \varx_n \}$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$ (here variables $\varx_i$ are substituted, respectively, for $\elema_i$ and $b_i$).\\
 
 \noindent \textbf{Guarded fragments.}
 We recall the definition of the \emph{guarded fragment}~\cite[Sec. 4.1]{AndrekaNB98}, \ie the fragment of $\FO$ obtained by requiring that blocks of quantifiers are appropriately relativised by atoms.
@@ -107,25 +108,25 @@ The latter formula is not even in $\GF$ as the sequence $x_{1}, x_{2}$ is not gu
 %
 We next present notion of bisimulation relations tailored towards $\GF$ and $\FGF$, based on presentations from~\cite[Sec. 2.2.3]{Otto04} and~\cite[Sec. 2]{BednarczykJ22}.
 
-For a signature $\sigma \subseteq \R$ and $\sigma$-structures $\str{A}$ and $\str{B}$ we denote with $\PartIso{\str{A}}{\str{B}}$ the set of all partial isomorphisms between $\str{A}$ and $\str{B}$. 
+For structures $\str{A}$ and $\str{B}$ we denote with $\PartIso{\str{A}}{\str{B}}$ the set of all partial isomorphisms between $\str{A}$ and $\str{B}$.
 For non-empty $\bisimZ, \bisimZ' \subseteq \PartIso{\str{A}}{\str{B}}$ we say that $\bisimZ'$ satisfies back-and-forth conditions for $\bisimZ$ if for every partial isomorphism $\partisof \in \bisimZ$ we have:
 %
 \begin{description}\itemsep0em
-  \item[\desclabel{(Forth)}{bisim:forth}] For every $\sigma$-live $\elemtuplea$ in $\str{A}$, there is $\partisog \in \bisimZ'$ with the domain $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common domain. 
-  \item[\desclabel{(Back)}{bisim:back}] For every $\sigma$-live $\elemtupleb$ in $\str{B}$, there is $\partisog \in \bisimZ'$ with the image $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common image.
+  \item[\desclabel{(Forth)}{bisim:forth}] For every live $\elemtuplea$ in $\str{A}$, there is $\partisog \in \bisimZ'$ with the domain $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common domain.
+  \item[\desclabel{(Back)}{bisim:back}] For every live $\elemtupleb$ in $\str{B}$, there is $\partisog \in \bisimZ'$ with the image $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common image.
 \end{description}
-A non-empty set $\bisimZ \subseteq \PartIso{\str{A}}{\str{B}}$ is a $\GF[\sigma]$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies \ref{bisim:forth} and~\ref{bisim:back} conditions given above. 
-An $\ell$-$\GF[\sigma]$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of partial isomorphisms\bfside{shouldn't this say ``sets of partial isomorphisms?''} from $\PartIso{\str{A}}{\str{B}}$ mapping $\sigma$-live tuples to $\sigma$-live tuples  such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:forth} and~\ref{bisim:back} conditions for $\bisimZ_{i{+}1}$.
-We say that pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ are $\GF[\sigma]$-\emph{bisimilar}, denoted $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]} (\str{B}, \elemtupleb)$, if there exists a $\GF[\sigma]$-bisimulation  between $\str{A}$ and $\str{B}$ containing the partial isomorphism that maps $\elemtuplea$ to $\elemtupleb$.
-We analogously speak about $\ell$-$\GF[\sigma]$-\emph{bisimilarity} and employ the notation $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]}^{\ell} (\str{B}, \elemtupleb)$.
+A non-empty set $\bisimZ \subseteq \PartIso{\str{A}}{\str{B}}$ is a $\GF$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies \ref{bisim:forth} and~\ref{bisim:back} conditions given above.
+An $\ell$-$\GF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of partial isomorphisms\bfside{shouldn't this say ``sets of partial isomorphisms?''} from $\PartIso{\str{A}}{\str{B}}$ mapping live tuples to live tuples such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:forth} and~\ref{bisim:back} conditions for $\bisimZ_{i{+}1}$.
+We say that pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ are $\GF$-\emph{bisimilar}, denoted $(\str{A}, \elemtuplea) \bisimto_{\GF} (\str{B}, \elemtupleb)$, if there exists a $\GF$-bisimulation between $\str{A}$ and $\str{B}$ containing the partial isomorphism that maps $\elemtuplea$ to $\elemtupleb$.
+We analogously speak about $\ell$-$\GF$-\emph{bisimilarity} and employ the notation $(\str{A}, \elemtuplea) \bisimto_{\GF}^{\ell} (\str{B}, \elemtupleb)$.
 We use the notation $\elemtuplea \bisimto_{\GF} \elemtupleb$ or $\elemtuplea \bisimto_{\GF}^{\ell} \elemtupleb$ if the structures $\str{A}$ and $\str{B}$ are clear from the context.
 
 The following classical lemma links bisimulations and logical~equivalence.
 \begin{lemma}[Thm. 1.12 of~\cite{Gradel014}]\label{lemma:GF-bisimulations-work-well}
-For every finite signature $\sigma$ and a pair of pointed $\sigma$-structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ we have that:
+For every pair of pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ we have that:
 \begin{enumerate}[(a)]
-\item $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF[\sigma]} (\str{B}, \elemtupleb)$;
-\item $(\str{A}, \elemtuplea) \bisimto_{\GF[\sigma]}^{\ell} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF_\ell[\sigma]} (\str{B}, \elemtupleb)$ for all $\ell \in \N$;
+\item $(\str{A}, \elemtuplea) \bisimto_{\GF} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF} (\str{B}, \elemtupleb)$;
+\item $(\str{A}, \elemtuplea) \bisimto_{\GF}^{\ell} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF_\ell} (\str{B}, \elemtupleb)$ for all $\ell \in \N$;
 \end{enumerate}
 Moreover, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$.
 \end{lemma}
@@ -169,28 +170,28 @@ The following example presents $\GF$-bisimilar structures that can be distinguis
 \noindent
 Now a similar characterisation can be provided for $\FGF$. 
 Due to the ``forwardness'' of the underlying logic, it is convenient to think about maps as tuples.
-A \emph{system of forward partial maps} between $\sigma$-structures $\str{A}$ and $\str{B}$ is any non-empty subset of $\bigcup_{i=1}^{\infty} (A^i \times B^i)$ satisfying:
+A \emph{system of forward partial maps} between structures $\str{A}$ and $\str{B}$ is any non-empty subset of $\bigcup_{i=1}^{\infty} (A^i \times B^i)$ satisfying:
 \begin{description}\itemsep0em
-  \item[\desclabel{(AtomicEq)}{bisim:atomiceq}] For all $(\elemtuplea, \elemtupleb) \in \bisimZ$ we have that $\elemtuplea$, $\elemtupleb$ are $\sigma$-live and $\atp{\FGF[\sigma]}{\str{A}}{\elemtuplea} = \atp{\FGF[\sigma]}{\str{B}}{\elemtupleb}$~holds.
+  \item[\desclabel{(AtomicEq)}{bisim:atomiceq}] For all $(\elemtuplea, \elemtupleb) \in \bisimZ$ we have that $\elemtuplea$, $\elemtupleb$ are live and $\atp{\FGF}{\str{A}}{\elemtuplea} = \atp{\FGF}{\str{B}}{\elemtupleb}$~holds.
 \end{description}
 If $\bisimZ, \bisimZ'$ are systems of forward partial maps between $\str{A}$ and $\str{B}$, we say that $\bisimZ'$ satisfies back-and-forth conditions for $\bisimZ$ if for every $(\elemtuplea, \elemtupleb) \in \bisimZ$ the following conditions hold:
 \begin{description}\itemsep0em
-  \item[\desclabel{(fForth)}{bisim:fforth}] For every (possibly empty) infix $\elemtuplecfromto{i}{j}$ of $\elemtuplec$ and a $\sigma$-live tuple $\elemtuplee$ in $\str{A}$ such that $\elemtuplecfromto{i}{j} = \elemtupleefromto{1}{j{-}i{+}1}$ there is a $\sigma$-live tuple $\elemtuplef$ with $\elemtupledfromto{i}{j} = \elemtupleffromto{1}{j{-}i{+}1}$ such that $(\elemtuplee, \elemtuplef) \in \bisimZ'$ holds.
+  \item[\desclabel{(fForth)}{bisim:fforth}] For every (possibly empty) infix $\elemtuplecfromto{i}{j}$ of $\elemtuplec$ and a live tuple $\elemtuplee$ in $\str{A}$ such that $\elemtuplecfromto{i}{j} = \elemtupleefromto{1}{j{-}i{+}1}$ there is a live tuple $\elemtuplef$ with $\elemtupledfromto{i}{j} = \elemtupleffromto{1}{j{-}i{+}1}$ such that $(\elemtuplee, \elemtuplef) \in \bisimZ'$ holds.
   %
-  \item[\desclabel{(fBack)}{bisim:fback}] For every (possibly empty) infix $\elemtupledfromto{i}{j}$ of $\elemtupled$ and a $\sigma$-live tuple $\elemtuplef$ in $\str{B}$ such that $\elemtupledfromto{i}{j} = \elemtupleffromto{1}{j{-}i{+}1}$ there is a $\sigma$-live tuple $\elemtuplee$ with $\elemtuplecfromto{i}{j} = \elemtupleefromto{1}{j{-}i{+}1}$ such that $(\elemtuplee, \elemtuplef) \in \bisimZ'$~holds.
+  \item[\desclabel{(fBack)}{bisim:fback}] For every (possibly empty) infix $\elemtupledfromto{i}{j}$ of $\elemtupled$ and a live tuple $\elemtuplef$ in $\str{B}$ such that $\elemtupledfromto{i}{j} = \elemtupleffromto{1}{j{-}i{+}1}$ there is a live tuple $\elemtuplee$ with $\elemtuplecfromto{i}{j} = \elemtupleefromto{1}{j{-}i{+}1}$ such that $(\elemtuplee, \elemtuplef) \in \bisimZ'$~holds.
 \end{description}
-A system of forward partial maps $\bisimZ$ between $\str{A}$ and $\str{B}$ is a $\FGF[\sigma]$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies the above conditions.
-An $\ell$-$\FGF[\sigma]$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of systems of forward partial maps between $\str{A}$ and $\str{B}$ such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:fforth} and~\ref{bisim:fback} conditions for $\bisimZ_{i{+}1}$.
-We speak about $\FGF[\sigma]$-\emph{bisimilar} and $\ell$-$\FGF[\sigma]$-\emph{bisimilar} (pointed) structures in total analogy to the guarded-fragment case.
+A system of forward partial maps $\bisimZ$ between $\str{A}$ and $\str{B}$ is a $\FGF$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies the above conditions.
+An $\ell$-$\FGF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of systems of forward partial maps between $\str{A}$ and $\str{B}$ such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:fforth} and~\ref{bisim:fback} conditions for $\bisimZ_{i{+}1}$.
+We speak about $\FGF$-\emph{bisimilar} and $\ell$-$\FGF$-\emph{bisimilar} (pointed) structures in total analogy to the guarded-fragment case.
 Because the back-and-forth conditions allow for choosing an empty infix, $\ell$-$\FGF$-bisimulations are not limited to the local neighbourhood of some tuple.
 Instead, even for $\ell = 1$, every guarded tuple must be mapped to a tuple in the other structure.
 
 A ``forward'' counterpart of \cref{lemma:GF-bisimulations-work-well} is presented below.
 \begin{lemma}\label{lem:FGF-bisimulations-work-well}
-For every finite signature $\sigma$ and a pair of pointed $\sigma$-structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ we have that:
+For every pair of pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ we have that:
 \begin{enumerate}[(a)]
-\item $(\str{A}, \elemtuplea) \bisimto_{\FGF[\sigma]} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\FGF[\sigma]} (\str{B}, \elemtupleb)$;
-\item $(\str{A}, \elemtuplea) \bisimto_{\FGF[\sigma]}^{\ell} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\FGF_\ell[\sigma]} (\str{B}, \elemtupleb)$ for all $\ell \in \N$;
+\item $(\str{A}, \elemtuplea) \bisimto_{\FGF} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\FGF} (\str{B}, \elemtupleb)$;
+\item $(\str{A}, \elemtuplea) \bisimto_{\FGF}^{\ell} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\FGF_\ell} (\str{B}, \elemtupleb)$ for all $\ell \in \N$;
 \end{enumerate}
 Moreover, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$.
 \end{lemma}

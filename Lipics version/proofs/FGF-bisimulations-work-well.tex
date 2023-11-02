@@ -3,19 +3,19 @@
 \begin{proof}
   A proof for condition \textbf{(a)} is provided in~\cite[Lemma 3]{BednarczykJ22}, and thus we proceed with condition \textbf{(b)}.
   We start from the ``if'' direction. 
-  Let us fix $\sigma$-structures $\str{A}$ and $\str{B}$.
+  Let us fix structures $\str{A}$ and $\str{B}$.
   We want to establish that for all $\ell \in \N$, $\elemtuplea$ in $\str{A}$, and $\elemtupleb$ in $\str{B}$ the following condition holds:
   \[
-    (\heartsuit_\ell)(\elemtuplea, \elemtupleb){:} \ \ \ \  (\str{A}, \elemtuplea) \bisimto_{\FGF[\sigma]}^{\ell} (\str{B}, \elemtupleb) \ \text{implies} \ (\str{A}, \elemtuplea) \equiv_{\FGF_\ell[\sigma]} (\str{B}, \elemtupleb).
+    (\heartsuit_\ell)(\elemtuplea, \elemtupleb){:} \ \ \ \  (\str{A}, \elemtuplea) \bisimto_{\FGF}^{\ell} (\str{B}, \elemtupleb) \ \text{implies} \ (\str{A}, \elemtuplea) \equiv_{\FGF_\ell} (\str{B}, \elemtupleb).
   \]
   We proceed by induction. 
   For the inductive base, take any $\elemtuplea$ from $\str{A}$, any $\elemtupleb$ from $\str{B}$, and suppose that the antecedent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$ holds.
-  Thus, by \ref{bisim:atomiceq} we know that $\elemtuplea$ and~$\elemtupleb$ have equal $\FGF[\sigma]$-types.
-  This means that for all atomic $\varphi$ of $\FGF[\sigma]$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$.
-  Hence, by a routine case analysis employing obvious properties of $\models$ relation, the above equivalence is lifted to the case of all quantifier-free $\FGF[\sigma]$-formulae, establishing the consequent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$.
+  Thus, by \ref{bisim:atomiceq} we know that $\elemtuplea$ and~$\elemtupleb$ have equal $\FGF$-types.
+  This means that for all atomic $\varphi$ of $\FGF$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$.
+  Hence, by a routine case analysis employing obvious properties of $\models$ relation, the above equivalence is lifted to the case of all quantifier-free $\FGF$-formulae, establishing the consequent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$.
   For the inductive step, fix any positive $\ell$ and assume that for all $k$ smaller than $\ell$ and the condition $(\heartsuit_k)(\elemtuplea,\elemtupleb)$ is satisfied for all tuples $\elemtuplea$ and $\elemtupleb$.
   Now take any tuple $\elemtuplea$ from $\str{A}$ and $\elemtupleb$ from $\str{B}$.
-  To show the consequent of $(\heartsuit_\ell)(\elemtuplea,\elemtupleb)$, we take any formula $\varphi(x_1, \ldots, x_n) \in \FGF_\ell[\sigma]$.
+  To show the consequent of $(\heartsuit_\ell)(\elemtuplea,\elemtupleb)$, we take any formula $\varphi(x_1, \ldots, x_n) \in \FGF_\ell$.
   If the quantifier rank of $\varphi$ is smaller than $\ell$, then we are done by $(\heartsuit_{\ell{-}1})(\elemtuplea,\elemtupleb)$.
   Hence, suppose that the quantifier rank of $\varphi$ is precisely~$\ell$.
   By structural induction (relying on properties of $\models$ relation) it amounts to establish the equivalence for $\varphi$ in one of the following forms: 
@@ -26,41 +26,41 @@
   Suppose that $\str{A} \models \varphi[\elemtuplea]$ (the case of $\str{B} \models \varphi[\elemtupleb]$ is symmetric).
   Let $\elemtuplec$ be the (possibly empty) infix $\elemtupleafromto{i}{n}$ of~$\elemtuplea$.
   Then there exists a (possibly empty) tuple $\elemtuplee$ in $\str{A}$ such that $\str{A} \models \relR[\elemtuplec\elemtuplee] \land \psi[\elemtuplec\elemtuplee]$.
-  Note that $\elemtuplec\elemtuplee$ is $\sigma$-live. 
-  By~\ref{bisim:fforth} we can find a (possibly empty) tuple $\elemtuplef$ in $\str{B}$ such that $(\str{A}, \elemtuplec\elemtuplee) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elemtupled\elemtuplef)$ for~$\elemtupled$ equal to $\elemtuplebfromto{i}{n}$.
+  Note that $\elemtuplec\elemtuplee$ is live.
+  By~\ref{bisim:fforth} we can find a (possibly empty) tuple $\elemtuplef$ in $\str{B}$ such that $(\str{A}, \elemtuplec\elemtuplee) \bisimto_{\FGF}^{\ell{-}1} (\str{B}, \elemtupled\elemtuplef)$ for~$\elemtupled$ equal to $\elemtuplebfromto{i}{n}$.
   Applying inductive hypothesis, namely $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$, we know that the consequent of $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$ holds true.
   This clearly implies $\str{B} \models \relR[\elemtupled\elemtuplef] \land \psi[\elemtupled\elemtuplef]$, which finally lead us to $\str{B} \models \varphi[\elemtupleb]$.
 
   \item $\varphi$ is of the form $\exists{x_{1}} \psi(x_1)$. Then the quantifier rank of $\psi$ is less than $\ell$.
   Suppose that $\str{A} \models \varphi[\elemtuplea]$ (the case of $\str{B} \models \varphi[\elemtupleb]$ is symmetric).
   Then there exists an element $\elem{c}$ in $\str{A}$ for which $\str{A} \models \psi[\elem{c}]$.
-  As $\elem{c}$ is trivially guarded, we apply~\ref{bisim:fforth} to find $\elem{d}$ in $\str{B}$ for which $(\str{A}, \elem{c}) \bisimto_{\FGF[\sigma]}^{\ell{-}1} (\str{B}, \elem{d})$.
+  As $\elem{c}$ is trivially guarded, we apply~\ref{bisim:fforth} to find $\elem{d}$ in $\str{B}$ for which $(\str{A}, \elem{c}) \bisimto_{\FGF}^{\ell{-}1} (\str{B}, \elem{d})$.
   Note that $\ell{-}1$ is non-negative by positivity of $\ell$. 
-  Thus, by $(\heartsuit_{\ell{-}1})(\elem{c},\elem{d})$ we know that $(\str{A}, \elem{c}) \equiv_{\FGF_{\ell{-}1}[\sigma]} (\str{B}, \elem{d})$ holds. 
+  Thus, by $(\heartsuit_{\ell{-}1})(\elem{c},\elem{d})$ we know that $(\str{A}, \elem{c}) \equiv_{\FGF_{\ell{-}1}} (\str{B}, \elem{d})$ holds.
   In particular, this implies $\str{B} \models \psi[\elem{d}]$, concluding the proof.
 \end{itemize}
 
-For the opposite direction, take $\ell \in \N$ and a pair of $\omega$-saturated pointed $\sigma$-structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$.
-Suppose that $(\str{A}, \elemtuplea) \equiv_{\FGF_\ell[\sigma]} (\str{B}, \elemtupleb)$.
+For the opposite direction, take $\ell \in \N$ and a pair of $\omega$-saturated pointed structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$.
+Suppose that $(\str{A}, \elemtuplea) \equiv_{\FGF_\ell} (\str{B}, \elemtupleb)$.
 We construct a family $\bisimZ_0, \ldots, \bisimZ_\ell$ of systems of forward partial maps as follows:
 \[
-  \bisimZ_\mathit{k} \coloneqq \{ (\elemtuplec, \elemtupled) \in \bigcup_{i=0}^{\infty} (A^i \times B^i) \colon\,  (\str{A}, \elemtuplec) \equiv_{\FGF_\mathit{k}[\sigma]} (\str{B}, \elemtupled), \ \text{and} \ \elemtuplec, \elemtupled \ \text{are $\sigma$-live} \}.
+  \bisimZ_\mathit{k} \coloneqq \{ (\elemtuplec, \elemtupled) \in \bigcup_{i=0}^{\infty} (A^i \times B^i) \colon\,  (\str{A}, \elemtuplec) \equiv_{\FGF_\mathit{k}} (\str{B}, \elemtupled), \ \text{and} \ \elemtuplec, \elemtupled \ \text{are live} \}.
 \]
-We claim that such a family is an $\ell$-$\FGF[\sigma]$-bisimulation between $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$. 
+We claim that such a family is an $\ell$-$\FGF$-bisimulation between $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$.
 Note that the condition \ref{bisim:atomiceq} is trivially satisfied by all the $\bisimZ_\mathit{k}$ above, and that $(\elemtuplea, \elemtupleb)$ belongs to all the sets $\bisimZ_\mathit{k}$ by design.
 Thus it suffices to show that for all $\mathit{k} \in \{ 1, 2, \ldots, \ell\}$ that the system of forward partial
 maps $\bisimZ_\mathit{k}$ satisfies \ref{bisim:fforth} and \ref{bisim:fback} for $\bisimZ_{\mathit{k}{-}1}$.
 Hence, take any such $j$ and let us proceed with a proof of \ref{bisim:fforth} (the case of \ref{bisim:fback} is symmetric). 
 Let $(\elemtuplec, \elemtupled) \in \bisimZ_\mathit{k}$, $\elemtuplecfromto{i}{j}$ be a (possibly empty) infix of $\elemtuplec$
-and $\elemtuplee$ be any tuple in $\str{A}$ such that $\elemtuplecfromto{i}{j}\elemtuplee$ is $\sigma$-live.
+and $\elemtuplee$ be any tuple in $\str{A}$ such that $\elemtuplecfromto{i}{j}\elemtuplee$ is live.
 We are going to show that the set 
 \[
-  \Gamma \deff \{ \varphi \colon\, \str{A} \models \varphi[\elemtuplecfromto{i}{j}\elemtuplee], \varphi \in \FGF_{\mathit{k}{-}1}[\sigma] \}
+  \Gamma \deff \{ \varphi \colon\, \str{A} \models \varphi[\elemtuplecfromto{i}{j}\elemtuplee], \varphi \in \FGF_{\mathit{k}{-}1} \}
 \] 
 is realized in $\str{B}$ by $\elemtupledfromto{i}{j}\elemtuplef$ for some $|\elemtuplee|$-tuple $\elemtuplef$ from $\str{B}$.
 By $\omega$-saturation of $\str{B}$ it suffices to establish that every finite subset of $\Gamma$ is realized by $\elemtupledfromto{i}{j}\elemtupleh$ for some $|\elemtuplee|$-tuple $\elemtupleh$.
 Let $\Delta$ be a finite subset of $\Gamma$.
-Since $\elemtuplec\elemtuplee$ is $\sigma$-live, there must be an atomic formula $\alpha$ such $(\str{A}, \elemtuplec\elemtuplee) \models \alpha$.
+Since $\elemtuplec\elemtuplee$ is live, there must be an atomic formula $\alpha$ such $(\str{A}, \elemtuplec\elemtuplee) \models \alpha$.
 The formula
 \begin{equation*}
   \phi(\vartuplex) \deff \exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \wedge \textstyle\bigwedge_{\delta \in \Delta} \delta(\vartuplex, \vartupley))
@@ -69,7 +69,7 @@ satisfies $(\str{A}, \elemtuplecfromto{i}{j}) \models \phi$ by design.
 Moreover, as $\phi$ is an $\FGF_\mathit{k}$-formula,
 we can invoke $\mathit{k}$-$\FGF$-equivalence of $(\str{A}, \elemtuplec)$ and $(\str{B}, \elemtupled)$ to deduce~$(\str{B}, \elemtupledfromto{i}{j}) \models \phi$.
 This implies that $\Gamma$ is indeed realized in $\str{B}$, and let $\elemtupledfromto{i}{j}\elemtuplef$ be a tuple witnessing this fact.
-By the choice of $\Gamma$, we know that  $(\str{A}, \elemtuplecfromto{i}{j}\elemtuplee) \equiv_{\FGF_{\mathit{k}{-}1}[\sigma]} (\str{B}, \elemtupledfromto{i}{j}\elemtuplef)$, and hence
+By the choice of $\Gamma$, we know that  $(\str{A}, \elemtuplecfromto{i}{j}\elemtuplee) \equiv_{\FGF_{\mathit{k}{-}1}} (\str{B}, \elemtupledfromto{i}{j}\elemtuplef)$, and hence
 $(\elemtuplecfromto{i}{j}\elemtuplee, \elemtupledfromto{i}{j}\elemtuplef) \in \bisimZ_{\mathit{k}{-}1}$. 
-This concludes the proof of that $\bisimZ_{\mathit{k}}$ satisfies \ref{bisim:fforth}, and thus concludes the proof that the family $\bisimZ_0, \ldots, \bisimZ_\ell$ is an $\ell$-$\FGF[\sigma]$-bisimulation between $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$. 
+This concludes the proof of that $\bisimZ_{\mathit{k}}$ satisfies \ref{bisim:fforth}, and thus concludes the proof that the family $\bisimZ_0, \ldots, \bisimZ_\ell$ is an $\ell$-$\FGF$-bisimulation between $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$.
 \end{proof}
