@@ -2,6 +2,37 @@
 
 \section{Preliminaries}\label{sec:preliminaries}
 We employ standard terminology from (finite and classical) model theory~\cite[Sec. 1--3]{Libkin04}.
+A quick reference of all notation used in this paper is given in \cref{fig:notation-quickref}.
+
+\begin{figure}
+  \centering
+  \bgroup
+  \def\arraystretch{1.1}
+  \begin{tabularx}{\textwidth}{c X r}
+    notation & meaning & introduced in \\
+    \hline
+    $\str{A}$, $\str{B}$, \ldots & structures with domains $A$, $B$, \ldots & \cref{sec:preliminaries} \\
+    $\Sigma$ & the signature of all structures in this paper & \cref{sec:preliminaries} \\
+    $\arity(\Sigma)$ & the maximum arity of any relation in $\Sigma$, also known as width & \cref{sec:preliminaries} \\
+    $\elemtuplea, \elemtupleb$, \ldots & tuples of elements & \cref{sec:preliminaries} \\
+    $\elemtuptuplea, \elemtuptupleb$, \ldots & tuples of unraveling elements (tuples of tuples) & \cref{sec:preliminaries} \\
+    $f[\elemtuplea]$ & function $f$ applied to $\elemtuplea$ componentwise, i.e.\ $(f(a_{1}), \ldots, f(a_{n}))$ & \cref{sec:preliminaries} \\
+    $\tp{\logicL}{\str{A}}{\elemtuplea}$ & $\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$ (all $\logicL[\sigma]$-formulaes satisfied by $\elemtuplea$) & \cref{sec:preliminaries} \\
+    $\atp{\logicL}{\str{A}}{\elemtuplea}$ & atomic-$\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$ & \cref{sec:preliminaries} \\
+    $\logicL_{\ell}$ & logic $\logicL$ restricted to formulae with quantifier rank at most $\ell$ & \cref{sec:preliminaries} \\
+    $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ & a $\FGF$-bisimulation between $\str{A}$ and $\str{B}$ exists containing $(\elemtuplea, \elemtupleb)$ & \cref{sec:preliminaries} \\
+    $\str{A}, \elemtuplea \bisimto_{\FGF}^{\ell} \str{B}, \elemtupleb$ & a $\ell$-$\FGF$-bisimulation between $\str{A}$ and $\str{B}$ exists containing $(\elemtuplea, \elemtupleb)$ & \cref{sec:preliminaries} \\
+    $\unravel{A}$ & the (possibly infinite) tree unraveling of $\str{A}$ & \cref{sec:unraveling} \\
+    $\unravel{A}_{\ell}$ & the finite unraveling of $\str{A}$ for threshold $\ell$ & \cref{sec:finite} \\
+    $\relNext$ & the parent-child relation for the tree unraveling & \cref{sec:unraveling} \\
+    $\relNext_{\ell}$ & finitary variant of $\relNext$, used for defining $\unravel{A}_{\ell}$ & \cref{sec:finite} \\
+    $\seq{a}$ & sequence part of an unraveling element, i.e.\ $\sigma$ for $a = (\sigma, k)$ & \cref{sec:unraveling} \\
+    $\ctr{a}$ & counter part of an unraveling element, i.e.\ $k$ for $a = (\sigma, k)$ & \cref{sec:unraveling} \\
+    $\mathtt{bound}(\elemtuptuplea)$ & counter of the last component of $\elemtuplea$, i.e.\ $\ctr{a_{|\elemtuptuplea|}}$ & \cref{sec:unraveling} \\
+  \end{tabularx}
+  \egroup
+  \caption{Overview of relevant notation. Some of these are only introduced later in this paper.}\label{fig:notation-quickref}
+\end{figure}
 
 All the logics considered in this paper are fragments of the first-order logic ($\FO$) over purely-relational equality-free vocabularies, under the usual syntax and semantics. 
 We fix a countably infinite set $\V \deff \{x_i \colon\, i \in \N\}$ of variables and a countably infinite set~$\R$ of predicates (we employ $\arity(\relR)$ to denote the arity of $\relR$ from $\R$).
