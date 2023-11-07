@@ -1,11 +1,15 @@
 %!TEX root = main.tex
 \pdfoutput=1
-\documentclass[a4paper, UKenglish, cleveref, numberwithinsect, autoref]{lipics-v2021}
+\documentclass[a4paper, UKenglish, cleveref, numberwithinsect, autoref, thm-restate]{lipics-v2021}
 \bibliographystyle{plainurl}
 \input{settings/paper-info}
 \input{settings/packages}
 \input{settings/macros}
 \input{settings/tolcolors}
+
+% fix hyperref link destination with thm-restate
+\def\theHtheorem{\thesection.\thetheorem}
+\def\theHlemma{\thesection.\thelemma}
 
 \begin{document}
 
