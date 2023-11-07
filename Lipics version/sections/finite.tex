@@ -16,6 +16,10 @@ Furthermore, this tree is finite:
 \begin{lemma}\label{lem:bounded-trees-are-finite}
   If $\unravel{A}$ is the unraveling of a finite structure $\str{A}$, then $\mathcal{T}_{r,\ell}$ is finite for $\ell \in \N$ and $r \in \unraveldom{A}$.
 \end{lemma}
+\begin{proofsketch}
+  For a finite structure, there are only a finite number of live tuples and thus also a finite number of bisimulation sequences in this structure.
+  Hence, the number of elements where $\seq{e}$ has length at most $2 * \ell$ is also finite, so $\mathcal{T}_{r,\ell}$ is finite.
+\end{proofsketch}
 \begin{proof}
 If $A$ is finite, then there only a finite number of live tuples in $A$.
 Recall that a bisimulation sequence of length $\ell$ is just a word in $A^*{(\N\N{}A^{*})}^{\ell}$, consisting of live tuples from $A^{*}$ and indices into those tuples from $\N\N$.
@@ -48,10 +52,28 @@ The relations are defined as in $\unravel{A}$, but with the relation $\relNext$ 
 The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following lemma:
 \begin{lemma}\label{lem:companion-tree-like}
   Let $D_{a, \ell}(\unravel{A}_{\ell})$ be the set of elements $b$ for which there exists a next-chain starting from $a$ and ending in $b$ of length at most $\ell$.
-  For any element $a \in \unraveldom{A}_{\ell}$, the set $D_{a, \ell}$ is a tree.
+  For any element $a \in \unraveldom{A}_{\ell}$, the set $D_{a, \ell}$ is a tree with root $a$.
 \end{lemma}
+\begin{proofsketch}
+  By contradiction: if $D_{a,\ell}$ is not a tree, then some element $e \in D_{a,\ell}$ has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
+  Moreover, $p_{1}$ and $p_{2}$ must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2},\ell}$ of the structure $\unravel{A}_{\ell}$ and have sequences of length $2 * \ell$.
+  Now, at least one of $p_{1}$ or $p_{2}$ must be in a different subtree than $a$.
+  However, then the shortest next-chain from $a$ to that element must traverse the full subtree $\mathcal{T}_{r_{1},\ell}$ or $\mathcal{T}_{r_{2},\ell}$, which requires at least a next-chain of length $\ell + 1$ (at least one next transition to enter the tree, $\ell$ next transitions to reach a leaf with sequence length $2 * \ell$).
+  Hence the element cannot be in $D_{a,\ell}$, a contradiction.
+\end{proofsketch}
 \begin{proof}
-  \bfbox{write proof}
+  Assume by contradiction that $D_{a,\ell}$ is not a tree.
+  Clearly, all elements in $D_{a,\ell}$ are descendants of $a$.
+  Thus, if $D_{a,\ell}$ is not a tree, there must be an element $e \in D_{a,\ell}$ which has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
+  Recall that the structure $\str{A}$ is consists of subtrees $\mathcal{T}_{r,\ell}$.
+  For $e$ to have two different parents, those parents must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2}, \ell}$ for different roots $r_{1}, r_{2} \in \unraveldom{A}$.
+  At least one of the elements $p_{1}$ and $p_{2}$ must therefore be a different subtree than $a$.
+  By symmetry, let us assume that $p_{1}$ is not in the same subtree as $a$.
+  Then the shortest next-chain from $a$ to $p_{1}$ must traverse through the whole subtree from $r_{1}$ to the leaf $p_{1}$.
+  With every transition along the a $\relNext_{\ell}$-edge, the sequence length of elements increases by at most 1.
+  Hence, the next-chain from $r_{1}$ to $p_{1}$ has a length of at least $\ell$.
+  Since the shortest next-chain from $a$ to $p_{1}$ must go through $r_{1}$ (as $a$ is not in the same subtree as $p_{1}$) and reaching $r_{1}$ from $a$ also requires at least one next transition, the shortest next-chain from $a$ to $p_{1}$ is longer than $\ell$.
+  Hence, $p_{1} \notin D_{a,\ell}$, a contradiction.
 \end{proof}
 
 In the following, let $\elemtuplea \isoeq \elemtupleb$ denote that $\restr{\str{A}}{\set(\elemtuplea)}$ is isomorphic to $\restr{\str{B}}{\set(\elemtupleb)}$, for tuples $\elemtuplea$ and $\elemtupleb$ from some structures $\str{A}$ and $\str{B}$.
@@ -59,8 +81,14 @@ Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples from $\unravel{A}_{\ell
 We employ \cref{lem:companion-tree-like} to show that $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, if $\ell$ is large enough:
 \begin{lemma}\label{lem:fgf-type-iso}
   Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of structures $\str{A}$ and $\str{B}$ for a parameter $\ell$.
-  If $\ell > \arity{\Sigma}$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
+  If $\ell > \arity(\Sigma)$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
 \end{lemma}
+\begin{proofsketch}
+  If $\elemtuptuplea = (a_{1}, \ldots, a_{n})$, then permutations of $\elemtuptuplea$ changing the order of the components are never live, since they cannot be next-chains due to the tree structure of $\unravel{A}_{\ell}$.
+  Similarly, all live tuples consisting of a subset of the elements of $\elemtuptuplea$ must be infixes of $\elemtuptuplea$.
+  Hence, the atomic-$\FGF$-type fully characterizes the atomic relations among the set of elements in $\elemtuptuplea$.
+  Therefore, equivalence of atomic-$\FGF$-types is sufficient to ensure isomorphism in tree unravelings.
+\end{proofsketch}
 \begin{proof}
 Let $\ell > W$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal atomic-$\FGF$-types and equal size $k$.
 We claim that the map $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for all $i \in [1, k]$, is an isomorphism between $\restr{\str{\unravel{A}_{\ell}}}{\set(\elemtuptuplea)}$ and $\restr{\str{\unravel{B}_{\ell}}}{\set(\elemtuptupleb)}$.

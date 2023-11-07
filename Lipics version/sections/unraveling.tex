@@ -11,20 +11,20 @@ However, novel ideas are required to make this construction applicable to the ca
 Let $\str{A}$ be a structure with an associated binary relation $\relNext^{\str{A}}$.
 For a pair $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
 A \emph{root} is an element without parents.
-The set of $\emph{descendants}$ of an element $\eleme$ is the smallest set containing $\eleme$ that is closed under taking children (\ie{} if an element is in the set then so are its children).
+The set of \emph{descendants} of an element $\eleme$ is the smallest set containing $\eleme$ that is closed under taking children (\ie{} if an element is in the set then so are its children).
 We call a structure $\str{A}$ a \emph{forest} if every element has at most one parent and is a descendant of some root.
 A model is a tree model if it is a forest and has exactly one root.
 It is well-known that with a suitable notion of unravelling~\cite[Prop. 3]{Rosen97} one can show that every satisfiable modal logic formula has a tree model.
 
 Our goal is to design a notion of unravelling for $\FGF$ satisfying the following theorem:
-\begin{theorem}\label{thm:inf-unraveling-upgrading}
+\begin{restatable}{theorem}{thminfunraveling}\label{thm:inf-unraveling-upgrading}
   Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed structures.
   Then there are tree models $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$ which are both:
   \begin{itemize}
     \item $\FGF$-similar to the original structures: $\unravel{A}, \elemtuptuplea \bisimto_{\FGF} \str{A}, \elemtuplea$ and $\unravel{B}, \elemtuptupleb \bisimto_{\FGF} \str{B}, \elemtupleb$
     \item $\GF$-bisimilar: $\unravel{A}, \elemtuptuplea \bisimto_{\GF} \unravel{B}, \elemtuptupleb$.
   \end{itemize}
-\end{theorem}
+\end{restatable}
 
 \noindent
 The \emph{HAF}-unravelling~\cite[Sec 3.3]{Bednarczyk21} introduced by Bednarczyk produces a tree model which is \FGF-bisimilar to a given \FGF-model, but unfortunately fails to satisfy the above theorem.
@@ -237,6 +237,20 @@ In fact, the unraveling contains all such variations which can be distinguished 
 This means that for two structures $\str{A}$ and $\str{B}$ which are $\FGF$-bisimilar, the unraveling for both of them contains all the $\GF$-structure that is possible to add while staying $\FGF$-bisimilar.
 Since this only depends on staying $\FGF$-bisimilar but not on the concrete details of the structures $\str{A}$ and $\str{B}$, the resulting unravelings for both structures contain the same $\GF$-structure.
 This is exactly what we want for \cref{thm:inf-unraveling-upgrading}, which we can now prove for this notion of unraveling:
+
+\thminfunraveling*
+\begin{proofsketch}
+  The unraveling is a tree model.
+  The set $\{(\pi[\elemtuptuplex], \elemtuptuplex):\, \elemtuptuplex\ \text{is a live tuple in}\ \unravel{A} \}$ is a $\FGF$-bisimulation between $\unraveldom{A}, \elemtuptuplea$ and $\str{A}, \elemtuplea$.
+  To construct a $\GF$-bisimulation between $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$, we employ the auxiliary notion of ``histories'': for an element $e \in \unraveldom{A}$ with $\seq{e} = \elemtuples^{(0)}\cdots)(i^{(n)}, j^{(n)})\elemtuples^{(n)}$, we define $\mathsf{hist}(e) = \tp{\FGF}{\str{A}}{\elemtuples^{(0)}} \cdots (i^{(n), j^{(n)}} \tp{\FGF}{\str{B}}{\elemtuples^{(n)}})$.
+  Now let $\bisimZ \subseteq \PartIso{\unravel{A}}{\unravel{B}}$ be the set such that $(\elemtuptuples, \elemtuptuplet) \in \bisimZ$ if:
+  \begin{itemize}
+    \item $\elemtuptuples$, $\elemtuptuplet$ are live tuples of size $k$ from $\unravel{A}$, $\unravel{B}$, and
+    \item $\mathsf{hist}(s_{i}) = \mathsf{hist}(t_{i})\text{ and }\ctr{s_{i}} = \ctr{t_{i}}\text{ for all }i \in [1, k]$
+  \end{itemize}
+  This set is a $\GF$-bisimulation.
+  A detailed proof of this is given later for the finite case.
+\end{proofsketch}
 \begin{proof}
-  \bfbox{write proof}
+  \bfbox{todo proof for infinite unraveling theorem}
 \end{proof}
