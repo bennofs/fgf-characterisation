@@ -180,6 +180,12 @@ Finally, we formalize the property that $\relNext$ links elements that map to co
 \begin{lemma}\label{lem:projection-next}
 For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relNext$, if $\elemtuplea \sqin \unraveldom{A}$ is the tuple such that $\seq{t} = \cdots \elemtuplea$, then $\pi(s) = a_{k-1}$ and $\pi(t) = a_{k}$ for $k = \ctr{t}$.
 \end{lemma}
+\begin{proofsketch}
+  Let $\seq{s} = \cdots \elemtupleb$.
+  Since $(s,t) \in \relNext$, the bisimulation sequence $\seq{t}$ extends $\seq{s}$.
+  Thus, $\elemtupleb$ and $\elemtuplea$ must an share an infix (by definition of bisimulation sequences).
+  The definition of $\relNext$ restricts the counters $\ctr{s}$ and $\ctr{t}$ such that the equality $b_{\ctr{s}} = a_{\ctr{t}-1}$ holds, implying the property of the lemma.
+\end{proofsketch}
 \begin{proof}
   Note that $\pi(t) = a_{\ctr{t}} = a_{k}$ by definition of the projection $\pi$.
   We prove that $\pi(s) = a_{k-1}$ by case analysis on the two cases of $\relNext$.

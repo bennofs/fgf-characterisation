@@ -49,7 +49,7 @@ We construct a family $\bisimZ_0, \ldots, \bisimZ_\ell$ of systems of forward pa
 We claim that such a family is an $\ell$-$\FGF$-bisimulation between $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$.
 Note that the condition \ref{bisim:atomiceq} is trivially satisfied by all the $\bisimZ_\mathit{k}$ above, and that $(\elemtuplea, \elemtupleb)$ belongs to all the sets $\bisimZ_\mathit{k}$ by design.
 Thus it suffices to show that for all $\mathit{k} \in \{ 1, 2, \ldots, \ell\}$ that the system of forward partial
-maps $\bisimZ_\mathit{k}$ satisfies \ref{bisim:fforth} and \ref{bisim:fback} for $\bisimZ_{\mathit{k}{-}1}$.
+maps $\bisimZ_{k-1}$ satisfies \ref{bisim:fforth} and \ref{bisim:fback} for $\bisimZ_{\mathit{k}}$.
 Hence, take any such $j$ and let us proceed with a proof of \ref{bisim:fforth} (the case of \ref{bisim:fback} is symmetric). 
 Let $(\elemtuplec, \elemtupled) \in \bisimZ_\mathit{k}$, $\elemtuplecfromto{i}{j}$ be a (possibly empty) infix of $\elemtuplec$
 and $\elemtuplee$ be any tuple in $\str{A}$ such that $\elemtuplecfromto{i}{j}\elemtuplee$ is live.
@@ -60,7 +60,7 @@ We are going to show that the set
 is realized in $\str{B}$ by $\elemtupledfromto{i}{j}\elemtuplef$ for some $|\elemtuplee|$-tuple $\elemtuplef$ from $\str{B}$.
 By $\omega$-saturation of $\str{B}$ it suffices to establish that every finite subset of $\Gamma$ is realized by $\elemtupledfromto{i}{j}\elemtupleh$ for some $|\elemtuplee|$-tuple $\elemtupleh$.
 Let $\Delta$ be a finite subset of $\Gamma$.
-Since $\elemtuplec\elemtuplee$ is live, there must be an atomic formula $\alpha$ such $(\str{A}, \elemtuplec\elemtuplee) \models \alpha$.
+Since $\elemtuplecfromto{i}{j}\elemtuplee$ is live, there must be an atomic formula $\alpha$ such $(\str{A}, \elemtuplecfromto{i}{j}\elemtuplee) \models \alpha$.
 The formula
 \begin{equation*}
   \phi(\vartuplex) \deff \exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \wedge \textstyle\bigwedge_{\delta \in \Delta} \delta(\vartuplex, \vartupley))

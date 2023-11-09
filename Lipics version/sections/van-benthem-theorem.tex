@@ -27,18 +27,8 @@ We next show how~\cref{thm:main-technical-thm} implies a van Benthem's style cha
 \begin{theorem}
 The forward guarded fragment is the $\bisimto_{\FGF}$-invariant fragment of $\FO$, both in a sense of classical model theory and in the finite.
 \end{theorem}
-\begin{proof}
-By employing previous developments of Otto~\cite[Obs.~13]{Otto04}, uniformly stated for fragments of first-order logic, it suffices to show that for every first-order formula that is $\bisimto_{\FGF}$-invariant (in the finite) is also $\bisimto_{\FGF}^{\ell}$-invariant (in the finite) for some $\ell \in \N$.
-
-Take any such first-order formula $\varphi$, and let $\homop$ be the function provided by~\cref{thm:main-technical-thm}.
-As $\FGF$ is a fragment of $\GF$ (and hence $\bisimto_{\FGF}$-invariance implies $\bisimto_{\GF}$-invariance), we know that $\varphi$ is $\bisimto_{\GF}$-invariant (in the finite).
-Thus $\varphi$ is also $\bisimto_{\GF}^{\mathit{g}}$-invariant (in the finite) for certain threshold $\mathit{g} \in \N$ provided by~\cref{thm:vanBenthem-for-GF}.
-We aim to show that $\varphi$ is $\bisimto_{\FGF}^{\homop(\mathit{g})}$-invariant (in the finite).
-To do so, let $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ be $\homop(\mathit{g})$-$\FGF$-bisimilar pointed structures, and suppose that $(\str{A}, \elemtuplea) \models \varphi$. It remains to show that $(\str{B}, \elemtupleb) \models \varphi$.
-From~\cref{thm:main-technical-thm} we infer the existence of $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$, that are finite if $\str{A}$ and $\str{B}$ are, for which $(\str{A}', \elemtuplea') \bisimto^{\mathit{g}}_{\GF} (\str{B}', \elemtupleb')$ holds.
-The following diagram depicts what will happen next.
-\begin{figure}[H]
-  \centering
+\newsavebox{\diagupgrading}
+\begin{lrbox}{\diagupgrading}{
   \begin{tikzpicture}
     \matrix[row sep=2em, column sep=3em]
     {
@@ -54,7 +44,7 @@ The following diagram depicts what will happen next.
 
         \node (a_unravel) {$(\str{A}', \elemtuplea')$}; &
         \node[font=\large] (sim_unravel) {$\bisimto_{\GF}^{\mathit{g}}$}; &
-        \node (b_unravel) {$(\str{B}', \elemtupleb')$}; 
+        \node (b_unravel) {$(\str{B}', \elemtupleb')$};
         \node[anchor=west] {}; \\
     };
 
@@ -63,8 +53,35 @@ The following diagram depicts what will happen next.
     \draw[->] (a_unravel) -- (sim_unravel) -> (b_unravel);
     \draw[dashed,->] (b_unravel) -- (sim_b_unravel) -> (b);
   \end{tikzpicture}
+}
+\end{lrbox}
+\begin{proofsketch}
+  By employing previous developments of Otto~\cite[Obs.~13]{Otto04}, it suffices to show that for every first-order formula that is $\bisimto_{\FGF}$-invariant (in the finite) is also $\bisimto_{\FGF}^{\ell}$-invariant (in the finite) for some $\ell \in \N$.
+  Like Otto, we employ an``upgrading'' to show this.
+  For structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$, the upgrading is shown in the following diagram:
+  \begin{figure}[H]
+    \centering
+    \usebox{\diagupgrading}
+  \end{figure}
+  where $\str{A'}, \elemtuplea'$, $\str{B'}, \elemtupleb'$ are the companions and $\homop$ is the polynomial function as given by \cref{thm:main-technical-thm}.
+  For every $\bisimto_{\FGF}$-invariant (and hence also $\bisimto_{\GF}$-invariant) $\FO$-formula $\phi$, there is a $g$ such that $\phi$ is $\bisimto_{\GF}^{g}$ invariant (\cref{thm:vanBenthem-for-GF}).
+  By the above diagram, this implies that $\phi$ is $\bisimto_{\FGF}^{\homop(g)}$ invariant.
+  Since all the structures involved in the proof are finite if $\str{A}, \elemtuplea$ and $\str{B},  \elemtupleb$ are finite, this works for both classical model theory and in the finite, concluding the proof.
+\end{proofsketch}
+\begin{proof}
+By employing previous developments of Otto~\cite[Obs.~13]{Otto04}, uniformly stated for fragments of first-order logic, it suffices to show that for every first-order formula that is $\bisimto_{\FGF}$-invariant (in the finite) is also $\bisimto_{\FGF}^{\ell}$-invariant (in the finite) for some $\ell \in \N$.
+
+Take any such first-order formula $\varphi$, and let $\homop$ be the function provided by~\cref{thm:main-technical-thm}.
+As $\FGF$ is a fragment of $\GF$ (and hence $\bisimto_{\FGF}$-invariance implies $\bisimto_{\GF}$-invariance), we know that $\varphi$ is $\bisimto_{\GF}$-invariant (in the finite).
+Thus $\varphi$ is also $\bisimto_{\GF}^{\mathit{g}}$-invariant (in the finite) for certain threshold $\mathit{g} \in \N$ provided by~\cref{thm:vanBenthem-for-GF}.
+We aim to show that $\varphi$ is $\bisimto_{\FGF}^{\homop(\mathit{g})}$-invariant (in the finite).
+To do so, let $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ be $\homop(\mathit{g})$-$\FGF$-bisimilar pointed structures, and suppose that $(\str{A}, \elemtuplea) \models \varphi$. It remains to show that $(\str{B}, \elemtupleb) \models \varphi$.
+From~\cref{thm:main-technical-thm} we infer the existence of $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$, that are finite if $\str{A}$ and $\str{B}$ are, for which $(\str{A}', \elemtuplea') \bisimto^{\mathit{g}}_{\GF} (\str{B}', \elemtupleb')$ holds.
+The following diagram depicts what will happen next.
+\begin{figure}[H]
+  \centering
+  \usebox{\diagupgrading}
   % \caption{Upgrading $\bisimto_{\FGF}^{\ell}$-bisimulation to $\bisimto_{\GF}^{\mathit{g}}$-bisimulation.}
-  \label{fig:fgf-to-gf-upgrade}
 \end{figure}
 
 It is now clear that: 
