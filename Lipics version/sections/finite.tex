@@ -33,7 +33,7 @@ It follows that there are only finitely many $e$ with $e \in \mathcal{T}_{r,\ell
 \end{proof}
 Now consider the set $\mathcal{S}$ of trees with $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}:\, \seq{r}\ \text{has length at most $\ell$}\right\}$.
 An element $b$ is called a \emph{cut element} of a tree $\mathcal{T} \in \mathcal{S}$ if it itself is not in $\mathcal{T}$ but $(a,b) \in \relNext$ for some $a$ in $\mathcal{T}$.
-Intuitively, the cut elements are elements $e$ where the length of $\seq{e}$ is $2 * \ell + 1$ (so $e$ is not in $\mathcal{T}$) and $\ctr{e}$ is minimal (so there is a $\relNext$-edge from some element $\mathcal{T}$).
+Intuitively, the cut elements are elements $e$ where the length of $\seq{e}$ is $2 * \ell + 1$ (so $e$ is not in $\mathcal{T}$) and $\ctr{e}$ is minimal (so there is a $\relNext$-edge from some element in $\mathcal{T}$).
 The set of all cut elements for trees in $\mathcal{S}$ is finite, because $\mathcal{S}$ is finite and the cut elements of a tree $\mathcal{T}_{r,\ell} \in \mathcal{S}$ are contained in $\mathcal{T}_{r,\ell+1}$ which is finite by \cref{lem:bounded-trees-are-finite}.
 Enumerate all cut elements of trees in $\mathcal{S}$ with indices from $1, \ldots, M$, where $M$ is the number of cut elements.
 The domain of the structure $\unravel{A}_{\ell}$ consists of $M$ copies of each tree in $\mathcal{S}$.
@@ -56,9 +56,9 @@ The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following l
 \end{lemma}
 \begin{proofsketch}
   By contradiction: if $D_{a,\ell}$ is not a tree, then some element $e \in D_{a,\ell}$ has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
-  Moreover, $p_{1}$ and $p_{2}$ must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2},\ell}$ of the structure $\unravel{A}_{\ell}$ and have sequences of length $2 * \ell$.
+  In this case, $p_{1}$ and $p_{2}$ must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2},\ell}$ of the structure $\unravel{A}_{\ell}$ and have sequences of length $2 * \ell$.
   Now, at least one of $p_{1}$ or $p_{2}$ must be in a different subtree than $a$.
-  However, then the shortest next-chain from $a$ to that element must traverse the full subtree $\mathcal{T}_{r_{1},\ell}$ or $\mathcal{T}_{r_{2},\ell}$, which requires at least a next-chain of length $\ell + 1$ (at least one next transition to enter the tree, $\ell$ next transitions to reach a leaf with sequence length $2 * \ell$).
+  The shortest next-chain ending at that element and starting from $a$ must traverse the full subtree $\mathcal{T}_{r_{1},\ell}$ or $\mathcal{T}_{r_{2},\ell}$, which requires at least a next-chain of length $\ell + 1$ (at least one next transition to enter the tree, $\ell$ next transitions to reach a leaf with sequence length $2 * \ell$).
   Hence the element cannot be in $D_{a,\ell}$, a contradiction.
 \end{proofsketch}
 \begin{proof}
@@ -102,7 +102,7 @@ It follows from equality of atomic-$\FGF$-types that $\mu_{(\elemtuptuplea, \ele
 Since the argument is symmetric, we conclude that elements of $\elemtuptuplea$ and $\elemtuptupleb$ satisfy the same relations so $\mu_{(\elemtuptuplea, \elemtuptupleb)}$ is an isomorphism and $\elemtuptuplea \simeq \elemtuptupleb$.
 \end{proof}
 
-Our main goal for the remainder of this section is to show that $\unravel{A}_{\ell} \bisimto_{\GF}^{n} \unravel{B}_{\ell}$, given that $\str{A} \bisimto_{\FGF}^{m} \str{B}$ for some $m$ and $\ell$ that depends only on $n$.
+Our main goal for the remainder of this section is to show that $\unravel{A}_{\ell} \bisimto_{\GF}^{n} \unravel{B}_{\ell}$, given that $\str{A} \bisimto_{\FGF}^{m} \str{B}$ for some $m$ and $\ell$ which depend only on $n$.
 For this proof, we first introduce the notion of $z$-\emph{similar} elements, which is a relation between elements from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
 We later lift this relation to tuples to construct the $n$-$\GF$-bisimulation.
 Intuitively, the idea behind the notion of $z$-similarity is to put elements in relation which behave similar for up to $z$ transitions along $\relNext$-edges, in both forward and backward direction.
@@ -111,7 +111,7 @@ Let us first consider the simpler case of only achieving this property for child
 We say that elements $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-\emph{forward-similar} if $\ctr{a} = \ctr{b}$, $\seq{a} = \cdots \elemtuples$ and $\seq{b} = \cdots \elemtuplet$ for tuples $\elemtuples$ and $\elemtuplet$ that satisfy $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$.
 Note that $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$ is equivalent to $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$ by \cref{lem:FGF-bisimulations-work-well}.
 If we have such $z$-forward-similar elements $a$ and $b$ and $c \in \unraveldom{A}_{\ell}$ is a child of $a$, then by definition of $\relNext_{\ell}$ there are two possible situations: either (\romannumeral1) $c$ has the same sequence as $a$ but an incremented counter, or (\romannumeral2) $c$ adds a move to the sequence of $a$ (possibly removing elements from the beginning of the sequence if the result is too long).
-In both cases, we can find a child $b$ that $(z-1)$-forward-similar to $c$: in case (\romannumeral1) we simply increment the counter of $b$, whereas in case (\romannumeral2) we employ~\ref{bisim:fforth} to find a move in $\str{B}$ that we can add to the end of the sequence of $b$ to obtain a child $d$ of $b$ so that the (new) last tuples of $\seq{c}$ and $\seq{d}$ have equal $\FGF_{z-1}$-types.
+In both cases, we can find a child $b$ that is $(z-1)$-forward-similar to $c$: in case (\romannumeral1) we simply increment the counter of $b$, whereas in case (\romannumeral2) we employ~\ref{bisim:fforth} to find a move in $\str{B}$ that we can add to the end of the sequence of $b$ to obtain a child $d$ of $b$ so that the (new) last tuples of $\seq{c}$ and $\seq{d}$ have equal $\FGF_{z-1}$-types.
 
 We now consider the general case, including backward transitions.
 As we saw above, forward transitions along $\relNext$-edges extend the sequence of an element by adding moves to the end.
@@ -121,14 +121,17 @@ Instead, we need to consider the types of the last $z$ tuples.
 For this, we introduce the auxilliary notion of $z$-histories:
 \begin{definition}[$z$-history]
   Let $\str{A}$ be a structure and $\ell$ be a parameter.
-  The $z$-\emph{history} of an element $a \in \unraveldom{A}$ with $\seq{a} = \elemtuples^{(0)} \cdots (i^{n}, j^{n})\elemtuples^{n}$ for some $n \in \N$, tuples $\elemtuples^{(0)}, \ldots, \elemtuples^{(n)}$ and indices $i^{(1)}, \ldots, i^{(n)}$ and $j^{(1)}, \ldots, j^{(n)}$ is denoted by $\hist{z}{a}$ and defined as:
+  The $z$-\emph{history} of an element $a \in \unraveldom{A}_{\ell}$ with $\seq{a} = \elemtuples^{(0)} \cdots (i^{n}, j^{n})\elemtuples^{n}$ for some $n \in \N$, tuples $\elemtuples^{(0)}, \ldots, \elemtuples^{(n)}$ and indices $i^{(1)}, \ldots, i^{(n)}$ and $j^{(1)}, \ldots, j^{(n)}$ is denoted by $\hist{z}{a}$ and defined as:
   \begin{equation*}
-    \hist{z}{a} = \tp{\FGF_{z}}{\str{A}}{\elemtuples^{(n-h)}}(i^{(n-h+1)}, j^{(n-h+1)})\tp{\FGF_{z}}{\str{A}}{\elemtuples^{(n-h+1)}}\cdots(i^{n}, j^{n})\tp{\FGF_{z}}{\str{A}}{\elemtuples^{(n)}}
+    \hist{z}{a} = \tp{\FGF_{z}}{\str{A_{\ell}}}{\elemtuples^{(n-h)}}(i^{(n-h+1)}, j^{(n-h+1)})\tp{\FGF_{z}}{\str{A_{\ell}}}{\elemtuples^{(n-h+1)}}\cdots(i^{n}, j^{n})\tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(n)}}
   \end{equation*}
   where $h = \min(z, n)$. If $h < z$, then $\hist{z}{a}$ is called a \emph{short $z$-history}.
 \end{definition}
+Intuitively, we obtain the history of an element by replacing the individual tuples $\elemtuples^{(0)}, \elemtuples^{(1)}, \ldots$ in the bisimulation sequence with their $\FGF_{z}$-types $\tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(0)}}, \tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(1)}}, \ldots$ and truncating this sequence to only the last $z$ steps.
+In the case that the original sequence already has less than $z$ steps, then this truncation does nothing and we get a short $z$-history, also with less than $z$ steps.
 This definition is analogous to a construction used by Otto in the upgrading from global bisimulation to two-way global bisismulation for modal logic~\cite[Def. 39]{Otto04}.
-We define $z$-similar elements to be those elements which have equal $z$-histories and equal counters:
+Histories can be compared across unravelings of different structures, since they no longer refer to concrete elements from the base structure.
+For two unravelings $\str{A}_{\ell}$ and $\str{B}_{\ell}$ of different base structures $\str{A}$ and $\str{B}$, we define $z$-similar elements to be those elements which have equal $z$-histories and equal counters:
 \begin{definition}[$z$-similar elements]
  Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be domain elements, and $z$ be a natural number. Then $e$ and $f$ are $z$-similar, written $e \approx_{z} f$, if $\ctr{e} = \ctr{f}$ and $\hist{z}{e} = \hist{z}{f}$.
 \end{definition}
@@ -236,14 +239,14 @@ Since $a_{k} \approx_z b_{k}$, we know that $\elemtuples$ and $\elemtuplet$ have
 Observe that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.
 This follows from \cref{lem:projection-next} since $\elemtuptuplea$ and $\elemtuptupleb$ are live and thus must be next-chains.
 As $\ctr{a_{k}} = \ctr{b_{k}}$, both $\elemtuptuplea$ and $\elemtuptupleb$ project to infixes $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i\ldots{}j$ for $i = \ctr{a_{k}} - k$ and $j = \ctr{a_{k}}$.
-Hence, $\FGF$-types of $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ are also equal.
+Hence, atomic-$\FGF$-types of $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ are also equal.
 Now consider an infix $\elemtuptuplea_{x\ldots{}y}$ and the corresponding infix $\elemtuptupleb_{x\ldots{}y}$, for some indices $x$ and $y$.
 Our claim is that $\elemtuptuplea_{x\ldots{}y}$ and $\elemtuptupleb_{x\ldots{}y}$ are in the same relations.
 We prove this claim by examining the three conditions of the definition of relations in the unraveling in turn.
 We show that each condition is true for $\elemtuptuplea_{x\ldots{}y}$ if and only if it is true for $\elemtuptupleb_{x\ldots{}y}$.
 Let $\relR$ be any relational symbol. Then:
 \begin{enumerate}
-  \item $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ have equal $\FGF$-types,
+  \item $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ have equal atomic-$\FGF$-types,
   \item $\elemtuptuplea_{x\ldots{}y}$ is a next-chain if and only if $\elemtuptupleb_{x\ldots{}y}$ is a next-chain, because both infixes are always next-chains since $\elemtuptuplea$ and $\elemtuptupleb$ are next-chains as they are live,
   \item $|\elemtuptuplea_{x\ldots{}y}| \le \mathtt{bound}(\elemtuptuplea_{x\ldots{}y})$ if and only if $|\elemtuptupleb_{x\ldots{}y}| \le \mathtt{bound}(\elemtuptupleb_{x\ldots{}y})$ because $|\elemtuptuplea_{x\ldots{}y}| = |\elemtuptupleb_{x\ldots{}y}| = y-x+1$ and $\mathtt{bound}(\elemtuptuplea_{x\ldots{}y}) = \mathtt{bound}(\elemtuptupleb_{x\ldots{}y})$ since $\ctr{a_{j}} = \ctr{b_{j}}$ follows from $a_{j} \approx_{z} b_{j}$.
 \end{enumerate}
