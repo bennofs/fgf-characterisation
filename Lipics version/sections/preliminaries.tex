@@ -12,23 +12,23 @@ A quick reference of all notation used in this paper is given in \cref{fig:notat
     notation & meaning & introduced in \\
     \hline
     $\str{A}$, $\str{B}$, \ldots & structures with domains $A$, $B$, \ldots & \cref{sec:preliminaries} \\
-    $\Sigma$ & the signature of all structures in this paper & \cref{sec:preliminaries} \\
-    $\arity(\Sigma)$ & the maximum arity of any relation in $\Sigma$, also known as width & \cref{sec:preliminaries} \\
+    $\Sigma$ & the signature of all structures in this paper (purely relational) & \cref{sec:preliminaries} \\
+    $\arity(\Sigma)$ & the maximum arity among all predicates in $\Sigma$ (width of $\Sigma$) & \cref{sec:preliminaries} \\
     $\elemtuplea, \elemtupleb$, \ldots & tuples of elements & \cref{sec:preliminaries} \\
-    $\elemtuptuplea, \elemtuptupleb$, \ldots & tuples of unraveling elements (tuples of tuples) & \cref{sec:preliminaries} \\
-    $f[\elemtuplea]$ & function $f$ applied to $\elemtuplea$ componentwise, i.e.\ $(f(a_{1}), \ldots, f(a_{n}))$ & \cref{sec:preliminaries} \\
+    $\elemtuptuplea, \elemtuptupleb$, \ldots & tuples of tuples / tuples of elements from unravelings & \cref{sec:preliminaries} \\
+    $f[\elemtuplea]$ & componentwise-image of $f$ on $\elemtuplea$, i.e.\ $(f(a_{1}), \ldots, f(a_{n}))$ & \cref{sec:preliminaries} \\
     $\tp{\logicL}{\str{A}}{\elemtuplea}$ & $\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$ (all $\logicL[\sigma]$-formulaes satisfied by $\elemtuplea$) & \cref{sec:preliminaries} \\
     $\atp{\logicL}{\str{A}}{\elemtuplea}$ & atomic-$\logicL[\sigma]$-type of $\elemtuplea$ in $\str{A}$ & \cref{sec:preliminaries} \\
     $\logicL_{\ell}$ & logic $\logicL$ restricted to formulae with quantifier rank at most $\ell$ & \cref{sec:preliminaries} \\
-    $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ & a $\FGF$-bisimulation between $\str{A}$ and $\str{B}$ exists containing $(\elemtuplea, \elemtupleb)$ & \cref{sec:preliminaries} \\
-    $\str{A}, \elemtuplea \bisimto_{\FGF}^{\ell} \str{B}, \elemtupleb$ & a $\ell$-$\FGF$-bisimulation between $\str{A}$ and $\str{B}$ exists containing $(\elemtuplea, \elemtupleb)$ & \cref{sec:preliminaries} \\
+    $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ & an $\FGF$-bisimulation containing $(\elemtuplea, \elemtupleb)$ exists between $\str{A}$ and $\str{B}$ & \cref{sec:preliminaries} \\
+    $\str{A}, \elemtuplea \bisimto_{\FGF}^{\ell} \str{B}, \elemtupleb$ & an $\ell$-$\FGF$-bisimulation containing $(\elemtuplea, \elemtupleb)$ exists between $\str{A}$ and $\str{B}$ & \cref{sec:preliminaries} \\
     $\unravel{A}$ & the (possibly infinite) tree unraveling of $\str{A}$ & \cref{sec:unraveling} \\
     $\unravel{A}_{\ell}$ & the finite unraveling of $\str{A}$ for threshold $\ell$ & \cref{sec:finite} \\
-    $\relNext$ & the parent-child relation for the tree unraveling & \cref{sec:unraveling} \\
+    $\relNext$ & the parent-child relation in the tree unraveling & \cref{sec:unraveling} \\
     $\relNext_{\ell}$ & finitary variant of $\relNext$, used for defining $\unravel{A}_{\ell}$ & \cref{sec:finite} \\
     $\seq{a}$ & sequence part of an unraveling element, i.e.\ $\sigma$ for $a = (\sigma, k)$ & \cref{sec:unraveling} \\
     $\ctr{a}$ & counter part of an unraveling element, i.e.\ $k$ for $a = (\sigma, k)$ & \cref{sec:unraveling} \\
-    $\mathtt{bound}(\elemtuptuplea)$ & counter of the last component of $\elemtuplea$, i.e.\ $\ctr{a_{|\elemtuptuplea|}}$ & \cref{sec:unraveling} \\
+    $\bound{\elemtuptuplea}$ & counter of the last component of $\elemtuptuplea$, i.e.\ $\ctr{a_{|\elemtuptuplea|}}$ & \cref{sec:unraveling} \\
   \end{tabularx}
   \egroup
   \caption{Overview of relevant notation. Some of these are only introduced later in this paper.}\label{fig:notation-quickref}
@@ -52,19 +52,19 @@ The $0$-tuple is denoted with~$\emptytupl$.
 We use $\vartuplexfromto{i}{j}$ to denote the $(j{-}i{+}1)$-tuple $\varx_i, \varx_{i+1}, \ldots, \varx_j$.
 We say that $\vartuplexfromto{i}{j}$ is an infix of a tuple $\vartuplexfromto{k}{l}$ if $k \leq i \leq j \leq l$ holds.
 We use the notation ``$\cdots e$'' for a tuple where the last element is equal to $e$ and preceding elements are not important.
-For a function $f$ and tuple $\elemtuplea_{1\ldots\ell}$, we write $f[\elemtuplea]$ for the tuple $(f(a_{1}), \ldots, f(a_{\ell}))$.
+For a function $f$ and tuple $\elemtuplea_{1\ldots\ell}$, we write $f[\elemtuplea_{1\ldots\ell}]$ for the tuple $(f(a_{1}), \ldots, f(a_{\ell}))$.
 To improve readability, tuples of tuples are denoted by arrows, for instance with $\elemtuptuplea$.
 For a set $S$, we write $\vartuplex \sqin S$ iff $\varx_i \in S$ for all indices $1 \leq i \leq |\vartuplex|$, where $|\vartuplex|$ denotes the length of~$\vartuplex$. 
-We say that a tuple $\elemtuplea \sqin A$ is \emph{live} in $\str{A}$ if $|\elemtuplea| \leq 1$ or~$\elemtuplea \in \relR^{\str{A}}$ for some~$\relR \in \Sigma$.\\
+We say that a tuple $\elemtuplea \sqin A$ is \emph{live} in $\str{A}$ if $|\elemtuplea| \leq 1$ or~$\elemtuplea \in \relR^{\str{A}}$ for some predicate~$\relR \in \Sigma$.\\
 
 \noindent \textbf{Types and logical equivalence.}
 Fix a logic $\logicL$ and a finite signature~$\sigma \subseteq \R$. 
 We~employ~$\logicL[\sigma]$ in place of~$\{ \varphi \in \logicL \colon\,  \sig(\varphi) \subseteq \sigma \}$.
 Since all structures and formulae throughout this paper use a fixed signature $\Sigma$, we omit the signature from now on and write just $\logicL$ instead of $\logicL[\Sigma]$.
-Moreover, we use $\logicL_\ell$ to denote the restriction of $\logicL$ to formulae of quantifier rank (i.e.\ the maximal number of nested quantifiers) at most~$\ell$.
+Moreover, we use $\logicL_\ell$ to denote the restriction of $\logicL$ to formulae of \emph{quantifier rank} (i.e.\ the maximal number of nested quantifiers) at most~$\ell$.
 %
-The $\logicL$-type of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL}{\str{A}}{\elemtuplea}$, consists of all $\logicL$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
-If we restrict the type to only atomic and negated atomic $\logicL$-formulae, we obtain the the atomic-$\logicL$-type of $\elemtuplea$ in $\str{a}$, denoted with~$\atp{\logicL}{\str{A}}{\elemtuplea}$.
+The \emph{$\logicL$-type} of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL}{\str{A}}{\elemtuplea}$, consists of all $\logicL$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
+If we restrict the type to only atomic and negated atomic $\logicL$-formulae, we obtain the \emph{atomic-$\logicL$-type} of $\elemtuplea$ in $\str{A}$, denoted with~$\atp{\logicL}{\str{A}}{\elemtuplea}$.
 The atomic-$\logicL$-type of $\elemtuplea$ is logically equivalent to the $\logicL_{0}$-type of $\elemtuplea$ in $\str{A}$.
 We write $\str{A} \equiv_\logicL \str{B}$ if $\str{A}$ and~$\str{B}$ satisfy the same $\logicL$-sentences.
 For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ with $n$-tuples $\elemtuplea$ and~$\elemtupleb$ we employ the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to indicate that for all $\varphi \in \logicL$ with free variables contained in the set $\{ \varx_1, \ldots, \varx_n \}$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$ (here variables $\varx_i$ are substituted, respectively, for $\elema_i$ and $b_i$).\\
@@ -78,7 +78,7 @@ Formally $\GF$ is the smallest fragment of $\FO$  such that:
     \item If $\varphi(\vartuplex, \vartupley)$ is in $\GF$, $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$, and $\vartupley$ is a tuple of variables then both $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are in $\GF$; 
     \item If $\varphi(\varx)$ has only a single free-variable $\varx$, then $\forall{\varx}\; \varphi(\varx)$ and $\exists{\varx}\; \varphi(\varx)$ are in $\GF$.
 \end{itemize}
-The predicates $\relA$ appearing in the 3rd item of the above definition are called \emph{guard}.
+The predicates $\alpha$ appearing in the 3rd item of the above definition are called \emph{guard} for $\varphi$.
 We stress that in definition of a quantifier rank for $\GF$ we treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as a single quantifier (not as an abbreviation for a block of quantifiers).
 
 \begin{example}
@@ -109,14 +109,14 @@ The latter formula is not even in $\GF$ as the sequence $x_{1}, x_{2}$ is not gu
 We next present notion of bisimulation relations tailored towards $\GF$ and $\FGF$, based on presentations from~\cite[Sec. 2.2.3]{Otto04} and~\cite[Sec. 2]{BednarczykJ22}.
 
 For structures $\str{A}$ and $\str{B}$ we denote with $\PartIso{\str{A}}{\str{B}}$ the set of all partial isomorphisms between $\str{A}$ and $\str{B}$.
-For non-empty $\bisimZ, \bisimZ' \subseteq \PartIso{\str{A}}{\str{B}}$ we say that $\bisimZ'$ satisfies back-and-forth conditions for $\bisimZ$ if for every partial isomorphism $\partisof \in \bisimZ$ we have:
+For non-empty $\bisimY, \bisimZ \subseteq \PartIso{\str{A}}{\str{B}}$ we say that $\bisimZ$ satisfies back-and-forth conditions for $\bisimY$ if for every partial isomorphism $\partisof \in \bisimY$ we have:
 %
 \begin{description}\itemsep0em
-  \item[\desclabel{(Forth)}{bisim:forth}] For every live $\elemtuplea$ in $\str{A}$, there is $\partisog \in \bisimZ'$ with the domain $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common domain.
-  \item[\desclabel{(Back)}{bisim:back}] For every live $\elemtupleb$ in $\str{B}$, there is $\partisog \in \bisimZ'$ with the image $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common image.
+  \item[\desclabel{(Forth)}{bisim:forth}] For every live $\elemtuplea$ in $\str{A}$, there is $\partisog \in \bisimZ$ with the domain $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common domain.
+  \item[\desclabel{(Back)}{bisim:back}] For every live $\elemtupleb$ in $\str{B}$, there is $\partisog \in \bisimZ$ with the image $\set(\elemtuplea)$ such that $\partisof$ and $\partisog$ agree on their common image.
 \end{description}
 A non-empty set $\bisimZ \subseteq \PartIso{\str{A}}{\str{B}}$ is a $\GF$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies \ref{bisim:forth} and~\ref{bisim:back} conditions given above.
-An $\ell$-$\GF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of partial isomorphisms\bfside{shouldn't this say ``sets of partial isomorphisms?''} from $\PartIso{\str{A}}{\str{B}}$ mapping live tuples to live tuples such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:forth} and~\ref{bisim:back} conditions for $\bisimZ_{i{+}1}$.
+An $\ell$-$\GF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence of sets $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell \subseteq \PartIso{\str{A}}{\str{B}}$ such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:forth} and~\ref{bisim:back} conditions for $\bisimZ_{i{+}1}$.
 We say that pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ are $\GF$-\emph{bisimilar}, denoted $(\str{A}, \elemtuplea) \bisimto_{\GF} (\str{B}, \elemtupleb)$, if there exists a $\GF$-bisimulation between $\str{A}$ and $\str{B}$ containing the partial isomorphism that maps $\elemtuplea$ to $\elemtupleb$.
 We analogously speak about $\ell$-$\GF$-\emph{bisimilarity} and employ the notation $(\str{A}, \elemtuplea) \bisimto_{\GF}^{\ell} (\str{B}, \elemtupleb)$.
 We use the notation $\elemtuplea \bisimto_{\GF} \elemtupleb$ or $\elemtuplea \bisimto_{\GF}^{\ell} \elemtupleb$ if the structures $\str{A}$ and $\str{B}$ are clear from the context.
@@ -133,16 +133,16 @@ Moreover, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$.
 
 The following example presents $\GF$-bisimilar structures that can be distinguished by a first-order formula.
 \begin{example}
-  Consider an $\FO[\{\relE\}]$-formula $\phi \deff \exists{x_{1}, x_{2}, x_{3}}(\relE(x_{1}, x_{2}) \land \relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$, and structures $\str{A}$, and $\str{B}$ depicted below. 
+  Consider an $\FO[\{\relE\}]$-formula $\varphi \deff \exists{x_{1}, x_{2}, x_{3}}(\relE(x_{1}, x_{2}) \land \relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$, and structures $\str{A}$, and $\str{B}$ depicted below.
   \begin{figure}[H]
   \centering
   \begin{tikzpicture}[every node/.style={draw,circle}, baseline=(current bounding box.north)]
     \begin{scope}[xshift=-70]
     \node[draw=none, font=\Large] {$\str{A}$};
     \path[->]
-      (1,-1) node(n1) {}
-      (0,1) node(n2) {}
-      (-1,-1) node(n3) {}
+      (0,1) node(n1) {1}
+      (-1,-1) node(n2) {2}
+      (1,-1) node(n3) {3}
       (n1) edge (n2)
       (n2) edge (n3)
       (n3) edge (n1);
@@ -153,10 +153,10 @@ The following example presents $\GF$-bisimilar structures that can be distinguis
     \begin{scope}[xshift=70]
     \node[draw=none, font=\Large] {$\str{B}$};
     \path[->]
-      (1,-1) node(n1) {}
-      (1,1) node(n2) {}
-      (-1,1) node(n3) {}
-      (-1,-1) node(n4) {}
+      (-1,1) node(n1) {a}
+      (-1,-1) node(n2) {b}
+      (1,-1) node(n3) {c}
+      (1,1) node(n4) {d}
       (n1) edge (n2)
       (n2) edge (n3)
       (n3) edge (n4)
@@ -164,7 +164,12 @@ The following example presents $\GF$-bisimilar structures that can be distinguis
     \end{scope}
   \end{tikzpicture}
   \end{figure}
-  By design we clearly have $\str{A}\models \phi$ and $\str{B} \not\models \phi$. On the other hand, $\str{A}$ and $\str{B}$ are $\GF$-bisimilar.
+  By design we clearly have $\str{A}\models \varphi$ and $\str{B} \not\models \varphi$. On the other hand, $\str{A}$ and $\str{B}$ are $\GF$-bisimilar, witnessed by the bisimulation $\bisimZ$ consisting of the partial isomorphisms:
+  \begin{itemize}
+    \item $s_{1} \mapsto t_{1}$ for every $s_{1} \in \{1,2,3\}$ and $t_{1} \in \{a,b,c,d\}$, and
+    \item $s_{1}s_{2} \mapsto t_{1}t_{2}$ for every $s_{1}s_{2} \in \{12,23,31\}$ and $t_{1}t_{2} \in \{ab,bc,cd,da\}$
+  \end{itemize}
+  where $s_{1}s_{2} \mapsto t_{1}t_{2}$ denotes the partial isomorphism mapping the element $s_{1}$ to $t_{1}$ and the element $s_{2}$ to $t_{2}$.
 \end{example}
 
 \noindent
@@ -183,7 +188,7 @@ If $\bisimZ, \bisimZ'$ are systems of forward partial maps between $\str{A}$ and
 A system of forward partial maps $\bisimZ$ between $\str{A}$ and $\str{B}$ is a $\FGF$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies the above conditions.
 An $\ell$-$\FGF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of systems of forward partial maps between $\str{A}$ and $\str{B}$ such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:fforth} and~\ref{bisim:fback} conditions for $\bisimZ_{i{+}1}$.
 We speak about $\FGF$-\emph{bisimilar} and $\ell$-$\FGF$-\emph{bisimilar} (pointed) structures in total analogy to the guarded-fragment case.
-Because the back-and-forth conditions allow for choosing an empty infix, $\ell$-$\FGF$-bisimulations are not limited to the local neighbourhood of some tuple.
+We stress that the back-and-forth conditions allow for choosing an empty infix, so $\ell$-$\FGF$-bisimulations are not limited to the local neighbourhood of some tuple.
 Instead, even for $\ell = 1$, every guarded tuple must be mapped to a tuple in the other structure.
 
 A ``forward'' counterpart of \cref{lemma:GF-bisimulations-work-well} is presented below.
@@ -197,54 +202,56 @@ Moreover, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$.
 \end{lemma}
 \begin{proofsketch}
   A proof for condition \textbf{(a)} is provided in~\cite[Lemma 3]{BednarczykJ22}.
-  The proof for condition \textbf{(b)} uses the same ideas as the proof for \textbf{(a)}:
+  The proof for condition \textbf{(b)} uses the same ideas as the proof for \textbf{(a)}.
   \begin{itemize}
     \item
-          for the ``if'' direction, we perform induction over $\ell$ and use~\ref{bisim:fforth} to obtain a witness in $\str{B}$ for every existential quantifier that has a witness in $\str{A}$ (by properties of $\models$, it suffixes to consider existential quantifiers as $\forall\vartuplex\ \cdots \iff \lnot \exists \vartuplex\ \cdots$).
+          For the ``if'' direction, we perform induction over $\ell$ and use~\ref{bisim:fforth} to obtain a witness in $\str{B}$ for every existential quantifier that has a witness in $\str{A}$ (by properties of $\models$, it suffixes to consider existential quantifiers as $\forall\vartuplex\ \cdots \iff \lnot \exists \vartuplex\ \cdots$).
     \item
-          for the opposite direction, we show that the set of pairs of tuples from $\str{A}$ and $\str{B}$ with the same $\FGF_{\ell}$-type is a $\ell$-$\FGF$-bisimulation.
-          Let $c \in \str{A}$ and $d \in \str{B}$ be live tuples with equal $\FGF_{\ell}$-types.
+          For the opposite direction, we show that the set of pairs of tuples from $\str{A}$ and $\str{B}$ with the same $\FGF_{\ell}$-type is a $\ell$-$\FGF$-bisimulation.
+          Let $\elemtuplec \sqin A$ and $\elemtupled \sqin B$ be live tuples with equal $\FGF_{\ell}$-types.
           Consider any tuple $\elemtuplee$ extending an infix $\elemtuplecfromto{i}{j}$ to a new live tuple $\elemtuplecfromto{i}{j}\elemtuplee$.
           Let $\Gamma$ be the $\FGF_{k-1}$-type of $\elemtuplee$ with regards to $\elemtuplecfromto{i}{j}$.
-          Because of $\omega$-saturation, this type is realized in $\str{B}$ if every finite subset of it is realized.
-          For every finite subset, we can construct a $\FGF_{k}$-formula that asserts the existence of a witness realizing this finite $\FGF_{k-1}$-type.
+          Because of $\omega$-saturation, this type is realized in $\str{B}$ if every of its finite subsets is realized.
+          For every finite subset of $\Gamma$, we can construct an $\FGF_{k}$-formula that asserts the existence of a witness realizing this finite $\FGF_{k-1}$-type.
           Hence by $k$-$\FGF$-equivalence, there exists a tuple $\elemtuplef$ that extends $\elemtupledfromto{i}{j}$ and same $\FGF_{k-1}$-type.
-          Therefore, the set of pairs of tuples with equal $\FGF_{\ell}$-types is a $\ell$-$\FGF$-bisimulation, satisfying the theorem.
+          Therefore, the set of pairs of tuples with equal $\FGF_{\ell}$-types is an $\ell$-$\FGF$-bisimulation, satisfying the theorem.
   \end{itemize}
 \end{proofsketch}
 \input{proofs/FGF-bisimulations-work-well}
 
 The following example presents two structures that are $\FGF$-bisimilar but not $\GF$-bisimilar.
-\begin{example} 
-Consider a binary predicate $\relE$.
-Let $\str{A}$ be a single-element, in which all $\relE$ is interpreted as the full relation, and let $\str{B}$ be an $\relE$-cycle of length two. These two structures are $\FGF[\{\relE\}]$-bisimilar, while a $\GF$-sentence $\exists{\varx_1}\relE(\varx_1,\varx_1)$ can distinguish them.
+\begin{example}
+  Consider the two structures $\str{A} := \tikz[baseline=-0.5ex]{\path[->] (0,0) node[draw,circle] (n1) {} (n1) edge[loop above,in=70,out=110,looseness=10] (n1);}$ and $\str{B} := \tikz[baseline=-0.5ex]{\path[->] (0,0) node (n1) [draw,circle] {} (3em,0) node (n2) [draw,circle] {} (n1) edge[bend left] (n2) (n2) edge[bend left] (n1);}$ with a binary predicate $\relE$ interpreted as edges. These two structures are $\FGF[\{\relE\}]$-bisimilar, while a $\GF$-sentence $\exists{\varx_1}\relE(\varx_1,\varx_1)$ can distinguish them.
+
 \end{example}
 
-Both $GF$-bisimulation and $\FGF$-bisimulation naturally correspond to games~\cite[Sec. 1.2.1]{Gradel014}.
+Both $\GF$-bisimulation and $\FGF$-bisimulation naturally correspond to games~\cite[Sec. 1.2.1]{Gradel014}.
 We focus on the the game corresponding to $\FGF$-bisimulation here.
-The $\FGF$-\emph{bisimulation game} is played on two pointed structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$ by two players, Spoiler and Duplicator.
-The game starts by selecting the tuples $\elemtuplea$ and $\elemtupleb$ from each structure.
-The game is played in rounds.
+The $\FGF$-\emph{bisimulation game} is played on two pointed structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ by two players, Spoiler and Duplicator.
+The game starts by selecting the tuples $\elemtuplea$ and $\elemtupleb$ from the corresponding structures.
+Throughout the game, Duplicator must maintain the condition that the two currently selected tuples have equal atomic-$\FGF$-types.
+If $\elemtuplea$ and $\elemtupleb$ already do not have the same atomic $\FGF$-type, then Duplicator loses instantly.
+Otherwise, the game proceeds in rounds.
 In each round, Spoiler first chooses a structure.
-The game is symmetric, so let us assume that spoiler chooses the structure $\str{A}$.
+As the game is symmetric, let us assume that spoiler chooses the structure $\str{A}$.
 Spoiler then selects an infix $\elemtupleafromto{i}{j}$ of the currently selected tuple and a new live tuple $\elemtuplec$ which has $\elemtupleafromto{i}{j}$ as a prefix.
-We use the terms \emph{shared elements} for the prefix $\elemtuplecfromto{1}{j-i+1}$ and \emph{unshared elements} for the remaining elements $\elemtuplecfromto{j-i+1+1}{|\elemtuplec|}$.
-Duplicator must then find a live tuple $\elemtupled$ in $\str{B}$ with $\elemtuplebfromto{i}{j}$ as prefix such that $\elemtuplec$ and $\elemtupled$ have equal $\FGF$-types.
-Note that Spoiler may choose a $j$ that is not maximal, so it is possible that even $a_{j+1} = c_{j-i+1+1}$.
+For convenience, we use the terms \emph{shared elements} for the prefix $\elemtuplecfromto{1}{j-i+1}$ and \emph{unshared elements} for the remaining elements, namely $\elemtuplecfromto{j-i+1+1}{|\elemtuplec|}$.
+Duplicator, in order to continue the game, must then find a live tuple $\elemtupled$ in $\str{B}$ having $\elemtuplebfromto{i}{j}$ as prefix such that $\elemtuplec$ and $\elemtupled$ have equal $\FGF$-types.
+Note that Spoiler may choose an index $j$ that is not maximal, so that the situation of $a_{j+1} = c_{j-i+1+1}$ is still possible.
 We still regard $c_{j-i+1+1}$ as an unshared element, since Duplicator is allowed to pick a tuple $\elemtupled$ where $b_{j+1} \neq d_{j-i+1+1}$.
 The game then continues with the next round, with $\elemtuplec$ and $\elemtupled$ as the new starting tuples.
-Spoiler wins the game if Duplicator is unable to find matching tuples.
-Duplicator wins if he can always find a matching tuple.
-It is easy to see that the possible moves of Spoiler are equivalent to the back-and-forth conditions for $\FGF$-bisimulation, as is also the case for the $\GF$-game~\cite[Sec.\ 3.2]{Gradel014}.
+Spoiler wins the game if Duplicator is unable to respond, i.e.\ to find suitable tuples.
+Duplicator wins otherwise.
+It is easy to see that the possible moves of Spoiler are analogous to the back-and-forth conditions for $\FGF$-bisimulation, as is also the case for the $\GF$-game~\cite[Sec.\ 3.2]{Gradel014}.
 To win, Duplicator must be able to respond to any move that Spoiler makes.
-A winning strategy for Duplicator thus corresponds to a $\FGF$-bisimulation between the two structures, and vice-versa.
-If we restrict the game to only $\ell$-rounds, where the winning condition for Duplicator is that Spoiler cannot win in the first $\ell$-rounds, then the game is equivalent (in the aforementioned sense) to the existence of a $\ell$-FGF-bisimulation between $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$.
-We collect these observations in the following lemma:
+A winning strategy for Duplicator thus corresponds to an $\FGF$-bisimulation between the two structures, and vice-versa.
+If we restrict the game to only $\ell$-rounds, where the winning condition for Duplicator is that Spoiler cannot win in the first $\ell$-rounds, then the game is equivalent (in the aforementioned sense) to the existence of an $\ell$-FGF-bisimulation between $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$.
+We collect these observations in the following corollary:
 
-\begin{lemma}
+\begin{corollary}
   In the $\FGF$-game played on structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$:
   \begin{itemize}
     \item Duplicator has as winning strategy if and only if $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$,
     \item Duplicator has a winning strategy for $\ell$ rounds if and only if $\str{A}, \elemtuplea \bisimto_{\FGF}^{\ell} \str{B}, \elemtupleb$.
   \end{itemize}
-\end{lemma}
+\end{corollary}

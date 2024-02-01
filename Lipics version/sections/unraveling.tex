@@ -202,15 +202,15 @@ A tuple of elements $(e_{1}, \ldots, e_{n})$ is a \emph{next-chain} if consecuti
 If the length $n$ of the next-chain is less than $\ctr{e_{n}}$, then we know by \cref{lem:projection-next} that the projection of the chain is $\elemtuplee_{(\ctr{e_{n}}-n+1)\ldots{}\ctr{e_{n}}}$, where $\elemtuples$ is the last tuple of $\seq{e_{n}}$.
 We define the tree unraveling such that relations are only realized by tuples which are next-chains.
 Additionally, we limit the length of the chain to be less than the counter of the last element of the tuple.
-For this, we define the \emph{bound} of a tuple to be equal to the counter of its last element.
-Formally, $\mathtt{bound}(\elemtuptupler) = \ctr{r_{|\elemtuptupler|}}$ for any tuple $\elemtuptupler$ from the domain of the unraveling.
+For any tuple $\elemtuptupler$ from the domain of the unraveling, define the \emph{bound} of $\elemtuptupler$ (denoted by $\bound{\elemtuptupler}$) to be equal to the counter of its last element.
+Formally, $\bound{\elemtuptupler} = \ctr{r_{|\elemtuptupler|}}$.
 Let $\str{A}, \elemtuplea$ be a structure and $\unraveldom{A}$ be the domain of the unraveling.
 Let $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
 The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ is the tree with root $(\elemtuplea, 1)$ and all descendants according to the relation $\relNext$.
 For relations $\relR \in \Sigma$, we let $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:\begin{enumerate}
   \item $\pi[\elemtuptupler] \in \relR^{\str{A}}$,
   \item $\bigwedge_{k=1}^{|\elemtuptupler|-1}{(\elemr_{k},\elemr_{k+1}) \in \relNext}$, and
-  \item $|\elemtuptupler| \le \mathtt{bound}(\elemtuptupler)$
+  \item $|\elemtuptupler| \le \bound{\elemtuptupler}$
 \end{enumerate}
 The second and third condition restrict live tuples to be next-chains with a length bounded by the counter of the last element of the tuple, as discussed before.
 
@@ -234,7 +234,7 @@ Note however that not all elements which project to related elements in the base
 Consider the tuples $\elemtuptuplea = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep, 3))$ and $\elemtuptupleb = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep(2,2)\elemtuplee, 2))$.
 These tuples have equal projections: $\pi(\elemtuptuplea) = \pi(\elemtuptupleb) = \elemtuplep$.
 But $\elemtuptuplea \in \relP^{\unravel{A}}$ while $\elemtuptupleb \notin \relP^{\unravel{A}}$.
-This is because $\mathtt{bound}(\elemtuptupleb) = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
+This is because $\bound{\elemtuptupleb} = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
 
 Intuitively, the unraveling $\unravel{E}$ can be seen as extending the structure $\str{E}$ with additional structure that $\GF$ can distinguish but $\FGF$ cannot.
 For example, we saw in \cref{fig:unravel-haf} that there is a $\FGF$-bisimilar structure to $\str{E}$ satsifying the $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$, which is not satisfied in $\str{E}$.
