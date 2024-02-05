@@ -79,7 +79,7 @@ Formally $\GF$ is the smallest fragment of $\FO$  such that:
     \item If $\varphi(\varx)$ has only a single free-variable $\varx$, then $\forall{\varx}\; \varphi(\varx)$ and $\exists{\varx}\; \varphi(\varx)$ are in $\GF$.
 \end{itemize}
 The predicates $\alpha$ appearing in the 3rd item of the above definition are called \emph{guard} for $\varphi$.
-We stress that in definition of a quantifier rank for $\GF$ we treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as a single quantifier (not as an abbreviation for a block of quantifiers).
+We~stress that in definition of a quantifier rank for $\GF$ we treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as a single quantifier (not as an abbreviation for a block of quantifiers).
 
 \begin{example}
 A formula $\exists{x_{1}x_{2}x_{3}}\; (\relR(x_{1}, x_{2}, x_{3}) \land \forall x_{4}(\relR(x_{4}, x_{4}, x_{1}) \to \relR(x_{1}, x_{4}, x_{1})))$ belongs to $\GF$, but the formula $\exists{x_{1}x_{2}x_{3}}\; (\relE(x_{1}, x_{2}) \land \relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$ does not.
@@ -179,6 +179,7 @@ A \emph{system of forward partial maps} between structures $\str{A}$ and $\str{B
 \begin{description}\itemsep0em
   \item[\desclabel{(AtomicEq)}{bisim:atomiceq}] For all $(\elemtuplea, \elemtupleb) \in \bisimZ$ we have that $\elemtuplea$, $\elemtupleb$ are live and $\atp{\FGF}{\str{A}}{\elemtuplea} = \atp{\FGF}{\str{B}}{\elemtupleb}$~holds.
 \end{description}
+For our fixed signature $\Sigma$, the infinite union $\bigcup_{i=1}^{\infty} (A^i \times B^i)$ in this definition may be replaced by the finite union $\bigcup_{i=1}^{\arity(\Sigma)} (A^i \times B^i)$, since live tuples cannot have more than $\arity(\Sigma)$ components.
 If $\bisimZ, \bisimZ'$ are systems of forward partial maps between $\str{A}$ and $\str{B}$, we say that $\bisimZ'$ satisfies back-and-forth conditions for $\bisimZ$ if for every $(\elemtuplea, \elemtupleb) \in \bisimZ$ the following conditions hold:
 \begin{description}\itemsep0em
   \item[\desclabel{(fForth)}{bisim:fforth}] For every (possibly empty) infix $\elemtuplecfromto{i}{j}$ of $\elemtuplec$ and a live tuple $\elemtuplee$ in $\str{A}$ such that $\elemtuplecfromto{i}{j} = \elemtupleefromto{1}{j{-}i{+}1}$ there is a live tuple $\elemtuplef$ with $\elemtupledfromto{i}{j} = \elemtupleffromto{1}{j{-}i{+}1}$ such that $(\elemtuplee, \elemtuplef) \in \bisimZ'$ holds.
@@ -187,7 +188,7 @@ If $\bisimZ, \bisimZ'$ are systems of forward partial maps between $\str{A}$ and
 \end{description}
 A system of forward partial maps $\bisimZ$ between $\str{A}$ and $\str{B}$ is a $\FGF$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies the above conditions.
 An $\ell$-$\FGF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of systems of forward partial maps between $\str{A}$ and $\str{B}$ such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:fforth} and~\ref{bisim:fback} conditions for $\bisimZ_{i{+}1}$.
-We speak about $\FGF$-\emph{bisimilar} and $\ell$-$\FGF$-\emph{bisimilar} (pointed) structures in total analogy to the guarded-fragment case.
+We~speak about $\FGF$-\emph{bisimilar} and $\ell$-$\FGF$-\emph{bisimilar} (pointed) structures in total analogy to the guarded-fragment case.
 We stress that the back-and-forth conditions allow for choosing an empty infix, so $\ell$-$\FGF$-bisimulations are not limited to the local neighbourhood of some tuple.
 Instead, even for $\ell = 1$, every guarded tuple must be mapped to a tuple in the other structure.
 

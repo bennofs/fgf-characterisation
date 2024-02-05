@@ -5,35 +5,35 @@ Let $\unravel{A}, \elemtuptuplea$ be a tree unraveling of a finite structure $\s
 We describe the finite unraveling $\unravel{A}_{\ell}, \elemtuptuplea_{\ell}$ which will be $\ell$-$\FGF$-bisimilar to $\unravel{A}, \elemtuptuplea$ (and also $\ell$-$\FGF$-bisimilar to $\str{A}, \elemtuplea$ by transitivity of bisimilarity).
 For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}_{r,\ell}(\unravel{A})$ as follows:
 \begin{equation*}
-  \mathcal{T}_{r,\ell}(\unravel{A}) = \left\{ e \in \unraveldom{A}:\, e\ \text{is a descendant of $r$ and the length of $\seq{e}$ is at most $2 * \ell$} \right\}.
+  \mathcal{T}_{r,\ell}(\unravel{A}) = \left\{ e \in \unraveldom{A}:\, e\ \text{is a descendant of $r$ and the level of $\seq{e}$ is at most $2 * \ell$} \right\}.
 \end{equation*}
 
 \noindent
 $\mathcal{T}_{r,\ell}$ is substructure of $\unravel{A}$.
 It is a tree with root $r$ because for every element $e \in \mathcal{T}_{r,\ell} \setminus \{r\}$, the parent of $e$ is also in $\mathcal{T}_{r,\ell}$.
-This is easy to see: if $p$ is the parent of $e$, then $p$ is a descendant of $r$ and $\seq{p}$ has a length lower or equal to the length of $\seq{e}$, so $p$ is in $\mathcal{T}_{r,\ell}$.
+This is easy to see: if $p$ is the parent of $e$, then $p$ is a descendant of $r$ and $\seq{p}$ has a level lower or equal to the level of $\seq{e}$, so $p$ is in $\mathcal{T}_{r,\ell}$.
 Furthermore, this tree is finite:
 \begin{lemma}\label{lem:bounded-trees-are-finite}
   If $\unravel{A}$ is the unraveling of a finite structure $\str{A}$, then $\mathcal{T}_{r,\ell}$ is finite for $\ell \in \N$ and $r \in \unraveldom{A}$.
 \end{lemma}
 \begin{proofsketch}
-  For a finite structure, there are only a finite number of live tuples and thus also a finite number of bisimulation sequences in this structure.
-  Hence, the number of elements where $\seq{e}$ has length at most $2 * \ell$ is also finite, so $\mathcal{T}_{r,\ell}$ is finite.
+  For a finite structure, there are only a finite number of live tuples and thus for any fixed $k$, there are only a finite number of $k$-bisimulation sequences in this structure.
+  Hence, the number of elements where the level of $\seq{e}$ is at most $2 * \ell$ is also finite, so $\mathcal{T}_{r,\ell}$ is finite.
 \end{proofsketch}
 \begin{proof}
 If $A$ is finite, then there only a finite number of live tuples in $A$.
-Recall that a bisimulation sequence of length $\ell$ is just a word in $A^*{(\N\N{}A^{*})}^{\ell}$, consisting of live tuples from $A^{*}$ and indices into those tuples from $\N\N$.
+Recall that a $\ell$-bisimulation sequence is just a word in $A^*{(\N\N{}A^{*})}^{\ell}$, consisting of live tuples from $A^{*}$ and indices into those tuples from $\N\N$.
 Let $W$ be the maximum size of a live tuple.
 Then an index into a live tuple must be in the range $[1,W]$, which is finite, so the set of possible indices is finite.
-Thus there are only a finite number of bisimulation sequences with length $\ell$, since both the set of live tuples and the set of indices is finite.
-If $e \in \mathcal{T}_{r,\ell}$ with $\seq{e} = \sigma$, then the length of $\sigma$ is at most $2 * \ell$.
+Thus there are only a finite number of $\ell$-bisimulation sequences, since both the set of live tuples and the set of indices is finite.
+If $e \in \mathcal{T}_{r,\ell}$ with $\seq{e} = \sigma$, then the level of $\sigma$ is at most $2 * \ell$.
 Thus, there are only a finite number of choices for $\sigma$.
 For every $\sigma$, there are only a finite number of elements $e \in \unraveldom{A}$ with $\seq{e} = \sigma$.
 It follows that there are only finitely many $e$ with $e \in \mathcal{T}_{r,\ell}$, so $\mathcal{T}_{r,\ell}$ is finite.
 \end{proof}
-Now consider the set $\mathcal{S}$ of trees with $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}:\, \seq{r}\ \text{has length at most $\ell$}\right\}$.
+Now consider the set $\mathcal{S}$ of trees with $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}:\, \seq{r}\ \text{has level at most $\ell$}\right\}$.
 An element $b$ is called a \emph{cut element} of a tree $\mathcal{T} \in \mathcal{S}$ if it itself is not in $\mathcal{T}$ but $(a,b) \in \relNext$ for some $a$ in $\mathcal{T}$.
-Intuitively, the cut elements are elements $e$ where the length of $\seq{e}$ is $2 * \ell + 1$ (so $e$ is not in $\mathcal{T}$) and $\ctr{e}$ is minimal (so there is a $\relNext$-edge from some element in $\mathcal{T}$).
+Intuitively, the cut elements are elements $e$ where the level of $\seq{e}$ is $2 * \ell + 1$ (so $e$ is not in $\mathcal{T}$) and $\ctr{e}$ is minimal (so there is a $\relNext$-edge from some element in $\mathcal{T}$).
 The set of all cut elements for trees in $\mathcal{S}$ is finite, because $\mathcal{S}$ is finite and the cut elements of a tree $\mathcal{T}_{r,\ell} \in \mathcal{S}$ are contained in $\mathcal{T}_{r,\ell+1}$ which is finite by \cref{lem:bounded-trees-are-finite}.
 Enumerate all cut elements of trees in $\mathcal{S}$ with indices from $1, \ldots, M$, where $M$ is the number of cut elements.
 The domain of the structure $\unravel{A}_{\ell}$ consists of $M$ copies of each tree in $\mathcal{S}$.
@@ -44,7 +44,7 @@ The relations are defined as in $\unravel{A}$, but with the relation $\relNext$ 
         \begin{enumerate}
           \item $b$ is the root of the $m$-th copy of tree in $S$,
           \item $\ctr{b} = \ctr{a'}$,
-          \item $\seq{b}$ is the length-$\ell$ suffix of $\seq{a'}$.
+          \item $\seq{b}$ is the level-$\ell$ suffix of $\seq{a'}$.
         \end{enumerate}
 \end{itemize}
 
@@ -56,9 +56,9 @@ The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following l
 \end{lemma}
 \begin{proofsketch}
   By contradiction: if $D_{a,\ell}$ is not a tree, then some element $e \in D_{a,\ell}$ has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
-  In this case, $p_{1}$ and $p_{2}$ must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2},\ell}$ of the structure $\unravel{A}_{\ell}$ and have sequences of length $2 * \ell$.
+  In this case, $p_{1}$ and $p_{2}$ must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2},\ell}$ of the structure $\unravel{A}_{\ell}$ and have sequences with level $2 * \ell$.
   Now, at least one of $p_{1}$ or $p_{2}$ must be in a different subtree than $a$.
-  The shortest next-chain ending at that element and starting from $a$ must traverse the full subtree $\mathcal{T}_{r_{1},\ell}$ or $\mathcal{T}_{r_{2},\ell}$, which requires at least a next-chain of length $\ell + 1$ (at least one next transition to enter the tree, $\ell$ next transitions to reach a leaf with sequence length $2 * \ell$).
+  The shortest next-chain ending at that element and starting from $a$ must traverse the full subtree $\mathcal{T}_{r_{1},\ell}$ or $\mathcal{T}_{r_{2},\ell}$, which requires at least a next-chain of length $\ell + 1$ (at least one next transition to enter the tree, $\ell$ next transitions to reach a leaf with a sequence with level $2 * \ell$).
   Hence the element cannot be in $D_{a,\ell}$, a contradiction.
 \end{proofsketch}
 \begin{proof}
@@ -70,7 +70,7 @@ The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following l
   At least one of the elements $p_{1}$ and $p_{2}$ must therefore be a different subtree than $a$.
   By symmetry, let us assume that $p_{1}$ is not in the same subtree as $a$.
   Then the shortest next-chain from $a$ to $p_{1}$ must traverse through the whole subtree from $r_{1}$ to the leaf $p_{1}$.
-  With every transition along the a $\relNext_{\ell}$-edge, the sequence length of elements increases by at most 1.
+  With every transition along the a $\relNext_{\ell}$-edge, the level of the sequence of an element increases by at most 1.
   Hence, the next-chain from $r_{1}$ to $p_{1}$ has a length of at least $\ell$.
   Since the shortest next-chain from $a$ to $p_{1}$ must go through $r_{1}$ (as $a$ is not in the same subtree as $p_{1}$) and reaching $r_{1}$ from $a$ also requires at least one next transition, the shortest next-chain from $a$ to $p_{1}$ is longer than $\ell$.
   Hence, $p_{1} \notin D_{a,\ell}$, a contradiction.
@@ -136,7 +136,7 @@ For two unravelings $\str{A}_{\ell}$ and $\str{B}_{\ell}$ of different base stru
  Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be domain elements, and $z$ be a natural number. Then $e$ and $f$ are $z$-similar, written $e \approx_{z} f$, if $\ctr{e} = \ctr{f}$ and $\hist{z}{e} = \hist{z}{f}$.
 \end{definition}
 Note that if $e$ and $f$ are $z$-similar and $\hist{z}{e}$ is a short $z$-history, then $\hist{z}{f}$ must also be a short $z$-history.
-So if either $\seq{e}$ or $\seq{f}$ has a length less than $z$, then $\seq{e}$ and $\seq{f}$ have the same length.
+So if either $\seq{e}$ or $\seq{f}$ has a level less than $z$, then $\seq{e}$ and $\seq{f}$ have the same level.
 Compared to the notion of $z$-forward-similarity, $z$-similarity requires not just the $\FGF_{z}$-type of the last tuple in the sequences to match.
 Rather, it additionally requires that the types of the $z$ last tuples of the sequences are equal.
 Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z-1)$-similar parents, as we prove with the next lemma:
@@ -159,8 +159,8 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   \begin{displaymath}
     \mathsf{trunc}_{\ell} =
     \begin{cases}
-      \sigma & \text{if $\sigma$ has length at most $2 * \ell$} \\
-      \text{length-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has length greater than $2 * \ell$.}
+      \sigma & \text{if $\sigma$ has level at most $2 * \ell$} \\
+      \text{level-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has level greater than $2 * \ell$.}
     \end{cases}
   \end{displaymath}
   Note that case (\romannumeral2) is possible only for~\ref{elemeq:succ} and (\romannumeral3) only for~\ref{elemeq:pred}.
@@ -173,11 +173,11 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a bisimulation sequence and $\elemtuplet$ has the same $\FGF_{z-1}$-type as $\elemtuples$.
   Next, we construct the element $d$ with $\seq{d} = \mathsf{trunc}_{\ell}[\seq{b}(i,j)\elemtuplet]$ and $\ctr{d} = (j-i+1) + 1$.
   Cleary, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$.
-  The function $\mathsf{trunc}_{\ell}$ preserves suffixes of length $z$ since $z \le \ell$, so it does not affect $z$-histories.
+  The function $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$ since $z \le \ell$, so it does not affect $z$-histories.
   By our choice of $\elemtuplet$, we have $\hist{z-1}{c} = \hist{z-1}{d}$.
   It follows that $c \approx_{z-1} d$, as wanted.
 
-  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma \cdots(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a bismimulation sequence $\sigma$ of length at most $2 * \ell$.
+  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma \cdots(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a bismimulation sequence $\sigma$ with level at most $2 * \ell$.
   Further, by equivalence of counters, $\ctr{b} = \ctr{a} = (j-i+1) + 1$.
   By definition of the unraveling, there is an element $d \in \unraveldom{B}_{\ell}$ with $(d,b) \in \relNext_{\ell}$, which has $\seq{d} = \sigma$.
   This element satisfies $c \approx_{z-1} d$.
@@ -193,8 +193,8 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   \begin{displaymath}
     \mathsf{trunc}_{\ell} =
     \begin{cases}
-      \sigma & \text{if $\sigma$ has length at most $2 * \ell$} \\
-      \text{length-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has length greater than $2 * \ell$}
+      \sigma & \text{if $\sigma$ has level at most $2 * \ell$} \\
+      \text{level-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has level greater than $2 * \ell$}
     \end{cases}
   \end{displaymath}.
   Note that case (\romannumeral2) is possible only for~\ref{elemeq:succ} and (\romannumeral3) only for~\ref{elemeq:pred}.
@@ -213,16 +213,16 @@ Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z
   Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a bisimulation sequence and $\elemtuplet$ has the same $\FGF_{z-1}$-type as $\elemtuples$.
   Next, we construct the element $d$ with $d = (\mathsf{trunc}_{\ell}, \ctr{c})$ for $\sigma = \seq{b}(i,j)\elemtuplet$.
   By construction, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$ (recall that $\ctr{c} = (j-i+1)+1$).
-  Observe that $\mathsf{trunc}_{\ell}$ preserves suffixes of length $z$, since $z \le \ell$.
+  Observe that $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$, since $z \le \ell$.
   Hence, the $(z-1)$-history of the element $c$ is equal to the $(z-1)$-history of an element $e$ with $e = (\seq{a}(i,j)\elemtuples, \ctr{c})$.
   Similary, the $(z-1)$-history of $d$ is equal to the $(z-1)$-history of an element $f$ with $f = (\seq{b}(i,j)\elemtuplet, \ctr{d})$.
   As $\elemtuples$ and $\elemtuplet$ have the same $\FGF_{z-1}$-type, we can see that $\hist{z-1}{e} = \hist{z-1}{f}$ and hence $\hist{z-1}{c} = \hist{z-1}{d}$.
   It follows that $c \approx_{z-1} d$, as wanted.
 
-  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a bismimulation sequence $\sigma$ of length at most $2 * \ell$.
+  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a bisimulation sequence $\sigma$ with level at most $2 * \ell$.
   Further, by equivalence of counters, $\ctr{b} = \ctr{a} = (j-i+1) + 1$.
   By definition of the unraveling, there is an element $d \in \unraveldom{B}_{\ell}$ with $(d,b) \in \relNext_{\ell}$, which has $\seq{d} = \sigma$.
-  Again, because $\mathsf{trunc}_{\ell}$ preserves suffixes of length $z$, the $z$-history of $b$ is equal to the $z$-history of an element $b'$ with $b' = (\sigma(i,j)\elemtuplet, \ctr{b})$.
+  Again, because $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$, the $z$-history of $b$ is equal to the $z$-history of an element $b'$ with $b' = (\sigma(i,j)\elemtuplet, \ctr{b})$.
   As $\seq{d} = \sigma$, the $(z-1)$-history of $d$ is equal to the $z$-history of $b'$ minus the last step.
   As $b$ and $a$ have the same $z$-history and the $(z-1)$-history of $c$ is also equal to the $z$-history of $a$ minus the last step, it follows that $c$ and $d$ have equal $(z-1)$-histories.
   Further, both $\ctr{c} = j$ and $\ctr{d} = j$.

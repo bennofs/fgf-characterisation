@@ -3,18 +3,18 @@
 \section{Tree-Like Unraveling}\label{sec:unraveling}
 We next describe a notion of \emph{tree unravelings} for $\FGF$.
 A ``truncated'' form of these unravellings will be employed afterwards in the construction of the companion structures required for~\cref{thm:main-technical-thm}.
-The truncation is necessary to keep the structure finite, as tree unravellings of structures containing cycles are infinite.
+The truncation is necessary to keep the resulting structure finite, as tree unravellings of structures containing cycles are infinite.
 This is similar to the approach taken by Otto to construct the finite companions for the van Benthem charactisation of modal logic with universal modalities~\cite[Proof of Lemma 38]{Otto04}.
-Our approach is similar to the construction of finite companions in the van Benthem Characterisation of modal logic with universal modality by Otto~\cite[Proof of Lemma 38]{Otto04}.
+Our approach is similar to the construction of finite companions in the van Benthem Characterisation of modal logic with the universal modality by Otto~\cite[Proof of Lemma 38]{Otto04}.
 However, novel ideas are required to make this construction applicable to the case of higher-arity relations.
 
-Let $\str{A}$ be a structure with an associated binary relation $\relNext^{\str{A}}$.
-For a pair $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
+For structures $\str{A}$ with a distinguished binary predicate $\relNext^{\str{A}}$, we employ a tailored terminology from graph theory, as expected.
+For instance, whenever $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
 A \emph{root} is an element without parents.
 The set of \emph{descendants} of an element $\eleme$ is the smallest set containing $\eleme$ that is closed under taking children (\ie{} if an element is in the set then so are its children).
 We call a structure $\str{A}$ a \emph{forest} if every element has at most one parent and is a descendant of some root.
 A model is a tree model if it is a forest and has exactly one root.
-It is well-known that with a suitable notion of unravelling~\cite[Prop. 3]{Rosen97} one can show that every satisfiable modal logic formula has a tree model.
+It is well-known that with a suitable notion of unraveling~\cite[Prop. 3]{Rosen97} one can show that every satisfiable modal logic formula has a tree model.
 
 Our goal is to design a notion of unravelling for $\FGF$ satisfying the following theorem:
 \begin{restatable}{theorem}{thminfunraveling}\label{thm:inf-unraveling-upgrading}
@@ -33,7 +33,7 @@ Both of them are identical to their HAF-unravelling as they are already HAFs.
 Yet, they can be distinguished by a $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$.
 Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do not satisfy \cref{thm:inf-unraveling-upgrading} even in the finite case.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \begin{tikzpicture}[baseline=(current bounding box.north)]
         \draw[tolbrightGreen, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
@@ -68,15 +68,18 @@ Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do 
 \end{figure}
 
 We next describe a new notion of unraveling for $\FGF$ which, as we see later, satisfies \cref{thm:inf-unraveling-upgrading}.
-This unraveling is closely based on the $\FGF$-game, with elements that correspond to sequences of moves in this game.
+This unraveling is closely related to the $\FGF$-game, with elements that correspond to sequences of moves in this game.
 We begin with a description of the domain of the unraveling.
 
 \noindent \textbf{Domain of the unraveling}
-Let $\str{A}, \elemtuplea^{(0)}$ be a pointed structure where $\elemtuplea^{(0)}$ is a standard tuple of elements, labelled with a zero index as it is the starting tuple for the unraveling.
-We define a bisimulation sequence as a sequence of moves that Spoiler takes in one of the possible plays of the $\FGF$-bisimulation game involving this structure.
-Formally, a \emph{bisimulation sequence} of length $\ell$ is a word in $A^*{(\N\N{}A^{*})}^{\ell}$, represented by a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
+Let $\str{A}, \elemtuplea^{(0)}$ be a pointed structure where $\elemtuplea^{(0)}$ is just tuple of elements from $A$, labelled with a zero index as it is the starting tuple for the unraveling.
+We define a \emph{bisimulation sequence} as a sequence of moves that Spoiler takes in one of the possible plays of the $\FGF$-bisimulation game involving this structure, excluding moves where Spoiler picks an empty infix.
+Formally, an $\ell$-\emph{bisimulation sequence} is a word in $A^*{(\N\N{}A^{*})}^{\ell}$, represented by a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices with $i < j$ for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
+Bisimulation sequences are denoted by greek letters $\rho, \sigma, \theta, \ldots$ and for
+a bisimulation sequence $\sigma$ we refer to the parameter $\ell$ in the above definition as the \emph{level} of $\sigma$.
+We say that a sequence $\theta$ \emph{extends} a sequence $\rho$ is $\rho$ is a prefix of $\theta$.
 Intuitively, the set $\Seq{A}$ of all bisimulation sequences for a structure $\str{A}$ collects all possible ways in which Spoiler can explore this structure.
-For any bisimulation sequence of length $\ell$, if $\str{B}, \elemtupleb^{(0)}$ is a structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
+For any $\ell$-bisimulation sequence, if $\str{B}, \elemtupleb^{(0)}$ is a structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
 These represent the moves of Duplicator in the game.
 Below are some examples of bisimulation sequences:
 \begin{figure}[H]
@@ -112,31 +115,49 @@ Below are some examples of bisimulation sequences:
       \end{itemize}
       }
     \end{minipage}
-    \caption{Examples of bisimulation sequences.}
+    \caption{Examples of bisimulation sequences.}%
+    \label{fig:bisim-seq-examples}
 \end{figure}
 
 Let $\Seq{\str{A}}$ be the set of all bisimulation sequences for a structure $\str{A}$.
-Consider the bisimulation sequences of length zero, which are sequences of just a single tuple $\elemtuplea$ from $\str{A}$.
-We pair the sequence~``$\elemtuplea$'' with a natural number, the \emph{counter}, to distinguish the individual elements of $\elemtuplea$.
-The domain of the unraveling will thus contain the elements $(\elemtuplea, 1), \ldots, (\elemtuplea, k)$ for the sequence ``$\elemtuplea$'', where $k$ is the length of $\elemtuplea$.
-Now, consider a longer bisimulation sequence ``$\cdots \elemtuplea (i,j) \elemtupleb$''.
-Recall that this represents a move from tuple $\elemtuplea$ to tuple $\elemtupleb$ in the bisimulation game,
-where the first $j-i$ elements of $\elemtupleb$ are shared with $\elemtuplea$.
-For example, the pairs $(\cdots \elemtuplea, i)$ and $(\cdots \elemtuplea (i,j) \elemtupleb, 1)$ both describe the $i-th$ component of the tuple $\elemtuplea$.
-Hence, for the sequence~``$\cdots\elemtuplea(i,j)\elemtupleb$'', we only add elements with a counter greater than $j-i+1$ to the domain.
-These elements correspond to the suffix of unshared elements of $\elemtupleb$.
-Formally, the \emph{domain of the unraveling} $\unraveldom{A}$ is a subset of $\Seq{A} \times \mathbb{N}$, with $(\sigma, k) \in \unraveldom{A}$ if:
+There is a natural projection from a bisimulation sequence $\sigma \in \Seq{A}$ to tuples of $\str{A}$: for $\sigma = \cdots (i,j) \elemtuples$, we define the projection $\Pi(\sigma)$ as $\Pi(\sigma) = \elemtuples$.
+Intuitively, this projection gives the tuple of selected elements in the bisimulation game after playing the moves of $\sigma$.
+
+To construct the domain of the unraveling, we combine bisimulation sequences with natural numbers.
+This allows us to define a projection that maps to individual elements of $\str{A}$, instead of tuples.
+A \emph{tagged bisimulation sequence} of a structure $\str{A}$ is a tuple $(\sigma, k) \in \Seq{A} \times \mathbb{N}$ such that
 \begin{itemize}
-  \item $\sigma = \elemtuplea$ for $\elemtuplea \sqin A$, then $k \ge 1$ and $k \le |\elemtuplea|$, or
-  \item $\sigma = \cdots (i,j) \elemtuplea$, then $k \ge (j-i+1) + 1$ and $k \le |\elemtuplea|$.
+  \item $\sigma = \elemtuplea$, $k \ge 1$ and $k \le |\elemtuplea|$ for some $\elemtuplea \sqin A$, or
+  \item $\sigma = \cdots (i,j) \elemtuplea$, $k \ge (j-i+1) + 1$ and $k \le |\elemtuplea|$ for some $\elemtuplea \sqin A$.
 \end{itemize}
-For an element $e \in \unraveldom{A}$ that can be decomposed as $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the sequence and the counter of this element, respectively.
-Let $\elemtuplea$ be the last tuple of $\seq{e}$, so $\seq{e} = \cdots \elemtuplea$.
-Since the counter refers to elements of $\elemtuplea$, we can define the projection $\pi(e)$ as: $\pi(e) = \elema_{\ctr{e}}$ for $\seq{e} = \cdots\elemtuplea$.
+For more background on these conditions, see \cref{ex:tagged-bisim-seq}.
+The \emph{domain of the unraveling} for a structure $\str{A}$, denoted by $\unraveldom{A}$, is the set of all tagged bisimulation sequences of the structure $\str{A}$.
+For a tagged bisimulation sequence $e \in \unraveldom{A}$ that can be decomposed as $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the sequence and the counter of this tagged bisimulation sequence, respectively.
+Since the counter is an index into the components of $\Pi(\seq{e})$, we can define the projection $\pi(e)$ from tagged bisimulation sequences to elements of $A$ as: $\pi(e) = \Pi(\seq{e})_{\ctr{e}} = \elema_{\ctr{e}}$ for $\seq{e} = \cdots\elemtuplea$.
+\begin{example}\label{ex:tagged-bisim-seq}
+   {%
+     \newcommand{\tups}{{\color{tolbrightYellowDarker}\elemtuples}}%
+     \newcommand{\tupt}{{\color{tolbrightGreen}\elemtuplet}}%
+     \newcommand{\es}{{\color{tolbrightYellowDarker}s}}%
+     \newcommand{\et}{{\color{tolbrightGreen}t}}%
+     Consider the bisimulation sequences from \cref{fig:bisim-seq-examples}.
+     The tagged bisimulation sequences for the level-0 bisimulation sequence $\sigma$ with $\sigma = \tups$ are: $a = (\sigma, 1)$, $b = (\sigma, 2)$ and $c = (\sigma, 3)$.
+     These project to the components of the tuple $\tups$: $\pi(a) = \es_{1} = 1$, $\pi(b) = \es_{2} = 2$ and $\pi(c) = \es_{3} = 3$.
+     Now consider the bisimulation sequence $\rho$ with $\rho = \tups(3,3)\tupt$.
+     Recalling the bisimulation game, this sequence represents the move from $\tups$ to $\tupt$, sharing the element ``3''.
+     There are tagged bisimulation sequences $d = (\rho, 2)$ and $e = (\rho, 3)$ which project to the domain elements ``4'' and ``5''.
+     However, there is no tagged bisimulation sequence for the sequence $\rho$ that projects to ``3''.
+     While $(\rho, 1)$ projects to ``3'' according to the definition of $\pi$, it is not a tagged bisimulation sequence as it violates the ``$k \ge (j-i+1) + 1$'' condition in the above definition.
+     Note that $c = (\sigma, 3)$ projects to ``3'', so there already is a tagged bisimulation sequence that projects to ``3'', using the sequence $\sigma$.
+     Intuitively, the condition ensures that for the move from a tuple $\tups$ to a tuple $\tupt$ in the game, there is at most one tagged bisimulation sequence projecting to each shared element.
+     Stated differently, tagged bisimulation sequences correspond one-to-one to unshared elements of moves in the bisimulation game.
+   }
+\end{example}
+
 On the domain of the unraveling, the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ is defined such that $(s, t) \in \relNext$ if either:
 \begin{description}
-  \item[\desclabel{(addCtr)}{next:addctr}] $\seq{s} = \seq{t}$, $\ctr{t} = \ctr{s} + 1$, or
-  \item[\desclabel{(addSeq)}{next:addseq}] $\seq{t} = \seq{s} (i,j) \elemtuplea$ for some $i, j, \elemtuplea$ and $\ctr{s} = j, \ctr{t} = (j - i + 1) + 1$.
+  \item[\desclabel{(addCtr)}{next:addctr}] $s = (\sigma, k)$ and $t = (\sigma, k + 1)$ for some $\sigma \in \Seq{A}$ and $k \in \N$, or
+  \item[\desclabel{(addSeq)}{next:addseq}] $s = (\sigma, j)$ and $t = (\sigma(i,j)\elemtuplea, (j-i+1) + 1)$ for some $\sigma \in \Seq{A}$, $\elemtuplea \sqin A$ and $i,j \in \N$.
 \end{description}
 The picture below shows an example for this definition.
 It depicts a subset of the domain of the unraveling of the structure $\str{E}$ (taken from \cref{fig:unravel-haf}) and the $\relNext$ relation on this domain.
@@ -150,10 +171,10 @@ It depicts a subset of the domain of the unraveling of the structure $\str{E}$ (
 \newcommand{\tupp}{{\color{tolbrightGreenDarker}\elemtuplep}}%
 \newcommand{\tupe}{{\color{tolbrightYellowDarker}\elemtuplee}}%
 The relation $\relNext$ links elements which represent consecutive components within a tuple of the base structure, but following the structure imposed by the bisimulation sequences, as explained below.
-We differentiate two cases.
+There are two cases.
 In the~\ref{next:addctr} case we keep the bisimulation sequence the same and increase the counter by one.
 This case is represented by vertical arrows in the above picture.
-For example, the elements $(\tupp, 1)$ and $(\tupp, 2)$ represent the elements $1$ and $2$ which are consecutive elements of the tuple $\tupp$, so $((\tupp, 1), (\tupp, 2)) \in \relNext$.
+For example, the elements $(\tupp, 1)$ and $(\tupp, 2)$ represent the elements $1$ and~$2$ which are consecutive elements of the tuple $\tupp$, so $((\tupp, 1), (\tupp, 2)) \in \relNext$.
 In the~\ref{next:addseq} case, we extend the bisimulation sequence with one more bisimulation move.
 This case is represented by arrows that branch sideways in the above picture.
 Extending the sequence is only allowed if we start from the element that represents the last (with the highest counter) shared element and end at the first (with the lowest counter) unshared element.
@@ -167,14 +188,22 @@ The last (and only) shared element in this move is $(\tupp, 1)$, so there is no 
 Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\tupp(1,1)\tupp, 3)$ is not the first unshared element.
 }
 
-We show that the relation $\relNext$ forms a forest, where the roots are the elements with sequences of length zero and counters equal to 1.
-All other elements have an unique parent.
-To see why, first observe that if $(s, t) \in \relNext$ because of~\ref{next:addseq}, the element $t$ is the element with the smallest counter among elements of the domain with the same bisimulation sequence.
-On the other hand, if $(s, t) \in \relNext$ because of~\ref{next:addctr}, then the element $t$ is never equal to the element with the smallest counter, since $s$ is an element with a smaller counter.
-Therefore, the unique parent of elements where the counter is not minimal is obtained by decreasing the counter.
-If the counter is minimal and cannot be further decreased, then the unique parent is given by the element with the sequence reduced by one move and counter equal to the index $j$ as specified in the~\ref{next:addseq} case of the definition of $\relNext$.
-As the parent in each case either has a shorter sequence or has a sequence of the same length but a lower counter, taking parents repeatedly must end in a root at some point.
-So every element is a descendant of some root and has at most one parent, proving that $\relNext$ forms a forest.
+We show that the relation $\relNext$ forms a forest:
+\begin{lemma}
+  For a structure $\str{A}$, the domain of the unraveling $\unraveldom{A}$ together with the relation $\relNext$ is a forest. The roots are the elements composed of a 0-bisimulation sequence and a counter equal to 1.
+\end{lemma}
+\begin{proofsketch}
+  The counter of an element $t \in \unraveldom{A}$ is \emph{minimal} if the counter is the smallest among elements of the domain with the same bisimulation sequence as $t$.
+  The key observation now is that if $(s,t) \in \relNext$ because of case~\ref{next:addseq}, then the counter of $t$ is minimal, while if $(s,t) \in \relNext$ because of case~\ref{next:addctr}, then the counter of $t$ cannot be minimal (since $s$ is witness that there are elements with a smaller counter).
+  Take an element $t \in \unraveldom{A}$ with $(s, t) \in \relNext$ for some element $s \in \unraveldom{A}$.
+  If the counter is not minimal, then the unique parent $s$ is element obtained by decreasing the counter by one.
+  If the counter is minimal and cannot be further decreased, then the unique parent $s$ is the element with the sequence reduced by one move and counter equal to the index $j$ as specified in the~\ref{next:addseq} case of the definition of $\relNext$.
+  We observe that the parent of an element either has a sequence with a decreased level or it has a sequence with the same level but a decreased counter.
+  Thus, taking parents repeatedly must end in a root at some point.
+  Therefore every element is a descendant of some root and has at most one parent, proving that $\relNext$ forms a forest.
+  The only elements without a parent are those composed of a 0-bisimulation sequence and a minimal counter.
+  Since $(\sigma, 1) \in \unraveldom{A}$ for any 0-bisimulation sequence $\sigma \in \Seq{A}$, the roots are exactly the elements composed of a 0-bisimulation sequence and a counter equal to 1.
+\end{proofsketch}
 
 Finally, we formalize the property that $\relNext$ links elements that map to consecutive elements in the base structure:
 \begin{lemma}\label{lem:projection-next}
@@ -226,10 +255,9 @@ The example highlights the tree-like property of the tree unraveling.
 As relations are required to be next-chains, they must follow along the tree edges specified by the $\relNext$ relation (the black edges in the picture).
 We can also see that this structure is $\FGF$-bisimilar to the base structure $\str{E}$.
 By the definition of the tree unraveling, elements from the tree unraveling which are related by a relation $\relR$ are mapped by the projection $\pi$ to elements from the base structure which are also related by $\relR$.
-\bfside{is this correct, writing $\relR$ here instead of $\relR^{\unravel{E}}$ and $\relR^{\str{E}}$?}
 For example, $(\elemtuplep, 2)$ and $(\elemtuptuplep, 3)$ are related by $\relE$ in the unraveling, and so are their projections $2$ and $3$ in the base structure.
 This means that $\pi$ preserves $\FGF$-types for live tuples.
-It is easy to verify that it also satisfies the back-and-forth conditions for this example, so it is indeed a $\FGF$-bisimulation between $\unravel{E}$ and $\str{E}$.
+It is easy to verify that it also satisfies the back-and-forth conditions for this example, so there exists an $\FGF$-bisimulation between $\unravel{E}$ and $\str{E}$.
 Note however that not all elements which project to related elements in the base structure are related in the unraveling.
 Consider the tuples $\elemtuptuplea = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep, 3))$ and $\elemtuptupleb = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep(2,2)\elemtuplee, 2))$.
 These tuples have equal projections: $\pi(\elemtuptuplea) = \pi(\elemtuptupleb) = \elemtuplep$.
@@ -248,7 +276,7 @@ This is exactly what we want for \cref{thm:inf-unraveling-upgrading}, which we c
 \begin{proofsketch}
   The unraveling is a tree model.
   The set $\{(\pi[\elemtuptuplex], \elemtuptuplex):\, \elemtuptuplex\ \text{is a live tuple in}\ \unravel{A} \}$ is a $\FGF$-bisimulation between $\unraveldom{A}, \elemtuptuplea$ and $\str{A}, \elemtuplea$.
-  To construct a $\GF$-bisimulation between $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$, we employ the auxiliary notion of ``histories'': for an element $e \in \unraveldom{A}$ with $\seq{e} = \elemtuples^{(0)}\cdots)(i^{(n)}, j^{(n)})\elemtuples^{(n)}$, we define $\mathsf{hist}(e) = \tp{\FGF}{\str{A}}{\elemtuples^{(0)}} \cdots (i^{(n), j^{(n)}} \tp{\FGF}{\str{B}}{\elemtuples^{(n)}})$.
+  To construct a $\GF$-bisimulation between $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$, we employ the auxiliary notion of ``histories'': for an element $e \in \unraveldom{A}$ with $\seq{e} = \elemtuples^{(0)}\cdots(i^{(n)}, j^{(n)})\elemtuples^{(n)}$, we define $\mathsf{hist}(e) = \tp{\FGF}{\str{A}}{\elemtuples^{(0)}} \cdots (i^{(n)}, j^{(n)}) \tp{\FGF}{\str{B}}{\elemtuples^{(n)}})$.
   Now let $\bisimZ \subseteq \PartIso{\unravel{A}}{\unravel{B}}$ be the set such that $(\elemtuptuples, \elemtuptuplet) \in \bisimZ$ if:
   \begin{itemize}
     \item $\elemtuptuples$, $\elemtuptuplet$ are live tuples of size $k$ from $\unravel{A}$, $\unravel{B}$, and
