@@ -116,12 +116,14 @@ Moreover, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$.
 \end{proofsketch}
 \input{proofs/FGF-bisimulations-work-well}
 
+\noindent
 The following example presents two structures that are $\FGF$-bisimilar but not $\GF$-bisimilar.
 \begin{example}
-  Consider the two structures $\str{A} := \tikz[baseline=-0.5ex]{\path[->] (0,0) node[draw,circle] (n1) {} (n1) edge[loop above,in=70,out=110,looseness=10] (n1);}$ and $\str{B} := \tikz[baseline=-0.5ex]{\path[->] (0,0) node (n1) [draw,circle] {} (3em,0) node (n2) [draw,circle] {} (n1) edge[bend left] (n2) (n2) edge[bend left] (n1);}$ with a binary predicate $\relE$ interpreted as edges. These two structures are $\FGF[\{\relE\}]$-bisimilar, while a $\GF$-sentence $\exists{\varx_1}\relE(\varx_1,\varx_1)$ can distinguish them.
+  Consider the two structures $\str{A} := \tikz[baseline=-0.5ex]{\path[->] (0,0) node[draw,circle] (n1) {} (n1) edge[loop above,in=70,out=110,looseness=10] (n1);}$ and $\str{B} := \tikz[baseline=-0.5ex]{\path[->] (0,0) node (n1) [draw,circle] {} (3em,0) node (n2) [draw,circle] {} (n1) edge[bend left] (n2) (n2) edge[bend left] (n1);}$ with a binary predicate $\relE$ interpreted as the edge relation. These two structures are $\FGF[\{\relE\}]$-bisimilar, while a $\GF$-sentence $\exists{\varx_1}\relE(\varx_1,\varx_1)$ can distinguish them.
 
 \end{example}
 
+\noindent \textbf{Bisimulation games.}
 Both $\GF$-bisimulation and $\FGF$-bisimulation naturally correspond to games~\cite[Sec. 1.2.1]{Gradel014}.
 We focus on the the game corresponding to $\FGF$-bisimulation here.
 The $\FGF$-\emph{bisimulation game} is played on two pointed structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ by two players, Spoiler and Duplicator.
@@ -153,16 +155,20 @@ We collect these observations in the following corollary:
   \end{itemize}
 \end{corollary}
 
-Let $\str{A}, \elemtuplea^{(0)}$ be a pointed structure where $\elemtuplea^{(0)}$ is just tuple of elements from $A$, labelled with a zero index as it is the starting tuple for the unraveling.
-We define a \emph{bisimulation sequence} as a sequence of moves that Spoiler takes in one of the possible plays of the $\FGF$-bisimulation game involving this structure, excluding moves where Spoiler picks an empty infix.
-Formally, an $\ell$-\emph{bisimulation sequence} is a word in $A^*{(\N\N{}A^{*})}^{\ell}$, represented by a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices with $i < j$ for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
-Bisimulation sequences are denoted by greek letters $\rho, \sigma, \theta, \ldots$ and for
-a bisimulation sequence $\sigma$ we refer to the parameter $\ell$ in the above definition as the \emph{level} of $\sigma$.
-We say that a sequence $\theta$ \emph{extends} a sequence $\rho$ is $\rho$ is a prefix of $\theta$.
-Intuitively, the set $\Seq{A}$ of all bisimulation sequences for a structure $\str{A}$ collects all possible ways in which Spoiler can explore this structure.
-For any $\ell$-bisimulation sequence, if $\str{B}, \elemtupleb^{(0)}$ is a structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding bisimulation sequence in $\str{B}$.
-These represent the moves of Duplicator in the game.
-Below are some examples of bisimulation sequences:
+\noindent \textbf{Biseqs and Bipoints.}
+We next define two concepts (biseqs and bipoints) which represent a sequence of moves that Spoiler takes and the elements that Spoiler selects, respectively, in one of the possible plays of the $\FGF$-bisimulation game.
+Later, in \cref{sec:unraveling}, we employ these concepts to characterize a structure in terms of its behavior under the game.
+
+Let $\str{A}, \elemtuplea^{(0)}$ be a pointed structure where $\elemtuplea^{(0)}$ is just tuple of elements from $A$, labelled with a zero index as it is the start of a sequence of tuples selected by Spoiler.
+An $\ell$-\emph{biseq} is a word in $A^*{(\N\N{}A^{*})}^{\ell}$, written as a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices with $i \le j$ for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
+Conceptually, an $\ell$-biseq represents a play of Spoiler in the $\ell$-round $\FGF$-game involving the structure $\str{A}$, where in each round $k$, Spoiler chooses the non-empty infix corresponding to the indices $i^{(k)}\ldots{}j^{(k)}$ and the new tuple $\elemtuplea^{(k)}$.
+Biseqs are denoted by greek letters $\rho, \sigma, \theta, \ldots$ and for
+a biseq $\sigma$ we refer to the parameter $\ell$ in the above definition as the \emph{level} of $\sigma$.
+We say that a biseq $\sigma$ \emph{extends} a biseq $\rho$ if $\sigma$ can be constructed from $\rho$ by adding moves to the end, \ie{} $\rho$ is a prefix of $\sigma$.
+The set of all biseqs for a structure $\str{A}$, denoted by $\Seq{A}$, intuitively collects all possible ways in which Spoiler can explore this structure.
+For any $\ell$-biseq, if $\str{B}, \elemtupleb^{(0)}$ is a structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding biseq in $\str{B}$.
+The latter sequence represents a possible choice of moves for Duplicator in response to the moves played by Spoiler in the game on the structures $\str{A}, \elemtuplea^{(0)}$ and $\str{B}, \elemtupleb^{(0)}$.
+Below are some examples of biseqs:
 \begin{figure}[H]
   \centering
     \begin{minipage}[t]{0.2\textwidth}
@@ -183,54 +189,55 @@ Below are some examples of bisimulation sequences:
       Let $\tups = (1, 2, 3), \tupp = (2, 3, 4), \tupt = (3, 4, 5), \tupq = (4,5)$.
 
       \vspace{1ex}
-      Some examples of bisimulation sequences in this structure are:
+      Some examples of biseqs in this structure are:
       \begin{itemize}
           \item $\tups(3,3)\tupt$,
           \item $\tups(2,3)\tupp(2,3)\tupt$.
       \end{itemize}
 
-      Bisimulation sequences are not required to use maximal infixes, so the following are also valid bisimulation sequences:
+      Biseqs are not required to use maximal infixes, so the following are also valid biseqs:
       \begin{itemize}
           \item $\tups(2,2)\tupp$,
           \item $\tups(3,3)\tupt(2,2)\tupq$.
       \end{itemize}
       }
     \end{minipage}
-    \caption{Examples of bisimulation sequences.}%
-    \label{fig:bisim-seq-examples}
+    \caption{Examples of biseqs.}%
+    \label{fig:biseq-examples}
 \end{figure}
 
-Let $\Seq{\str{A}}$ be the set of all bisimulation sequences for a structure $\str{A}$.
-There is a natural projection from a bisimulation sequence $\sigma \in \Seq{A}$ to tuples of $\str{A}$: for $\sigma = \cdots (i,j) \elemtuples$, we define the projection $\Pi(\sigma)$ as $\Pi(\sigma) = \elemtuples$.
-Intuitively, this projection gives the tuple of selected elements in the bisimulation game after playing the moves of $\sigma$.
-
-To construct the domain of the unraveling, we combine bisimulation sequences with natural numbers.
-This allows us to define a projection that maps to individual elements of $\str{A}$, instead of tuples.
-A \emph{tagged bisimulation sequence} of a structure $\str{A}$ is a tuple $(\sigma, k) \in \Seq{A} \times \mathbb{N}$ such that
+Let $\Seq{\str{A}}$ be the set of all biseqs for a structure $\str{A}$.
+There is a natural projection $\Pi$ from a biseq $\sigma \in \Seq{A}$ to tuples of $\str{A}$: for $\sigma = \cdots (i,j) \elemtuples$, we define $\Pi(\sigma)$ as $\Pi(\sigma) = \elemtuples$.
+Intuitively, this projection gives the tuple of selected elements in structure $\str{A}$ in the bisimulation game after playing the moves of $\sigma$.
+We now introduce ``bipoints'', which instead of tuples, project to individual selected elements (``points'') of $\str{A}$.
+A \emph{bipoint} of a structure $\str{A}$ is a tuple $(\sigma, k) \in \Seq{A} \times \mathbb{N}$ such that
 \begin{itemize}
   \item $\sigma = \elemtuplea$, $k \ge 1$ and $k \le |\elemtuplea|$ for some $\elemtuplea \sqin A$, or
   \item $\sigma = \cdots (i,j) \elemtuplea$, $k \ge (j-i+1) + 1$ and $k \le |\elemtuplea|$ for some $\elemtuplea \sqin A$.
 \end{itemize}
-For more background on these conditions, see \cref{ex:tagged-bisim-seq}.
-The \emph{domain of the unraveling} for a structure $\str{A}$, denoted by $\unraveldom{A}$, is the set of all tagged bisimulation sequences of the structure $\str{A}$.
-For a tagged bisimulation sequence $e \in \unraveldom{A}$ that can be decomposed as $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the sequence and the counter of this tagged bisimulation sequence, respectively.
-Since the counter is an index into the components of $\Pi(\seq{e})$, we can define the projection $\pi(e)$ from tagged bisimulation sequences to elements of $A$ as: $\pi(e) = \Pi(\seq{e})_{\ctr{e}} = \elema_{\ctr{e}}$ for $\seq{e} = \cdots\elemtuplea$.
-\begin{example}\label{ex:tagged-bisim-seq}
+For a bipoint $e$ of a structure $A$ that can be decomposed as $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the biseq and the counter of this bipoint, respectively.
+The counter of the bipoint identifies one component of the tuple of elements that the biseq projects to.
+We define the projection $\pi$ from bipoints of a structure $\str{A}$ to elements of $\str{A}$ as: if $e = (\sigma, k)$ is a bipoint, then $\pi(e) = {\Pi(\sigma)}_{k}$ (= $\elema_{k}$ for $\sigma = \cdots\elemtuplea$).
+The condition that ``$k \ge (j-i+1) + 1$'' ensures that we do not have more than one bipoint for the shared elements in a move in the bisimulation game.
+\cref{ex:bipoints} shows a concrete application for this condition.
+
+\begin{example}\label{ex:bipoints}
    {%
      \newcommand{\tups}{{\color{tolbrightYellowDarker}\elemtuples}}%
      \newcommand{\tupt}{{\color{tolbrightGreen}\elemtuplet}}%
      \newcommand{\es}{{\color{tolbrightYellowDarker}s}}%
      \newcommand{\et}{{\color{tolbrightGreen}t}}%
-     Consider the bisimulation sequences from \cref{fig:bisim-seq-examples}.
-     The tagged bisimulation sequences for the level-0 bisimulation sequence $\sigma$ with $\sigma = \tups$ are: $a = (\sigma, 1)$, $b = (\sigma, 2)$ and $c = (\sigma, 3)$.
+     Consider the biseqs from \cref{fig:biseq-examples}.
+     The bipoints for the 0-biseq $\sigma$ with $\sigma = \tups$ are: $a = (\sigma, 1)$, $b = (\sigma, 2)$ and $c = (\sigma, 3)$.
      These project to the components of the tuple $\tups$: $\pi(a) = \es_{1} = 1$, $\pi(b) = \es_{2} = 2$ and $\pi(c) = \es_{3} = 3$.
-     Now consider the bisimulation sequence $\rho$ with $\rho = \tups(3,3)\tupt$.
-     Recalling the bisimulation game, this sequence represents the move from $\tups$ to $\tupt$, sharing the element ``3''.
-     There are tagged bisimulation sequences $d = (\rho, 2)$ and $e = (\rho, 3)$ which project to the domain elements ``4'' and ``5''.
-     However, there is no tagged bisimulation sequence for the sequence $\rho$ that projects to ``3''.
-     While $(\rho, 1)$ projects to ``3'' according to the definition of $\pi$, it is not a tagged bisimulation sequence as it violates the ``$k \ge (j-i+1) + 1$'' condition in the above definition.
-     Note that $c = (\sigma, 3)$ projects to ``3'', so there already is a tagged bisimulation sequence that projects to ``3'', using the sequence $\sigma$.
-     Intuitively, the condition ensures that for the move from a tuple $\tups$ to a tuple $\tupt$ in the game, there is at most one tagged bisimulation sequence projecting to each shared element.
-     Stated differently, tagged bisimulation sequences correspond one-to-one to unshared elements of moves in the bisimulation game.
+     Now consider the 1-biseq $\rho$ with $\rho = \tups(3,3)\tupt$.
+     Regarded in terms of the game, this sequence represents the move from $\tups$ to $\tupt$, sharing the element ``3''.
+     There are bipoints $d = (\rho, 2)$ and $e = (\rho, 3)$ which project to the domain elements ``4'' and ``5''.
+     However, there is no bipoint for the sequence $\rho$ that projects to ``3''.
+     While $(\rho, 1)$ projects to ``3'' according to the definition of $\pi$, it is not a bipoint as it violates the ``$k \ge (j-i+1) + 1$'' condition in the above definition.
+     Note that $c = (\sigma, 3)$ projects to ``3'', so there already is a bipoint that projects to ``3'', using the sequence $\sigma$.
+     In fact, bipoints correspond one-to-one to unshared elements of moves in the bisimulation game.
+     From the point of view of the biseq $\sigma$, the element ``3'' is not shared with previously selected elements (there are none, since $\sigma$ represents the start of the game at tuple $\tups$), while relative to the biseq $\rho$, the element ``3'' is among the shared elements.
+     Hence, $(\sigma, 3)$ is a bipoint, while $(\rho ,1)$ is not.
    }
 \end{example}

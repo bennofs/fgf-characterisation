@@ -31,7 +31,7 @@ The \emph{HAF}-unravelling~\cite[Sec 3.3]{Bednarczyk21} introduced by Bednarczyk
 Consider the two finite structures depicted in \cref{fig:unravel-haf}.
 Both of them are identical to their HAF-unravelling as they are already HAFs.
 Yet, they can be distinguished by a $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$.
-Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do not satisfy \cref{thm:inf-unraveling-upgrading} even in the finite case.
+Since both structures are $\FGF$-bisimilar, this shows that HAF-unravellings do not satisfy \cref{thm:inf-unraveling-upgrading} even in the finite case.
 
 \begin{figure}[H]
   \centering
@@ -68,11 +68,10 @@ Since both structures are $\FGF$ bisimilar, this shows that HAF-unravellings do 
 \end{figure}
 
 We next describe a new notion of unraveling for $\FGF$ which, as we see later, satisfies \cref{thm:inf-unraveling-upgrading}.
-This unraveling is closely related to the $\FGF$-game, with elements that correspond to sequences of moves in this game.
-We begin with a description of the domain of the unraveling.
+The \emph{domain of the unraveling} for a structure $\str{A}$, denoted by $\unraveldom{A}$, is simply the set of all bipoints (as introduced in~\ref{sec:games}) of the structure $\str{A}$.
+We first show how to define a tree structure over this domain and then specify how relations are interpreted.
 
-\noindent \textbf{Domain of the unraveling}
-
+\noindent \textbf{The $\relNext$ relation}
 On the domain of the unraveling, the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ is defined such that $(s, t) \in \relNext$ if either:
 \begin{description}
   \item[\desclabel{(addCtr)}{next:addctr}] $s = (\sigma, k)$ and $t = (\sigma, k + 1)$ for some $\sigma \in \Seq{A}$ and $k \in \N$, or
@@ -89,19 +88,19 @@ It depicts a subset of the domain of the unraveling of the structure $\str{E}$ (
 \noindent{%
 \newcommand{\tupp}{{\color{tolbrightGreenDarker}\elemtuplep}}%
 \newcommand{\tupe}{{\color{tolbrightYellowDarker}\elemtuplee}}%
-The relation $\relNext$ links elements which represent consecutive components within a tuple of the base structure, but following the structure imposed by the bisimulation sequences, as explained below.
+The relation $\relNext$ links elements which represent consecutive components within a tuple of the base structure, but following the structure imposed by the biseqs, as explained below.
 There are two cases.
-In the~\ref{next:addctr} case we keep the bisimulation sequence the same and increase the counter by one.
+In the~\ref{next:addctr} case we keep the biseq the same and increase the counter by one.
 This case is represented by vertical arrows in the above picture.
 For example, the elements $(\tupp, 1)$ and $(\tupp, 2)$ represent the elements $1$ and~$2$ which are consecutive elements of the tuple $\tupp$, so $((\tupp, 1), (\tupp, 2)) \in \relNext$.
-In the~\ref{next:addseq} case, we extend the bisimulation sequence with one more bisimulation move.
+In the~\ref{next:addseq} case, we extend the biseq with one more bisimulation move.
 This case is represented by arrows that branch sideways in the above picture.
-Extending the sequence is only allowed if we start from the element that represents the last (with the highest counter) shared element and end at the first (with the lowest counter) unshared element.
+If the biseq is extended during a transation along a $\relNext$ edge, then the start of the edge is the last (with the highest counter) shared element and the end of the edge is the first (with the lowest counter) unshared element for the new biseq.
 As an example, consider the element $(\tupp, 2)$.
-The bisimulation sequence $\tupp(2,2)\tupe$ represents the move from $\tupp$ to $\tupe$, while keeping the second element of $\tupp$ fixed.
+The biseq $\tupp(2,2)\tupe$ represents the move from $\tupp$ to $\tupe$, while keeping the second element of $\tupp$ fixed.
 Thus, the last shared element is $(\tupp, 2)$ and the first unshared element is $(\tupp(2,2)\tupe, 2)$, so those two elements are in $\relNext$.
-Consider now the element $(\tupp(1,1)\tupp, 3)$.
-Its bisimulation sequence $\tupp(1,1)\tupp$ is also an extension of the bisimulation sequence of $(\tupp, 2)$.
+Now consider the element $(\tupp(1,1)\tupp, 3)$.
+Its biseq $\tupp(1,1)\tupp$ is also an extension of the biseq of $(\tupp, 2)$.
 However, it represents a move from $\tupp$ to $\tupp$ sharing only the first element.
 The last (and only) shared element in this move is $(\tupp, 1)$, so there is no edge from $(\tupp, 2)$ to $(\tupp(1,1)\tupp, 3)$.
 Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\tupp(1,1)\tupp, 3)$ is not the first unshared element.
@@ -109,19 +108,19 @@ Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\t
 
 We show that the relation $\relNext$ forms a forest:
 \begin{lemma}
-  For a structure $\str{A}$, the domain of the unraveling $\unraveldom{A}$ together with the relation $\relNext$ is a forest. The roots are the elements composed of a 0-bisimulation sequence and a counter equal to 1.
+  For a structure $\str{A}$, the domain of the unraveling $\unraveldom{A}$ together with the relation $\relNext$ is a forest. The roots are the elements composed of a 0-biseq and a counter equal to 1.
 \end{lemma}
 \begin{proofsketch}
-  The counter of an element $t \in \unraveldom{A}$ is \emph{minimal} if the counter is the smallest among elements of the domain with the same bisimulation sequence as $t$.
+  The counter of an element $t \in \unraveldom{A}$ is \emph{minimal} if the counter is the smallest among elements of the domain with the same biseq as $t$.
   The key observation now is that if $(s,t) \in \relNext$ because of case~\ref{next:addseq}, then the counter of $t$ is minimal, while if $(s,t) \in \relNext$ because of case~\ref{next:addctr}, then the counter of $t$ cannot be minimal (since $s$ is witness that there are elements with a smaller counter).
   Take an element $t \in \unraveldom{A}$ with $(s, t) \in \relNext$ for some element $s \in \unraveldom{A}$.
   If the counter is not minimal, then the unique parent $s$ is element obtained by decreasing the counter by one.
-  If the counter is minimal and cannot be further decreased, then the unique parent $s$ is the element with the sequence reduced by one move and counter equal to the index $j$ as specified in the~\ref{next:addseq} case of the definition of $\relNext$.
-  We observe that the parent of an element either has a sequence with a decreased level or it has a sequence with the same level but a decreased counter.
+  If the counter is minimal and cannot be further decreased, then the unique parent $s$ is the element with the biseq reduced by one move and counter equal to the index $j$ as specified in the~\ref{next:addseq} case of the definition of $\relNext$.
+  We observe that the parent of an element either has a biseq with a decreased level or it has a biseq with the same level but a decreased counter.
   Thus, taking parents repeatedly must end in a root at some point.
   Therefore every element is a descendant of some root and has at most one parent, proving that $\relNext$ forms a forest.
-  The only elements without a parent are those composed of a 0-bisimulation sequence and a minimal counter.
-  Since $(\sigma, 1) \in \unraveldom{A}$ for any 0-bisimulation sequence $\sigma \in \Seq{A}$, the roots are exactly the elements composed of a 0-bisimulation sequence and a counter equal to 1.
+  The only elements without a parent are those composed of a 0-biseq and a minimal counter.
+  Since $(\sigma, 1) \in \unraveldom{A}$ for any 0-biseq $\sigma \in \Seq{A}$, the roots are exactly the elements composed of a 0-biseq and a counter equal to 1.
 \end{proofsketch}
 
 Finally, we formalize the property that $\relNext$ links elements that map to consecutive elements in the base structure:
@@ -130,8 +129,8 @@ For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relN
 \end{lemma}
 \begin{proofsketch}
   Let $\seq{s} = \cdots \elemtupleb$.
-  Since $(s,t) \in \relNext$, the bisimulation sequence $\seq{t}$ extends $\seq{s}$.
-  Thus, $\elemtupleb$ and $\elemtuplea$ must an share an infix (by definition of bisimulation sequences).
+  Since $(s,t) \in \relNext$, the biseq $\seq{t}$ extends $\seq{s}$.
+  Thus, $\elemtupleb$ and $\elemtuplea$ must an share an infix (by definition of biseqs).
   The definition of $\relNext$ restricts the counters $\ctr{s}$ and $\ctr{t}$ such that the equality $b_{\ctr{s}} = a_{\ctr{t}-1}$ holds, implying the property of the lemma.
 \end{proofsketch}
 \begin{proof}
@@ -140,7 +139,7 @@ For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relN
   The~\ref{next:addctr} case is simple: in this case $\seq{s} = \seq{t}$ and $\ctr{s} = k - 1$, so the property follows directly from the definition of $\pi$.
   For the~\ref{next:addseq} case, let $\seq{t} = \seq{s} (i,j) \elemtuplea$ and $\seq{s} = \cdots \elemtupleb$.
   Further, in this case $k = (j - i + 1) + 1$ and $\ctr{s} = j$.
-  By the fact that $\seq{t}$ is a bisimulation sequence, we know that $\elemtupleafromto{1}{j-i+1} = \elemtuplebfromto{i}{j}$.
+  By the fact that $\seq{t}$ is a biseq, we know that $\elemtupleafromto{1}{j-i+1} = \elemtuplebfromto{i}{j}$.
   In particular, it follows that $\pi(s) = b_{j} = a_{j-i+1} = a_{k-1}$, concluding the proof.
 \end{proof}
 
