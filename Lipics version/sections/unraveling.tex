@@ -265,7 +265,7 @@ But $\elemtuptuplea \in \relP^{\unravel{A}}$ while $\elemtuptupleb \notin \relP^
 This is because $\bound{\elemtuptupleb} = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
 
 Intuitively, the unraveling $\unravel{E}$ can be seen as extending the structure $\str{E}$ with additional structure that $\GF$ can distinguish but $\FGF$ cannot.
-For example, we saw in \cref{fig:unravel-haf} that there is a $\FGF$-bisimilar structure to $\str{E}$ satsifying the $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$, which is not satisfied in $\str{E}$.
+For example, we saw in \cref{fig:unravel-haf} that there is an $\FGF$-bisimilar structure to $\str{E}$ satsifying the $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$, which is not satisfied in $\str{E}$.
 But the unraveling $\unravel{E}$ has added the necessary extra elements so that this sentence is satisfied in the unraveling.
 In fact, the unraveling contains all such variations which can be distinguished by $\GF$ but not by $\FGF$.
 This means that for two structures $\str{A}$ and $\str{B}$ which are $\FGF$-bisimilar, the unraveling for both of them contains all the $\GF$-structure that is possible to add while staying $\FGF$-bisimilar.
@@ -275,7 +275,7 @@ This is exactly what we want for \cref{thm:inf-unraveling-upgrading}, which we c
 \thminfunraveling*
 \begin{proofsketch}
   The unraveling is a tree model.
-  The set $\{(\pi[\elemtuptuplex], \elemtuptuplex):\, \elemtuptuplex\ \text{is a live tuple in}\ \unravel{A} \}$ is a $\FGF$-bisimulation between $\unraveldom{A}, \elemtuptuplea$ and $\str{A}, \elemtuplea$.
+  The set $\{(\pi[\elemtuptuplex], \elemtuptuplex):\, \elemtuptuplex\ \text{is a live tuple in}\ \unravel{A} \}$ is an $\FGF$-bisimulation between $\unraveldom{A}, \elemtuptuplea$ and $\str{A}, \elemtuplea$.
   To construct a $\GF$-bisimulation between $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$, we employ the auxiliary notion of ``histories'': for an element $e \in \unraveldom{A}$ with $\seq{e} = \elemtuples^{(0)}\cdots(i^{(n)}, j^{(n)})\elemtuples^{(n)}$, we define $\mathsf{hist}(e) = \tp{\FGF}{\str{A}}{\elemtuples^{(0)}} \cdots (i^{(n)}, j^{(n)}) \tp{\FGF}{\str{B}}{\elemtuples^{(n)}})$.
   Now let $\bisimZ \subseteq \PartIso{\unravel{A}}{\unravel{B}}$ be the set such that $(\elemtuptuples, \elemtuptuplet) \in \bisimZ$ if:
   \begin{itemize}

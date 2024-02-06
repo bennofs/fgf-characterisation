@@ -186,7 +186,7 @@ If $\bisimZ, \bisimZ'$ are systems of forward partial maps between $\str{A}$ and
   %
   \item[\desclabel{(fBack)}{bisim:fback}] For every (possibly empty) infix $\elemtupledfromto{i}{j}$ of $\elemtupled$ and a live tuple $\elemtuplef$ in $\str{B}$ such that $\elemtupledfromto{i}{j} = \elemtupleffromto{1}{j{-}i{+}1}$ there is a live tuple $\elemtuplee$ with $\elemtuplecfromto{i}{j} = \elemtupleefromto{1}{j{-}i{+}1}$ such that $(\elemtuplee, \elemtuplef) \in \bisimZ'$~holds.
 \end{description}
-A system of forward partial maps $\bisimZ$ between $\str{A}$ and $\str{B}$ is a $\FGF$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies the above conditions.
+A system of forward partial maps $\bisimZ$ between $\str{A}$ and $\str{B}$ is an $\FGF$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies the above conditions.
 An $\ell$-$\FGF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell$ of systems of forward partial maps between $\str{A}$ and $\str{B}$ such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:fforth} and~\ref{bisim:fback} conditions for $\bisimZ_{i{+}1}$.
 We~speak about $\FGF$-\emph{bisimilar} and $\ell$-$\FGF$-\emph{bisimilar} (pointed) structures in total analogy to the guarded-fragment case.
 We stress that the back-and-forth conditions allow for choosing an empty infix, so $\ell$-$\FGF$-bisimulations are not limited to the local neighbourhood of some tuple.
@@ -208,7 +208,7 @@ Moreover, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$.
     \item
           For the ``if'' direction, we perform induction over $\ell$ and use~\ref{bisim:fforth} to obtain a witness in $\str{B}$ for every existential quantifier that has a witness in $\str{A}$ (by properties of $\models$, it suffixes to consider existential quantifiers as $\forall\vartuplex\ \cdots \iff \lnot \exists \vartuplex\ \cdots$).
     \item
-          For the opposite direction, we show that the set of pairs of tuples from $\str{A}$ and $\str{B}$ with the same $\FGF_{\ell}$-type is a $\ell$-$\FGF$-bisimulation.
+          For the opposite direction, we show that the set of pairs of tuples from $\str{A}$ and $\str{B}$ with the same $\FGF_{\ell}$-type is an $\ell$-$\FGF$-bisimulation.
           Let $\elemtuplec \sqin A$ and $\elemtupled \sqin B$ be live tuples with equal $\FGF_{\ell}$-types.
           Consider any tuple $\elemtuplee$ extending an infix $\elemtuplecfromto{i}{j}$ to a new live tuple $\elemtuplecfromto{i}{j}\elemtuplee$.
           Let $\Gamma$ be the $\FGF_{k-1}$-type of $\elemtuplee$ with regards to $\elemtuplecfromto{i}{j}$.
