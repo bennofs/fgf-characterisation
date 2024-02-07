@@ -1,11 +1,11 @@
 \begin{tikzpicture}
   \tikzset{element/.style = {inner sep=0.25em, fill=white, solid, rounded corners=0.7em, draw=black}};
-  \tikzset{edge from parent/.style = {draw, thick}};
+  \tikzset{edge from parent/.style = {draw, thick, densely dashed, ->}};
 
   \begin{scope}[xshift=-14em, yshift=2.5em]
     \draw[tolbrightGreen, line width=0.4em, -{Stealth[round]}] (0,0) -- +(3em, 0) node[anchor=west] { $P$ };
     \draw[tolbrightYellow, line width=0.25em, -{Stealth[round]}] (0,-1.5em) -- +(3em, 0) node[anchor=west] { $E$ };
-    \draw[black, thick] (0,-3em) -- +(3em, 0) node[anchor=west] { $\relNext$ };
+    \draw[edge from parent] (0,-3em) -- +(3em, 0) node[anchor=west] { $\relNext$ };
   \end{scope}
 
   \node[element] (p1) {$(\elemtuplep, 1)$}
@@ -25,14 +25,14 @@
       child[grow=-10]  { node[element]               (p11p3) {$(\elemtuplep(1,1)\elemtuplep, 3)$} }
     };
 
-    \begin{scope}[text opacity=1]
-      \begin{scope}[every path/.style={draw}, black, thick]
+    \begin{scope}[text opacity=1, on background layer]
+      \begin{scope}[every path/.style={draw}, black, thick, edge from parent]
         \draw (p1.west) to (p2);
         \draw (p1.east) to (p11p2);
       \end{scope}
 
-      \tikzset{green/.style={fill opacity=0.4, tolbrightGreen}};
-      \tikzset{yellow/.style={fill opacity=0.5, tolbrightYellow}};
+      \tikzset{green/.style={fill opacity=1, tolbrightGreen}};
+      \tikzset{yellow/.style={fill opacity=1, tolbrightYellow}};
 
       \fill[green] ($(p1.center) + (1em, 1em)$) circle[radius=0.7em] coordinate (p1c1);
       \fill[green] ($(p1.center) + (-1em, 1em)$) circle[radius=0.7em] coordinate (p1c2);
