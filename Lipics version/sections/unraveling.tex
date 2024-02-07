@@ -183,12 +183,11 @@ But $\elemtuptuplea \in \relP^{\unravel{A}}$ while $\elemtuptupleb \notin \relP^
 This is because $\bound{\elemtuptupleb} = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
 
 Intuitively, the unraveling $\unravel{E}$ can be seen as extending the structure $\str{E}$ with additional structure that $\GF$ can distinguish but $\FGF$ cannot.
-For example, we saw in \cref{fig:unravel-haf} that there is an $\FGF$-bisimilar structure to $\str{E}$ satsifying the $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$, which is not satisfied in $\str{E}$.
+For example, we saw in \cref{fig:unravel-haf} that there is an $\FGF$-bisimilar structure to $\str{E}$ satisfying the $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$, which is not satisfied in $\str{E}$.
 But the unraveling $\unravel{E}$ has added the necessary extra elements so that this sentence is satisfied in the unraveling.
-In fact, the unraveling contains all such variations which can be distinguished by $\GF$ but not by $\FGF$.
-This means that for two structures $\str{A}$ and $\str{B}$ which are $\FGF$-bisimilar, the unraveling for both of them contains all the $\GF$-structure that is possible to add while staying $\FGF$-bisimilar.
-Since this only depends on staying $\FGF$-bisimilar but not on the concrete details of the structures $\str{A}$ and $\str{B}$, the resulting unravelings for both structures contain the same $\GF$-structure.
-This is exactly what we want for \cref{thm:inf-unraveling-upgrading}, which we can now prove for this notion of unraveling:
+Observe that the unraveling mainly depends on the behavior of the original structure in the $\FGF$-game, not on concrete details of its representation.
+We now make this claim precise, showing that if we take two structures which behave the same in the $\FGF$-game (\ie{} they are $\FGF$-bisimilar), this new notion of unraveling yields structures which are indistinguishable by $\GF$.
+Hence, the unraveling of a structure may be seen as a characterization of its behavior in the $\FGF$-game, up to $\GF$-equivalence.
 
 \thminfunraveling*
 \begin{proofsketch}
