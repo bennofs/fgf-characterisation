@@ -2,7 +2,7 @@
 
 \section{Tree-Like Unraveling}\label{sec:unraveling}
 We next describe a notion of \emph{tree unravelings} for $\FGF$.
-A ``truncated'' form of these unravellings will be employed afterwards in the construction of the companion structures required for~\cref{thm:main-technical-thm}.
+A ``truncated'' form of these unravelings will be employed afterwards in the construction of the companion structures required for~\cref{thm:main-technical-thm}.
 The truncation is necessary to keep the resulting structure finite, as tree unravellings of structures containing cycles are infinite.
 This is similar to the approach taken by Otto to construct the finite companions for the van Benthem charactisation of modal logic with universal modalities~\cite[Proof of Lemma 38]{Otto04}.
 Our approach is similar to the construction of finite companions in the van Benthem Characterisation of modal logic with the universal modality by Otto~\cite[Proof of Lemma 38]{Otto04}.
@@ -78,8 +78,8 @@ On the domain of the unraveling, the binary relation $\relNext \subseteq \unrave
   \item[\desclabel{(addCtr)}{next:addctr}] $s = (\sigma, k)$ and $t = (\sigma, k + 1)$ for some $\sigma \in \Seq{A}$ and $k \in \N$, or
   \item[\desclabel{(addSeq)}{next:addseq}] $s = (\sigma, j)$ and $t = (\sigma(i,j)\elemtuplea, (j-i+1) + 1)$ for some $\sigma \in \Seq{A}$, $\elemtuplea \sqin A$ and $i,j \in \N$.
 \end{description}
-The picture below shows an example for this definition.
-It depicts a subset of the domain of the unraveling of the structure $\str{E}$ (taken from \cref{fig:unravel-haf}) and the $\relNext$ relation on this domain.
+\begin{example}\label{ex:unravel-dom}
+  The following picture shows a subset of the domain of the unraveling of the structure $\str{E}$ (taken from \cref{fig:unravel-haf}) and the $\relNext$ relation on this domain.
 
 \begin{figure}[H]
   \centering
@@ -106,6 +106,7 @@ However, it represents a move from $\tupp$ to $\tupp$ sharing only the first ele
 The last (and only) shared element in this move is $(\tupp, 1)$, so there is no edge from $(\tupp, 2)$ to $(\tupp(1,1)\tupp, 3)$.
 Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\tupp(1,1)\tupp, 3)$ is not the first unshared element.
 }
+\end{example}
 
 We show that the relation $\relNext$ forms a forest:
 \begin{lemma}
@@ -149,17 +150,41 @@ For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relN
 We now give a formal definition of the tree unraveling for a structure, followed by examples to explain this definition.
 Let $\str{A}, \elemtuplea$ be a structure, $\unraveldom{A}$ be the domain of the unraveling and $\elemtuplee$ a tuple of elements $(e_{1}, \ldots, e_{n}) \sqin \unraveldom{A}$..
 The tuple $\elemtuplee$ is a \emph{next-chain} if consecutive elements are related by $\relNext$, namely $(e_{i}, e_{i+1}) \in \relNext$ for all $i < n$.
-The \emph{bound} of $\elemtuptuplee$ (denoted by $\bound{\elemtuptuplee}$) is defined to be the counter of its last element, expressed formally as $\bound{\elemtuptuplee} = \ctr{e_{|\elemtuptuplee|}} = \ctr{e_{n}}$.
+We define the \emph{bound} of $\elemtuptuplee$ (denoted by $\bound{\elemtuptuplee}$) as the counter of its last element, expressed formally as $\bound{\elemtuptuplee} = \ctr{e_{|\elemtuptuplee|}} = \ctr{e_{n}}$.
+\begin{samepage}
 The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ of $\str{A}, \elemtuplea$ is the structure with the forest $\unraveldom{A}$ as domain and $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
-For each relation $\relR \in \Sigma$, a tuple $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:\begin{enumerate}
+For each relation $\relR \in \Sigma$, a tuple $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:
+\begin{enumerate}
   \item $\pi[\elemtuptupler] \in \relR^{\str{A}}$,
   \item $\bigwedge_{k=1}^{|\elemtuptupler|-1}{(\elemr_{k},\elemr_{k+1}) \in \relNext}$, and
   \item $|\elemtuptupler| \le \bound{\elemtuptupler}$
 \end{enumerate}
-\bfside{TODO: add picture to explain next chain bound}
+\end{samepage}
+This means that in the unraveling, the members of a relation $\relR^{\unravel{A}}$ are those next-chains (condition 2) which project to members of the relation in the base structure $\relR^{\str{A}}$ (condition 1) and have a length bounded by the counter of the last element in the chain (condition 3).
+To understand the third condition, recall the structure $\str{E}$ from \cref{ex:unravel-dom} and consider the next-chain \tikz[baseline] {
+  \matrix[matrix of nodes, column sep=1em, anchor=base, inner sep=0em, outer sep=0em] (chain) {
+    $(\elemtuplep, 1)$
+    \hspace*{0.1em} & \hspace*{0.1em}
+    $(\elemtuplep, 2)$
+    \hspace*{0.1em} & \hspace*{0.1em}
+    $(\elemtuplep(2,2)\elemtuplee, 2)$
+    \\
+  };
+  \graph[use existing nodes] { (chain-1-1) -> (chain-1-2) -> (chain-1-3) };%
+}.
+This chain corresponds to the sequence of moves in the $\FGF$-game given by the biseq $\sigma = (\elemtuplep(2,2)\elemtuplee)$.
+At the end of these moves, the selected elements are $\Pi(\sigma)$.
+The elements that project to these elements are a suffix of the next-chain of length 2, highlighted in red in the following picture:
+\begin{figure}[H]
+  \centering
+  \input{res/next-chain-bound}
+\end{figure}
+The number of elements in this suffix is equal to the bound, which is the counter of the last element in the chain, here $2$.
+If a next chain satisfies condition 3, then it is shorter than the bound, hence the projection of the whole chain is fully contained within $\Pi(\sigma)$, where $\sigma$ is the sequence of the last element in the chain.
+Therefore, condition 3 gives us the following property of the unraveling (without proof): if $\elemtuptupler$ is a live tuple of the unraveling (and thus satisfies condition 3) and $\sigma$ is the biseq of the last component of $\elemtuptupler$, then the projection $\pi[\elemtuptupler]$ is an infix of the selected elements in the $\FGF$-game after playing the moves given by the biseq $\sigma$.
 
-We illustrate the construction with an example.
-The picure below shows a subtree of the tree unraveling $\unravel{E}$ of the structure $\str{E}$ from the previous example with root $(\elemtuplep, 1)$, where again $\elemtuplep = (1,2,3)$ and $\elemtuplee = (2,3)$.
+Let us now look at an example unraveling.
+The picture below shows a subtree of the tree unraveling $\unravel{E}$ of the structure $\str{E}$ from the previous example with root $(\elemtuplep, 1)$, where again $\elemtuplep = (1,2,3)$ and $\elemtuplee = (2,3)$.
 \begin{figure}[H]
   \centering
   \input{res/unravel-ex1.tex}
@@ -167,14 +192,14 @@ The picure below shows a subtree of the tree unraveling $\unravel{E}$ of the str
 
 \noindent
 The example highlights the tree-like property of the tree unraveling.
-As relations are required to be next-chains, they must follow along the tree edges specified by the $\relNext$ relation (the black edges in the picture).
+As tuples in a relation are next-chains, they follow along the tree edges specified by the $\relNext$ relation (the black edges in the picture).
 By the definition of the tree unraveling, elements from the tree unraveling which are related by a relation $\relR$ are mapped by the projection $\pi$ to elements from the base structure which are also related by $\relR$.
 For example, $(\elemtuplep, 2)$ and $(\elemtuptuplep, 3)$ are related by $\relE$ in the unraveling, and so are their projections $2$ and $3$ in the base structure.
 This means that $\pi$ preserves $\FGF$-types for live tuples.
 It is easy to verify that it also satisfies the back-and-forth conditions for this example, so there exists an $\FGF$-bisimulation between $\unravel{E}$ and $\str{E}$.
-Note however that not all elements which project to related elements in the base structure are related in the unraveling.
+Observe how condition 3 of the definition applies in this example.
 Consider the tuples $\elemtuptuplea = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep, 3))$ and $\elemtuptupleb = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep(2,2)\elemtuplee, 2))$.
-These tuples have equal projections: $\pi(\elemtuptuplea) = \pi(\elemtuptupleb) = \elemtuplep$.
+These tuples have equal projections: $\pi(\elemtuptuplea) = \pi(\elemtuptupleb) = \elemtuplep$ and are next-chains.
 But $\elemtuptuplea \in \relP^{\unravel{A}}$ while $\elemtuptupleb \notin \relP^{\unravel{A}}$.
 This is because $\bound{\elemtuptupleb} = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
 

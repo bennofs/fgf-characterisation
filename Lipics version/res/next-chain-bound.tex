@@ -1,0 +1,27 @@
+{%
+\newcommand{\tupp}{{\color{tolbrightGreenDarker}\elemtuplep}}%
+\newcommand{\tupe}{{\color{tolbrightYellowDarker!60!black}\elemtuplee}}%
+\begin{tikzpicture}%
+  \tikzset{element/.style = {
+      inner sep=0.25em, fill=white, rounded corners=0.7em, draw=black
+    }};
+  \tikzset{edge from parent/.style = {draw,->}};
+
+  \matrix [column sep=3em]{
+    \node[element] (p1) {$(\tupp, 1)$};
+    &
+    \node[element, very thick, fill=tolpalePalered!80!white] (p2) {$(\tupp, 2)$};
+    &
+    \node[element, very thick, fill=tolpalePalered!80!white] (p22e2) {$(\tupp(2,2)\tupe, 2)$};
+    \\
+  };
+
+  \graph[use existing nodes,edges={edge from parent}] {
+    p1 -> p2 -> p22e2;
+  };
+
+  \node [at=($(p2)!0.6!(p22e2)$), below=3ex, font=\small, outer sep=0em, inner sep=0em] {$\textcolor{tolbrightRed}{\Pi}(\sigma)$ for $\sigma = \tupp(2,2)\tupe$};
+  %$\draw[dashed, draw=tolbrightPurple] ($(p1)!0.68!(p2)$) +(0,3ex) -- ++(0,-2.5ex) node[below, inner sep=0.5ex, text=tolbrightPurple, font=\small] { $\mathsf{bnd}$ };
+  \path[draw=tolbrightPurple,{Bracket[]}-{Bracket[]}]  ($(p2.west)+(0,3ex)$) -- node[above=0.5ex,font=\small,text=tolbrightPurple, outer sep=0em, inner sep=0em] {$\mathsf{bnd}$} ($(p22e2.east)+(0,3ex)$);
+\end{tikzpicture}%
+}%

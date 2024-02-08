@@ -44,14 +44,14 @@ For the opposite direction, take $\ell \in \N$ and a pair of $\omega$-saturated 
 Suppose that $(\str{A}, \elemtuplea) \equiv_{\FGF_\ell} (\str{B}, \elemtupleb)$.
 We construct a family $\bisimZ_0, \ldots, \bisimZ_\ell$ of systems of forward partial maps as follows:
 \[
-  \bisimZ_\mathit{k} \coloneqq \{ (\elemtuplec, \elemtupled) \in \bigcup_{i=0}^{\infty} (A^i \times B^i) \colon\,  (\str{A}, \elemtuplec) \equiv_{\FGF_\mathit{k}} (\str{B}, \elemtupled), \ \text{and} \ \elemtuplec, \elemtupled \ \text{are live} \}.
+	\bisimZ_{\mathit{k}} \coloneqq \{ (\elemtuplec, \elemtupled) \in \bigcup_{i=0}^{\infty} (A^i \times B^i) \colon\,  (\str{A}, \elemtuplec) \equiv_{\FGF_{\mathit{k}}} (\str{B}, \elemtupled), \ \text{and} \ \elemtuplec, \elemtupled \ \text{are live} \}.
 \]
 We claim that such a family is an $\ell$-$\FGF$-bisimulation between $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$.
-Note that the condition \ref{bisim:atomiceq} is trivially satisfied by all the $\bisimZ_\mathit{k}$ above, and that $(\elemtuplea, \elemtupleb)$ belongs to all the sets $\bisimZ_\mathit{k}$ by design.
+	Note that the condition \ref{bisim:atomiceq} is trivially satisfied by all the $\bisimZ_{\mathit{k}}$ above, and that $(\elemtuplea, \elemtupleb)$ belongs to all the sets $\bisimZ_{\mathit{k}}$ by design.
 Thus it suffices to show that for all $\mathit{k} \in \{ 1, 2, \ldots, \ell\}$ that the system of forward partial
 maps $\bisimZ_{k-1}$ satisfies \ref{bisim:fforth} and \ref{bisim:fback} for $\bisimZ_{\mathit{k}}$.
 Hence, take any such $j$ and let us proceed with a proof of \ref{bisim:fforth} (the case of \ref{bisim:fback} is symmetric). 
-Let $(\elemtuplec, \elemtupled) \in \bisimZ_\mathit{k}$, $\elemtuplecfromto{i}{j}$ be a (possibly empty) infix of $\elemtuplec$
+	Let $(\elemtuplec, \elemtupled) \in \bisimZ_{\mathit{k}}$, $\elemtuplecfromto{i}{j}$ be a (possibly empty) infix of $\elemtuplec$
 and $\elemtuplee$ be any tuple in $\str{A}$ such that $\elemtuplecfromto{i}{j}\elemtuplee$ is live.
 We are going to show that the set 
 \[
@@ -66,7 +66,7 @@ The formula
   \phi(\vartuplex) \deff \exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \wedge \textstyle\bigwedge_{\delta \in \Delta} \delta(\vartuplex, \vartupley))
 \end{equation*}
 satisfies $(\str{A}, \elemtuplecfromto{i}{j}) \models \phi$ by design.
-Moreover, as $\phi$ is an $\FGF_\mathit{k}$-formula,
+Moreover, as $\phi$ is an $\FGF_{\mathit{k}}$-formula,
 we can invoke $\mathit{k}$-$\FGF$-equivalence of $(\str{A}, \elemtuplec)$ and $(\str{B}, \elemtupled)$ to deduce~$(\str{B}, \elemtupledfromto{i}{j}) \models \phi$.
 This implies that $\Gamma$ is indeed realized in $\str{B}$, and let $\elemtupledfromto{i}{j}\elemtuplef$ be a tuple witnessing this fact.
 By the choice of $\Gamma$, we know that  $(\str{A}, \elemtuplecfromto{i}{j}\elemtuplee) \equiv_{\FGF_{\mathit{k}{-}1}} (\str{B}, \elemtupledfromto{i}{j}\elemtuplef)$, and hence
