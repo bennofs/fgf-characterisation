@@ -764,7 +764,7 @@ pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 \def\authorcolumnsMin{6}
 \def\@authornum{0}
 \def\author#1#2#3#4#5{%
-  \ifx\@author\orig@author\let\@author\@empty\fi
+  \ifx\@author\orig@author\let\@author\par\fi
   \g@addto@macro\@author{%
 	\noexpandarg\StrBehind{#2}{\and \url}[\homepageTemp]\IfSubStr{#2}{\and \url}{\StrBefore{#2}{\and \url}[\affiliation]}{\def\affiliation{#2}}%
 	\expandarg\exploregroups\StrRemoveBraces{\homepageTemp}[\homepage]%
