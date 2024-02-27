@@ -1,0 +1,28 @@
+% Proof sketchs
+\let\realproof\proof
+\let\realendproof\endproof
+% \newenvironment{proofsketch}{%
+%   \renewcommand{\proofname}{\normalfont\emph{Proof Sketch}}\realproof}{\realendproof}
+
+% hide proofs
+\let\proof\appendixproof
+\let\endproof\endappendixproof
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}[theorem]{Observation}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{note}[theorem]{Note}
+\newtheorem*{note*}{Note}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark*}{Remark}
+\theoremstyle{claimstyle}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem*{claim*}{Claim}

@@ -1,0 +1,227 @@
+%!TEX root = ../main.tex
+\chapter{Tree Unravelings}\label{chap:unraveling}
+We next describe a notion of \emph{tree unravelings} for $\FGF$.
+A ``truncated'' form of these unravelings will be employed afterwards in the construction of the companion structures required for~\cref{thm:main-technical-thm}.
+The truncation is necessary to keep the resulting structure finite, as tree unravellings of structures containing cycles are infinite.
+This is similar to the approach taken by Otto to construct the finite companions for the van Benthem charactisation of modal logic with universal modalities~\cite[Proof of Lemma 38]{Otto04}.
+Our approach is similar to the construction of finite companions in the van Benthem Characterisation of modal logic with the universal modality by Otto~\cite[Proof of Lemma 38]{Otto04}.
+However, novel ideas are required to make this construction applicable to the case of higher-arity relations.
+
+For structures $\str{A}$ with a distinguished binary predicate $\relNext^{\str{A}}$, we employ a tailored terminology from graph theory, as expected.
+For instance, whenever $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
+A \emph{root} is an element without parents.
+The set of \emph{descendants} of an element $\eleme$ is the smallest set containing $\eleme$ that is closed under taking children (\ie{} if an element is in the set then so are its children).
+We call a structure $\str{A}$ a \emph{forest} if every element has at most one parent and is a descendant of some root.
+A forest is a \emph{tree} if it has exactly one root.
+We say that a model is a \emph{forest model} (or \emph{tree model}) if it has a domain which is a forest (or tree).
+It is well-known that with a suitable notion of unraveling~\cite[Prop. 3]{Rosen97} one can show that every satisfiable modal logic formula has a tree model.
+
+Our goal is to design a notion of unraveling for $\FGF$ satisfying the following theorem:
+\begin{restatable}{theorem}{thminfunraveling}\label{thm:inf-unraveling-upgrading}
+  Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed structures.
+  Then there are forest models $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$ which are both:
+  \begin{itemize}
+    \item $\FGF$-similar to the original structures: $\unravel{A}, \elemtuptuplea \bisimto_{\FGF} \str{A}, \elemtuplea$ and $\unravel{B}, \elemtuptupleb \bisimto_{\FGF} \str{B}, \elemtupleb$
+    \item $\GF$-bisimilar: $\unravel{A}, \elemtuptuplea \bisimto_{\GF} \unravel{B}, \elemtuptupleb$.
+  \end{itemize}
+\end{restatable}
+
+\noindent
+The \emph{HAF}-unravelling~\cite[Sec 3.3]{Bednarczyk21} introduced by Bednarczyk produces a forest model which is \FGF-bisimilar to a given \FGF-model, but unfortunately fails to satisfy the above theorem.
+Consider the two finite structures depicted in \cref{fig:unravel-haf}.
+Both of them are identical to their HAF-unravelling as they are already HAFs.
+Yet, they can be distinguished by a $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$.
+Since both structures are $\FGF$-bisimilar, this shows that HAF-unravellings do not satisfy \cref{thm:inf-unraveling-upgrading} even in the finite case.
+
+\begin{figure}[H]
+  \centering
+    \begin{tikzpicture}[baseline=(current bounding box.north)]
+        \draw[tolbrightGreen, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
+        \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
+
+        \draw [black, line width=0.1em, fill=white] (0em, 8em) circle [radius=0.8em] node[anchor=center] {1};
+        \draw [black, line width=0.1em, fill=white] (0em, 4em) circle [radius=0.8em] node[anchor=center] {2};
+        \draw [black, line width=0.1em, fill=white] (0em, 0em) circle [radius=0.8em] node[anchor=center] {3};
+
+        \begin{scope}[xshift=10em]
+            \draw[tolbrightGreen, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
+            \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0em,4em) -> (6em,2em);
+            \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
+
+            \draw [black, line width=0.1em, fill=white] (0em, 8em) circle [radius=0.8em] node[anchor=center] {1};
+            \draw [black, line width=0.1em, fill=white] (0em, 4em) circle [radius=0.8em] node[anchor=center] {2};
+            \draw [black, line width=0.1em, fill=white] (0em, 0em) circle [radius=0.8em] node[anchor=center] {3};
+            \draw [black, line width=0.1em, fill=white] (6em, 2em) circle [radius=0.8em] node[anchor=center] {3'};
+
+            \node[tolbrightGreen] at (-2em, 6em) {P};
+            \node[tolbrightYellow] at (-1.5em, 2em) {E};
+            \node[tolbrightYellow] at (3em, 4em) {E};
+        \end{scope}
+
+        \node[font=\Large] at (5em, 4em) {$\sim_{FGF}$};
+
+        \node[tolbrightGreen] at (-2em, 6em) {P};
+        \node[tolbrightYellow] at (-1.5em, 2em) {E};
+    \end{tikzpicture}%
+    \caption{Two FGF-bisimilar HAFs which are not GF-bisimilar. Relations are drawn top to bottom, so the green area marks the relation $\relP(1,2,3)$}%
+    \label{fig:unravel-haf}
+\end{figure}
+
+We next describe a new notion of unraveling for $\FGF$ which, as we see later, satisfies \cref{thm:inf-unraveling-upgrading}.
+The \emph{domain of the unraveling} for a structure $\str{A}$, denoted by $\unraveldom{A}$, is simply the set of all bipoints (as introduced in~\ref{sec:games}) of the structure $\str{A}$.
+We first introduce a relation $\relNext$ that defines a forest on this set and then specify how relations are interpreted.
+
+\noindent \textbf{The $\relNext$ relation.}
+On the domain of the unraveling, the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ is defined such that $(s, t) \in \relNext$ if either:
+\begin{description}
+  \item[\desclabel{(addCtr)}{next:addctr}] $s = (\sigma, k)$ and $t = (\sigma, k + 1)$ for some $\sigma \in \Seq{A}$ and $k \in \N$, or
+  \item[\desclabel{(addSeq)}{next:addseq}] $s = (\sigma, j)$ and $t = (\sigma(i,j)\elemtuplea, (j-i+1) + 1)$ for some $\sigma \in \Seq{A}$, $\elemtuplea \sqin A$ and $i,j \in \N$.
+\end{description}
+\begin{example}\label{ex:unravel-dom}
+  The following picture shows a subset of the domain of the unraveling of the structure $\str{E}$ (taken from \cref{fig:unravel-haf}) and the $\relNext$ relation on this domain.
+
+\begin{figure}[H]
+  \centering
+  \input{res/unravel-domain-ex1.tex}
+\end{figure}
+
+\noindent{%
+\newcommand{\tupp}{{\color{tolbrightGreenDarker}\elemtuplep}}%
+\newcommand{\tupe}{{\color{tolbrightYellowDarker}\elemtuplee}}%
+The relation $\relNext$ links elements which represent consecutive components within a tuple of the base structure, but following the structure imposed by the biseqs, as explained below.
+There are two cases.
+In the~\ref{next:addctr} case we keep the biseq the same and increase the counter by one.
+This case is represented by vertical arrows in the above picture.
+For example, the elements $(\tupp, 1)$ and $(\tupp, 2)$ represent the elements $1$ and~$2$ which are consecutive elements of the tuple $\tupp$, so $((\tupp, 1), (\tupp, 2)) \in \relNext$.
+In the~\ref{next:addseq} case, we extend the biseq with one more bisimulation move.
+This case is represented by arrows that branch sideways in the above picture.
+If the biseq is extended during a transation along a $\relNext$ edge, then the start of the edge is the last (with the highest counter) shared element and the end of the edge is the first (with the lowest counter) unshared element for the new biseq.
+As an example, consider the element $(\tupp, 2)$.
+The biseq $\tupp(2,2)\tupe$ represents the move from $\tupp$ to $\tupe$, while keeping the second element of $\tupp$ fixed.
+Thus, the last shared element is $(\tupp, 2)$ and the first unshared element is $(\tupp(2,2)\tupe, 2)$, so those two elements are in $\relNext$.
+Now consider the element $(\tupp(1,1)\tupp, 3)$.
+Its biseq $\tupp(1,1)\tupp$ is also an extension of the biseq of $(\tupp, 2)$.
+However, it represents a move from $\tupp$ to $\tupp$ sharing only the first element.
+The last (and only) shared element in this move is $(\tupp, 1)$, so there is no edge from $(\tupp, 2)$ to $(\tupp(1,1)\tupp, 3)$.
+Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\tupp(1,1)\tupp, 3)$ is not the first unshared element.
+}
+\end{example}
+
+We show that the relation $\relNext$ forms a forest:
+\begin{lemma}
+  For a structure $\str{A}$, the domain of the unraveling $\unraveldom{A}$ together with the relation $\relNext$ is a forest. The roots are the elements composed of a 0-biseq and a counter equal to 1.
+\end{lemma}
+\begin{proofsketch}
+  The counter of an element $t \in \unraveldom{A}$ is \emph{minimal} if the counter is the smallest among elements of the domain with the same biseq as $t$.
+  The key observation now is that if $(s,t) \in \relNext$ because of case~\ref{next:addseq}, then the counter of $t$ is minimal, while if $(s,t) \in \relNext$ because of case~\ref{next:addctr}, then the counter of $t$ cannot be minimal (since $s$ is witness that there are elements with a smaller counter).
+  Take an element $t \in \unraveldom{A}$ with $(s, t) \in \relNext$ for some element $s \in \unraveldom{A}$.
+  If the counter is not minimal, then the unique parent $s$ is element obtained by decreasing the counter by one.
+  If the counter is minimal and cannot be further decreased, then the unique parent $s$ is the element with the biseq reduced by one move and counter equal to the index $j$ as specified in the~\ref{next:addseq} case of the definition of $\relNext$.
+  We observe that the parent of an element either has a biseq with a decreased level or it has a biseq with the same level but a decreased counter.
+  Thus, taking parents repeatedly must end in a root at some point.
+  Therefore every element is a descendant of some root and has at most one parent, proving that $\relNext$ forms a forest.
+  The only elements without a parent are those composed of a 0-biseq and a minimal counter.
+  Since $(\sigma, 1) \in \unraveldom{A}$ for any 0-biseq $\sigma \in \Seq{A}$, the roots are exactly the elements composed of a 0-biseq and a counter equal to 1.
+\end{proofsketch}
+
+Finally, we formalize the property that $\relNext$ links elements that map to consecutive elements in the base structure:
+\begin{lemma}\label{lem:projection-next}
+For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relNext$, if $\elemtuplea \sqin \unraveldom{A}$ is the tuple such that $\seq{t} = \cdots \elemtuplea$, then $\pi(s) = a_{k-1}$ and $\pi(t) = a_{k}$ for $k = \ctr{t}$.
+\end{lemma}
+\begin{proofsketch}
+  Let $\seq{s} = \cdots \elemtupleb$.
+  Since $(s,t) \in \relNext$, the biseq $\seq{t}$ extends $\seq{s}$.
+  Thus, $\elemtupleb$ and $\elemtuplea$ must an share an infix (by definition of biseqs).
+  The definition of $\relNext$ restricts the counters $\ctr{s}$ and $\ctr{t}$ such that the equality $b_{\ctr{s}} = a_{\ctr{t}-1}$ holds, implying the property of the lemma.
+\end{proofsketch}
+\begin{proof}
+  Note that $\pi(t) = a_{\ctr{t}} = a_{k}$ by definition of the projection $\pi$.
+  We prove that $\pi(s) = a_{k-1}$ by case analysis on the two cases of $\relNext$.
+  The~\ref{next:addctr} case is simple: in this case $\seq{s} = \seq{t}$ and $\ctr{s} = k - 1$, so the property follows directly from the definition of $\pi$.
+  For the~\ref{next:addseq} case, let $\seq{t} = \seq{s} (i,j) \elemtuplea$ and $\seq{s} = \cdots \elemtupleb$.
+  Further, in this case $k = (j - i + 1) + 1$ and $\ctr{s} = j$.
+  By the fact that $\seq{t}$ is a biseq, we know that $\elemtupleafromto{1}{j-i+1} = \elemtuplebfromto{i}{j}$.
+  In particular, it follows that $\pi(s) = b_{j} = a_{j-i+1} = a_{k-1}$, concluding the proof.
+\end{proof}
+
+\noindent
+\textbf{Relations in the unraveling}
+We now give a formal definition of the tree unraveling for a structure, followed by examples to explain this definition.
+Let $\str{A}, \elemtuplea$ be a structure, $\unraveldom{A}$ be the domain of the unraveling and $\elemtuplee$ a tuple of elements $(e_{1}, \ldots, e_{n}) \sqin \unraveldom{A}$..
+The tuple $\elemtuplee$ is a \emph{next-chain} if consecutive elements are related by $\relNext$, namely $(e_{i}, e_{i+1}) \in \relNext$ for all $i < n$.
+We define the \emph{bound} of $\elemtuptuplee$ (denoted by $\bound{\elemtuptuplee}$) as the counter of its last element, expressed formally as $\bound{\elemtuptuplee} = \ctr{e_{|\elemtuptuplee|}} = \ctr{e_{n}}$.
+\begin{samepage}
+The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ of $\str{A}, \elemtuplea$ is the structure with the forest $\unraveldom{A}$ as domain and $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
+For each relation $\relR \in \Sigma$, a tuple $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:
+\begin{enumerate}
+  \item $\pi[\elemtuptupler] \in \relR^{\str{A}}$,
+  \item $\bigwedge_{k=1}^{|\elemtuptupler|-1}{(\elemr_{k},\elemr_{k+1}) \in \relNext}$, and
+  \item $|\elemtuptupler| \le \bound{\elemtuptupler}$
+\end{enumerate}
+\end{samepage}
+This means that in the unraveling, the members of a relation $\relR^{\unravel{A}}$ are those next-chains (condition 2) which project to members of the relation in the base structure $\relR^{\str{A}}$ (condition 1) and have a length bounded by the counter of the last element in the chain (condition 3).
+To understand the third condition, recall the structure $\str{E}$ from \cref{ex:unravel-dom} and consider the next-chain \tikz[baseline] {
+  \matrix[matrix of nodes, column sep=1em, anchor=base, inner sep=0em, outer sep=0em] (chain) {
+    $(\elemtuplep, 1)$
+    \hspace*{0.1em} & \hspace*{0.1em}
+    $(\elemtuplep, 2)$
+    \hspace*{0.1em} & \hspace*{0.1em}
+    $(\elemtuplep(2,2)\elemtuplee, 2)$
+    \\
+  };
+  \graph[use existing nodes] { (chain-1-1) -> (chain-1-2) -> (chain-1-3) };%
+}.
+This chain corresponds to the sequence of moves in the $\FGF$-game given by the biseq $\sigma = (\elemtuplep(2,2)\elemtuplee)$.
+At the end of these moves, the selected elements are $\Pi(\sigma)$.
+The elements that project to these elements are a suffix of the next-chain of length 2, highlighted in red in the following picture:
+\begin{figure}[H]
+  \centering
+  \input{res/next-chain-bound}
+\end{figure}
+The number of elements in this suffix is equal to the bound, which is the counter of the last element in the chain, here $2$.
+If a next chain satisfies condition 3, then it is shorter than the bound, hence the projection of the whole chain is fully contained within $\Pi(\sigma)$, where $\sigma$ is the sequence of the last element in the chain.
+Therefore, condition 3 gives us the following property of the unraveling (without proof): if $\elemtuptupler$ is a live tuple of the unraveling (and thus satisfies condition 3) and $\sigma$ is the biseq of the last component of $\elemtuptupler$, then the projection $\pi[\elemtuptupler]$ is an infix of the selected elements in the $\FGF$-game after playing the moves given by the biseq $\sigma$.
+
+Let us now look at an example unraveling.
+The picture below shows a subtree of the tree unraveling $\unravel{E}$ of the structure $\str{E}$ from the previous example with root $(\elemtuplep, 1)$, where again $\elemtuplep = (1,2,3)$ and $\elemtuplee = (2,3)$.
+\begin{figure}[H]
+  \centering
+  \input{res/unravel-ex1.tex}
+\end{figure}
+
+\noindent
+The example highlights the tree-like property of the tree unraveling.
+As tuples in a relation are next-chains, they follow along the tree edges specified by the $\relNext$ relation (the black edges in the picture).
+By the definition of the tree unraveling, elements from the tree unraveling which are related by a relation $\relR$ are mapped by the projection $\pi$ to elements from the base structure which are also related by $\relR$.
+For example, $(\elemtuplep, 2)$ and $(\elemtuptuplep, 3)$ are related by $\relE$ in the unraveling, and so are their projections $2$ and $3$ in the base structure.
+This means that $\pi$ preserves $\FGF$-types for live tuples.
+It is easy to verify that it also satisfies the back-and-forth conditions for this example, so there exists an $\FGF$-bisimulation between $\unravel{E}$ and $\str{E}$.
+Observe how condition 3 of the definition applies in this example.
+Consider the tuples $\elemtuptuplea = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep, 3))$ and $\elemtuptupleb = ((\elemtuplep, 1), (\elemtuplep, 2), (\elemtuplep(2,2)\elemtuplee, 2))$.
+These tuples have equal projections: $\pi(\elemtuptuplea) = \pi(\elemtuptupleb) = \elemtuplep$ and are next-chains.
+But $\elemtuptuplea \in \relP^{\unravel{A}}$ while $\elemtuptupleb \notin \relP^{\unravel{A}}$.
+This is because $\bound{\elemtuptupleb} = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
+
+Intuitively, the unraveling $\unravel{E}$ can be seen as extending the structure $\str{E}$ with additional structure that $\GF$ can distinguish but $\FGF$ cannot.
+For example, we saw in \cref{fig:unravel-haf} that there is an $\FGF$-bisimilar structure to $\str{E}$ satisfying the $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$, which is not satisfied in $\str{E}$.
+But the unraveling $\unravel{E}$ has added the necessary extra elements so that this sentence is satisfied in the unraveling.
+Observe that the unraveling mainly depends on the behavior of the original structure in the $\FGF$-game, not on concrete details of its representation.
+To make this claim precise, we show that if we take two structures which behave the same in the $\FGF$-game (\ie{} they are $\FGF$-bisimilar), this new notion of unraveling yields structures which are indistinguishable by $\GF$.
+Hence, the unraveling of a structure may be seen as a characterization of its behavior in the $\FGF$-game, up to $\GF$-equivalence.
+
+\thminfunraveling*
+\begin{proofsketch}
+  The unraveling is a forest model.
+  The set $\{(\pi[\elemtuptuplex], \elemtuptuplex):\, \elemtuptuplex\ \text{is a live tuple in}\ \unravel{A} \}$ is an $\FGF$-bisimulation between $\unraveldom{A}, \elemtuptuplea$ and $\str{A}, \elemtuplea$.
+  To construct a $\GF$-bisimulation between $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$, we employ the auxiliary notion of ``histories'': for an element $e \in \unraveldom{A}$ with $\seq{e} = \elemtuples^{(0)}\cdots(i^{(n)}, j^{(n)})\elemtuples^{(n)}$, we define $\mathsf{hist}(e) = \tp{\FGF}{\str{A}}{\elemtuples^{(0)}} \cdots (i^{(n)}, j^{(n)}) \tp{\FGF}{\str{B}}{\elemtuples^{(n)}})$.
+  Now let $\bisimZ \subseteq \PartIso{\unravel{A}}{\unravel{B}}$ be the set such that $(\elemtuptuples, \elemtuptuplet) \in \bisimZ$ if:
+  \begin{itemize}
+    \item $\elemtuptuples$, $\elemtuptuplet$ are live tuples of size $k$ from $\unravel{A}$, $\unravel{B}$, and
+    \item $\mathsf{hist}(s_{i}) = \mathsf{hist}(t_{i})\text{ and }\ctr{s_{i}} = \ctr{t_{i}}\text{ for all }i \in [1, k]$
+  \end{itemize}
+  This set is a $\GF$-bisimulation.
+  A detailed proof of this is given later for the finite case.
+\end{proofsketch}
+\begin{proof}
+  \bfbox{todo proof for infinite unraveling theorem}
+\end{proof}

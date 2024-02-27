@@ -1,3 +1,46 @@
 \usepackage[T1]{fontenc}
 \usepackage{babel}
 \usepackage[math]{blindtext}
+
+\usepackage{microtype} % Micro typing improvements
+\usepackage{ellipsis} % improves whitespacing around "..."s
+\usepackage[abbreviations,british]{foreign} % for better typing i.e., e.g. etc.
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
+\definecolor{persianplum}{rgb}{0.44, 0.11, 0.11}
+
+\hypersetup{
+  colorlinks  = true, % Colours links instead of ugly boxes
+  citecolor   = persianplum, % Colour of citations
+  urlcolor    = persianplum, % Colour for external hyperlinks,
+  linkcolor   = persianplum
+}
+
+% TODO notes
+\usepackage{todonotes}
+\usepackage{xspace}
+
+% Math stuff
+\let\Bbbk\relax
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{apxproof}
+\usepackage{thm-restate}
+%\usepackage{thmtools}
+
+\usepackage{cleveref}
+
+% Pictures
+\usepackage{caption}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{arrows, arrows.meta, decorations.markings, shapes, calc, positioning, fit, graphs, trees, matrix, backgrounds}
+
+% Arrows
+\usepackage[h]{esvect}

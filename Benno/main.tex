@@ -1,10 +1,24 @@
 \documentclass[UKenglish]{tudscrreprt}
 
-\include{settings/packages.tex}
-\include{settings/info.tex}
+\input{settings/packages.tex}
+\input{settings/info.tex}
+\input{settings/macros.tex}
+\input{settings/tolcolors.tex}
+\input{settings/proofs.tex}
 
 \begin{document}
 
 \maketitle
+\tableofcontents
+
+\include{content/introduction}
+\include{content/logics}
+\include{content/expressivity}
+\include{content/unraveling}
+\include{content/finite}
+\include{content/conclusion}
+
+\clearpage
+\bibliography{references}
 
 \end{document}

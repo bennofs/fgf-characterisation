@@ -235,12 +235,10 @@
   \fill[red] (0,0) circle (0.1);%
 }
 
-% Proof sketchs
-\let\realproof\proof
-\let\realendproof\endproof
-% \newenvironment{proofsketch}{%
-%   \renewcommand{\proofname}{\normalfont\emph{Proof Sketch}}\realproof}{\realendproof}
-
-% hide proofs
-\let\proof\appendixproof
-\let\endproof\endappendixproof
+% Descriptions
+\makeatletter
+\def\desclabel#1#2{\begingroup
+\def\@currentlabel{#1}%
+#1\label{#2}\endgroup
+}
+\makeatother
