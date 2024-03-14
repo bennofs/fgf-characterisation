@@ -151,7 +151,9 @@ We now give a formal definition of the tree unraveling for a structure, followed
 Let $\str{A}, \elemtuplea$ be a structure, $\unraveldom{A}$ be the domain of the unraveling and $\elemtuplee$ a tuple of elements $(e_{1}, \ldots, e_{n}) \sqin \unraveldom{A}$..
 The tuple $\elemtuplee$ is a \emph{next-chain} if consecutive elements are related by $\relNext$, namely $(e_{i}, e_{i+1}) \in \relNext$ for all $i < n$.
 We define the \emph{bound} of $\elemtuptuplee$ (denoted by $\bound{\elemtuptuplee}$) as the counter of its last element, expressed formally as $\bound{\elemtuptuplee} = \ctr{e_{|\elemtuptuplee|}} = \ctr{e_{n}}$.
+Using these two notions, we define the \emph{tree unraveling} of a structure $\str{A}, \elemtuplea$:
 \begin{samepage}
+\begin{definition}[Tree Unraveling]\label{def:tree-unraveling}
 The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ of $\str{A}, \elemtuplea$ is the structure with the forest $\unraveldom{A}$ as domain and $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
 For each relation $\relR \in \Sigma$, a tuple $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:
 \begin{enumerate}
@@ -159,6 +161,7 @@ For each relation $\relR \in \Sigma$, a tuple $\elemtuptupler \in \relR^{\unrave
   \item $\bigwedge_{k=1}^{|\elemtuptupler|-1}{(\elemr_{k},\elemr_{k+1}) \in \relNext}$, and
   \item $|\elemtuptupler| \le \bound{\elemtuptupler}$
 \end{enumerate}
+\end{definition}
 \end{samepage}
 This means that in the unraveling, the members of a relation $\relR^{\unravel{A}}$ are those next-chains (condition 2) which project to members of the relation in the base structure $\relR^{\str{A}}$ (condition 1) and have a length bounded by the counter of the last element in the chain (condition 3).
 To understand the third condition, recall the structure $\str{E}$ from \cref{ex:unravel-dom} and consider the next-chain \tikz[baseline] {
@@ -181,7 +184,7 @@ The elements that project to these elements are a suffix of the next-chain of le
 \end{figure}
 The number of elements in this suffix is equal to the bound, which is the counter of the last element in the chain, here $2$.
 If a next chain satisfies condition 3, then it is shorter than the bound, hence the projection of the whole chain is fully contained within $\Pi(\sigma)$, where $\sigma$ is the sequence of the last element in the chain.
-Therefore, condition 3 gives us the following property of the unraveling (without proof): if $\elemtuptupler$ is a live tuple of the unraveling (and thus satisfies condition 3) and $\sigma$ is the biseq of the last component of $\elemtuptupler$, then the projection $\pi[\elemtuptupler]$ is an infix of the selected elements in the $\FGF$-game after playing the moves given by the biseq $\sigma$.
+Therefore, condition 3 intuitively gives us the following property of the unraveling: if $\elemtuptupler$ is a live tuple of the unraveling (and thus satisfies condition 3) and $\sigma$ is the biseq of the last component of $\elemtuptupler$, then the projection $\pi[\elemtuptupler]$ is an infix of the selected elements in the $\FGF$-game after playing the moves given by the biseq $\sigma$.
 
 Let us now look at an example unraveling.
 The picture below shows a subtree of the tree unraveling $\unravel{E}$ of the structure $\str{E}$ from the previous example with root $(\elemtuplep, 1)$, where again $\elemtuplep = (1,2,3)$ and $\elemtuplee = (2,3)$.
