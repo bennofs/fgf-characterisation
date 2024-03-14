@@ -57,6 +57,14 @@ To fix this, we replace each missing child $b$ with an element that is similar, 
 The element we choose for this is a root of a copy of a tree in $\mathcal{S}$ with a biseq equal to the level-$\ell$ suffix of the biseq of the original child $b$.
 If we view biseqs as representing a history of game play in $\FGF$-game, this corresponds to forgetting all except the last $\ell$ moves.
 We take care to ensure that for any given tree $\mathcal{T}$ in $\mathcal{S}$, two missing children are always replaced by roots of distinct copies of trees in $\mathcal{S}$.
+The whole construction is illustrated in \cref{fig:finite-unraveling}.
+
+\begin{figure}
+  \input{res/cutting}\\[1em]
+  \input{res/replacing}
+  \caption{Construction of the finite unraveling}
+  \label{fig:finite-unraveling}
+\end{figure}
 
 We make the replacement of missing children precise with the following definition of the \emph{finitary $\relNext_{\ell}$ relation}.
 We assign an \emph{associated index} to each missing child such that no missing children $b_{1}$ and $b_{2}$ from the same tree in $\mathcal{S}$ share the same associated index.

@@ -23,4 +23,9 @@ main.pdf main.synctex.gz: latex.out/main-${ENGINE}.pdf
 clean:
 	rm -rf latex.out
 
+.PHONY: release
+release: main.pdf
+	mkdir -p out
+	cp main.pdf out/main-$$(git rev-list --count HEAD).pdf
+
 # end
