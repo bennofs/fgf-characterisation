@@ -48,8 +48,9 @@ The trees in the set $\mathcal{S}$ are exactly those trees for which we can guar
   If the level of $\seq{r}$ is at most $\ell$, and $e$ is an element where the level of $\seq{e}$ is $2 * \ell$, then the difference between both levels is at least $\ell$.
   It follows that any next chain from $r$ to $e$ must go through at least $\ell$ $\relNext$-edges, so it has length at least $\ell$.
 \end{proofsketch}
-Next, we construct a structure which for all $\mathcal{T} \in \mathcal{S}$, has a number of distinct, isomorphic copies of the substructure $\restr{\unravel{A}}{\mathcal{T}}$ (we say precisely how many copies we need later).
-Now, take any tree $\mathcal{T} \in \mathcal{S}$.
+Next we construct a structure which for all $\mathcal{T} \in \mathcal{S}$, has a number of distinct, isomorphic copies of the substructure $\restr{\unravel{A}}{\mathcal{T}}$ (we say precisely how many copies we need later).
+This is shown in \cref{fig:finite-unraveling}.
+Take any tree $\mathcal{T} \in \mathcal{S}$.
 We say that $b \in \unraveldom{A}$ is a \emph{missing child} of $a \in \mathcal{T}$ if $b$ is a child of $a$ in $\unravel{A}$ but $b \notin \mathcal{T}$.
 Intuitively, if $b$ is a missing child of $a$, then this is because the biseq of $b$ has a level greater than the bound $2 * \ell$.
 Due to missing children, the structure constructed so far is not $\FGF$-equivalent to the original structure, as these children are missing as witnesses for the $\FGF$-game.
@@ -57,12 +58,10 @@ To fix this, we replace each missing child $b$ with an element that is similar, 
 The element we choose for this is a root of a copy of a tree in $\mathcal{S}$ with a biseq equal to the level-$\ell$ suffix of the biseq of the original child $b$.
 If we view biseqs as representing a history of game play in $\FGF$-game, this corresponds to forgetting all except the last $\ell$ moves.
 We take care to ensure that for any given tree $\mathcal{T}$ in $\mathcal{S}$, two missing children are always replaced by roots of distinct copies of trees in $\mathcal{S}$.
-The whole construction is illustrated in \cref{fig:finite-unraveling}.
 
 \begin{figure}
-  \input{res/cutting}\\[1em]
-  \input{res/replacing}
-  \caption{Construction of the finite unraveling}
+  \input{res/finite-unraveling}
+  \caption{Construction of the finite unraveling. First, the trees of the infinite unraveling are cut at biseq level $2*\ell$ and missing children are labelled with indices $1, \ldots, M$ (shown in the left part). Then, $\relNext$-links to those children are replaced with links to corresponding copies (shown in the right part) of a similar tree.}
   \label{fig:finite-unraveling}
 \end{figure}
 
