@@ -1,0 +1,65 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={fill=black,circle,inner sep=2.5}};
+  \tikzset{missingchild/.style={el,fill=none,draw=black,circle}};
+
+  % trees
+  \draw[pattern color=tollightPalegrey,pattern=bricks] (0,0) coordinate (t1)  -- +(4em,-6em) coordinate (r1) -- +(-4em,-6em) coordinate (l1) -- (t1);
+  \draw[pattern color=tollightPalegrey,pattern=fivepointed stars] (15em,0) coordinate (t2)  -- +(4em,-6em) coordinate (r2) -- +(-4em,-6em) coordinate (l2) -- (t2);
+  %\draw (30em,0)  coordinate (t3) -- +(4em,-6em) coordinate (r3) -- +(-4em,-6em) coordinate (l3) -- cycle;
+
+  % nodes
+  \node[el] at (t1) {};
+  \node[el] at (t2) {};
+  %\node[el] at (t3) {};
+
+  \node[el] (n1) at (0.2em, -5em) {};
+  \node[missingchild] (missing1) at (0.2em, -8em) {};
+  \draw[densely dashed,->] (n1) -- (missing1);
+  \node[below=0 of missing1] {$i$};
+
+  \begin{scope}[opacity=0.4]
+    \node[] (n2) at (-1em, -4.5em) {};
+    \node[missingchild] (missing2) at (-1.8em, -8em) {};
+    \node[below=0 of missing2] {$i{-}1$};
+
+    \node[missingchild] (missing3) at (2em, -8em) {};
+    \draw[densely dashed,->] (n1) -- (missing3);
+    \node[below=0 of missing3] {$i{+}1$};
+
+
+    \node[missingchild] (missing0) at (-4.5em, -8em) {};
+    \node[below=0 of missing0,font=\small] {$1$};
+    \node[missingchild] (missing4) at (4.5em, -8em) {};
+    \node[below=0 of missing4,font=\small] {$M$};
+  \end{scope}
+  \draw[densely dashed,->,path fading=north] (n2) -- (missing2);
+  \draw[densely dashed,->,path fading=north] (-2em,-5em) -- (missing0);
+  \draw[densely dashed,->,path fading=north] (2em,-5em) -- (missing4);
+
+  % paths
+  \draw[decorate,decoration=zigzag] (t1) -- (n1);
+
+  % text
+  \coordinate (b2) at ($(l2)!0.5!(r2)$);
+  \node[above=4ex of t2,xshift=-8em] { copies of trees $\mathcal{T} \in \mathcal{S}$ };
+  \node[below=0.6ex of b2] { $i$-th copy };
+  \begin{scope}[font=\small]
+    \node[anchor=base east,text width=5em] at ($(t1)!-.2!(l1) - (0.5em,0)$) { $\mathsf{seq}$ level $\le \ell$ };
+    \node[anchor=base east,text width=5em] at ($(t1)!.45!(l1) - (0.5em,0)$) { $\mathsf{seq}$ level $\le 2 * \ell$ };
+    \node[anchor=base east,text width=5em] at ($(t1)!1.25!(l1) - (0.2em,0)$) { $\mathsf{seq}$ level $= 2 * \ell + 1$ };
+  \end{scope}
+
+  % replacement link
+  \draw[->,shorten >=0.30em] plot [smooth] coordinates {
+    (n1)
+    (5.5em, -6.5em)
+    ($(t2) + (-2em, 0.5em)$)
+    (t2)
+  };
+
+  % ellipses
+  \node[gray,font=\Huge] at (7.5em, -3em) {$\cdots$};
+  \node[gray,font=\Huge] at (21em, -3em) {$\cdots$};
+  \node[gray,font=\large] at ($(missing0)!.5!(missing2)$) {$\cdots$};
+  \node[gray,font=\large] at ($(missing3)!.5!(missing4)$) {$\cdots$};
+\end{tikzpicture}
