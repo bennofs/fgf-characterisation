@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+  \matrix[matrix of nodes, row sep=2em, column sep=3em, every node/.style={anchor=center, inner sep=0.2em}] {
+    {} & |[draw, circle, double] (d)| d & {} \\
+    |(a)| a & |[draw, rectangle] (b)| b & |[draw, circle, double] (c)| c \\
+  };
+
+  \path[->]
+    (a) edge[bend left] (b) (b) edge (c)
+    (b) edge[bend left] (a)
+    (a) edge (d)
+    (d.east) edge[out=-10,in=280,looseness=4] (d.south)
+  ;
+
+  \node[right=7em of d.base east] (legend) { legend (relations) };
+  \matrix[every node/.style={anchor=base west}, row sep=0.5em, column sep=1em, below=0em of legend.south west, anchor=north west] {
+    \node[draw,double,circle,inner sep=0.2em] {$p_{c}$}; & \node[draw,rectangle,inner sep=0.2em] {$p_{r}$}; & \draw[->] (0,0) -- node[midway,above] {$\relR$} (2em,0)  ; \\
+  };
+\end{tikzpicture}

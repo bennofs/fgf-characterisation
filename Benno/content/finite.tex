@@ -1,2 +1,329 @@
 \chapter{Finite Companions}\label{chap:finite}
-\todo[inline]{adapt from paper}
+
+Let $\unravel{A}, \elemtuptuplea$ be a tree unraveling of a finite structure $\str{A}, \elemtuplea$.
+We describe the finite unraveling $\unravel{A}_{\ell}, \elemtuptuplea_{\ell}$ which will be $\ell$-$\FGF$-bisimilar to $\unravel{A}, \elemtuptuplea$ (and also $\ell$-$\FGF$-bisimilar to $\str{A}, \elemtuplea$ by transitivity of bisimilarity).
+For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}_{r,\ell}(\unravel{A})$ as follows:
+\begin{equation*}
+  \mathcal{T}_{r,\ell}(\unravel{A}) = \left\{ e \in \unraveldom{A}:\, e\ \text{is a descendant of $r$ and the level of $\seq{e}$ is at most $2 * \ell$} \right\}.
+\end{equation*}
+
+\noindent
+$\mathcal{T}_{r,\ell}$ is substructure of $\unravel{A}$.
+It is a tree with root $r$ because for every element $e \in \mathcal{T}_{r,\ell} \setminus \{r\}$, the parent of $e$ is also in $\mathcal{T}_{r,\ell}$.
+This is easy to see: if $p$ is the parent of $e$, then $p$ is a descendant of $r$ and $\seq{p}$ has a level lower or equal to the level of $\seq{e}$, so $p$ is in $\mathcal{T}_{r,\ell}$.
+Furthermore, this tree is finite:
+\begin{lemma}\label{lem:bounded-trees-are-finite}
+  If $\unravel{A}$ is the unraveling of a finite structure $\str{A}$, then $\mathcal{T}_{r,\ell}$ is finite for $\ell \in \N$ and $r \in \unraveldom{A}$.
+\end{lemma}
+\begin{proofsketch}
+  For a finite structure, there are only a finite number of live tuples and thus for any fixed $k$, there are only a finite number of $k$-biseqs in this structure.
+  Hence, the number of elements where the level of $\seq{e}$ is at most $2 * \ell$ is also finite, so $\mathcal{T}_{r,\ell}$ is finite.
+\end{proofsketch}
+\begin{proof}
+If $A$ is finite, then there only a finite number of live tuples in $A$.
+Recall that an $\ell$-biseq is just a word in $A^*{(\N\N{}A^{*})}^{\ell}$, consisting of live tuples from $A^{*}$ and indices into those tuples from $\N\N$.
+Let $W$ be the maximum size of a live tuple.
+Then an index into a live tuple must be in the range $[1,W]$, which is finite, so the set of possible indices is finite.
+Thus there are only a finite number of $\ell$-biseqs, since both the set of live tuples and the set of indices is finite.
+If $e \in \mathcal{T}_{r,\ell}$ with $\seq{e} = \sigma$, then the level of $\sigma$ is at most $2 * \ell$.
+Thus, there are only a finite number of choices for $\sigma$.
+For every $\sigma$, there are only a finite number of elements $e \in \unraveldom{A}$ with $\seq{e} = \sigma$.
+It follows that there are only finitely many $e$ with $e \in \mathcal{T}_{r,\ell}$, so $\mathcal{T}_{r,\ell}$ is finite.
+\end{proof}
+Now consider the set $\mathcal{S}$ of trees with $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}:\, \seq{r}\ \text{has level at most $\ell$}\right\}$.
+An element $b$ is called a \emph{cut element} of a tree $\mathcal{T} \in \mathcal{S}$ if it itself is not in $\mathcal{T}$ but $(a,b) \in \relNext$ for some $a$ in $\mathcal{T}$.
+Intuitively, the cut elements are elements $e$ where the level of $\seq{e}$ is $2 * \ell + 1$ (so $e$ is not in $\mathcal{T}$) and $\ctr{e}$ is minimal (so there is a $\relNext$-edge from some element in $\mathcal{T}$).
+The set of all cut elements for trees in $\mathcal{S}$ is finite, because $\mathcal{S}$ is finite and the cut elements of a tree $\mathcal{T}_{r,\ell} \in \mathcal{S}$ are contained in $\mathcal{T}_{r,\ell+1}$ which is finite by \cref{lem:bounded-trees-are-finite}.
+Enumerate all cut elements of trees in $\mathcal{S}$ with indices from $1, \ldots, M$, where $M$ is the number of cut elements.
+The domain of the structure $\unravel{A}_{\ell}$ consists of $M$ copies of each tree in $\mathcal{S}$.
+The relations are defined as in $\unravel{A}$, but with the relation $\relNext$ replaced by by its finitary variant $\relNext_{\ell}$, where $(a,b) \in \relNext_{\ell}$ if:
+\begin{itemize}
+  \item $(a,b) \in \relNext$, or
+  \item $(a,a') \in \relNext$ where $a'$ is a cut element with the associated index $m$, and all of the following are true:
+        \begin{enumerate}
+          \item $b$ is the root of the $m$-th copy of tree in $S$,
+          \item $\ctr{b} = \ctr{a'}$,
+          \item $\seq{b}$ is the level-$\ell$ suffix of $\seq{a'}$.
+        \end{enumerate}
+\end{itemize}
+
+\noindent
+The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following lemma:
+\begin{lemma}\label{lem:companion-tree-like}
+  Let $D_{a, \ell}(\unravel{A}_{\ell})$ be the set of elements $b$ for which there exists a next-chain starting from $a$ and ending in $b$ of length at most $\ell$.
+  For any element $a \in \unraveldom{A}_{\ell}$, the set $D_{a, \ell}$ is a tree with root $a$.
+\end{lemma}
+\begin{proofsketch}
+  By contradiction: if $D_{a,\ell}$ is not a tree, then some element $e \in D_{a,\ell}$ has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
+  In this case, $p_{1}$ and $p_{2}$ must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2},\ell}$ of the structure $\unravel{A}_{\ell}$ and have sequences with level $2 * \ell$.
+  Now, at least one of $p_{1}$ or $p_{2}$ must be in a different subtree than $a$.
+  The shortest next-chain ending at that element and starting from $a$ must traverse the full subtree $\mathcal{T}_{r_{1},\ell}$ or $\mathcal{T}_{r_{2},\ell}$, which requires at least a next-chain of length $\ell + 1$ (at least one next transition to enter the tree, $\ell$ next transitions to reach a leaf with a sequence with level $2 * \ell$).
+  Hence the element cannot be in $D_{a,\ell}$, a contradiction.
+\end{proofsketch}
+\begin{proof}
+  Assume by contradiction that $D_{a,\ell}$ is not a tree.
+  Clearly, all elements in $D_{a,\ell}$ are descendants of $a$.
+  Thus, if $D_{a,\ell}$ is not a tree, there must be an element $e \in D_{a,\ell}$ which has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
+  Recall that the structure $\str{A}$ is consists of subtrees $\mathcal{T}_{r,\ell}$.
+  For $e$ to have two different parents, those parents must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2}, \ell}$ for different roots $r_{1}, r_{2} \in \unraveldom{A}$.
+  At least one of the elements $p_{1}$ and $p_{2}$ must therefore be in a different subtree than $a$.
+  By symmetry, let us assume that $p_{1}$ is not in the same subtree as $a$.
+  Then the shortest next-chain from $a$ to $p_{1}$ must traverse through the whole subtree from $r_{1}$ to the leaf $p_{1}$.
+  With every transition along the a $\relNext_{\ell}$-edge, the level of the sequence of an element increases by at most 1.
+  Hence, the next-chain from $r_{1}$ to $p_{1}$ has a length of at least $\ell$.
+  Since the shortest next-chain from $a$ to $p_{1}$ must go through $r_{1}$ (as $a$ is not in the same subtree as $p_{1}$) and reaching $r_{1}$ from $a$ also requires at least one next transition, the shortest next-chain from $a$ to $p_{1}$ is longer than $\ell$.
+  Hence, $p_{1} \notin D_{a,\ell}$, a contradiction.
+\end{proof}
+
+In the following, let $\elemtuplea \isoeq \elemtupleb$ denote that $\restr{\str{A}}{\set(\elemtuplea)}$ is isomorphic to $\restr{\str{B}}{\set(\elemtupleb)}$, for tuples $\elemtuplea$ and $\elemtupleb$ from some structures $\str{A}$ and $\str{B}$.
+Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
+We employ \cref{lem:companion-tree-like} to show that $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \simeq \elemtuptupleb$, if $\ell$ is large enough:
+\begin{lemma}\label{lem:fgf-type-iso}
+  Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of structures $\str{A}$ and $\str{B}$ for a parameter $\ell$.
+  If $\ell > \arity(\Sigma)$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
+\end{lemma}
+\begin{proofsketch}
+  If $\elemtuptuplea = (a_{1}, \ldots, a_{n})$, then permutations of $\elemtuptuplea$ changing the order of the components are never live, since they cannot be next-chains due to the tree structure of $\unravel{A}_{\ell}$.
+  Similarly, all live tuples consisting of a subset of the elements of $\elemtuptuplea$ must be infixes of $\elemtuptuplea$.
+  Hence, the atomic-$\FGF$-type fully characterizes the atomic relations among the set of elements in $\elemtuptuplea$.
+  Therefore, equivalence of atomic-$\FGF$-types is sufficient to ensure isomorphism in tree unravelings.
+\end{proofsketch}
+\begin{proof}
+Let $\ell > W$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal atomic-$\FGF$-types and equal size $k$.
+We claim that the map $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for all $i \in [1, k]$, is an isomorphism between $\restr{\str{\unravel{A}_{\ell}}}{\set(\elemtuptuplea)}$ and $\restr{\str{\unravel{B}_{\ell}}}{\set(\elemtuptupleb)}$.
+Let $\elemtuptupler$ be a tuple with $\elemtuptupler \sqin \set(\elemtuptuplea)$ and $\elemtuptupler \in \relR^{\str{A}}$ for some relation $\relR \in \Sigma$.
+We first show that $\elemtuptupler$ is an infix of $\elemtuptuplea$.
+Suppose to the contrary that $\elemtuptupler$ is not an infix of $\elemtuptuplea$, thus there is an $i$ such that $r_{i} = a_{v}$ and $r_{i+1} = a_{w}$ with $v \ne w - 1$.
+But then both $(a_{v}, a_{w}) \in \relNext_{\ell}$ and $(a_{w-1}, a_{w}) \in \relNext_{\ell}$ since $\elemtuptupler$ and $\elemtuptuplea$ are live.
+This is a contradiction, since $D_{a_{1}, W}$ defined in \cref{lem:companion-tree-like} includes $a_{v}, a_{w-1}$ and $a_{w}$ but cannot be a tree since $a_{w}$ would have two parents $a_{v}$ and $a_{w-1}$.
+Therefore, $\elemtuptupler$ is an infix of $\elemtuptuplea$.
+It follows from equality of atomic-$\FGF$-types that $\mu_{(\elemtuptuplea, \elemtuptupleb)}[\elemtuptupler] \in \relR^{\str{B}}$.
+Since the argument is symmetric, we conclude that elements of $\elemtuptuplea$ and $\elemtuptupleb$ satisfy the same relations so $\mu_{(\elemtuptuplea, \elemtuptupleb)}$ is an isomorphism and $\elemtuptuplea \simeq \elemtuptupleb$.
+\end{proof}
+
+Our main goal for the remainder of this section is to show that $\unravel{A}_{\ell} \bisimto_{\GF}^{n} \unravel{B}_{\ell}$, given that $\str{A} \bisimto_{\FGF}^{m} \str{B}$ for some $m$ and $\ell$ which depend only on $n$.
+For this proof, we first introduce the notion of $z$-\emph{similar} elements, which is a relation between elements from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
+We later lift this relation to tuples to construct the $n$-$\GF$-bisimulation.
+Intuitively, the idea behind the notion of $z$-similarity is to put elements in relation which behave similar for up to $z$ transitions along $\relNext$-edges, in both forward and backward direction.
+In other words, we want to define $z$-similarity such that if $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-similar elements, then for every parent (or child) $c \in \unraveldom{A}_{\ell}$ of $a$, there exists a parent (or child) $d \in \unraveldom{B}_{\ell}$ of $b$ which is $(z-1)$-similar to $c$.
+Let us first consider the simpler case of only achieving this property for children (i.e.\ forward transitions along $\relNext$-edges).
+We say that elements $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-\emph{forward-similar} if $\ctr{a} = \ctr{b}$, $\seq{a} = \cdots \elemtuples$ and $\seq{b} = \cdots \elemtuplet$ for tuples $\elemtuples$ and $\elemtuplet$ that satisfy $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$.
+Note that $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$ is equivalent to $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$ by \cref{lem:FGF-bisimulations-work-well}.
+If we have such $z$-forward-similar elements $a$ and $b$ and $c \in \unraveldom{A}_{\ell}$ is a child of $a$, then by definition of $\relNext_{\ell}$ there are two possible situations: either (\romannumeral1) $c$ has the same sequence as $a$ but an incremented counter, or (\romannumeral2) $c$ adds a move to the sequence of $a$ (possibly removing elements from the beginning of the sequence if the result is too long).
+In both cases, we can find a child $b$ that is $(z-1)$-forward-similar to $c$: in case (\romannumeral1) we simply increment the counter of $b$, whereas in case (\romannumeral2) we employ~\ref{bisim:fforth} to find a move in $\str{B}$ that we can add to the end of the sequence of $b$ to obtain a child $d$ of $b$ so that the (new) last tuples of $\seq{c}$ and $\seq{d}$ have equal $\FGF_{z-1}$-types.
+
+We now consider the general case, including backward transitions.
+As we saw above, forward transitions along $\relNext$-edges extend the sequence of an element by adding moves to the end.
+If we allow backward transitions, then we need to consider the opposite case: that moves are removed from the end of the sequence.
+It is thus no longer sufficient to only look at the type of the last tuple in a sequence.
+Instead, we need to consider the types of the last $z$ tuples.
+For this, we introduce the auxilliary notion of $z$-histories:
+\begin{definition}[$z$-history]
+  Let $\str{A}$ be a structure and $\ell$ be a parameter.
+  The $z$-\emph{history} of an element $a \in \unraveldom{A}_{\ell}$ with $\seq{a} = \elemtuples^{(0)} \cdots (i^{n}, j^{n})\elemtuples^{n}$ for some $n \in \N$, tuples $\elemtuples^{(0)}, \ldots, \elemtuples^{(n)}$ and indices $i^{(1)}, \ldots, i^{(n)}$ and $j^{(1)}, \ldots, j^{(n)}$ is denoted by $\hist{z}{a}$ and defined as:
+  \begin{equation*}
+    \hist{z}{a} = \tp{\FGF_{z}}{\str{A_{\ell}}}{\elemtuples^{(n-h)}}(i^{(n-h+1)}, j^{(n-h+1)})\tp{\FGF_{z}}{\str{A_{\ell}}}{\elemtuples^{(n-h+1)}}\cdots(i^{n}, j^{n})\tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(n)}}
+  \end{equation*}
+  where $h = \min(z, n)$. If $h < z$, then $\hist{z}{a}$ is called a \emph{short $z$-history}.
+\end{definition}
+Intuitively, we obtain the history of an element by replacing the individual tuples $\elemtuples^{(0)}, \elemtuples^{(1)}, \ldots$ in the biseq with their $\FGF_{z}$-types $\tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(0)}}, \tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(1)}}, \ldots$ and truncating this sequence to only the last $z$ steps.
+In the case that the original sequence already has less than $z$ steps, then this truncation does nothing and we get a short $z$-history, also with less than $z$ steps.
+This definition is analogous to a construction used by Otto in the upgrading from global bisimulation to two-way global bisismulation for modal logic~\cite[Def. 39]{Otto04}.
+Histories can be compared across unravelings of different structures, since they no longer refer to concrete elements from the base structure.
+For two unravelings $\str{A}_{\ell}$ and $\str{B}_{\ell}$ of different base structures $\str{A}$ and $\str{B}$, we define $z$-similar elements to be those elements which have equal $z$-histories and equal counters:
+\begin{definition}[$z$-similar elements]
+ Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be bipoints, and $z$ be a natural number. Then $e$ and $f$ are $z$-similar, written $e \approx_{z} f$, if $\ctr{e} = \ctr{f}$ and $\hist{z}{e} = \hist{z}{f}$.
+\end{definition}
+Note that if $e$ and $f$ are $z$-similar and $\hist{z}{e}$ is a short $z$-history, then $\hist{z}{f}$ must also be a short $z$-history.
+So if either $\seq{e}$ or $\seq{f}$ has a level less than $z$, then $\seq{e}$ and $\seq{f}$ have the same level.
+Compared to the notion of $z$-forward-similarity, $z$-similarity requires not just the $\FGF_{z}$-type of the last tuple in the sequences to match.
+Rather, it additionally requires that the types of the $z$ last tuples of the sequences are equal.
+Because of this, $z$-similar elements have both $(z-1)$-similar children and $(z-1)$-similar parents, as we prove with the next lemma:
+\begin{lemma}\label{lem:approx-next}
+  Let $\str{A}_{\ell}$ and $\str{B}_{\ell}$ be the finite unravelings of structures $\str{A}$ and $\str{B}$ for some parameter $\ell \in \N$.
+  For elements $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$, if $a \approx_{z} b$ for some $z \in [1,\ell]$, then:
+  \begin{description}
+    \item[\desclabel{(succ)}{elemeq:succ}] If $(a, c) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(b, d) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
+    \item[\desclabel{(pred)}{elemeq:pred}] If $(c, a) \in \relNext_{\ell}$ for $c \in \unraveldom{A}_{\ell}$, then there is $d \in \unraveldom{B}_{\ell}$ with $(d, b) \in \relNext_{\ell}$ and $c \approx_{z-1} d$.
+  \end{description}
+\end{lemma}
+\begin{proofsketch}
+  Since $(a,c) \in \relNext_{\ell}$ or $(c,a) \in \relNext_{\ell}$, we have three cases:
+  \begin{romanenumerate}
+    \item only counter changed: $\seq{a} = \seq{c}$ and $\ctr{c} = \ctr{a} \pm 1$,
+    \item sequence extended: $\seq{c} = \mathsf{trunc}_{\ell}[\seq{a} (i,j) \elemtuples]$ and $\ctr{c} = j-i+1$, or
+    \item sequence reduced: $\seq{c}$ is such that $\seq{a} = \mathsf{trunc}_{\ell}[\seq{c} (i,j) \elemtuples]$.
+  \end{romanenumerate}
+  where
+  \begin{displaymath}
+    \mathsf{trunc}_{\ell} =
+    \begin{cases}
+      \sigma & \text{if $\sigma$ has level at most $2 * \ell$} \\
+      \text{level-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has level greater than $2 * \ell$.}
+    \end{cases}
+  \end{displaymath}
+  Note that case (\romannumeral2) is possible only for~\ref{elemeq:succ} and (\romannumeral3) only for~\ref{elemeq:pred}.
+
+  In case (\romannumeral1), $a$ and $c$ have the same history.
+  We can find an element $d$ with $(b,d) \in \relNext_{\ell}$ (or $(d,b) \in \relNext_{\ell}$) by incrementing (or decrementing) the counter of $b$ accordingly, keeping the history the same, thus $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
+  It can be seen that $\hist{1}{a} = \hist{1}{b}$ and $c \in \unraveldom{A}_{\ell}$ implies $d \in \unraveldom{B}_{\ell}$.
+
+  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$-type.
+  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a biseq and $\elemtuplet$ has the same $\FGF_{z-1}$-type as $\elemtuples$.
+  Next, we construct the element $d$ with $\seq{d} = \mathsf{trunc}_{\ell}[\seq{b}(i,j)\elemtuplet]$ and $\ctr{d} = (j-i+1) + 1$.
+  Cleary, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$.
+  The function $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$ since $z \le \ell$, so it does not affect $z$-histories.
+  By our choice of $\elemtuplet$, we have $\hist{z-1}{c} = \hist{z-1}{d}$.
+  It follows that $c \approx_{z-1} d$, as wanted.
+
+  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma \cdots(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a bismimulation sequence $\sigma$ with level at most $2 * \ell$.
+  Further, by equivalence of counters, $\ctr{b} = \ctr{a} = (j-i+1) + 1$.
+  By definition of the unraveling, there is an element $d \in \unraveldom{B}_{\ell}$ with $(d,b) \in \relNext_{\ell}$, which has $\seq{d} = \sigma$.
+  This element satisfies $c \approx_{z-1} d$.
+\end{proofsketch}
+\begin{proof}
+  Since $(a,c) \in \relNext_{\ell}$ or $(c,a) \in \relNext_{\ell}$, we have three cases:
+  \begin{romanenumerate}
+    \item only counter changed: $\seq{a} = \seq{c}$ and $\ctr{c} = \ctr{a} \pm 1$,
+    \item sequence extended: $\seq{c} = \mathsf{trunc}_{\ell}[\seq{a} (i,j) \elemtuples]$ and $\ctr{c} = j-i+1$, or
+    \item sequence reduced: $\seq{c}$ is such that $\seq{a} = \mathsf{trunc}_{\ell}[\seq{c} (i,j) \elemtuples]$.
+  \end{romanenumerate}
+  where
+  \begin{displaymath}
+    \mathsf{trunc}_{\ell} =
+    \begin{cases}
+      \sigma & \text{if $\sigma$ has level at most $2 * \ell$} \\
+      \text{level-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has level greater than $2 * \ell$}
+    \end{cases}
+  \end{displaymath}.
+  Note that case (\romannumeral2) is possible only for~\ref{elemeq:succ} and (\romannumeral3) only for~\ref{elemeq:pred}.
+
+  In case (\romannumeral1), $a$ and $c$ have the same history.
+  We can find an element $d$ with $(b,d) \in \relNext_{\ell}$ (or $(d,b) \in \relNext_{\ell}$) by incrementing (or decrementing) the counter of $b$ accordingly, keeping the history the same, thus $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
+  We claim that this element $d$ is in $\unraveldom{B}_{\ell}$.
+  We consider two cases: either $\seq{a} = \elemtuples$ or $\seq{a} = \cdots (i,j) \elemtuples$, for some tuple $\elemtuples$.
+  Since $b$ has the same $z$-history as $a$, there is a tuple $\elemtuplet$ with the same $\FGF_{z}$-type as $s$ such that $\seq{b} = \elemtuplet$ or $\seq{b} = \cdots (i,j) \elemtuplet$, respectively.
+  Since $\elemtuples$ and $\elemtuplet$ have equal types, $|\elemtuplet| = |\elemtuples|$.
+  Further, we have $\ctr{c} = \ctr{d}$.
+  We can see that in this case, the conditions for $d$ to be in $\unraveldom{B}_{\ell}$ are equivalent to the conditions for $c$ to be in $\unraveldom{A}_{\ell}$.
+  As we know that $c \in \unraveldom{A}_{\ell}$, it follows that $d$ is in $\unraveldom{B}_{\ell}$.
+
+  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$-type, due to their equal $z$-histories.
+  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a biseq and $\elemtuplet$ has the same $\FGF_{z-1}$-type as $\elemtuples$.
+  Next, we construct the element $d$ with $d = (\mathsf{trunc}_{\ell}, \ctr{c})$ for $\sigma = \seq{b}(i,j)\elemtuplet$.
+  By construction, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$ (recall that $\ctr{c} = (j-i+1)+1$).
+  Observe that $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$, since $z \le \ell$.
+  Hence, the $(z-1)$-history of the element $c$ is equal to the $(z-1)$-history of an element $e$ with $e = (\seq{a}(i,j)\elemtuples, \ctr{c})$.
+  Similary, the $(z-1)$-history of $d$ is equal to the $(z-1)$-history of an element $f$ with $f = (\seq{b}(i,j)\elemtuplet, \ctr{d})$.
+  As $\elemtuples$ and $\elemtuplet$ have the same $\FGF_{z-1}$-type, we can see that $\hist{z-1}{e} = \hist{z-1}{f}$ and hence $\hist{z-1}{c} = \hist{z-1}{d}$.
+  It follows that $c \approx_{z-1} d$, as wanted.
+
+  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a biseq $\sigma$ with level at most $2 * \ell$.
+  Further, by equivalence of counters, $\ctr{b} = \ctr{a} = (j-i+1) + 1$.
+  By definition of the unraveling, there is an element $d \in \unraveldom{B}_{\ell}$ with $(d,b) \in \relNext_{\ell}$, which has $\seq{d} = \sigma$.
+  Again, because $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$, the $z$-history of $b$ is equal to the $z$-history of an element $b'$ with $b' = (\sigma(i,j)\elemtuplet, \ctr{b})$.
+  As $\seq{d} = \sigma$, the $(z-1)$-history of $d$ is equal to the $z$-history of $b'$ minus the last step.
+  As $b$ and $a$ have the same $z$-history and the $(z-1)$-history of $c$ is also equal to the $z$-history of $a$ minus the last step, it follows that $c$ and $d$ have equal $(z-1)$-histories.
+  Further, both $\ctr{c} = j$ and $\ctr{d} = j$.
+  This follows from $(c,a) \in \relNext_{\ell}$ and $(d,b) \in \relNext_{\ell}$.
+  Hence, $c \approx_{z-1} d$ as required.
+\end{proof}
+
+We now lift the notion of $z$-similarity from elements to tuples of elements.
+Let $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ be live tuples of equal size $k$ with $\elemtuptuplea = (a_{1}, \ldots, a_{k})$ and $\elemtuptupleb = (b_{1}, \ldots, b_{k})$.
+We say that $\elemtuptuplea$ and $\elemtuptupleb$ are \emph{tuples of $z$-similar elements} if $a_{i} \approx_{z} b_{i}$ for every $i \in [1,k]$.
+We show that in this case, $\elemtuptuplea$ and $\elemtuptupleb$ have the same atomic-$\FGF$-type, which further implies by \cref{lem:fgf-type-iso} that they are isomorphic.
+Let $\elemtuples$ and $\elemtuplet$ be the tuples from $\str{A}$ and $\str{B}$ such that $\seq{a_{k}} = \cdots \elemtuples$ and $\seq{b_{k}} = \cdots \elemtuplet$.
+Since $a_{k} \approx_z b_{k}$, we know that $\elemtuples$ and $\elemtuplet$ have the same atomic-$\FGF$-type.
+Observe that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.
+This follows from \cref{lem:projection-next} since $\elemtuptuplea$ and $\elemtuptupleb$ are live and thus must be next-chains.
+As $\ctr{a_{k}} = \ctr{b_{k}}$, both $\elemtuptuplea$ and $\elemtuptupleb$ project to infixes $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i\ldots{}j$ for $i = \ctr{a_{k}} - k$ and $j = \ctr{a_{k}}$.
+Hence, atomic-$\FGF$-types of $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ are also equal.
+Now consider an infix $\elemtuptuplea_{x\ldots{}y}$ and the corresponding infix $\elemtuptupleb_{x\ldots{}y}$, for some indices $x$ and $y$.
+Our claim is that $\elemtuptuplea_{x\ldots{}y}$ and $\elemtuptupleb_{x\ldots{}y}$ are in the same relations.
+We prove this claim by examining the three conditions of the definition of relations in the unraveling in turn.
+We show that each condition is true for $\elemtuptuplea_{x\ldots{}y}$ if and only if it is true for $\elemtuptupleb_{x\ldots{}y}$.
+Let $\relR$ be any relational symbol. Then:
+\begin{enumerate}
+  \item $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ have equal atomic-$\FGF$-types,
+  \item $\elemtuptuplea_{x\ldots{}y}$ is a next-chain if and only if $\elemtuptupleb_{x\ldots{}y}$ is a next-chain, because both infixes are always next-chains since $\elemtuptuplea$ and $\elemtuptupleb$ are next-chains as they are live,
+  \item $|\elemtuptuplea_{x\ldots{}y}| \le \bound{\elemtuptuplea_{x\ldots{}y}}$ if and only if $|\elemtuptupleb_{x\ldots{}y}| \le \bound{\elemtuptupleb_{x\ldots{}y}}$ because $|\elemtuptuplea_{x\ldots{}y}| = |\elemtuptupleb_{x\ldots{}y}| = y-x+1$ and $\bound{\elemtuptuplea_{x\ldots{}y}} = \bound{\elemtuptupleb_{x\ldots{}y}}$ since $\ctr{a_{j}} = \ctr{b_{j}}$ follows from $a_{j} \approx_{z} b_{j}$.
+\end{enumerate}
+Therefore, infixes of $\elemtuptuplea$ and $\elemtuptupleb$ are in the same relations.
+We conclude that $\elemtuptuplea$ and $\elemtuptupleb$ have equal $\FGF$-types.
+Combining this result with \cref{lem:fgf-type-iso}, we get the following corollary:
+\begin{corollary}\label{cor:tuple-similar-iso}
+  Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples of size $k$ in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ for structures $\str{A}$, $\str{B}$ and a parameter $\ell$.
+  If $\ell > \arity(\Sigma)$ and $a_{i} \approx_{z} a_{i}$ for all $i \in [1,k]$ and some $z \in \N$, then $\elemtuptuplea \isoeq \elemtuptupleb$, witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
+\end{corollary}
+Finally, we employ these isomorphisms to construct a $n$-$\GF$-bisimulation between finite unravelings:
+\begin{lemma}
+  Let $\str{A}$ and $\str{B}$ be structures and $W = \arity(\Sigma)$.
+  If $\str{A} \bisimto_{\FGF}^{2 * W * n} \str{B}$, then there is a $n$-$GF$-bisimulation between $\unravel{A}_{W * n}$ and $\unravel{B}_{W * n}$, given by the sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{n} \subseteq \PartIso{\unravel{A}_{W * n}}{\unravel{B}_{W * n}}$ defined as:
+  \begin{equation*}
+    \bisimZ_{k} = \left\{
+      \mu_{(\elemtuptuples, \elemtuptuplet)}:\,
+      \elemtuptuples\ \text{and}\ \elemtuptuplet\ \text{are live and}\ \
+      s_{i} \approx_{W * k} t_{i}\ \text{for all indices $i$}
+    \right\}
+  \end{equation*}
+  where $\mu_{(\elemtuptuples, \elemtuptuplet)}$ is the isomorphism between $\elemtuptuples$ and $\elemtuptuplet$ as in \cref{cor:tuple-similar-iso}.
+\end{lemma}
+\begin{proofsketch}
+  We show that $\bisimZ_{k-1}$ satisfies~\ref{bisim:forth} for $\bisimZ_{k}$, the proof for the condition~\ref{bisim:back} is symmetric.
+  Let $\elemtuptuplea$ be a live tuple in $\unravel{A}_{W * n}$ and $\mu_{(\elemtuptuples, \elemtuptuplet)} \in \bisimZ_{k}$.
+  We differentiate between two cases: (i) $\elemtuptuplea$ and $\elemtuptuples$ have at least one common element and (ii) $\elemtuptuplea$ and $\elemtuptuples$ have no common elements.
+  \begin{romanenumerate}
+    \item
+    If there are common elements, then due to the tree-like nature of the unraveling, there are indices $i$ and $j$ such that the infix $\elemtuptuples_{i\ldots{}j}$ contains all the common elements of $\elemtuptuplea$ and $\elemtuptuples$, and the remaining elements $s_{1}, \ldots s_{i-1}, s_{j+1}, \ldots, s_{|\elemtuptuples|}$ are all distinct from elements of $\elemtuptuplea$.
+    These common elements are also an infix of $\elemtuptuplea$, so there are indices $v$ and $w$ such that $\elemtuptuplea_{v\ldots{}w} = \elemtuptuples_{i\ldots{}j}$ and the remaining elements $a_1, \ldots, a_{v-1}, a_{w+1}, \ldots, a_{|\elemtuptuplea|}$ are all distinct from elements of $\elemtuptuples$.
+    We iteratively apply~\ref{elemeq:pred} and~\ref{elemeq:succ} from \cref{lem:approx-next} to find elements $b_{1}, \ldots, b_{v-1}$ and $b_{w+1}, \ldots, b_{|\elemtuptuplea|}$ from $\unravel{B}_{W * n}$ such that $\elemtuptupleb$ with $\elemtuptupleb = b_{1}\cdots{}b_{v-1}\elemtuptuplet_{i\ldots{}j}b_{w+1}\cdots{}b_{|a|}$ is a tuple of elements that are each $(W*(k-1))$-similar to the corresponding elements of $\elemtuptuplea$.
+    Additionally, $\elemtuptupleb$ is live since $\elemtuptuplea$ is live and they have the same atomic-$\FGF$-type.
+    Thus the isomorphism $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is in $Z_{k-1}$.
+    The common domain of $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is $\set(\elemtuptuplea_{v\ldots{}w})$, on which $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ agree since $\elemtuptuplea_{v\ldots{}w} = \elemtuptuples_{i\ldots{}j}$ and $\elemtuptupleb_{v\ldots{}w} = \elemtuptuplet_{i\ldots{}j}$.
+    This satsifies the requirements for~\ref{bisim:forth}.
+
+    \item
+    If $\elemtuptuplea$ and $\elemtuptuples$ have no common elements, then we first find an element $b_{1} \in \unraveldom{B}_{W * n}$ that is $(W * k)$-similar to $a_{1}$.
+    We can find such an element by employing~\ref{bisim:forth} $W * k$ times, ``replaying'' the $(W*k)$-history of $a_{1}$ in the structure $\unravel{B}_{W * n}$.
+    Similar to case (i), we now use~\ref{elemeq:succ} to find elements $b_{2}, \ldots, b_{|\elemtuptuplea|} \in \unraveldom{B}_{W * n}$ such that the tuple $\elemtuptupleb$ with $\elemtuptupleb = (b_{1}, \ldots, b_{|\elemtuptuplea|})$ is $W * (k - 1)$-similar to $\elemtuptuplea$.
+    Now $\mu_{(\elemtuptuplea, \elemtuptupleb)} \in Z_{k-1}$ satisfies the requirements for~\ref{bisim:forth}.
+  \end{romanenumerate}
+\end{proofsketch}
+\begin{proof}
+  We show that $\bisimZ_{k-1}$ satisfies~\ref{bisim:forth} for $\bisimZ_{k}$, the proof for the condition~\ref{bisim:back} is symmetric.
+  Let $\elemtuptuplea$ be a live tuple in $\unravel{A}_{W * n}$ and $\mu_{(\elemtuptuples, \elemtuptuplet)} \in \bisimZ_{k}$.
+  We differentiate between two cases: (i) $\elemtuptuplea$ and $\elemtuptuples$ have at least one common element and (ii) $\elemtuptuplea$ and $\elemtuptuples$ have no common elements.
+  \begin{romanenumerate}
+    \item
+    If there are common elements, then we claim that due to the tree-like nature of the unraveling, there are indices $i$ and $j$ such that the infix $\elemtuptuples_{i\ldots{}j}$ contains all the common elements of $\elemtuptuplea$ and $\elemtuptuples$, and the remaining elements $s_{1}, \ldots s_{i-1}, s_{j+1}, \ldots, s_{|\elemtuptuples|}$ are all distinct from elements of $\elemtuptuplea$.
+    Assume by contradiction that this is not the case, thus there are elements $s_{x}, s_{y} \in \set(\elemtuptuplea)$ with $x < y$ and $s_{y-1} \notin \set(\elemtuptuplea)$.
+    Since $s_{x}, s_{y} \in \set(\elemtuptuplea)$ and $\elemtuptuplea$ is live, either $s_{x} a_{u} a_{u+1} \cdots s_{y}$ or $s_{y} a_{u} a_{u+1} \cdots s_{x}$ for some elements $a_{u}, a_{u+1}$ of $\elemtuptuplea$ is a next chain.
+    However, since $\elemtuptuples$ is live, there exists another next-chain $s_{x} s_{x+1} \cdots s_{y-1} s_{y}$ between $s_{x}$ and $s_{y}$, clearly distinct as it contains $s_{y-1} \notin \set(\elemtuptuplea)$.
+    This conflicts with \cref{lem:companion-tree-like}, since these two next-chains show that $D_{s_{x},W}(\unravel{A}_{W * n})$ is not a tree.
+    Therefore, as claimed, the common elements of $\elemtuptuplea$ and $\elemtuptuples$ form an infix of $\elemtuptuples$.
+    This argument is symmetric, hence these common elements are an infix of $\elemtuptuplea$ too, so there are indices $v$ and $w$ such that $\elemtuptuplea_{v\ldots{}w} = \elemtuptuples_{i\ldots{}j}$ and the remaining elements $a_1, \ldots, a_{v-1}, a_{w+1}, \ldots, a_{|\elemtuptuplea|}$ are all distinct from elements of $\elemtuptuples$.
+    Now, we iteratively apply~\ref{elemeq:pred} and~\ref{elemeq:succ} from \cref{lem:approx-next} to find elements $b_{1}, \ldots, b_{v-1}$ and $b_{w+1}, \ldots, b_{|\elemtuptuplea|}$ from $\unravel{B}_{W * n}$ such that $\elemtuptupleb$ with $\elemtuptupleb = b_{1}\cdots{}b_{v-1}\elemtuptuplet_{i\ldots{}j}b_{w+1}\cdots{}b_{|a|}$ is a next-chain.
+    As $t_{i} \approx_{W * k} s_{i}$ and $t_{j} \approx_{W * k} s_{j}$, we have $b_{v-x} \approx_{W * k - x} a_{v-x}$ for $x < v$ and $b_{w+x} \approx_{W * k - x} a_{w+x}$ for $x \le |a|-w$.
+    In both cases, $x < W$, since $|\elemtuptuplea| = |\elemtuptupleb|$ and $|\elemtuptuplea| \le W$ as $\elemtuptuplea$ is live.
+    Therefore, we have $a_{x} \approx_{W * (k - 1)} b_{x}$ for $1 \le x$ and $x \le |\elemtuptuplea|$.
+    By \cref{cor:tuple-similar-iso}, there exists an isomorphism $\mu_{(\elemtuptuplea,\elemtuptupleb)}$.
+    Now, if $\elemtuptuplea$ is live, then by isomorphism $\elemtuptupleb$ must also be live.
+    Thus the isomorphism $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is in $Z_{k-1}$.
+    The common domain of $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is $\set(\elemtuptuplea_{v\ldots{}w})$, on which $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ agree since $\elemtuptuplea_{v\ldots{}w} = \elemtuptuples_{i\ldots{}j}$ and $\elemtuptupleb_{v\ldots{}w} = \elemtuptuplet_{i\ldots{}j}$.
+    This satsifies the requirements for~\ref{bisim:forth}.
+
+    \item
+    If $\elemtuptuplea$ and $\elemtuptuples$ have no common elements, then we first find an element $b_{1} \in \unraveldom{B}_{W * n}$ that is $(W * k - 1)$-similar to $a_{1}$.
+    Let $\seq{a_{1}} = \cdots \elemtuples^{(0)} \cdots (i^{(z)}, j^{(z)}) \elemtuptuples^{(z)}$ for $z = \min(W * k, |\seq{a_{1}}|)$.
+    Since $\str{A}$ and $\str{B}$ are $2 * W * n$-$\FGF$-bisimilar, there must be a tuple $\elemtuplet^{(0)}$ such that $\str{A}, \elemtuples^{(0)} \bisimto_{\FGF}^{2 * W * n - 1} \str{B}, \elemtuplet^{(0)}$.
+    Next, we apply~\ref{bisim:forth} $z$ times to find tuples $\elemtuplet^{(1)}, \ldots, \elemtuplet^{(z)}$ such that $\sigma$ with $\sigma = \elemtuplet^{(0)}\cdots(i^{(z)}, j^{(z)})\elemtuplet^{(z)}$ is a biseq and $\str{A}, \elemtuples^{(x)} \bisimto_{\FGF}^{2 * W * n - 1 - x} \str{B}, \elemtuplet^{(x)}$ for all $x \in [1,z]$.
+    As $z \le W * k$ and $W * k \le W * n$, we have $2 * W * n - 1 - z \ge  W * k - 1$ and thus $\str{A}, \elemtuples^{(x)} \bisimto_{\FGF}^{W * k - 1} \str{B}, \elemtuplet^{(x)}$ for all $x \in [1, z]$.
+    We construct the element $b_{1} \in \unraveldom{B}_{W * n}$ with $\seq{b_{1}} = \sigma$ and $\ctr{b_{1}} = \ctr{a_{1}}$.
+    By construction of $\sigma$, we have $\hist{(W * k - 1)}{b_{1}} = \hist{(W * k - 1)}{a_{1}}$ so $a_{1} \approx_{W * k - 1} b_{1}$.
+    Similar to case (i), we now use~\ref{elemeq:succ} to find elements $b_{2}, \ldots, b_{|\elemtuptuplea|} \in \unraveldom{B}_{W * n}$ such that $b_{2} \cdots b_{|\elemtuptuplea|}$ is a next-chain.
+    Since $|\elemtuptuplea| \le W$, this requires at most $W - 1$ applications of~\ref{elemeq:succ}.
+    Hence, $a_{x} \approx_{W * (k-1)} b_{x}$ for $1 \le x$ and $x \le |\elemtuptuplea|$.
+    Now $\mu_{(\elemtuptuplea, \elemtuptupleb)} \in Z_{k-1}$ satisfies the requirements for~\ref{bisim:forth}.
+  \end{romanenumerate}
+\end{proof}

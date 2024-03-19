@@ -1,31 +1,13 @@
-\documentclass{standalone}
+\documentclass{article}
 
-\usepackage{ifxetex}
-\usepackage{amsmath}
+\usepackage{scrlfile}
+\PreventPackageFromLoading{apxproof}
 
-\ifxetex
-  \usepackage{polyglossia}
-  \usepackage{fontspec}
-
-  \setmainlanguage{english}
-\else
-  \usepackage[english]{babel}
-\fi
-
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{tikz}
-\usepackage{makecell}
-\usepackage{mathtools}
-
-\usetikzlibrary{calc}
-\usetikzlibrary{backgrounds}
-\usetikzlibrary{arrows}
-\usetikzlibrary{arrows.meta}
-\usetikzlibrary{shadings}
-
-\input{tolcolors.tex}
+\input{settings/packages.tex}
+\input{settings/macros.tex}
+\input{settings/tolcolors.tex}
 
 \begin{document}
-  \input{res/fgf-bart-unraveling}
+\noindent
+\input{../Lipics version/res/finite-unraveling.tex}
 \end{document}
