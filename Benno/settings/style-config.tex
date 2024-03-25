@@ -1,0 +1,315 @@
+%Page style
+% \geometry{
+% left=3.2cm,
+% top=2.5cm,
+% right=2.5cm,
+% bottom=2.5cm
+% }
+
+% \setlrmarginsandblock{2.5cm}{2.5cm}{*}
+% \setulmarginsandblock{3.5cm}{3cm}{*}
+% % \setlrmarginsandblock{3cm}{2cm}{*}
+% % \setulmarginsandblock{3cm}{2cm}{*}
+% \checkandfixthelayout
+
+% \setbeforesubparaskip{1.5ex plus 1ex minus .2ex} % default : 3.25ex plus 1ex minus .2ex
+% \setsubparaindent{0pt}
+
+% \setlength{\headwidth}{\textwidth}
+% \makerunningwidth{companion}{\headwidth}
+
+\chapterstyle{madsen} % veelo
+\pagestyle{companion} % ruled, Ruled
+
+\setsecnumdepth{subsection}
+
+\firmlists*
+
+\definecolor{bordeau}{rgb}{0.3515625,0,0.234375}
+\definecolor{lipiyellow}{rgb}{0.99,0.78,0.07}
+\definecolor{tileblue}{rgb}{0.30,0.62,0.80}
+\definecolor{checkgreen}{rgb}{0.0,0.7,0.0}
+
+
+\linespread{1.05}
+
+\pagestyle{headings}
+
+\setsecnumdepth{subsection}
+
+\setlength{\columnseprule}{0pt}
+\setlength\columnsep{10pt}
+
+% \newcommand\blankpage{%
+%     \null
+%     \thispagestyle{empty}%
+%     \addtocounter{page}{-1}%
+%     \newpage}
+
+% Hyperref customization
+\hypersetup{
+  colorlinks,
+  linkcolor={red!70!black},
+  citecolor={blue!70!black},
+  urlcolor={blue!80!black}
+}
+
+
+%Chapter style
+\makechapterstyle{box}{
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapnumfont}{\normalfont\sffamily\huge\bfseries}
+  \renewcommand*{\printchapternum}{
+    \flushright
+    \begin{tikzpicture}
+      \draw[fill,color=black] (0,0) rectangle (2cm,2cm);
+      \draw[color=white] (1cm,1cm) node { \chapnumfont\thechapter };
+    \end{tikzpicture}
+  }
+  \renewcommand*{\chaptitlefont}{\normalfont\sffamily\Huge\bfseries}
+  \renewcommand*{\printchaptertitle}[1]{\flushright\chaptitlefont##1}
+}
+\chapterstyle{box}
+
+%Section style
+\renewcommand\secheadstyle{\centering\Large\scshape\noindent}
+
+%Subappendices
+\AtBeginEnvironment{subappendices}{%
+\renewcommand\thesection{A$_{\text{\thechapter}}$}
+\section{Appendix of \chaptername~\thechapter}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+}
+\AtEndEnvironment{subappendices}{%
+\counterwithout{figure}{section}
+\counterwithin{figure}{chapter}
+\counterwithout{table}{section}
+\counterwithin{table}{chapter}
+}
+
+\newcommand{\refappendix}[1]{Appendix~\ref{#1}}
+
+%Intext labels
+\makeatletter
+\def\intextlabel#1#2#3#4{%
+  \begin{#4}%
+  #1%
+  \begingroup%
+    \def\@currentlabel{\normalfont{(#2)}}%
+    \phantomsection\label{#3}%
+  \endgroup%
+  \end{#4}%
+}
+\makeatother
+
+\newenvironment{lab-dot-env}{}{.\,}
+\newenvironment{lab-par-env}{(}{)}
+\newenvironment{lab-emp-env}{}{}
+
+\makeatletter
+\def\phantomlabel#1#2{\begingroup
+   \def\@currentlabel{#1}%
+   \label{#2}\endgroup
+}
+\makeatother
+
+\newcommand{\itemlabel}[2]{\intextlabel{#1}{#1}{#2}{lab-dot-env}}
+\newcommand{\parenthesislabel}[2]{\intextlabel{#1}{#1}{#2}{lab-par-env}}
+\newcommand{\emptylabel}[2]{\intextlabel{}{#1}{#2}{lab-emp-env}}
+
+\newcommand{\highitem}[1]{\normalfont{\textit{#1.}}}
+
+%Axioms labels 
+
+\newcommand{\preaxiomlab}[2]{\intextlabel{#1}{#1}{#2}{lab-par-env}}
+
+\newcommand{\axlab}[2]{\preaxiomlab{%
+    \textbf{${#1}_{\number\numexpr\value{enumi}+1}$}%
+  }{#2}\setcounter{enumi}{\number\numexpr\value{enumi}+1}}
+
+% \makeatletter
+% \def\axlab#1#2{%
+%   \textbf{($\mathbf{#1_{\number\numexpr\value{enumi}+1}}$)}%
+%   \begingroup%
+%     \def\@currentlabel{\textbf{($\mathbf{#1_{\number\numexpr\value{enumi}+1}}$)}}%
+%     \phantomsection\label{#2}%
+%   \endgroup%
+%   \setcounter{enumi}{\number\numexpr\value{enumi}+1}%
+% }
+% \makeatother
+
+\makeatletter
+\def\indexedlab#1#2#3{%
+  \textbf{($\mathbf{#1_{#2.\number\numexpr\value{enumi}+1}}$)}%
+  \begingroup%
+    \def\@currentlabel{\textbf{($\mathbf{#1_{#2.\number\numexpr\value{enumi}+1}}$)}}%
+    \phantomsection\label{#3}%
+  \endgroup%
+  \setcounter{enumi}{\number\numexpr\value{enumi}+1}%
+}
+\makeatother
+
+\makeatletter
+\def\rulelab#1#2{%
+  \ \ #1:%
+  \begingroup%
+    \def\@currentlabel{#1}%
+    \phantomsection\label{#2}%
+  \endgroup%
+}
+\makeatother
+
+\makeatletter
+\def\lemmalab#1#2{%
+  \ \ {\textbf{#1}}%
+  \begingroup%
+    \def\@currentlabel{\textbf{#1}}%
+    \phantomsection\label{#2}%
+  \endgroup%
+}
+\makeatother
+
+%Syntactical proofs 
+
+\newenvironment{syntproof}
+  {
+  \begin{tcenter}
+    \def\arraystretch{1.4}
+    \setlength\LTleft{\textwidth-\linewidth}
+    \setlength\LTright{0pt}
+    \noindent%
+    \begin{longtable}{L|M@{\extracolsep{\fill}}M}
+    }
+    { 
+    \end{longtable}
+  \end{tcenter}
+  }
+
+\newenvironment{smallsyntproof}
+  {
+  \begin{tcenter}
+    \def\arraystretch{1.4}
+    \noindent%
+    \begin{tabular*}{1\linewidth}{L|M@{\extracolsep{\fill}}M}
+    }
+    { 
+    \end{tabular*}
+  \end{tcenter}
+  }
+
+
+\newcommand{\elseabsurd}[2]{\textbf{By}\ #1\ \textbf{it holds that}\ #2\textbf{$_{\blacksquare}$}}
+   
+
+%TOC style
+  %TOC - Part
+  \renewcommand\cftpartaftersnum{\space}
+  \setlength{\cftpartnumwidth}{3em}% Width of \part numbers in ToC
+  \renewcommand{\cftpartpresnum}{\hfill}% Inserted before \part numbers in ToC
+  \renewcommand{\cftpartaftersnum}{\quad}% Inserts after \part numbers in ToC
+
+  %TOC - Chapter
+  \renewcommand\cftchapteraftersnum{.\space}
+  \setlength{\cftchapternumwidth}{3em}
+  \renewcommand{\cftchapterpresnum}{\hfill}
+  \renewcommand{\cftchapteraftersnum}{\quad}
+
+  %TOC - Section
+  \setlength{\cftsectionnumwidth}{3em}
+  \renewcommand{\cftsectionpresnum}{\hfill}
+  \renewcommand{\cftsectionaftersnum}{\quad}
+
+%Rule environments
+\newenvironment{rfigure}{%
+    \begin{figure}[t]
+    \hrule
+    \vspace{4pt}
+    \centering
+    \def\arraystretch{1.5}
+}
+{
+\vspace{2pt}
+\hrule
+\end{figure}%
+}
+
+\newenvironment{bigfigure}{%
+    \begin{figure}
+    \hrule
+    \vspace{4pt}
+    \centering
+    \def\arraystretch{1.5}
+}
+{
+\vspace{2pt}
+\hrule
+\end{figure}%
+}
+
+\newenvironment{rtable}{%
+    \begin{table}
+    \hrule
+    \vspace{4pt}
+}
+{
+\hrule
+\end{table}%
+}
+
+%Multicols spacing
+\setlength{\multicolsep}{6.0pt plus 2.0pt minus 1.5pt}% 50% of original values
+
+%Centering macros
+\newenvironment{tcenter}
+  {%
+    \setlength{\topsep}{0.85\topsep}\par\kern\topsep\centering%
+  }
+  {%
+    \par\kern\topsep%
+  }
+
+%Roman numbers
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+%Tabular spacing
+\def\arraystretch{1.2}
+\setlength{\tabcolsep}{5pt}
+
+%Math Text Style
+\newcommand{\mathfont}[1]{\mathsf{#1}}
+
+%Big Operations
+\makeatletter
+\DeclareRobustCommand\bigop[1]{%
+  \mathop{\vphantom{\sum}\mathpalette\bigop@{#1}}\slimits@
+}
+\newcommand{\bigop@}[2]{%
+  \vcenter{%
+    \sbox\z@{$#1\sum$}%
+    \hbox{\resizebox{\ifx#1\displaystyle.9\fi\dimexpr\ht\z@+\dp\z@}{!}{$\m@th#2$}}%
+  }%
+}
+\makeatother
+
+
+\tikzset{
+  align=center,
+  node distance=1.5cm,
+  dot/.style={draw, minimum size=1.4mm, inner sep=0pt, outer sep=0pt, shape=circle, fill=black},
+  pto/.style={-{latex},thick},
+  bordeaupto/.style={-{latex},very thick,bordeau},
+  highlightpath/.style={draw,line width=5pt,-,lipiyellow},
+  highlightnode/.style={dot,fill=black,minimum size=1.6mm,draw=lipiyellow,line width=1.1pt},
+  aloc/.style={inner sep=0pt, outer sep=0pt, minimum size=1.4mm, draw=black, fill=white},
+  curly/.style={decorate,decoration={brace,amplitude=8pt},xshift=4pt,yshift=5pt},
+  snaky/.style={decorate, decoration={snake, amplitude=0.2mm, segment length=2mm, post length=0.5mm},shorten >=1pt},
+  reach/.style={snaky,pto},
+  segment/.style={|-|,line width=0.25mm,black!90},
+  alin/.style={line width=0.25mm,black!90},
+  aux/.style={-latex,line width=0.25mm,black!80},
+  path/.style={-latex,dashed,line width=0.28mm,dash pattern=on 7pt off 3pt on 3pt off 3pt on 3pt off 3pt on 3pt off 3pt}
+}
+

@@ -1,0 +1,40 @@
+%Page style
+% \geometry{
+% left=16mm,
+% top=30mm,
+% right=16mm,
+% bottom=30mm
+% }
+
+\linespread{1.1}
+
+\pagestyle{headings}
+
+\setlength{\columnseprule}{0pt}
+\setlength\columnsep{10pt}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+%Chapter style
+
+\makechapterstyle{box}{
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapnumfont}{\normalfont\sffamily\huge\bfseries}
+  \renewcommand*{\printchapternum}{
+    \flushright
+    \begin{tikzpicture}
+      \draw[fill,color=black] (0,0) rectangle (2cm,2cm);
+      \draw[color=white] (1cm,1cm) node { \chapnumfont\thechapter };
+    \end{tikzpicture}
+  }
+  \renewcommand*{\chaptitlefont}{\normalfont\sffamily\Huge\bfseries}
+  \renewcommand*{\printchaptertitle}[1]{\flushright\chaptitlefont##1}
+}
+\chapterstyle{box}
+
+%Section style
+\renewcommand\secheadstyle{\centering\Large\scshape\noindent}

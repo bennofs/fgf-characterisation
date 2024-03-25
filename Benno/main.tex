@@ -1,7 +1,10 @@
-\documentclass[UKenglish]{tudscrreprt}
+\documentclass[UKenglish,oneside]{memoir}
 
 \bibliographystyle{plainurl}
+
 \input{settings/packages.tex}
+\input{settings/style.tex}
+\input{settings/style-config.tex}
 \input{settings/info.tex}
 \input{settings/macros.tex}
 \input{settings/compat.tex}
@@ -11,18 +14,22 @@
 \begin{document}
 
 \maketitle
+\clearpage
 \tableofcontents
 
 \include{content/introduction}
 \include{content/logics}
 \include{content/games}
 \include{content/expressivity}
-\include{content/companions}
 \include{content/unraveling}
 \include{content/finite}
 \include{content/conclusion}
 
 \clearpage
 \bibliography{references}
+
+\clearpage
+\appendix
+\addcontentsline{toc}{chapter}{Appendix}
 
 \end{document}

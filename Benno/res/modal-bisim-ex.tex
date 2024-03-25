@@ -1,17 +1,3 @@
-\documentclass{article}
-
-\usepackage{scrlfile}
-\PreventPackageFromLoading{apxproof}
-
-\input{settings/packages.tex}
-\input{settings/macros.tex}
-\input{settings/tolcolors.tex}
-
-\begin{document}
-
-\noindent
-\centering
-A
 \begin{tikzpicture}
   \tikzset{el/.style={minimum height=3ex,minimum width=3ex,inner sep=0pt,outer sep=0pt,anchor=center}};
   \tikzset{nop/.style={el}};
@@ -58,21 +44,10 @@ A
 
   \node[below=0.5em of t1] (label1) { $\str{A}, \underline{a}$ };
   \node[at=(label1.base -| t2.center), anchor=base] (label2) { $\str{B}, \underline{a}$ };
-  \node[at=(label1.base -| t3.center), anchor=base] (label3) { $\str{C}, \underline{a}$ };
-  \node[at=(label1.base -| d4.center), anchor=base] (label4) { $\str{D}, \underline{a}$ };
-
-  \node[at=($(label1.east)!.7!(label2.west)$), yshift=-1.5em, anchor=north] {
-    $\mathcal{Z} = \{(a,a), (b,b), (a,c), (b,d) \}$
-  };
-  \node[at=($(label3.east)!.5!(label4.west)$), yshift=-1.5em, anchor=north] { $\varphi = \Diamond((\neg p_{1}) \land \Diamond \top)$ };
-
-  % \node[right=7em of d.base east] (legend) { legend (relations) };
-  % \matrix[every node/.style={anchor=base west}, row sep=0.5em, column sep=1em, below=0em of legend.south west, anchor=north west] {
-  %   \node[draw,double,circle,inner sep=0.2em] {$p_{c}$}; & \node[draw,rectangle,inner sep=0.2em] {$p_{r}$}; & \draw[->] (0,0) -- node[midway,above] {$\relR$} (2em,0)  ; \\
-  % };
+  \node[at=(t3.center), yshift=-3em, anchor=base] (label3) { $\str{C}, \underline{a}$ };
+  \node[at=(d4.center), yshift=-2em, anchor=base] (label4) { $\str{D}, \underline{a}$ };
 
   \begin{scope}[on background layer]
   %\tikzdbg
   \end{scope}
 \end{tikzpicture}
-\end{document}

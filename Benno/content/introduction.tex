@@ -15,7 +15,7 @@ For example, consider the following list of $FO$ formulae:
   \item $\forall{x_{1}}\; (\mathrm{sunny}(x_{1}) \to \exists{x_{2}} (\mathrm{dayAfter}(x_{2},x_{1}) \land \neg \mathrm{sunny}(x_{2})))$ \\
         ``for every sunny day, there is a day before which was not sunny'' \\
         \emph{not forward}: $x_{2}, x_{1}$ is in wrong order
-  \item $\forall{x_{1}x_{2}x_{3}}\; (\mathrm{dayBetween}(x_{1},x_{2},x_{3}) \to ((\mathrm{monday}(x_{1}) \land \mathrm{friday}(x_{3})) \to \mathrm{workday}(x_{2})))$ \\
+  \item $\forall{x_{1}x_{2}x_{3}}\; (\mathrm{dayBetween}(x_{1},x_{2},x_{3}) \to ((\mathrm{mon}(x_{1}) \land \mathrm{fri}(x_{3})) \to \mathrm{workday}(x_{2})))$ \\
         ``days between monday and friday are workdays'' \\
         \emph{forward and guarded}
 \end{enumerate}
@@ -56,37 +56,35 @@ Like Otto, we construct these companions by stopping the infinite unraveling at 
 The method of unraveling that we employ is inspired by the construction that Bednarczyk used to show the $\ExpTime$-completeness of $\FGF$\cite{Bednarczyk21}.
 Bednarczyk's construction however is not sufficient to construct the finite companions.
 Our new method turns out to be similar to a method of unraveling already described by Andréka et al. when introducing the guarded fragment\cite{AndrekaNB98}.
-We present a comparision to these two existing methods of unraveling in \cref{sec:other-unravelings}.
+We present a comparison to these two existing methods of unraveling in \cref{sec:other-unravelings}.
 
-In addition to the variations of modal logic mentioned above, there are also other logics which admit a van Benthem characterization.
-For this work, the most relevant result here is by Otto again, showing that $\GF$ is the $\bisimto_{\GF}$-invariant fragment of $\FO$\cite{Otto2012}, since our proof for $\FGF$ relies on this result.
-In addition, examples of other logics with a van Benthem characterization are:
+Previous works on van Benthem style characterizations often focus on logics with two variables.
+Examples of this, in addition to the aforementioned variants of basic modal logic, are:
 \begin{itemize}
-  \item TODO
+  \item graded modal logic characterized as the counting bisimulation invariant fragment of $\FO$, over both finite and infinite relational structures \cite{derijke2000,otto2023}.
+  \item \Logic{HornALC} is the Horn-simulation invariant fragment of $\FO$\cite{jung2019},
+  \item TBoxes of different description logics including \Logic{ALC}, \Logic{ALCQIQ}, \Logic{DL{-}Lite} and others are fragments of $\FO$ invariant under corresponding equivalence relations\cite{lutz2011, piro2013},
+  \item $\Logic{XPath}_{=}$, a logic able to express (parts of) the navigational aspect of the XPath XML query language, is a $\FO$ fragment invariant under a corresponding notion of bisimulation for different navigational axes (child, descendant)\cite{figueira2015}.
 \end{itemize}
+One notable exemption is the uniform one-dimensional fragment ($\Logic{UF_{1}}$) studied by Hella et al.\cite{hella2014}, which like $\FGF$ allows unbounded number of variables.
+Kierónski et al. describe a Ehrenfeucht-Fraïssé (EF) game for $\Logic{UF_{1}}$, which is similar to the notion of bisimulation.
+However, they only prove the easier direction of van Benthem's theorem: that $\Logic{UF_{1}}$  is preserved under the equivalence defined by this game.
+A proof or a failure for the converse is not found in the literature at this time.
 
-The logics $\FGF$ and $\GF$ represent one particular approach to generalize basic modal logic.
-Other noteworthy approaches include:
-\begin{itemize}
-  \item one dimensional fragment
-  \item separated fragment
-  \item unary negation fragment
-  \item two variable fragment
-
-\end{itemize}
-The main focus of these fragments
-
-
-- other closely related extensions of modal logic: one dimensional fragment, separated fragment, unary negation fragment, etc
+A possible reason for the popularity of two-variable fragments may be that higher-arity relations or more than two variables are difficult to work with, as demonstrated by the proof of the van Benthem characterization of $\GF$\cite{Otto2012}.
+Compared to an earlier result for $\GF$ with relations of arity at most 2\cite{Otto04}, the details of this proof are much more complex.
+Luckily, since $\FGF$ is a subset of $\GF$ and any formula preserved under $\FGF$-bisimulation is also preserved under $\GF$-bisimulation, we can focus on characterizing $\FGF$ as a subset of $\GF$ here.
+The full van Benthem theorem for $\FGF$ then follows from Otto's van Benthem theorem for $\GF$.
 
 \section{Contributions and Outline}
 
-- overall: prove theorem, the van benthem characterization of FGF
-- in the process: introduce a new unraveling (extending Bart's unraveling)
-- outline
-  - chapter 2: preliminaries (notation and logics)
-  - chapter 3: introduction to bisimulations/games
-  - chapter 4: introduce van benthem characterisation and proof technique by otto
-  - chapter 5: new unraveling for infinite case
-  - chapter 6: cut unraveliong to finite case, finishes proof
-  - chapter 7: conclusion and future directions
+Our main contribution is the proof of a van Benthem theorem for $\FGF$ over both in the sense of finite model theory and in the classical sense allowing for infinite models.
+This requires a new kind of unraveling for $\FGF$ which we introduce in \ref{chap:unraveling}.
+As a corollary, this shows that checking whether a given $\GF$ formula can be expressed as formula of $\FGF$ is decidable.
+
+The structure of the thesis is as follows.
+In \cref{chap:logics}, we introduce basic mathematical notation from model theory and review the definitions of the logics $\GF$ and $\FGF$.
+In the following chapter \cref{chap:expressivity}, we formally state the main theorem \cref{TODO} of this thesis and describe the high-level structure of the proof technique, employing prior work from Otto.
+To construct the finite companions required in the proof, we then introduce a new form of unraveling for $\FGF$ in \cref{chap:unraveling}, which we also compare to existing notions of unraveling for $\GF$ and $\FGF$.
+In \cref{chap:finite}, we complete the proof by showing how to employ this new notion of unraveling to construct the finite companions.
+Finally, \cref{chap:conclusion} summarizes the results and presents directions for future research.

@@ -8,21 +8,261 @@
 \let\proof\appendixproof
 \let\endproof\endappendixproof
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{exercise}[theorem]{Exercise}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{observation}[theorem]{Observation}
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{exercise}[theorem]{Exercise}
+% \newtheorem{definition}[theorem]{Definition}
+% \newtheorem{conjecture}[theorem]{Conjecture}
+% \newtheorem{observation}[theorem]{Observation}
+% \theoremstyle{definition}
+% \newtheorem{example}[theorem]{Example}
+% \theoremstyle{remark}
+% \newtheorem{note}[theorem]{Note}
+% \newtheorem*{note*}{Note}
+% \newtheorem{remark}[theorem]{Remark}
+% \newtheorem*{remark*}{Remark}
+% \theoremstyle{claimstyle}
+% \newtheorem{claim}[theorem]{Claim}
+% \newtheorem*{claim*}{Claim}
+
+
+\newcommand{\problemdef}[4]{
+  \smallskip
+\begin{center}
+\begin{tabular}{|r p{36em} |}
+  \hline
+\multicolumn{2}{|l|}{\rule{0pt}{2.6ex}\textbf{#1}} \\[.12ex]
+\textit{Parameters:}     & #2\\[.12ex]
+\textit{Input:}     & #3\\[.12ex]
+\textit{Question:}  & #4 \\[.12ex]
+\hline
+\end{tabular}
+\end{center}
+\smallskip
+}
+
+\newcommand{\problemdeff}[3]{
+  \smallskip
+\begin{center}
+\begin{tabular}{|r p{36em} |}
+  \hline
+\multicolumn{2}{|l|}{\rule{0pt}{2.6ex}\textbf{#1}} \\[.12ex]
+\textit{Input:}     & #2\\[.12ex]
+\textit{Question:}  & #3 \\[.12ex]
+\hline
+\end{tabular}
+\end{center}
+\smallskip
+}
+
+
+\definecolor{ForestGreen}{RGB}{34,139,34}
+\definecolor{Salmon}{rgb}{1.0, 0.55, 0.41}
+\definecolor{RawSienna}{rgb}{0.77, 0.12, 0.23}% \definecolor{carminered}{rgb}
+\definecolor{MidnightBlue}{rgb}{0.0, 0.2, 0.4}
+\definecolor{RedViolet}{rgb}{0.78, 0.08, 0.52}
+\definecolor{TealBlue}{rgb}{0.21, 0.46, 0.53}
+\definecolor{brandeisblue}{rgb}{0.0, 0.44, 1.0}
+
+%%fakesection Theorems
+
 \theoremstyle{definition}
-\newtheorem{example}[theorem]{Example}
-\theoremstyle{remark}
-\newtheorem{note}[theorem]{Note}
-\newtheorem*{note*}{Note}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem*{remark*}{Remark}
-\theoremstyle{claimstyle}
-\newtheorem{claim}[theorem]{Claim}
-\newtheorem*{claim*}{Claim}
+\mdfdefinestyle{mdbluebox}{%
+  roundcorner = 10pt,
+  linewidth=1pt,
+  skipabove=12pt,
+  innerbottommargin=9pt,
+  skipbelow=2pt,
+  nobreak=true,
+  linecolor=blue,
+  backgroundcolor=TealBlue!8,
+}
+\declaretheoremstyle[
+  headfont=\sffamily\bfseries\color{MidnightBlue},
+  mdframed={style=mdbluebox},
+  headpunct={\\[3pt]},
+  postheadspace={0pt}
+]{thmbluebox}
+
+\mdfdefinestyle{mdredbox}{%
+  linewidth=0.5pt,
+  skipabove=12pt,
+  frametitleaboveskip=5pt,
+  frametitlebelowskip=0pt,
+  skipbelow=2pt,
+  frametitlefont=\bfseries,
+  innertopmargin=4pt,
+  innerbottommargin=8pt,
+  nobreak=true,
+  linecolor=RawSienna,
+  backgroundcolor=Salmon!8,
+}
+\declaretheoremstyle[
+  headfont=\bfseries\color{RawSienna},
+  mdframed={style=mdredbox},
+  headpunct={\\[3pt]},
+  postheadspace={0pt},
+]{thmredboxx}
+
+
+\mdfdefinestyle{mdmyredbox}{%
+  skipabove=8pt,
+  linewidth=2pt,
+  rightline=false,
+  leftline=true,
+  topline=false,
+  bottomline=false,
+  linecolor=RawSienna,
+  backgroundcolor=Salmon!8,
+}
+
+\declaretheoremstyle[
+  headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+  bodyfont=\normalfont,
+  spaceabove=2pt,
+  spacebelow=1pt,
+  mdframed={style=mdmyredbox},
+  headpunct={  },
+]{thmmyredbox}
+
+\mdfdefinestyle{mdgreenbox}{%
+  skipabove=8pt,
+  linewidth=2pt,
+  rightline=false,
+  leftline=true,
+  topline=false,
+  bottomline=false,
+  linecolor=ForestGreen,
+  backgroundcolor=ForestGreen!8,
+}
+\declaretheoremstyle[
+  headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+  bodyfont=\normalfont,
+  spaceabove=2pt,
+  spacebelow=1pt,
+  mdframed={style=mdgreenbox},
+  headpunct={ },
+  % qed={\qedDef},
+]{thmgreenbox}
+
+\declaretheoremstyle[
+  headfont=\bfseries\sffamily\color{RawSienna!80!black},
+  bodyfont=\normalfont,
+  spaceabove=2pt,
+  spacebelow=1pt,
+  mdframed={style=mdmyredbox},
+  headpunct={ },
+]{thmredbox}
+
+
+\declaretheoremstyle[
+  headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+  bodyfont=\normalfont,
+  spaceabove=2pt,
+  spacebelow=1pt,
+  mdframed={style=mdgreenbox},
+  headpunct={},
+]{thmgreenbox*}
+
+\mdfdefinestyle{mdblackbox}{%
+  skipabove=8pt,
+  linewidth=3pt,
+  rightline=false,
+  leftline=true,
+  topline=false,
+  bottomline=false,
+  linecolor=black,
+  backgroundcolor=RedViolet!8!gray!8,
+}
+\declaretheoremstyle[
+  headfont=\bfseries,
+  bodyfont=\normalfont\small,
+  spaceabove=0pt,
+  spacebelow=0pt,
+  mdframed={style=mdblackbox}
+]{thmblackbox}
+
+\mdfdefinestyle{mdbluebox}{%
+  skipabove=8pt,
+  linewidth=2pt,
+  rightline=false,
+  leftline=true,
+  topline=false,
+  bottomline=false,
+  linecolor=brandeisblue,
+  backgroundcolor=brandeisblue!8,
+}
+\declaretheoremstyle[
+  headfont=\bfseries\sffamily\color{brandeisblue!70!black},
+  bodyfont=\normalfont,
+  spaceabove=2pt,
+  spacebelow=1pt,
+  mdframed={style=mdbluebox},
+  headpunct={ },
+]{thmbluebox}
+
+
+\theoremstyle{definition}
+\declaretheorem[numberwithin=chapter,style=thmgreenbox]{definition}
+\declaretheorem[name=Example,sibling=definition,style=thmblackbox]{examplex}
+\declaretheorem[name=Property,sibling=definition,style=thmblackbox]{property}
+\declaretheorem[name=Remark,sibling=definition,style=thmblackbox]{remarkx}
+\declaretheorem[name=Fact,sibling=definition,style=thmblackbox]{fact}
+\declaretheorem[name=Corollary,sibling=definition,style=thmredboxx]{corollary}
+\declaretheorem[name=Observation,sibling=definition,style=thmblackbox]{observation}
+\declaretheorem[name=Theorem,sibling=definition,style=thmredboxx]{theorem}
+\declaretheorem[name=Lemma,sibling=definition,style=thmbluebox]{lemma}
+\declaretheorem[name=Main Theorem,,style=thmredboxx]{maintheorem}
+
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{claim}[definition]{Claim}
+\newtheorem*{induction*}{Induction Hypothesis}
+
+\newenvironment{example}
+{\pushQED{\qed}\renewcommand{\qedsymbol}{$\square$}\examplex}
+{\popQED\endexamplex}
+
+\newenvironment{remark}
+{\pushQED{\qed}\renewcommand{\qedsymbol}{$\square$}\remarkx}
+{\popQED\endremarkx}
+
+\newenvironment{sproof}{%
+  \renewcommand{\proofname}{Proof (sketch)}\proof}{\endproof}
+
+\newcommand{\defstyle}[1]{\emph{\text{#1}}}
+\newcommand{\indexgeneral}[2]{\index{#2}\defstyle{#1}}
+\newcommand{\idindexgeneral}[1]{\indexgeneral{#1}{#1}}
+\newcommand{\silentindexsymbol}[3]{\index[sym]{#3!#1 : #2}}
+\newcommand{\indexsymbol}[3]{\silentindexsymbol{#1}{#2}{#3}{#1}}
+\newcommand{\mathindexsymbol}[3]{\silentindexsymbol{$#1$}{#2}{#3}{#1}}
+\newcommand{\silentformulaindexsymbol}[2]{\index[sym]{#2!#1}}
+\newcommand{\formulaindexsymbol}[2]{{#1}\silentformulaindexsymbol{#1}{#2}}
+\newcommand{\logicindexsymbol}[1]{\formulaindexsymbol{#1}{\domLogics}}
+
+%Left / Right proof directions
+\newcommand{\ProofRightarrow}{\noindent($\Rightarrow$):\xspace}
+\newcommand{\ProofLeftarrow}{\noindent($\Leftarrow$):\xspace}
+
+\newcommand{\ProofSupseteq}{\noindent($\supseteq$):\xspace}
+\newcommand{\ProofSubseteq}{\noindent($\subseteq$):\xspace}
+
+\newcommand{\vocab}[1]{\textbf{\color{ForestGreen!70!black}#1}}
+
+% \makeatletter
+% \renewenvironment{proof}[1][\proofname]{\par
+%   \pushQED{\qed}%
+%   \normalfont \topsep6\p@\@plus6\p@\relax
+%   \list{}{\listparindent 0.5em
+%           \itemindent    \z@
+%           \labelwidth    \z@
+%           \rightmargin   \leftmargin
+%           \parsep        \z@ \@plus\p@}%
+%   \item[\hskip\labelsep\itshape#1\@addpunct{.}]\ignorespaces
+% }{%
+%   \popQED\\\endlist\@endpefalse
+% }
+% \makeatother
+
+\newcommand{\qedDef}{$\blacktriangleleft$}
