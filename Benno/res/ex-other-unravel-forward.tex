@@ -1,18 +1,5 @@
-\documentclass{article}
-
-\usepackage{scrlfile}
-\PreventPackageFromLoading{apxproof}
-
-\input{settings/packages.tex}
-\input{settings/macros.tex}
-\input{settings/tolcolors.tex}
-
-\begin{document}
-
-\noindent
-\centering
 \begin{tikzpicture}
-  \tikzset{el/.style={ellipse,draw,fill=white,minimum width=3em,minimum height=2em}};
+  \tikzset{el/.style={ellipse,draw,fill=white,minimum width=2.5em,minimum height=2em}};
   \tikzset{adj/.style={densely dashed,thick,draw,opacity=0.8}};
   \tikzset{relP/.style={tolhighcontrastBlue, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em}};
   \tikzset{relE/.style={tolhighcontrastYellow, line width=0.25em, -{Stealth[round]}, shorten >= 0.2em}};
@@ -21,7 +8,7 @@
   \def\radiusE{0.4em};
   \def\radiusS{0.2em};
 
-  \matrix[matrix of nodes, every node/.style={el}, column sep=3em, row sep=1em] {
+  \matrix[matrix of nodes, every node/.style={el}, column sep=2em, row sep=1em] {
     & |(n2)| 1\textbf{2} & |(n3)| 12\textbf{3} & |(n4)| 123\textbf{4} & |(n5)| 1234\textbf{5} & |(n6)| 12345\textbf{4} & |[draw=none] (n7)| $\cdots{}$ \\
 |(n1)| \textbf{1}  & & & & & & \\
     & |(nx3)| 1\textbf{3} & |(nx4)| 13\textbf{4} & |(nx5)| 134\textbf{5} & |(nx6)| 1345\textbf{4} & |(nx7)| 13454\textbf{5} & |[draw=none] (nx8)| $\cdots{}$ \\
@@ -85,4 +72,3 @@
   \end{scope}
 
 \end{tikzpicture}
-\end{document}

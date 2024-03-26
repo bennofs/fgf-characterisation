@@ -6,7 +6,7 @@ Bisimulations allow us to say that two structures ``behave the same'' with regar
 Given a suitable notion of bisimulation for a logic, we show that bisimilar structures satisfy the same formulae from this logic.
 We define bisimulations using back-and-forth conditions, which roughly state that every relation involving a tuple in one structure is matched by a corresponding relation in the other structure.
 As we will see, this definition a natural interpretation in the form of a two-player game, where winning strategies correspond to bisimulations.
-This viewpoint becomes relevant in later chapters, where we use concepts from this two-player game to define the unraveling of structures.
+This viewpoint is relevant for later chapters, where we use concepts from this two-player game to define the unraveling of structures.
 
 As an introductory example, we consider the notion of bisimulation for transition systems, which is the notion of bisimulation corresponding to basic modal logic $\Logic{ML}$.
 A \emph{transition system} is a $\sigma$-structure $(\str{A}, a)$ where the signature $\sigma$ contains only unary predicates $p_{1}, \ldots, p_{n}$ and exactly one binary predicate $\relR$.
@@ -256,9 +256,9 @@ We collect these observations in the following corollary:
   \end{itemize}
 \end{corollary}
 
-\subsection{Biseqs and Bipoints}
+\section{Biseqs and Bipoints}\label{sec:biseqs-and-bipoints}
 We next define two concepts (biseqs and bipoints) which represent a sequence of moves that Spoiler takes and the elements that Spoiler selects, respectively, in one of the possible plays of the $\FGF$-bisimulation game.
-Later, in \cref{sec:unraveling}, we employ these concepts to characterize a structure in terms of its behavior under the game.
+Later, in \cref{chap:unraveling}, we employ these concepts to characterize a structure in terms of its behavior under the game.
 
 Let $\str{A}, \elemtuplea^{(0)}$ be a pointed structure where $\elemtuplea^{(0)}$ is just tuple of elements from $A$, labelled with a zero index as it is the start of a sequence of tuples selected by Spoiler.
 An $\ell$-\emph{biseq} is a word in $A^*{(\N\N{}A^{*})}^{\ell}$, written as a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices with $i \le j$ for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
@@ -317,7 +317,7 @@ A \emph{bipoint} of a structure $\str{A}$ is a tuple $(\sigma, k) \in \Seq{A} \t
 \end{itemize}
 For a bipoint $e$ of a structure $A$ that can be decomposed as $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the biseq and the counter of this bipoint, respectively.
 The counter of the bipoint identifies one component of the tuple of elements that the biseq projects to.
-We define the projection $\pi$ from bipoints of a structure $\str{A}$ to elements of $\str{A}$ as: if $e = (\sigma, k)$ is a bipoint, then $\pi(e) = {\Pi(\sigma)}_{k}$ (= $\elema_{k}$ for $\sigma = \cdots\elemtuplea$).
+We define the projection $\pi$ from bipoints of a structure $\str{A}$ to elements of $\str{A}$ as follows: if $e = (\sigma, k)$ is a bipoint, then $\pi(e) = {\Pi(\sigma)}_{k}$ (= $\elema_{k}$ for $\sigma = \cdots\elemtuplea$).
 The condition that ``$k \ge (j-i+1) + 1$'' ensures that we do not have more than one bipoint for the shared elements in a move in the bisimulation game.
 \Cref{ex:bipoints} shows a concrete application for this condition.
 

@@ -1,33 +1,126 @@
 %!TEX root = ../main.tex
 \chapter{Tree Unravelings}\label{chap:unraveling}
-We next describe a notion of \emph{tree unravelings} for $\FGF$.
-A ``truncated'' form of these unravelings will be employed afterwards in the construction of the companion structures required for~\cref{thm:main-technical-thm}.
-The truncation is necessary to keep the resulting structure finite, as tree unravellings of structures containing cycles are infinite.
-This is similar to the approach taken by Otto to construct the finite companions for the van Benthem charactisation of modal logic with universal modalities~\cite[Proof of Lemma 38]{Otto04}.
-Our approach is similar to the construction of finite companions in the van Benthem Characterisation of modal logic with the universal modality by Otto~\cite[Proof of Lemma 38]{Otto04}.
-However, novel ideas are required to make this construction applicable to the case of higher-arity relations.
+A fundamental property of modal logics is that their models are tree-like.
+For now, think of tree-like models as models that are similar to trees as known from graph theory.
+We give an exact definition of the term tree-like later.
+We show in this chapter that a special form of tree models provide a logically tractable~\cite{otto2013} class of models for $\FGF$.
+In this class of models, the weak form of $\bisimto_{\FGF}$-equivalence coincides with the stronger notion of $\bisimto_{\GF}$-equivalence.
+For this purpose, we introduce a new notion of tree unraveling for $\FGF$, which takes an arbitrary model and constructs a structure which is bisimilar to this model but additionally is tree-like.
+We give a short comparison between our new notion of unraveling and existing notions of unraveling for $\FGF$ and $\GF$ later in this chapter.
+In essence, the tree models obtained this way represent a canonical representive of each $\bisimto_{\FGF}$ equivalence class, which are unique up to $\bisimto_{\GF}$-equivalence.
+This is the first step towards the construction of finite companions as required for \cref{thm:main-technical-thm}.
 
-For structures $\str{A}$ with a distinguished binary predicate $\relNext^{\str{A}}$, we employ a tailored terminology from graph theory, as expected.
+The following theorem highlights the main property of our new notion of unraveling for $\FGF$.
+We develop the notion of unraveling to satisfy this theorem throughout this chapter.
+\begin{restatable}{theorem}{thminfupgrading}\label{thm:inf-bisim-upgrading}
+  If $(\unravel{A}, \elemtuptuplea)$ and $(\unravel{B}, \elemtuptupleb)$ are the unravelings of two structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$, then $(\unravel{A}, \elemtuptuplea) \bisimto_{\FGF} (\unravel{B}, \elemtuptupleb)$ implies $(\unravel{A}, \elemtuptuplea) \bisimto_{\GF} (\unravel{B}, \elemtuptupleb)$.
+\end{restatable}%
+
+\noindent
+For structures $\str{A}$ with a distinguished binary predicate $\relNext^{\str{A}}$, we employ tailored terminology from graph theory.
 For instance, whenever $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
 A \emph{root} is an element without parents.
 The set of \emph{descendants} of an element $\eleme$ is the smallest set containing $\eleme$ that is closed under taking children (\ie{} if an element is in the set then so are its children).
 We call a structure $\str{A}$ a \emph{forest} if every element has at most one parent and is a descendant of some root.
 A forest is a \emph{tree} if it has exactly one root.
 We say that a model is a \emph{forest model} (or \emph{tree model}) if it has a domain which is a forest (or tree).
-It is well-known that with a suitable notion of unraveling~\cite[Prop. 3]{Rosen97} one can show that every satisfiable modal logic formula has a tree model.
 
-Our goal is to design a notion of unraveling for $\FGF$ satisfying the following theorem:
-\begin{restatable}{theorem}{thminfunraveling}\label{thm:inf-unraveling-upgrading}
-  Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed structures.
-  Then there are forest models $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$ which are both:
+\section{Existing notions of unraveling for $\FGF$ and $\GF$}
+In this section, we review two existing notions of tree unraveling, one for $\FGF$ and one for $\GF$.
+This is helpful to understand the motivation for our new unraveling.
+Readers who are only interested in the new unraveling may safely skip this section.
+
+We focus on structures $\str{A}$ without distinguished elements here, to simplify the definitions.
+However, extending these definitions to pointed structures $(\str{A}, \elemtuplea)$ is not difficult.
+We start with the definitions, and show some examples afterwards.
+We begin with the unraveling for $\GF$, as described by Andréka et al.\cite[Sec 4.3, p. 247]{AndrekaNB98}.
+\begin{definition}[$\GF$-unraveling]
+  The domain of the \emph{$\GF$-unraveling} $\gfunravel{A}$ of a structure $\str{A}$ consists of pairs $(\rho, a)$ where $\rho$ is a finite sequence of guarded sets and $a \in A$ is an element which is ``new'' in $\rho$: it occurs in the last set of $\rho$, but not in the one before that.
+  Every relation $\relR \in \Sigma$ is interpreted in $\gfunravel{A}$ as follows: for a tuple $\gfunraveltup{a} = ((\rho_{1}, a_{1}), \ldots, (\rho_{n}, a_{n}))$ with $n \in N$, we let $\gfunraveltup{a} \in \relR^{\gfunravel{A}}$ if:
+  \begin{enumerate}
+    \item $(a_{1}, \ldots, a_{n}) \in \relR^{\str{A}}$, \ie{} the ``new'' elements of each pair are related by $\relR$ in the base structure,
+    \item there is a maximal sequence $p_{j}$: for some $j \in [1,n]$, every $\rho_{i}$ for $i \in [1,n]$ is a prefix of $\rho_{j}$,
+    \item the new elements $a_{i}$ remain present in each guarded set from $\rho_{i}$ to the end of $\rho_{j}$.
+  \end{enumerate}
+\end{definition}
+As expected, the $\GF$-unraveling $\gfunravel{A}$ is $\GF$-bisimilar to the original structure $\str{A}$~\cite[Proposition 4.3.1]{AndrekaNB98}.
+
+For comparison, we now present the \emph{HAF-unraveling}, an unraveling for $\FGF$ introduced by Bednarczyk~\cite[Sec 3.3]{Bednarczyk21}.
+Our presentation here is based on a later version of this unraveling, the \emph{HAH-unraveling}~\cite[Appendix C.4, Definition 20]{BednarczykJ22}, which is the same as the HAF-unraveling for signatures without constants.
+\begin{definition}[HAH-unraveling]
+  The domain of the \emph{HAH-unraveling} $\hatunravel{A}$ of a structure $\str{A}$ contains all finite sequences $\rho = a_{1}\cdots{}a_{n}$ of elements from $A$ for all $n \in \N^{+}$, with the following additional property:
+  For every $i \in [1,n-1]$, the elements $a_{i}, a_{i+1}$ appear consecutively in some relation, \ie{} there are tuples $\elemtuplee, \elemtuplef \sqin A$  of elements from $\str{A}$ such that, for some relation $\relR \in \Sigma$:
+  \begin{equation*}
+    \elemtuplee{}\,a_{i}\,a_{i+1}\,\elemtuplef{} \in \relR^{\str{A}}.
+  \end{equation*}
+  For each sequence $\rho$ in the domain, we define $\mathrm{last}(\rho) = a$ where $a$ is the last element of $\rho$, \ie{} $\rho = \cdots a$.
+  Every relation $\relR \in \Sigma$ is interpreted in $\hatunravel{A}$ as follows: for a tuple $\hatunraveltup{a} = (\rho_{1}, \ldots, \rho_{n})$ with $n \in \N$, we let $\hatunraveltup{a} \in \relR^{\hatunravel{A}}$ if:
+  \begin{enumerate}
+    \item $(\mathrm{last}(\rho_{1}), \ldots, \mathrm{last}(\rho_{n})) \in \relR^{\str{A}}$, \ie{} the last elements of each sequence are related by $\relR$ in the base structure, and
+    \item there are elements $e_{2}, \ldots, e_{n} \in A$ such that $\rho_{i} = \rho_{1}e_{1}\cdots{}e_{i}$ for all $i \in [2,n]$.
+  \end{enumerate}
+\end{definition}
+Similarly to the case for $\GF$, the HAH-unraveling $\hatunravel{A}$ is $\FGF$-bisimilar to the original structure $\str{A}$~\cite[Appendix C.4, Lemma 23]{BednarczykJ22}.
+
+\begin{example}
+  To demonstrate the above definitions, consider the following structure $\str{A}$:
+  \begin{center}
+    \Huge{$\str{A}$}\input{res/ex-other-unravel-struct.tex}
+  \end{center}
+  The elements of this structure are $1$, $2$, $3$, $4$ and $5$.
+  There are two relations of arity 2 (\textcolor{tolhighcontrastYellow}{$\relE$} and \textcolor{tolhighcontrastRed}{$\relS$}) and one of arity 3 (\textcolor{tolhighcontrastBlue}{$\relP$}), as indicated by the colored arrows.
+
+  We first construct the $\GF$-unraveling of this structure. The guarded sets are:
+  \begin{multicols}{3}
   \begin{itemize}
-    \item $\FGF$-similar to the original structures: $\unravel{A}, \elemtuptuplea \bisimto_{\FGF} \str{A}, \elemtuplea$ and $\unravel{B}, \elemtuptupleb \bisimto_{\FGF} \str{B}, \elemtupleb$
-    \item $\GF$-bisimilar: $\unravel{A}, \elemtuptuplea \bisimto_{\GF} \unravel{B}, \elemtuptupleb$.
+    \item $s_{1} = \{1,2\}$
+    \item $s_{2} = \{1,2,3\}$
+    \item $s_{3} = \{2,3,4\}$
+    \item $s_{4} = \{3,4,5\}$
+    \item $s_{5} = \{4,5\}$
+    \item $s_{6} = \{1,3\}$
   \end{itemize}
-\end{restatable}
+  \end{multicols}
 
-\noindent
-The \emph{HAF}-unravelling~\cite[Sec 3.3]{Bednarczyk21} introduced by Bednarczyk produces a forest model which is \FGF-bisimilar to a given \FGF-model, but unfortunately fails to satisfy the above theorem.
+
+  Now, we construct the HAH-unraveling $\hatunravel{A}$. First, let us draw the graph of elements which appear consecutively in relations, which gives the following picture:
+  \begin{center}
+  \input{res/ex-other-unravel-gaifman.tex}
+  \end{center}
+
+  The elements of the HAH-unraveling correspond to paths in this graph.
+  In this example, we focus on the part of the unraveling with paths starting from the element $1$, to keep size of the picture manageable.
+  The full unraveling also has paths starting with 2, 3, and so on.
+  However, since all elements are reachable from 1, those parts are simply copies of substructures of the unraveling starting from element $1$.
+  With this simplification, we get the following (excerpt) of the HAH-unraveling $\hatunravel{A}$:
+  \begin{center}
+  \input{res/ex-other-unravel-forward.tex}
+  \end{center}
+\end{example}
+
+In both definitions, the domain of the structures is based on sequences.
+In the guarded case, these sequences consist of guarded sets, with an additional distinguished element from the last guarded set in the sequence.
+In the case for $\FGF$, because of the forwardness, we do not need the power to arbitrary chose a distinguished element among a set of elements.
+Instead, it is sufficient to consider sequences consisting of single elements only, with the distinguished element fixed to the last element of the sequence.
+This difference also shows in condition (2) of the above definitions.
+In the guarded case, condition (2) does not impose an ordering on the elements of tuples, it simply asserts the existence of some maximial sequence $p_{j}$ among all the available sequences $p_{i}$.
+In contrast, condition (2) in the forward case says that the last sequence is maximal and contains all the other sequences as prefixes.
+In fact, it is even more strict: for any live tuple $\hatunraveltup{a}$ from the HAT-unraveling, the sequence $a_{i}$ is not just required to be a prefix of the sequence $a_{i+1}$, but instead it is \emph{exactly} the sequence obtained by dropping the last element of the sequence $a_{i+1}$.
+
+
+
+
+We begin with the \emph{HAF-unravelling},
+Later, Bednarczyk et al. also described a ,
+Our presentation here is based on this \emph{HAT-unraveling}.
+For any structure $\str{A}$, let $A^{*}$ be the set of all sequences of the form $a_{1}\cdots{}a_{n}$ for any $n \in \N$ and elements $a_{1}, \ldots, a_{n} \in A$.
+We define the binary relation $\relNext^{A^{*}} \subseteq A^{*} \times A^{*}$ over $A^{*}$ such that $(\sigma, \rho) \in \relNext^{A^{*}}$ if:
+\begin{itemize}
+  \item $\sigma = a_{1}\cdots{}a_{n}$ and $\rho = a_{1}\cdots{}a_{n} a_{n+1}$ for some $n \in N$, \ie{} the sequence $\rho$ extends $\sigma$ with exactly one element $a_{n+1}$, and
+  \item $a_{n}$ and $a_{n+1}$ appear consecutively in some relation, \ie{} there is a relation $\relR \in \Sigma$ and (possibly empty) tuples $\elemtuplee, \elemtuplef$ such that $\elemtuplee a_{n} a_{n+1} \elemtuplef \in \relR^{\str{A}}$.
+\end{itemize}
+For any sequence $a_{1}\cdots{}a_{n} \in A^{*}$, we define $\pi(a_{1}\cdots{}a_{n}) = a_{n}$, the projection to the last element.
+
 Consider the two finite structures depicted in \cref{fig:unravel-haf}.
 Both of them are identical to their HAF-unravelling as they are already HAFs.
 Yet, they can be distinguished by a $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$.
@@ -67,16 +160,18 @@ Since both structures are $\FGF$-bisimilar, this shows that HAF-unravellings do 
     \label{fig:unravel-haf}
 \end{figure}
 
-We next describe a new notion of unraveling for $\FGF$ which, as we see later, satisfies \cref{thm:inf-unraveling-upgrading}.
-The \emph{domain of the unraveling} for a structure $\str{A}$, denoted by $\unraveldom{A}$, is simply the set of all bipoints (as introduced in~\ref{sec:games}) of the structure $\str{A}$.
-We first introduce a relation $\relNext$ that defines a forest on this set and then specify how relations are interpreted.
+\section{A new unraveling for $\FGF$}
+The new notion of unraveling employs concepts from the $\FGF$-game as introduced in \cref{sec:biseqs-and-bipoints}.
+The \emph{domain of the unraveling} for a structure $\str{A}$, denoted by $\unraveldom{A}$, is simply the set of all bipoints of the structure $\str{A}$.
+We first introduce a relation $\relNext$ and show that it defines a forest on this set and then specify how to interpret relations in this domain.
 
-\noindent \textbf{The $\relNext$ relation.}
+\begin{definition}[$\relNext$ relation]
 On the domain of the unraveling, the binary relation $\relNext \subseteq \unraveldom{A} \times \unraveldom{A}$ is defined such that $(s, t) \in \relNext$ if either:
 \begin{description}
   \item[\desclabel{(addCtr)}{next:addctr}] $s = (\sigma, k)$ and $t = (\sigma, k + 1)$ for some $\sigma \in \Seq{A}$ and $k \in \N$, or
   \item[\desclabel{(addSeq)}{next:addseq}] $s = (\sigma, j)$ and $t = (\sigma(i,j)\elemtuplea, (j-i+1) + 1)$ for some $\sigma \in \Seq{A}$, $\elemtuplea \sqin A$ and $i,j \in \N$.
 \end{description}
+\end{definition}
 \begin{example}\label{ex:unravel-dom}
   The following picture shows a subset of the domain of the unraveling of the structure $\str{E}$ (taken from \cref{fig:unravel-haf}) and the $\relNext$ relation on this domain.
 
@@ -106,10 +201,8 @@ The last (and only) shared element in this move is $(\tupp, 1)$, so there is no 
 Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\tupp(1,1)\tupp, 3)$ is not the first unshared element.
 }
 \end{example}
-
-We show that the relation $\relNext$ forms a forest:
 \begin{lemma}
-  For a structure $\str{A}$, the domain of the unraveling $\unraveldom{A}$ together with the relation $\relNext$ is a forest. The roots are the elements composed of a 0-biseq and a counter equal to 1.
+  For any structure $\str{A}$, the domain of the unraveling $\unraveldom{A}$ together with the relation $\relNext$ is a forest. The roots are the elements composed of a 0-biseq and a counter equal to 1.
 \end{lemma}
 \begin{proofsketch}
   The counter of an element $t \in \unraveldom{A}$ is \emph{minimal} if the counter is the smallest among elements of the domain with the same biseq as $t$.
@@ -145,12 +238,11 @@ For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relN
 \end{proof}
 
 \noindent
-\textbf{Relations in the unraveling}
 We now give a formal definition of the tree unraveling for a structure, followed by examples to explain this definition.
 Let $\str{A}, \elemtuplea$ be a structure, $\unraveldom{A}$ be the domain of the unraveling and $\elemtuplee$ a tuple of elements $(e_{1}, \ldots, e_{n}) \sqin \unraveldom{A}$..
 The tuple $\elemtuplee$ is a \emph{next-chain} if consecutive elements are related by $\relNext$, namely $(e_{i}, e_{i+1}) \in \relNext$ for all $i < n$.
 We define the \emph{bound} of $\elemtuptuplee$ (denoted by $\bound{\elemtuptuplee}$) as the counter of its last element, expressed formally as $\bound{\elemtuptuplee} = \ctr{e_{|\elemtuptuplee|}} = \ctr{e_{n}}$.
-\begin{samepage}
+\begin{definition}[Tree Unraveling]
 The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ of $\str{A}, \elemtuplea$ is the structure with the forest $\unraveldom{A}$ as domain and $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
 For each relation $\relR \in \Sigma$, a tuple $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:
 \begin{enumerate}
@@ -158,7 +250,7 @@ For each relation $\relR \in \Sigma$, a tuple $\elemtuptupler \in \relR^{\unrave
   \item $\bigwedge_{k=1}^{|\elemtuptupler|-1}{(\elemr_{k},\elemr_{k+1}) \in \relNext}$, and
   \item $|\elemtuptupler| \le \bound{\elemtuptupler}$
 \end{enumerate}
-\end{samepage}
+\end{definition}
 This means that in the unraveling, the members of a relation $\relR^{\unravel{A}}$ are those next-chains (condition 2) which project to members of the relation in the base structure $\relR^{\str{A}}$ (condition 1) and have a length bounded by the counter of the last element in the chain (condition 3).
 To understand the third condition, recall the structure $\str{E}$ from \cref{ex:unravel-dom} and consider the next-chain \tikz[baseline] {
   \matrix[matrix of nodes, column sep=1em, anchor=base, inner sep=0em, outer sep=0em] (chain) {
@@ -172,7 +264,7 @@ To understand the third condition, recall the structure $\str{E}$ from \cref{ex:
   \graph[use existing nodes] { (chain-1-1) -> (chain-1-2) -> (chain-1-3) };%
 }.
 This chain corresponds to the sequence of moves in the $\FGF$-game given by the biseq $\sigma = (\elemtuplep(2,2)\elemtuplee)$.
-At the end of these moves, the selected elements are $\Pi(\sigma)$.
+At the end of these moves, the selected elements in the game are $\Pi(\sigma)$.
 The elements that project to these elements are a suffix of the next-chain of length 2, highlighted in red in the following picture:
 \begin{figure}[H]
   \centering
@@ -209,7 +301,14 @@ Observe that the unraveling mainly depends on the behavior of the original struc
 To make this claim precise, we show that if we take two structures which behave the same in the $\FGF$-game (\ie{} they are $\FGF$-bisimilar), this new notion of unraveling yields structures which are indistinguishable by $\GF$.
 Hence, the unraveling of a structure may be seen as a characterization of its behavior in the $\FGF$-game, up to $\GF$-equivalence.
 
-\thminfunraveling*
+\begin{restatable}{theorem}{thminfunraveling}\label{thm:inf-unraveling-upgrading}
+  Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed structures.
+  Then there are forest models $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$ which are both:
+  \begin{itemize}
+    \item $\FGF$-similar to the original structures: $\unravel{A}, \elemtuptuplea \bisimto_{\FGF} \str{A}, \elemtuplea$ and $\unravel{B}, \elemtuptupleb \bisimto_{\FGF} \str{B}, \elemtupleb$
+    \item $\GF$-bisimilar: $\unravel{A}, \elemtuptuplea \bisimto_{\GF} \unravel{B}, \elemtuptupleb$.
+  \end{itemize}
+\end{restatable}
 \begin{proofsketch}
   The unraveling is a forest model.
   The set $\{(\pi[\elemtuptuplex], \elemtuptuplex):\, \elemtuptuplex\ \text{is a live tuple in}\ \unravel{A} \}$ is an $\FGF$-bisimulation between $\unraveldom{A}, \elemtuptuplea$ and $\str{A}, \elemtuplea$.

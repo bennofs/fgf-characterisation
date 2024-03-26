@@ -1,3 +1,126 @@
 %!TEX root = ../main.tex
 \chapter{Expressive Completeness}\label{chap:expressivity}
-\todo[inline]{write outline}
+Expressive completeness of a fragment $\logicL$ of $\FO$ means that this fragment is complete with respect to some class of properties, \ie{} that for any property of this class, there is a formula in $\logicL$ that expresses this property.
+Here, we focus on the special class of properties expressible as \emph{bisimulation-invariant} first-order formulae, which are formulae that do not distinguish between bisimilar structures.
+More precisely, a first-order formula $\varphi$ is $\bisimto_{\logicL}$-invariant for a given notion of bisimulation $\bisimto_{\logicL}$ if whenever $\str{A}, \elemtuplea \bisimto_{\logicL} \str{B}, \elemtupleb$, then $\str{A}, \elemtuplea \models \varphi \Leftrightarrow \str{B}, \elemtupleb \models \varphi$.
+Similarly, a formula $\varphi$ of $\FO$ is \emph{$\bisimto_{\logicL}$-invariant in the finite} if it does not distinguish between bisimilar structures which are finite (it may however distinguish between \emph{infinite} bisimilar structures, which makes this different from the general, infinite case).
+We say that $\logicL$ is \emph{expressively complete} (in the finite) with respect to $\bisimto_{\logicL}$-invariant first-order properties if every $\bisimto_{\logicL}$-invariant formula is equivalent (in the finite) to some formula of $\logicL$.
+In this chapter, we show that $\FGF$ is expressively complete with repect to $\bisimto_{\FGF}$-invariant first-order properties, both in the classical sense and in the finite.
+We give the high-level structure of the proof, leaving concrete details to be filled in by later chapters.
+
+We already saw in the previous chapter that every $\FGF$ formula is invariant under $\FGF$-bisimulation.
+Combined with the result of this chapter, this means that the properties expressible as $\FGF$-formula are precisely those first-order properties which are $\bisimto_{\FGF}$-invariant.
+In general, we say that a logic $\logicL$ is the \emph{$\bisimto_{\logicL}$-invariant fragment} of $\FO$ (in the finite) if all formulae of $\logicL$ are $\bisimto_{\logicL}$-invariant and every $\bisimto_{\logicL}$-invariant first-order formula is equivalent (in the finite) to some formula of $\logicL$.
+This lets us formulate the central theorem of this thesis, which we prove at the end of this chapter.
+\begin{restatable}{maintheorem}{vanbenthemFGF}
+The forward guarded fragment is the $\bisimto_{\FGF}$-invariant fragment of $\FO$, both in a sense of classical model theory and in the finite.
+\end{restatable}
+
+\noindent
+The high-level idea of the proof of this theorem is to show that for any given $\bisimto_{\FGF}$ first-order formula $\varphi$, there is some number $\ell \in \N$ such that $\varphi$ is $\bisimto_{\FGF}^{\ell}$ invariant.
+An observation by Otto~\cite[Obs.~13]{Otto04} then implies the above theorem.
+In the following, we present this observation in detail for $\FGF$.
+First, we can see that every $\bisimto_{\FGF}^{\ell}$ equivalence class is characterized by an $\FGF_{\ell}$ formula, as stated in the following lemma:
+\begin{lemma}
+  For any structure $(\str{A}, \elemtuplea)$ and $\ell \in \N$, there is a formula $\chi_{(\str{A}, \elemtuplea)} \in \FGF_{\ell}$ such that $(\str{A}, \elemtuplea) \models \chi_{(\str{A}, \elemtuplea)}$, but $(\str{B}, \elemtupleb) \not\models \chi_{\str{A}, \elemtuplea}$ for every structure $(\str{B}, \elemtupleb) \nsim^{\ell}_{\FGF} (\str{A}, \elemtuplea)$.
+\end{lemma}
+\begin{proofsketch}
+  Let $\Gamma$  be the set of all $\FGF_{\ell}$ formulae which are satisfied in $(\str{A}, \elemtuplea)$, so
+  \begin{equation*}
+    \Gamma = \{ \psi:\, \psi \in \FGF_{\ell} \text{ and } (\str{A}, \elemtuplea) \models \psi \}.
+  \end{equation*}
+  Since the number of logically distinct $\FGF_{\ell}$ formula is finite, there is a set $\Delta$ which is finite and logically equivalent to $\Gamma$.
+  We show that $\chi_{(\str{A}, \elemtuplea)} = \bigwedge \Delta$ satisfies the above lemma.
+  For any structure $(\str{B}, \elemtupleb)$ with $(\str{B}, \elemtupleb) \nsim_{\FGF}^{\ell} (\str{A}, \elemtuplea)$, by \cref{lem:FGF-bisimulations-work-well} there is a formula $\varphi$ in $\FGF_{\ell}$ such that $(\str{A}, \elemtuplea) \models \varphi$ but $(\str{B}, \elemtupleb) \not\models \varphi$.
+  But $(\str{A}, \elemtuplea) \models \varphi$ means that $\varphi \in \Gamma$ and hence $\chi_{(\str{A},\elemtuplea)} \to \varphi$.
+  Since $(\str{B}, \elemtupleb) \not\models \varphi$, we have $(\str{B}, \elemtupleb) \not\models \chi_{(\str{A}, \elemtuplea)}$ as required.
+\end{proofsketch}
+Because the characteristic formula $\chi_{(\str{A}, \elemtuplea)}$ is an $\FGF_{\ell}$ formula, there are only a finite number of logically distinct characteristic formulae.
+It follows that $\bisimto_{\FGF}^{\ell}$ has a finite number of equivalence classes.
+For a $\bisimto_{\FGF}^{\ell}$-invariant formula $\varphi$, we can hence enumerate all equivalence classes of $\bisimto_{\FGF}^{\ell}$ in which $\varphi$ is satisfied, and take the disjunction of their characteristic formulae to obtain an equivalent $\FGF_{\ell}$ formula.
+This leads to the following corollary:
+\begin{corollary}\label{cor:ell-invariant-has-ell-formula}
+  For any $\ell \in \N$, a $\bisimto_{\FGF}^{\ell}$-invariant $\FO$ formula $\varphi$ is equivalent to a formula in $\FGF_{\ell}$.
+\end{corollary}
+
+\noindent
+Our proof for the van Benthem characterization of $\FGF$ relies on the van Benthem characterization of $\GF$ provided by Otto~\cite{Otto2012}.
+For convenience, we restate this result here, in the form of the folowing theorem.
+\begin{theorem}\label{thm:vanBenthem-for-GF}
+  The guarded fragment is the $\bisimto_{\GF}$-invariant fragment of $\FO$, both in a sense of classical model theory and in the finite.
+  More specifically, there is a computable function $\homof \colon \N \to \N$ such that every $\FO$-formula $\varphi$ of quantifier rank $q$ that is $\bisimto_{\GF}$-invariant (in the finite) is also $\bisimto^{\homof(q)}_{\GF}$-invariant (in the finite) and logically-equivalent (in the finite) to a $\GF$-formula of quantifier rank at most $\homof(q)$.
+\end{theorem}
+Additionally, we assume the following theorem, which is the main technical theorem whose proof we develop through \cref{chap:unraveling} and \cref{chap:finite}.
+\begin{theorem}\label{thm:main-technical-thm}
+  There exists a positive polynomial function~$\homop$ such that for every $\ell$ and every pair of $\homop(\ell)$-$\FGF$-bisimilar pointed structures, there exists $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$ (that are finite if $\str{A}$ and $\str{B}$ are) of $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ such that $(\str{A}', \elemtuplea') \bisimto^{\ell}_{\GF} (\str{B}', \elemtupleb')$.
+\end{theorem}
+
+\noindent
+Finally, we show how these two theorems combined imply our main theorem, the van Benthem characterization of $\FGF$.
+\vanbenthemFGF*
+\newsavebox{\diagupgrading}
+\begin{lrbox}{\diagupgrading}{
+  \begin{tikzpicture}
+    \matrix[row sep=2em, column sep=3em]
+    {
+        \node (a) {$(\str{A}, \elemtuplea)$}; &
+         \node[font=\large] (sim_ab) {$\bisimto_{\FGF}^{\homop(\mathit{g})}$}; &
+        \node (b) {$(\str{B}, \elemtupleb)$}; &
+        \node[anchor=west] {}; \\
+
+        \node[font=\large] (sim_a_unravel) {$\bisimto_{\FGF}$}; &
+        \node {}; &
+        \node[font=\large] (sim_b_unravel) {$\bisimto_{\FGF}$}; &
+        \node[anchor=west] {}; \\
+
+        \node (a_unravel) {$(\str{A}', \elemtuplea')$}; &
+        \node[font=\large] (sim_unravel) {$\bisimto_{\GF}^{\mathit{g}}$}; &
+        \node (b_unravel) {$(\str{B}', \elemtupleb')$};
+        \node[anchor=west] {}; \\
+    };
+
+    \draw[->] (a) -- (sim_ab) -> (b);
+    \draw[dashed,->] (a) -- (sim_a_unravel) -> (a_unravel);
+    \draw[->] (a_unravel) -- (sim_unravel) -> (b_unravel);
+    \draw[dashed,->] (b_unravel) -- (sim_b_unravel) -> (b);
+  \end{tikzpicture}
+}
+\end{lrbox}
+\begin{proofsketch}
+  The invariance of $\FGF$ under $\bisimto_{\FGF}$ was already shown in \cref{lem:FGF-bisimulations-work-well}, hence what is left to show is the expressive completeness.
+  By \cref{cor:ell-invariant-has-ell-formula}, it suffices to show that for every first-order formula that is $\bisimto_{\FGF}$-invariant (in the finite) is also $\bisimto_{\FGF}^{\ell}$-invariant (in the finite) for some $\ell \in \N$.
+  Like Otto, we employ an``upgrading'' to show this.
+  For structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$, the upgrading is shown in the following diagram:
+  \begin{figure}[H]
+    \centering
+    \usebox{\diagupgrading}
+  \end{figure}
+  where $\str{A'}, \elemtuplea'$, $\str{B'}, \elemtupleb'$ are the companions and $\homop$ is the polynomial function as given by \cref{thm:main-technical-thm}.
+  For every $\bisimto_{\FGF}$-invariant (and hence also $\bisimto_{\GF}$-invariant) $\FO$-formula $\phi$, there is a $g$ such that $\phi$ is $\bisimto_{\GF}^{g}$ invariant (\cref{thm:vanBenthem-for-GF}).
+  By the above diagram, this implies that $\phi$ is $\bisimto_{\FGF}^{\homop(g)}$ invariant.
+  Since all the structures involved in the proof are finite if $\str{A}, \elemtuplea$ and $\str{B},  \elemtupleb$ are finite, this works for both classical model theory and in the finite, concluding the proof.
+\end{proofsketch}
+\begin{proof}
+  The invariance of $\FGF$ under $\bisimto_{\FGF}$ was already shown in \cref{lem:FGF-bisimulations-work-well}, hence what is left to show is the expressive completeness.
+By \cref{cor:ell-invariant-has-ell-formula}, it suffices to show that for every first-order formula that is $\bisimto_{\FGF}$-invariant (in the finite) is also $\bisimto_{\FGF}^{\ell}$-invariant (in the finite) for some $\ell \in \N$.
+
+Take any such first-order formula $\varphi$, and let $\homop$ be the function provided by~\cref{thm:main-technical-thm}.
+As $\FGF$ is a fragment of $\GF$ (and hence $\bisimto_{\FGF}$-invariance implies $\bisimto_{\GF}$-invariance), we know that $\varphi$ is $\bisimto_{\GF}$-invariant (in the finite).
+Thus $\varphi$ is also $\bisimto_{\GF}^{\mathit{g}}$-invariant (in the finite) for certain threshold $\mathit{g} \in \N$ provided by~\cref{thm:vanBenthem-for-GF}.
+We aim to show that $\varphi$ is $\bisimto_{\FGF}^{\homop(\mathit{g})}$-invariant (in the finite).
+To do so, let $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ be $\homop(\mathit{g})$-$\FGF$-bisimilar pointed structures, and suppose that $(\str{A}, \elemtuplea) \models \varphi$. It remains to show that $(\str{B}, \elemtupleb) \models \varphi$.
+From~\cref{thm:main-technical-thm} we infer the existence of $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$, that are finite if $\str{A}$ and $\str{B}$ are, for which $(\str{A}', \elemtuplea') \bisimto^{\mathit{g}}_{\GF} (\str{B}', \elemtupleb')$ holds.
+The following diagram depicts what will happen next.
+\begin{figure}[H]
+  \centering
+  \usebox{\diagupgrading}
+  % \caption{Upgrading $\bisimto_{\FGF}^{\ell}$-bisimulation to $\bisimto_{\GF}^{\mathit{g}}$-bisimulation.}
+\end{figure}
+
+It is now clear that:
+(i) $(\str{A}, \elemtuplea) \models \varphi$ (by assumption),
+(ii) $(\str{A}', \elemtuplea') \models \varphi$ (by $\FGF$-bisimilarity and $\bisimto_{\FGF}$-invariance of $\varphi$),
+(iii) $(\str{B}', \elemtupleb') \models \varphi$ (by $\bisimto_{\GF}^{\mathit{g}}$-invariance of $\varphi$),
+(iv) $(\str{B}, \elemtupleb) \models \varphi$ (by $\FGF$-bisimilarity and $\bisimto_{\FGF}$-invariance of $\varphi$).
+This concludes the proof.
+\end{proof}

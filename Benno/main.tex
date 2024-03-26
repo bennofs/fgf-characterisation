@@ -14,9 +14,14 @@
 \begin{document}
 
 \maketitle
+\thispagestyle{empty}%
+
 \clearpage
+\pagenumbering{roman}%
 \tableofcontents
 
+\clearpage
+\pagenumbering{arabic}%
 \include{content/introduction}
 \include{content/logics}
 \include{content/games}
@@ -31,5 +36,6 @@
 \clearpage
 \appendix
 \addcontentsline{toc}{chapter}{Appendix}
+\apptocmd{\appendix}{\chapter{Proofs of the theorems in the main text}}{}{}
 
 \end{document}
