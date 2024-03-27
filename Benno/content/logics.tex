@@ -61,15 +61,29 @@ We will not consider structures with functions in this thesis, hence we define a
   A structure $\str{A}$ is \emph{finite} if its domain $A$ is finite.
 \end{definition}
 Given a structure $\str{A}$ and $B \subseteq A$, we use $\restr{\str{A}}{B}$ to denote the \emph{substructure} of $\str{A}$ with domain $B$ and relations appropriately restricted to this domain.
-For a $\sigma$-structure $\str{A}$ and an element $a_{i} \in A$, we write $(\str{A}, a_{i})$ for the $(\sigma \cup {a_{i}})$-structure that extends $\str{A}$ with an additional constant symbol $a_{i}$ interpreted as $a_{i} \in A$, ans similar for tuples of elements $\elemtuplea$, where we introduce one constant for each component of the tuple.
+For a $\sigma$-structure $\str{A}$ and an element $a_{i} \in A$, we write $(\str{A}, a_{i})$ for the $(\sigma \cup {a_{i}})$-structure that extends $\str{A}$ with an additional constant symbol $a_{i}$ interpreted as $a_{i} \in A$, and similar for tuples of elements $\elemtuplea$, where we introduce one constant for each component of the tuple.
+We call a structure with distinguished elements constructed in this way a \emph{pointed structure}.
 We say that a tuple $\elemtuplea \sqin A$ is \emph{live} in a $\sigma$-structure $\str{A}$ if $|\elemtuplea| \leq 1$ or~$\elemtuplea \in \relR^{\str{A}}$ for some predicate~$\relR \in \sigma$.
 Most statements made in this thesis generalize to any finite and purely-relational signature $\Sigma$.
 Thus, we now fix an arbitrary, finite and purely-relational signature $\Sigma$ and adopt the convention that the signature of all structures is $\Sigma$, unless stated otherwise.
 Since $\Sigma$ is finite, there is a maximum arity of the relational symbols in $\Sigma$, which we denote by $\arity(\Sigma)$.
-We commonly visualize structures as directed hypergraphs, as shown in figure \cref{fig:struct-1}.
+We commonly visualize structures as directed hypergraphs, as shown in \cref{fig:struct-1}.
 In this visualization, each element of the domain corresponds to a node in the graph.
 For each relational symbol $\relR_{i} \in \Sigma$, we draw (hyper)edges labelled with $\relR_{i}$ between the elements which are in this relation according to its interpretation.
 In examples, we use uppercase letters $\relE, ...$ as relational symbols which we assume to be part of $\Sigma$ for the purposes of these examples.
+
+\begin{figure}[b]
+  \begin{mdframed}[style=mdblackbox]
+  The picture shows a structure with a domain of three elements over a signature of four relational symbols. The double border indicates a unary relation, to which only the element $2$ belongs.
+  \begin{center}
+  \input{res/ex-struct}
+  \end{center}
+  \textcolor{tolhighcontrastRed}{Red} indicates a binary relation, which contains the tuples $(3,1)$ and $(1,2)$.
+  \textcolor{tolhighcontrastBlue}{Blue} indicates a 3-ary relation, which contains the tuple $(1,3,2)$.
+  \textcolor{tolhighcontrastYellow}{Yellow} indicates a 4-ary relation, which contains the tuple $(1,1,2,3)$.
+  \end{mdframed}
+  \caption{An example structure, visualized as directed hypergraph}\label{fig:struct-1}
+\end{figure}
 
 Now, we introduce \emph{first-order logic}, starting with the syntax of formulae, followed by the satisfaction relation between structures and formulae.
 All the other logics considered in this thesis are fragments of first order logic.
@@ -80,24 +94,34 @@ All the other logics considered in this thesis are fragments of first order logi
     \item $c_{i}$ for a constant $c_{i} \in \sigma$, or
     \item $\relR_{i}(v_{1}, \ldots, v_{n})$ for a relational symbol $\relR_{i} \in \sigma$ with arity $n$ and variables $v_{1}, \ldots, v_{n} \in \mathcal{V}$.
   \end{itemize}
-  A \emph{first-order formula} $\varphi$ over $\sigma$ is an expression according to the following rule:
+  A \emph{first-order formula} $\varphi$ over $\sigma$ is an expression formed according to the following rule:
   \begin{equation*}
     \varphi ::= \alpha
       \mid \neg \varphi
-      \mid \varphi \lor \varphi
-      \mid \varphi \land \varphi
+      \mid (\varphi \lor \varphi)
       \mid \exists{x_{i}}(\varphi)
-      \mid \forall{x_{i}}(\varphi)
   \end{equation*}
   where $\alpha$ can be any atomic formula over $\sigma$.
 \end{definition}
 We write $\FO$ for the set of all first-order formulae.
-For first-order formulae $\varphi_{1}$ and $\varphi_{2}$, we use the standard shorthands $\varphi_{1} \to \varphi_{2}$ for $\neg \varphi_{1} \lor \varphi_{2}$ and $\varphi_{1} \iff \varphi_{2}$ for $(\varphi_{1} \to \varphi_{2}) \land (\varphi_{2} \to \varphi_{2})$.
+For first-order formulae $\varphi_{1}$ and $\varphi_{2}$, we use the standard shorthands:
+\begin{multicols}{2}
+  \begin{itemize}
+    \item $\varphi_{1} \land \varphi_{2}$ for $\neg ((\neg \varphi_{1}) \lor (\neg \varphi_{2}))$
+    \item $\forall{x_{i}}(\varphi_{1})$ for $\neg\exists{x_{i}}(\neg \varphi_{1})$
+    \item $\varphi_{1} \to \varphi_{2}$ for $\neg \varphi_{1} \lor \varphi_{2}$
+    \item $\varphi_{1} \iff \varphi_{2}$ for $(\varphi_{1} \to \varphi_{2}) \land (\varphi_{2} \to \varphi_{2})$
+    \item $\top$ for $\alpha \lor \neg \alpha$, for an arbitrary atom $\alpha$
+    \item $\bot$ for $\neg \top$
+  \end{itemize}
+\end{multicols}
+\noindent
+We omit parentheses where they are clear.
 The \emph{quantifier rank} of $\varphi$, denoted by $\qr(\varphi)$, is the maximum number of nested quantifiers appearing in $\varphi$, inductively defined as follows:
 \begin{itemize}
   \item $\qr(\alpha) = 0$ for any atom $\alpha$,
-  \item $\qr(\exists{x_{i}}(\varphi)) = \qr(\forall{x_{i}}(\varphi)) = \qr(\varphi) + 1$,
-  \item $\qr(\varphi_{1} \lor \varphi_{2}) = \qr(\varphi_{1} \land \varphi_{2})  = \mathsf{max}(\qr(\varphi_{1}), \qr(\varphi_{2}))$, and
+  \item $\qr(\exists{x_{i}}(\varphi)) = \qr(\varphi) + 1$,
+  \item $\qr(\varphi_{1} \lor \varphi_{2}) = \mathsf{max}(\qr(\varphi_{1}), \qr(\varphi_{2}))$, and
   \item $\qr(\neg \varphi)  = \qr(\varphi)$.
 \end{itemize}
 
@@ -107,8 +131,8 @@ The \emph{free variables} of a formula $\varphi$ are inductively defined as foll
 \begin{itemize}
   \item the free variables of an atom $\alpha = \relR_{i}(v_{1}, \ldots, v_{n})$ are exactly the variables $v_{1}, \ldots, v_{n}$,
   \item the free variables of $\neg \varphi$ are the same as those of $\varphi$,
-  \item the free variables of $\varphi_{1} \lor \varphi_{2}$ and $\varphi_{1} \land \varphi_{2}$ are the union of the free variables of $\varphi_{1}$ and $\varphi_{2}$,
-  \item the free variables of $\exists{x_{i}(\varphi)}$ and $\forall{x_{i}(\varphi)}$ are the free variables of $\varphi$ minus the variable $x_{i}$.
+  \item the free variables of $\varphi_{1} \lor \varphi_{2}$ are the union of the free variables of $\varphi_{1}$ and $\varphi_{2}$,
+  \item the free variables of $\exists{x_{i}(\varphi)}$ are the free variables of $\varphi$ minus the variable $x_{i}$.
 \end{itemize}
 \end{samepage}
 Variables which are not free are called bound.
@@ -120,24 +144,20 @@ Given a free variable $x_{i}$ of a formula $\varphi$, we can subsitute this free
   \item then, replace all occurrences of $x_{i}$ by $t$
 \end{enumerate}
 We write $\varphi[x_{i} \mapsto t]$ for the formula obtained this way.
-Similarly, if $\vartupley$ is a $k$-tuple of distinct variables and $\elemtuplea$ is a $k$-tuple of constants, then $\varphi[\vartupley \mapsto \elemtuplea]$ is constructed from $\phi$ by replacing each free variable $y_{i}$ with the constant $a_{i}$, for $1 \le i \le k$.
+Similarly, if $\vartupley$ is a $k$-tuple of distinct variables and $\elemtuplea$ is a $k$-tuple of constants, then $\varphi[\vartupley \mapsto \elemtuplea]$ is constructed from $\varphi$ by replacing each free variable $y_{i}$ with the constant $a_{i}$, for $1 \le i \le k$.
 
 \begin{definition}[Models of First-Order Formulae]
   A $\sigma$-structure $\str{A}$ is a \emph{model} of a first-order sentence $\varphi$ over $\sigma$, written as $\str{A} \models \varphi$, in the following cases:
 \begin{itemize}
   \item $\str{A} \models \relR_{i}(a_{1}, \ldots, a_{k})$ for $\relR_{i} \in \Sigma$ and constants $a_{1}, \ldots, a_{k}$ if $({a_{1}}^{\str{A}}, \ldots, {a_{k}}^{\str{A}}) \in \relR_{i}^{\str{A}}$ where $t(y_{i}) = a_{i}$ for $1 \le i \le n$.
   \item $\str{A} \models \neg \varphi$ if not $\str{A} \models \varphi$.
-  \item $\str{A} \models \varphi_{1} \land \varphi_{2}$ if both $\str{A} \models \varphi_{1}$ and $\str{A} \models \varphi_{2}$.
   \item $\str{A} \models \varphi_{1} \lor \varphi_{2}$ if $\str{A} \models \varphi_{1}$ or $\str{A} \models \varphi_{2}$.
-  \item $\str{A} \models \exists{x_{i}} (\varphi(x_{i}))$ if $(\str{A}, a_{i}) \models (\varphi[x_{i} \mapsto a_{i}])$ for some $a_{i} \in A$
   \item $\str{A} \models \forall{x_{i}} (\varphi(x_{i}))$ if $(\str{A}, a_{i}) \models (\varphi[x_{i} \mapsto a_{i}])$ for all $a_{i} \in A$
 \end{itemize}
 For a first-order formula $\varphi(\vartuplex)$, we write $\str{A}, \elemtuplea \models \varphi$ if $\str{A} \models \varphi[\elemtuplex \mapsto \elemtuplea]$ for a tuple $\elemtuplea \sqin A$ with $|\elemtuplea| = |\elemtuplex|$.
 \end{definition}
-We use the constant $\bot$ to denote a formula that has no model, which we define as $\bot := \varphi \land \neg \varphi$, for some arbitrary first-order formula $\varphi$.
-Likewise, we use $\top := \neg \bot$, to denote a formula which every structure satisfies.
 
-We next introduce notation that we use for any logic $\logicL \subseteq \FO$, \ie{} $\logicL$ is $\FO$ or a fragment of $\FO$.
+We next introduce notation that we use for any logic $\logicL \subseteq \FO$, \ie{} a logic $\logicL$ that is $\FO$ or a fragment of $\FO$.
 The set $\logicL_{\ell}$ is the set of all formulae of $\logicL$ with quantifier rank at most $\ell$, where the quantifier rank is defined according to the definition of $\logicL$.
 The \emph{$\logicL$-type} of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL}{\str{A}}{\elemtuplea}$, consists of all $\logicL$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
 If we restrict the type to only atomic and negated atomic $\logicL$-formulae, we obtain the \emph{atomic-$\logicL$-type} of $\elemtuplea$ in $\str{A}$, denoted with~$\atp{\logicL}{\str{A}}{\elemtuplea}$.
@@ -145,12 +165,6 @@ The atomic-$\logicL$-type of $\elemtuplea$ is logically equivalent to the $\logi
 We write $\str{A} \equiv_\logicL \str{B}$ if $\str{A}$ and~$\str{B}$ satisfy the same $\logicL$-sentences.
 For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ with $n$-tuples $\elemtuplea$ and~$\elemtupleb$ we employ the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to indicate that for all $\varphi \in \logicL$ with free variables $\vartuplex$ we have $\str{A} \models \varphi[\vartuplex \mapsto \elemtuplea]$ if and only if $\str{B} \models \varphi[\vartuplex \mapsto \elemtupleb]$.
 If two structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$ satisfy exactly the same first-order formulae, we write $\str{A}, \elemtuplea \equiv_{\FO} \str{B}, \elemtupleb$, and similar for fragments of $\FO$.
-
-\begin{figure}
-  \centering
-  \todo[inline]{make picture}
-  \label{fig:struct-1}
-\end{figure}
 
 It is well-known that the satisfiability (\ie{} existence of any model) for a given first-order formula $\varphi$ is undecidable\cite[Sec. 1.1]{borger1997}.
 Trakhtenbrot's theorem states that this is even true over just finite models\cite{trakhtenbrot50}.
@@ -170,9 +184,7 @@ We define modal logic, with first-order semantics, as follows (compare \cite[Sec
     \varphi ::= p_{i}
       \mid \neg \varphi
       \mid \varphi \lor \varphi
-      \mid \varphi \land \varphi
       \mid \Diamond(\varphi)
-      \mid \Box(\varphi)
   \end{equation*}
   where $p_{i}$ may be any unary relational symbol.
   The \emph{translation} of a modal logic formula $\varphi$ to first-order logic formula $\varphi^{\FO}$ with exactly one free variable is defined inductively as:
@@ -180,12 +192,11 @@ We define modal logic, with first-order semantics, as follows (compare \cite[Sec
     \item $p_{i}^{\FO} = p_{i}(x)$,
     \item $(\neg \varphi)^{\FO} = \neg \varphi^{\FO}$,
     \item $(\varphi_{1} \lor \varphi_{2})^{\FO} = \varphi_{1}^{\FO} \lor \varphi_{2}^{\FO}$,
-    \item $(\varphi_{1} \land \varphi_{2})^{\FO} = \varphi_{1}^{\FO} \land \varphi_{2}^{\FO}$,
     \item $(\Diamond (\varphi))^{\FO} = \exists{y}(\relR(x,y) \land \varphi^{\FO}[x \mapsto y])$, and
-    \item $(\Box (\varphi))^{\FO} = \forall{y}(\relR(x,y) \to \varphi^{\FO}[x \mapsto y])$.
   \end{itemize}
   For a modal formula $\varphi$, we write $\str{A}, a \models \varphi$ if $\str{A}, a \models \varphi^{\FO}$.
 \end{definition}
+For any modal logic formula $\varphi$, we define $\Box(\varphi) := \neg \Diamond(\neg \varphi)$ and $\varphi \land \psi := \neg ((\neg \varphi) \lor (\neg \psi))$ where $\psi$ is another modal logic formula.
 The satisfiability problem for basic modal logic is $\PSpace$-complete\cite{ladner1977}.
 An interesting property of basic modal logic is that several of its extensions are still decidable.
 Some common extensions for which this is the case are:
@@ -263,16 +274,17 @@ The satisfiability problem for $\GF$ is $\TwoExpTime$-complete.
 \section{Forward Guarded Fragment}
 
 The \emph{forward guarded fragment}~\cite[Sec. 3.1]{Bednarczyk21} (or $\FGF$) restricts $\GF$ in a way that the allowed sequences of atoms are infixes of the sequence of already-introduced variables (in the order of their quantification).
-A formal definition comes next, which will be followed by a bunch of examples.
-Let $\FGF(n)$ for $n \in \N$ be the smallest fragment of $\FO$ satisfying:
-\begin{itemize}\itemsep0em
-    \item An atom $\alpha(\vartuplex)$ belongs to $\FGF(n)$ if $\alpha$ is equality-free and $\vartuplex$ is an infix of $\vartuplexfromto{1}{n}$.
-    \item $\FGF(n)$ is closed under boolean connectives $\land, \lor, \neg, \to, \iff$;
-    \item If $\alpha$ and $\varphi$ are in $\FGF(n{+}k)$ for a positive $k$ where $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$ and $\vartupley$ is a $k$-tuple of variables then $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are both in $\FGF(n)$;
-    \item If $\varphi(\varx_1) \in \FGF(1)$ has only a single free-variable $\varx_1$, then $\forall{\varx_1}\; \varphi$ and $\exists{\varx_1}\; \varphi$ are in $\FGF(0)$.
-\end{itemize}
+We begin with the formal definition, followed by some examples.
+\begin{definition}[Forward Guarded Fragment]
+  $\FGF(n)$ for $n \in \N$ s the smallest fragment of $\FO$ such that:
+  \begin{itemize}\itemsep0em
+      \item An atom $\alpha(\vartuplex)$ belongs to $\FGF(n)$ if $\alpha$ is equality-free and $\vartuplex$ is an infix of $\vartuplexfromto{1}{n}$.
+      \item $\FGF(n)$ is closed under boolean connectives $\land, \lor, \neg, \to, \iff$;
+      \item If $\alpha$ and $\varphi$ are in $\FGF(n{+}k)$ for a positive $k$ where $\alpha(\vartuplex, \vartupley)$ is an atom containing all free variables of $\varphi$ and $\vartupley$ is a $k$-tuple of variables then $\forall{\vartupley} \; (\alpha(\vartuplex, \vartupley) \to \varphi(\vartuplex, \vartupley))$ and $\exists{\vartupley} \; (\alpha(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$ are both in $\FGF(n)$;
+      \item If $\varphi(\varx_1) \in \FGF(1)$ has only a single free-variable $\varx_1$, then $\forall{\varx_1}\; \varphi$ and $\exists{\varx_1}\; \varphi$ are in $\FGF(0)$.
+  \end{itemize}
+\end{definition}
 We use $\FGF$ to denote $\FGF(0)$. Note that $\FGF(0)$ is solely composed of sentences.
-We write $\FGF_{\ell}$ for the subset of $\FGF$ of formulae with at most quantifier rank $\ell \in \N$.
 
 \begin{example}
 A formula $\exists{x_1x_{2}x_{3}}\; [\relR(x_{1}, x_{2}, x_{3}) \land \forall{x_{4}x_{5}}(\relS(x_{3}, x_{4}, x_{5}) \to \relT(x_{4})) \land \exists{x_{3}}(\relR(x_{1}, x_{2}, x_{3}))]$ belongs to $\FGF$.

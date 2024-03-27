@@ -1,0 +1,35 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={circle,draw,fill=white,minimum width=2em,minimum height=2em}};
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.25em, -{Stealth[round]}, shorten >= 0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em}};
+  \def\radiusP{0.7em};
+  \def\radiusE{0.4em};
+  \def\radiusS{0.2em};
+
+  \matrix[matrix of nodes, every node/.style={el},name=n,column sep=4em, row sep=4em]  {
+    |(n1) |1 &   & |(n3)| 3 \\
+      & |(n2) [double, double distance=0.15em]| 2 &   \\
+  };
+
+  \begin{scope}[on background layer]
+    \fill[relS] (n3.west) +(0em,0.4em) circle [radius=\radiusS] coordinate (p1);
+    \fill[relS] (n1.east) +(0em,0.4em) circle [radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[out=150,in=30] (p2);
+
+    \fill[relS] (n1.south) +(-0.4em,0em) circle [radius=\radiusS] coordinate (p1);
+    \fill[relS] (n2.west) +(0em,0em) circle [radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[out=-120,in=180] (p2);
+
+    \fill[relP] (n1.south east) circle [radius=\radiusP] coordinate (p1);
+    \fill[relP] (n3.south west) circle [radius=\radiusP] coordinate (p2);
+    \fill[relP] (n2.north east) circle [radius=\radiusP] coordinate (p3);
+    \draw[relP] (p1) to[out=-20,in=-160] (p2) to[out=south,in=30] (p3);
+
+    \fill[relE] (n1.north) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n1.west) circle [radius=\radiusE] coordinate (p2);
+    \fill[relE] (n2.south) +(0em,-0.2em) circle [radius=\radiusE] coordinate (p3);
+    \fill[relE] (n3.east) circle [radius=\radiusE] coordinate (p4);
+    \draw[relE,overlay] (p1) to[out=100,in=150,looseness=3] (p2) to[out=south west,in=south west] (p3) to[out=south east,in=south east] (p4);
+  \end{scope}
+\end{tikzpicture}

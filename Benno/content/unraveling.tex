@@ -8,9 +8,9 @@ An explanation for why we need a new unraveling is provided in the first section
 In essence, the tree model obtained via our new method of unraveling provides a representative for a $\bisimto_{\FGF}$ equivalence class, which is unique up to $\bisimto_{\GF}$-equivalence.
 This is the first step towards the construction of finite companions as required for \cref{thm:main-technical-thm}.
 The following theorem highlights the main property of our new notion of unraveling for $\FGF$, developed in this chapter:
-\begin{restatable}{theorem}{thminfupgrading}\label{thm:inf-bisim-upgrading}
-  If $(\unravel{A}, \elemtuptuplea)$ and $(\unravel{B}, \elemtuptupleb)$ are the unravelings of two structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$, then $(\unravel{A}, \elemtuptuplea) \bisimto_{\FGF} (\unravel{B}, \elemtuptupleb)$ implies $(\unravel{A}, \elemtuptuplea) \bisimto_{\GF} (\unravel{B}, \elemtuptupleb)$.
-\end{restatable}%
+\begin{restatable*}{theorem}{thminfupgrading}\label{thm:inf-bisim-upgrading}
+  For unravelings $(\unravel{A}, \elemtuptuplea)$ and $(\unravel{B}, \elemtuptupleb)$  of two structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$, if $(\unravel{A}, \elemtuptuplea) \bisimto_{\FGF} (\unravel{B}, \elemtuptupleb)$ then $(\unravel{A}, \elemtuptuplea) \bisimto_{\GF} (\unravel{B}, \elemtuptupleb)$.
+\end{restatable*}%
 
 For structures $\str{A}$ with a distinguished binary predicate $\relNext^{\str{A}}$, we employ tailored terminology from graph theory.
 For instance, whenever $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
@@ -280,8 +280,7 @@ For example, we saw in \cref{fig:hat-not-gf-unravel} that there is an $\FGF$-bis
 But the unraveling $\unravel{E}$ has added the necessary extra elements so that this sentence is satisfied in the unraveling.
 Observe that the unraveling mainly depends on the behavior of the original structure in the $\FGF$-game, not on concrete details of its representation.
 To make this claim precise, we show that if we take two structures which behave the same in the $\FGF$-game (\ie{} they are $\FGF$-bisimilar), this new notion of unraveling yields structures which are indistinguishable by $\GF$.
-Hence, the unraveling of a structure may be seen as a characterization of its behavior in the $\FGF$-game, up to $\GF$-equivalence.
-
+Hence, the unraveling of a structure is a characterization of its behavior in the $\FGF$-game, up to $\GF$-equivalence. The following theorem makes this claim concrete.
 \begin{restatable}{theorem}{thminfunraveling}\label{thm:inf-unraveling-upgrading}
   Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed structures.
   Then there are forest models $\unravel{A}, \elemtuptuplea$ and $\unravel{B}, \elemtuptupleb$ which are both:
@@ -305,3 +304,10 @@ Hence, the unraveling of a structure may be seen as a characterization of its be
 \begin{proof}
   \bfbox{todo proof for infinite unraveling theorem}
 \end{proof}
+
+Now, the theorem stated in the introduction of this chapter is a simple corollary:
+\thminfupgrading
+\begin{proofsketch}
+Since unravelings are $\FGF$-bisimilar to their base structure, if $(\unravel{A}, \elemtuptuplea) \bisimto_{\FGF} (\unravel{B}, \elemtuptupleb)$, then also $(\str{A}, \elemtuplea) \bisimto_{\FGF} (\str{B}, \elemtupleb)$ by transitivity of bisimilarity.
+The claim then directly follows from \cref{thm:inf-unraveling-upgrading}.
+\end{proofsketch}
