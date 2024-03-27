@@ -8,41 +8,39 @@
   \def\radiusS{0.2em};
 
   \matrix[matrix of nodes, every node/.style={el}, column sep=4em] {
-    |(n1)| 1 & |(n2)| 2 & |(n3)| 3 & |(n4)| 4 & |(n5)| 5 \\
+    |(n1)| 1 & |(n2)| 2 & |(n3)| 3 & |(n4)| 4  \\
   };
 
   \begin{scope}[on background layer]
     % 1 2 3
     \fill[relP] (n1.north) circle[radius=\radiusP] coordinate (p1);
     \fill[relP] (n2.north) circle[radius=\radiusP] coordinate (p2);
-    \fill[relP] (n3.west) circle[radius=\radiusP] coordinate (p3);
+    \fill[relP] (n3.north west) circle[radius=\radiusP] coordinate (p3);
     \draw[relP] (p1) to[out=30,in=150] (p2) to[out=30,in=150] (p3);
 
-    % 2 3 4
-    \fill[relP] (n2.south) circle[radius=\radiusP] coordinate (p1);
+    % 4 3 2
+    \fill[relP] (n4.south) circle[radius=\radiusP] coordinate (p1);
     \fill[relP] (n3.south) circle[radius=\radiusP] coordinate (p2);
-    \fill[relP] (n4.south) circle[radius=\radiusP] coordinate (p3);
-    \draw[relP] (p1) to[out=-30,in=-150] (p2) to[out=-30,in=-150] (p3);
+    \fill[relP] (n2.south) circle[radius=\radiusP] coordinate (p3);
+    \draw[relP] (p1) to[in=-30,out=-150] (p2) to[in=-30,out=-150] (p3);
 
-    % 3 4 5
-    \fill[relP] (n3.east) circle[radius=\radiusP] coordinate (p1);
-    \fill[relP] (n4.north) circle[radius=\radiusP] coordinate (p2);
-    \fill[relP] (n5.north) circle[radius=\radiusP] coordinate (p3);
-    \draw[relP] (p1) to[out=30,in=150] (p2) to[out=30,in=150] (p3);
-
-    % 5 4
-    \fill[relE] (n5.west) circle[radius=\radiusE] coordinate (p1);
-    \fill[relE] (n4.east) circle[radius=\radiusE] coordinate (p2);
+    % 3 4
+    \fill[relE] ($(n3.east) + (0,-0.2em)$) circle[radius=\radiusE] coordinate (p1);
+    \fill[relE] (n4.west) circle[radius=\radiusE] coordinate (p2);
     \draw[relE] (p1) to (p2);
 
     % 1 3
     \fill[relE] (n1.west) circle[radius=\radiusE] coordinate (p1);
-    \fill[relE] (n3.north) circle[radius=\radiusE] coordinate (p2);
+    \fill[relE] (n3.north east) circle[radius=\radiusE] coordinate (p2);
     \draw[relE] (p1) to[out=140,in=north] (p2);
 
     % 1 2
     \fill[relS] (n1.east) circle[radius=\radiusS] coordinate (p1);
     \fill[relS] (n2.west) circle[radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[out=east,in=west] (p2);
+
+    \fill[relS] (n2.east) circle[radius=\radiusS] coordinate (p1);
+    \fill[relS] ($(n3.west) + (0,-0.2em)$) circle[radius=\radiusS] coordinate (p2);
     \draw[relS] (p1) to[out=east,in=west] (p2);
   \end{scope}
 

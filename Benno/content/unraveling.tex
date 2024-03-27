@@ -63,7 +63,7 @@ Our presentation here is based on a later version of this unraveling, the \emph{
 Similarly to the case for $\GF$, the HAH-unraveling $\hatunravel{A}$ is $\FGF$-bisimilar to the original structure $\str{A}$~\cite[Appendix C.4, Lemma 23]{BednarczykJ22}.
 
 \begin{example}
-  To demonstrate the above definitions, consider the following structure $\str{A}$:
+  To demonstrate the above definitions, consider the following structure $\str{A}$:\\\vspace{-3em}
   \begin{center}
     \Huge{$\str{A}$}\input{res/ex-other-unravel-struct.tex}
   \end{center}
@@ -71,34 +71,39 @@ Similarly to the case for $\GF$, the HAH-unraveling $\hatunravel{A}$ is $\FGF$-b
   There are two relations of arity 2 (\textcolor{tolhighcontrastYellow}{$\relE$} and \textcolor{tolhighcontrastRed}{$\relS$}) and one of arity 3 (\textcolor{tolhighcontrastBlue}{$\relP$}), as indicated by the colored arrows.
 
   We first construct the $\GF$-unraveling of this structure. The guarded sets are:
-  \begin{multicols}{3}
-  \begin{itemize}
-    \item $s_{1} = \{1,2\}$
-    \item $s_{2} = \{1,2,3\}$
-    \item $s_{3} = \{2,3,4\}$
-    \item $s_{4} = \{3,4,5\}$
-    \item $s_{5} = \{4,5\}$
-    \item $s_{6} = \{1,3\}$
-  \end{itemize}
-  \end{multicols}
+  \begin{equation*}
+    s_{1} = \{1,2\}\quad
+    s_{2} = \{1,3\}\quad
+    s_{3} = \{1,2,3\}\quad
+    s_{4} = \{2,3,4\}\quad
+    s_{5} = \{2,3\}\quad
+    s_{6} = \{3,4\}\quad
+  \end{equation*}
 
+  \noindent
+  Since we can form elements of the $\GF$-unraveling from any finite sequence of those sets, the $\GF$-unraveling is infinite.
+  We focus on a substructure of the unraveling here to highlight the interesting cases.
+  This substructure is shown in the following picture:
+  \begin{center}
+  \input{res/ex-other-unravel-gf.tex}
+  \end{center}
 
-  Now, we construct the HAH-unraveling $\hatunravel{A}$. First, let us draw the graph of elements which appear consecutively in relations, which gives the following picture:
+  Next, we construct the HAH-unraveling $\hatunravel{A}$. First, let us draw the graph of elements which appear consecutively in relations, which gives the following picture:
   \begin{center}
   \input{res/ex-other-unravel-gaifman.tex}
   \end{center}
-
   The elements of the HAH-unraveling correspond to paths in this graph.
-  In this example, we focus on the part of the unraveling with paths starting from the element $1$, to keep size of the picture manageable.
-  The full unraveling also has paths starting with 2, 3, and so on.
-  However, since all elements are reachable from 1, those parts are simply copies of substructures of the unraveling starting from element $1$.
+  Since the graph has cycles, the HAH-unraveling is infinite.
+  In this example, we focus on the part of the unraveling with paths starting from the element $1$.
+  The full unraveling also has paths starting with $2$, $3$, and so on.
+  However, since all elements are reachable from $1$ in the above graph, those parts are simply copies of substructures of the unraveling starting from element $1$.
   With this simplification, we get the following (excerpt) of the HAH-unraveling $\hatunravel{A}$:
   \begin{center}
   \input{res/ex-other-unravel-forward.tex}
   \end{center}
 \end{example}
 
-In both definitions, the domain of the structures is based on sequences.
+In both definitions, the domain of the unraveling is constructed from sequences.
 In the guarded case, these sequences consist of guarded sets, with an additional distinguished element from the last guarded set in the sequence.
 In the case for $\FGF$, because of the forwardness, we do not need the power to arbitrary chose a distinguished element among a set of elements.
 Instead, it is sufficient to consider sequences consisting of single elements only, with the distinguished element fixed to the last element of the sequence.
