@@ -34,8 +34,11 @@
   \node[virtual] (v5) at (4.5,5.5) {};
 
   % tree container
-  \draw[densely dotted] (3,-5) coordinate (root) -- (-6,13) coordinate (left);
-  \draw[densely dotted] (3,-5) -- (12,13) coordinate (right);
+  \begin{scope}
+    \clip[overlay] (-20,-3) rectangle (20,20);
+    \draw[densely dotted] (3,-5) coordinate (root) -- (-6,13) coordinate (left);
+    \draw[densely dotted] (3,-5) -- (12,13) coordinate (right);
+  \end{scope}
 
   % edges
   \graph[use existing nodes] {
@@ -79,9 +82,6 @@
   \node[right=0.5 of leg2.south, anchor=south west, inner sep=1] { excluded element };
 
   \node[missingchild] (leg3) at (4,14) {};
-  \node[right=0 of leg3, anchor=west] (leg3t) { missing child \textcolor{toldarkDarkgreen}{(with index)} };
-
-  % heading
-  \node[below=2 of root] {\textbf{cutting}};
+  \node[right=0 of leg3, anchor=west] (leg3t) { missing child (labelled with \textcolor{toldarkDarkgreen}{index}) };
 
 \end{tikzpicture}

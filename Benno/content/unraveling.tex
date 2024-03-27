@@ -1,22 +1,17 @@
 %!TEX root = ../main.tex
 \chapter{Tree Unravelings}\label{chap:unraveling}
-A fundamental property of modal logics is that their models are tree-like.
-For now, think of tree-like models as models that are similar to trees as known from graph theory.
-We give an exact definition of the term tree-like later.
+A fundamental property of modal logics is that their models are tree-like, where we can think of tree-like models as models that are similar to trees as known from graph theory (we give an exact definition later).
 We show in this chapter that a special form of tree models provide a logically tractable~\cite{otto2013} class of models for $\FGF$.
 In this class of models, the weak form of $\bisimto_{\FGF}$-equivalence coincides with the stronger notion of $\bisimto_{\GF}$-equivalence.
-For this purpose, we introduce a new notion of tree unraveling for $\FGF$, which takes an arbitrary model and constructs a structure which is bisimilar to this model but additionally is tree-like.
-We give a short comparison between our new notion of unraveling and existing notions of unraveling for $\FGF$ and $\GF$ later in this chapter.
-In essence, the tree models obtained this way represent a canonical representive of each $\bisimto_{\FGF}$ equivalence class, which are unique up to $\bisimto_{\GF}$-equivalence.
+To obtain such models, we introduce a new notion of tree unraveling for $\FGF$, which takes an arbitrary model and constructs a structure which is bisimilar to this model but additionally is tree-like.
+An explanation for why we need a new unraveling is provided in the first section of this chapter, where we give a short review of existing notions of unraveling for $\FGF$ and $\GF$.
+In essence, the tree model obtained via our new method of unraveling provides a representative for a $\bisimto_{\FGF}$ equivalence class, which is unique up to $\bisimto_{\GF}$-equivalence.
 This is the first step towards the construction of finite companions as required for \cref{thm:main-technical-thm}.
-
-The following theorem highlights the main property of our new notion of unraveling for $\FGF$.
-We develop the notion of unraveling to satisfy this theorem throughout this chapter.
+The following theorem highlights the main property of our new notion of unraveling for $\FGF$, developed in this chapter:
 \begin{restatable}{theorem}{thminfupgrading}\label{thm:inf-bisim-upgrading}
   If $(\unravel{A}, \elemtuptuplea)$ and $(\unravel{B}, \elemtuptupleb)$ are the unravelings of two structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$, then $(\unravel{A}, \elemtuptuplea) \bisimto_{\FGF} (\unravel{B}, \elemtuptupleb)$ implies $(\unravel{A}, \elemtuptuplea) \bisimto_{\GF} (\unravel{B}, \elemtuptupleb)$.
 \end{restatable}%
 
-\noindent
 For structures $\str{A}$ with a distinguished binary predicate $\relNext^{\str{A}}$, we employ tailored terminology from graph theory.
 For instance, whenever $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
 A \emph{root} is an element without parents.
@@ -148,9 +143,15 @@ Consider the following two structures, with the relational symbols $\textcolor{t
 These structures are $\FGF$-bisimilar, with a bisimulation that associates $1$ with $a$, $2$ with $b$ and $3$ with $c$ and $d$ (and similar for tuples of elements).
 This means that their HAH-unravelings are also $\FGF$-bisimilar, since they are bisimilar to the original structure and $\bisimto_{\FGF}$ is transitive.
 The unravelings are shown in the following picture:
+\begin{figure}[H]
 \begin{center}
 \input{res/hat-not-gf-unravel}
+\caption{$\FGF$-bisimilar HAH-unravelings which are not $\GF$-bisimilar}%
+\label{fig:hat-not-gf-unravel}
 \end{center}
+\end{figure}
+
+\noindent
 However, $\hatunravel{A}$ and $\hatunravel{B}$ can be distinguished by a $\GF$ sentence $\exists{x_{2}x_{3}}\,( \textcolor{tolhighcontrastYellow}{\relE}(x_{2},x_{3}) \land \lnot (\exists x_{1}. \textcolor{tolhighcontrastBlue}{\relP}(x_{1},x_{2},x_{3})))$.
 Hence, the unravelings are not $\GF$-bisimilar.
 This shows that \cref{thm:inf-unraveling-upgrading} fails for the HAH-unraveling, even in the finite case.
@@ -251,30 +252,10 @@ For each relation $\relR \in \Sigma$, a tuple $\elemtuptupler \in \relR^{\unrave
 \end{enumerate}
 \end{definition}
 This means that in the unraveling, the members of a relation $\relR^{\unravel{A}}$ are those next-chains (condition 2) which project to members of the relation in the base structure $\relR^{\str{A}}$ (condition 1) and have a length bounded by the counter of the last element in the chain (condition 3).
-To understand the third condition, recall the structure $\str{E}$ from \cref{ex:unravel-dom} and consider the next-chain \tikz[baseline] {
-  \matrix[matrix of nodes, column sep=1em, anchor=base, inner sep=0em, outer sep=0em] (chain) {
-    $(\elemtuplep, 1)$
-    \hspace*{0.1em} & \hspace*{0.1em}
-    $(\elemtuplep, 2)$
-    \hspace*{0.1em} & \hspace*{0.1em}
-    $(\elemtuplep(2,2)\elemtuplee, 2)$
-    \\
-  };
-  \graph[use existing nodes] { (chain-1-1) -> (chain-1-2) -> (chain-1-3) };%
-}.
-This chain corresponds to the sequence of moves in the $\FGF$-game given by the biseq $\sigma = (\elemtuplep(2,2)\elemtuplee)$.
-At the end of these moves, the selected elements in the game are $(2,3)$, which
-The elements that project to these elements are a suffix of the next-chain of length 2, highlighted in red in the following picture:
-\begin{figure}[H]
-  \centering
-  \input{res/next-chain-bound}
-\end{figure}
-The number of elements in this suffix is equal to the bound, which is the counter of the last element in the chain, here $2$.
-If a next chain satisfies condition 3, then it is shorter than the bound, hence the projection of the whole chain is fully contained within $\Pi(\sigma)$, where $\sigma$ is the sequence of the last element in the chain.
-Therefore, condition 3 gives us the following property of the unraveling (without proof): if $\elemtuptupler$ is a live tuple of the unraveling (and thus satisfies condition 3) and $\sigma$ is the biseq of the last component of $\elemtuptupler$, then the projection $\pi[\elemtuptupler]$ is an infix of the selected elements in the $\FGF$-game after playing the moves given by the biseq $\sigma$.
+This definition is best illustrated with an example, which also helps to understand condition 3:
 
-Let us now look at an example unraveling.
-The picture below shows a subtree of the tree unraveling $\unravel{E}$ of the structure $\str{E}$ from the previous example with root $(\elemtuplep, 1)$, where again $\elemtuplep = (1,2,3)$ and $\elemtuplee = (2,3)$.
+\begin{example}
+The picture below shows a subtree of the tree unraveling $\unravel{E}$ of the structure $\str{E}$ from the previous example (\cref{ex:unravel-dom}) with root $(\elemtuplep, 1)$, where again $\elemtuplep = (1,2,3)$ and $\elemtuplee = (2,3)$.
 \begin{figure}[H]
   \centering
   \input{res/unravel-ex1.tex}
@@ -292,9 +273,10 @@ Consider the tuples $\elemtuptuplea = ((\elemtuplep, 1), (\elemtuplep, 2), (\ele
 These tuples have equal projections: $\pi(\elemtuptuplea) = \pi(\elemtuptupleb) = \elemtuplep$ and are next-chains.
 But $\elemtuptuplea \in \relP^{\unravel{A}}$ while $\elemtuptupleb \notin \relP^{\unravel{A}}$.
 This is because $\bound{\elemtuptupleb} = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
+\end{example}
 
 Intuitively, the unraveling $\unravel{E}$ can be seen as extending the structure $\str{E}$ with additional structure that $\GF$ can distinguish but $\FGF$ cannot.
-For example, we saw in \cref{fig:unravel-haf} that there is an $\FGF$-bisimilar structure to $\str{E}$ satisfying the $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$, which is not satisfied in $\str{E}$.
+For example, we saw in \cref{fig:hat-not-gf-unravel} that there is an $\FGF$-bisimilar structure to $\str{E}$ satisfying the $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$, which is not satisfied in $\str{E}$.
 But the unraveling $\unravel{E}$ has added the necessary extra elements so that this sentence is satisfied in the unraveling.
 Observe that the unraveling mainly depends on the behavior of the original structure in the $\FGF$-game, not on concrete details of its representation.
 To make this claim precise, we show that if we take two structures which behave the same in the $\FGF$-game (\ie{} they are $\FGF$-bisimilar), this new notion of unraveling yields structures which are indistinguishable by $\GF$.
