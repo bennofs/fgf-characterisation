@@ -1,4 +1,4 @@
-\begin{tikzpicture}
+\begin{tikzpicture}[baseline]
   \tikzset{el/.style={rectangle,rounded corners=10pt,draw,fill=white,minimum width=2em,minimum height=2em,font=\small}};
   \tikzset{relP/.style={tolhighcontrastBlue, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em}};
   \tikzset{relE/.style={tolhighcontrastYellow, line width=0.25em, -{Stealth[round]}, shorten >= 0.2em}};
@@ -8,10 +8,16 @@
   \def\radiusS{0.2em};
 
   \matrix[matrix of nodes, every node/.style={el}, column sep=2em, row sep=2em] {
-    |(s1s23)| $s_{1}s_{2} / 3$ & |(s1s5s31)| $s_{1}s_{5}s_{3} / 1$ & & |(s1s44)| $s_{1}s_{4}/4$ \\
-    |(s11)| $s_{1} / 1$ & |(s12)| $s_{1} / 2$ & |(s1s53)| $s_{1}s_{5} / 3$ & |(s1s43)| $s_{1}s_{4}/3$   \\
-    & |(s1s33)| $s_{1}s_{3} / 3$ & &  \\
+    |(s1s23)| $s_{1}s_{2} / \textbf{3}$ & |(s1s5s31)| $s_{1}s_{5}s_{3} / \textbf{1}$ & |(s1s53)| $s_{1}s_{5} / \textbf{3}$ & |(s1s5s64)| $s_{1}s_{5}s_{6} / \textbf{4} $  \\
+    |(s11)| $s_{1} / \textbf{1}$        & |(s12)| $s_{1} / \textbf{2}$               & &  \\
+                                        & |(s1s33)| $s_{1}s_{3} / \textbf{3}$        &                                     &                                     \\
   };
+
+  \begin{scope}[every node/.style={el}]
+    \node (s1s43) at (2.5em, -3em) {$s_{1}s_{4} / \textbf{3}$};
+    \node (s1s44) at (7.5em, -4em) {$s_{1}s_{4} / \textbf{4}$};
+    \node (s1s5s6s42) at (7.5em, 0em) {$s_{1}s_{5}s_{6}s_{4} / \textbf{2}$};
+  \end{scope}
 
   \begin{scope}[on background layer]
     \fill[relS] (s11.east) circle[radius=\radiusS] coordinate (p1);
@@ -19,12 +25,12 @@
     \draw[relS] (p1) to[out=east,in=west] (p2);
 
     \fill[relS] ($(s12.east)+(-0.1em,0.4em)$) circle[radius=\radiusS] coordinate (p1);
-    \fill[relS] (s1s53.west) circle[radius=\radiusS] coordinate (p2);
-    \draw[relS] (p1) to[out=-20,in=west] (p2);
+    \fill[relS] (s1s53.south) circle[radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[out=10,in=south west] (p2);
 
     \fill[relS] ($(s12.east)+(0em,-0.1em)$) circle[radius=\radiusS] coordinate (p1);
-    \fill[relS] ($(s1s43.south)+(-1em,0em)$) circle[radius=\radiusS] coordinate (p2);
-    \draw[relS] (p1) to[out=-30,in=south west] (p2);
+    \fill[relS] (s1s43.west) +(0em,0.4em) circle[radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[out=east,in=160] (p2);
 
     \fill[relS] ($(s1s5s31.south)+(-1em,0em)$) circle[radius=\radiusS] coordinate (p1);
     \fill[relS] ($(s12.west)+(0.1em,0.4em)$) circle[radius=\radiusS] coordinate (p2);
@@ -34,6 +40,10 @@
     \fill[relS] (s1s33.north) circle[radius=\radiusS] coordinate (p2);
     \draw[relS] (p1) to[out=south,in=north] (p2);
 
+    \fill[relS] (s1s5s6s42.west) +(0.1em,0.5em) circle[radius=\radiusS] coordinate (p1);
+    \fill[relS] (s1s53.south) +(0.5em,0em) circle[radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[out=140,in=-90] (p2);
+
     \fill[relP] (s11.south) circle[radius=\radiusP] coordinate (p1);
     \fill[relP] (s12.south west) circle[radius=\radiusP] coordinate (p2);
     \fill[relP] (s1s33.west) circle[radius=\radiusP] coordinate (p3);
@@ -41,21 +51,26 @@
 
     \fill[relP] (s1s5s31.south) circle[radius=\radiusP] coordinate (p1);
     \fill[relP] (s12.north) circle[radius=\radiusP] coordinate (p2);
-    \fill[relP] (s1s53.north west) circle[radius=\radiusP] coordinate (p3);
+    \fill[relP] (s1s53.south west) circle[radius=\radiusP] coordinate (p3);
     \draw[relP] (p1) to (p2) to (p3);
 
-    \fill[relP] (s1s44.east) circle[radius=\radiusP] coordinate (p1);
-    \fill[relP] (s1s43.south east) circle[radius=\radiusP] coordinate (p2);
+    \fill[relP] (s1s44.south) circle[radius=\radiusP] coordinate (p1);
+    \fill[relP] (s1s43.south) circle[radius=\radiusP] coordinate (p2);
     \fill[relP] (s12.south east) circle[radius=\radiusP] coordinate (p3);
-    \draw[relP] (p1) to[out=-60,in=60] (p2) to[out=-150,in=south east] (p3);
+    \draw[relP] (p1) to[out=-150,in=-30] (p2) to[out=220,in=south east] (p3);
 
-    \fill[relE] (s1s43.north) circle[radius=\radiusE] coordinate (p1);
-    \fill[relE] (s1s44.south) circle[radius=\radiusE] coordinate (p2);
+    \fill[relP] (s1s5s64.south) circle[radius=\radiusP] coordinate (p1);
+    \fill[relP] (s1s53.south east) circle[radius=\radiusP] coordinate (p2);
+    \fill[relP] (s1s5s6s42.north) +(-1em,0) circle[radius=\radiusP] coordinate (p3);
+    \draw[relP] (p1) to[out=-165,in=-15] (p2) to (p3);
+
+    \fill[relE] (s1s43.east) circle[radius=\radiusE] coordinate (p1);
+    \fill[relE] (s1s44.west) circle[radius=\radiusE] coordinate (p2);
     \draw[relE] (p1) to (p2);
 
     \fill[relE] (s1s5s31.east) circle[radius=\radiusE] coordinate (p1);
-    \fill[relE] (s1s53.north) circle[radius=\radiusE] coordinate (p2);
-    \draw[relE] (p1) to[out=-30,in=120] (p2);
+    \fill[relE] ($(s1s53.west)+(0,0.2em)$) circle[radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to[out=30,in=150] (p2);
 
     \fill[relE] (s11.north) circle[radius=\radiusE] coordinate (p1);
     \fill[relE] (s1s23.south) circle[radius=\radiusE] coordinate (p2);
@@ -63,7 +78,11 @@
 
     \fill[relE] (s11.west) circle[radius=\radiusE] coordinate (p1);
     \fill[relE] (s1s33.south) circle[radius=\radiusE] coordinate (p2);
-    \draw[relE] (p1) to[out=-120,in=-120] (p2);
+    \draw[relE,overlay] (p1) to[out=-120,in=-120] (p2);
+    \path (s1s33.south) +(0,-2em) coordinate;
 
+    \fill[relE] (s1s53.east) circle[radius=\radiusE] coordinate (p1);
+    \fill[relE] (s1s5s64.west) circle[radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to (p2);
   \end{scope}
 \end{tikzpicture}

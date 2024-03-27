@@ -1,4 +1,4 @@
-\begin{tikzpicture}
+\begin{tikzpicture}[baseline]
   \tikzset{el/.style={ellipse,draw,fill=white,minimum width=2.5em,minimum height=2em}};
   \tikzset{adj/.style={densely dashed,thick,draw,opacity=0.8}};
   \tikzset{relP/.style={tolhighcontrastBlue, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em}};
@@ -8,102 +8,78 @@
   \def\radiusE{0.4em};
   \def\radiusS{0.2em};
 
-  \matrix[matrix of nodes, every node/.style={el}, column sep=2em, row sep=1.2em] {
-    & |(n2)| 1\textbf{2} & |(n3)| 12\textbf{3} & |(n4)| 123\textbf{4} & |(n5)| 1234\textbf{3} & |(n6)| 12343\textbf{2} & |[draw=none] (n7)| $\cdots{}$ \\
-|(n1)| \textbf{1}  & & & & & & \\
-    & |(nx3)| 1\textbf{3} & |(nx4)| 13\textbf{4} & |(nx5)| 134\textbf{3} & |(nx6)| 1343\textbf{2} & |(nx7)| 13434\textbf{3} & |[draw=none] (nx8)| $\cdots{}$ \\
+  \matrix[matrix of nodes, every node/.style={el}, column sep=2em, row sep=2em] {
+|(n1)| \textbf{1} & |(n2)| 1\textbf{2}  & |(n3)| 12\textbf{3}    & |(n4)| 123\textbf{4}  & |(n5) [draw=none]| $\cdots{}$ & \\
+                  & |(nx3)| 1\textbf{3} & |(nx4)| {13\textbf{4}} & |(nx5)| 134\textbf{3} & |(nx6)| 1343\textbf{2}        & \\
+|(nx32) [overlay]| {13\textbf{2}} &                     & |(nx54)| {1343\textbf{4}} & |[draw=none] (nx8)| $\cdots{}$ & |(nx7)| 13432\textbf{3}       & \\
   };
   % extra out of grid nodes
   \begin{scope}[every node/.style={el}]
-    \node[above right=2em of nx3,xshift=-1em] (nx32) { 13\textbf{2} };
-    \node[above right=2em of nx5,xshift=-2em] (nx54) { 1343\textbf{4} };
     \node[above right=2em of n3,xshift=-1em] (n32) { 123\textbf{2} };
-    \node[above right=2em of n5,xshift=-1em] (n54) { 12343\textbf{4} };
 
-    \node[right=1em of nx32,draw=none] (ex32) {$\cdots{}$};
-    \node[right=1em of nx54,draw=none] (ex54) {$\cdots{}$};
+    \node[below right=1em of nx32,draw=none] (ex32) {$\cdots{}$};
+    \node[left=1.5em of nx54,draw=none] (ex54) {$\cdots{}$};
     \node[right=1em of n32,draw=none] (e32) {$\cdots{}$};
-    \node[right=1em of n54,draw=none] (e54) {$\cdots{}$};
   \end{scope}
 
   \begin{scope}[on background layer]
     \graph[use existing nodes, edges=adj] {
-      (n1) -> (n2) -> (n3) -> (n4) -> (n5) -> (n6) -> (n7),
+      (n1) -> (n2) -> (n3) -> (n4) -> (n5),
       (n1) -> (nx3) -> (nx4) -> (nx5) -> (nx6) -> (nx7) -> (nx8),
       (n3) -> (n32) -> (e32),
-      (n5) -> (n54) -> (e54),
       (nx3) -> (nx32) -> (ex32),
       (nx5) -> (nx54) -> (ex54),
     };
   \end{scope}
 
   \begin{scope}[on background layer]
-    % 1 2 3
+
     \fill[relP] (n1.north) circle[radius=\radiusP] coordinate (p1);
     \fill[relP] (n2.north) circle[radius=\radiusP] coordinate (p2);
-    \fill[relP] (n3.west) circle[radius=\radiusP] coordinate (p3);
+    \fill[relP] (n3.north west) circle[radius=\radiusP] coordinate (p3);
     \draw[relP] (p1) to[out=30,in=150] (p2) to[out=30,in=150] (p3);
 
-    % 3 4
+    \fill[relP] (nx4.north) circle[radius=\radiusP] coordinate (p1);
+    \fill[relP] (nx5.north) circle[radius=\radiusP] coordinate (p2);
+    \fill[relP] (nx6.north) circle[radius=\radiusP] coordinate (p3);
+    \draw[relP] (p1) to[out=30,in=150] (p2) to[out=30,in=150] (p3);
+
+    \fill[relP] (nx54.south) circle[radius=\radiusP] coordinate (p1);
+    \draw[relP,tips=never] (p1) to[out=south west, in=south east] (ex54);
+
+    \fill[relP] (n4.north east) circle[radius=\radiusP] coordinate (p1);
+    \draw[relP,tips=never] (p1) to[out=30, in=150] (n5);
+
     \fill[relE] (n3.east) circle[radius=\radiusE] coordinate (p1);
     \fill[relE] (n4.west) circle[radius=\radiusE] coordinate (p2);
     \draw[relE] (p1) to[out=30,in=150] (p2);
 
-    % 4 3 2
-    \fill[relP] (n4.south) circle[radius=\radiusP] coordinate (p1);
-    \fill[relP] (n5.south) circle[radius=\radiusP] coordinate (p2);
-    \fill[relP] (n6.south) circle[radius=\radiusP] coordinate (p3);
-    \draw[relP] (p1) to[out=-30,in=-150] (p2) to[out=-30,in=-150] (p3);
-
-    % x3 x4
-    \fill[relE] (nx3.east) circle[radius=\radiusE] coordinate (p1);
-    \fill[relE] (nx4.west) circle[radius=\radiusE] coordinate (p2);
-    \draw[relE] (p1) to[out=30,in=150] (p2);
-
-    % x4 x3 x2
-    \fill[relP] (nx4.south) circle[radius=\radiusP] coordinate (p1);
-    \fill[relP] (nx5.south) circle[radius=\radiusP] coordinate (p2);
-    \fill[relP] (nx6.south) circle[radius=\radiusP] coordinate (p3);
-    \draw[relP] (p1) to[out=-30,in=-150] (p2) to[out=-30,in=-150] (p3);
-
-    % 1 x3
     \fill[relE] (n1.south) circle[radius=\radiusE] coordinate (p1);
     \fill[relE] (nx3.west) circle[radius=\radiusE] coordinate (p2);
-    \draw[relE] (p1) to[out=south,in=west] (p2);
+    \draw[relE] (p1) to[out=-80,in=170] (p2);
 
-    % 1 2
-    \fill[relS] (n1.east) circle[radius=\radiusS] coordinate (p1);
-    \fill[relS] (n2.south) circle[radius=\radiusS] coordinate (p2);
-    \draw[relS] (p1) to[out=east,in=south west] (p2);
+    \fill[relE] (nx3.east) +(0em,-0.4em) circle[radius=\radiusE] coordinate (p1);
+    \fill[relE] (nx4.west) +(0em,-0.4em) circle[radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to[out=-30,in=-150] (p2);
 
-    \fill[relS] (n2.south east) circle[radius=\radiusS] coordinate (p1);
-    \fill[relS] (n3.south) circle[radius=\radiusS] coordinate (p2);
-    \draw[relS] (p1) to[out=south east,in=south west] (p2);
+    \fill[relE] (nx5.south) +(-0.5em,0em) circle[radius=\radiusE] coordinate (p1);
+    \fill[relE] (nx54.east) +(-0.2em,0.5em) circle[radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to (p2);
 
-    \fill[relS] (nx6.north east) circle[radius=\radiusS] coordinate (p1);
-    \fill[relS] (nx7.north west) circle[radius=\radiusS] coordinate (p2);
-    \draw[relS] (p1) to[out=north east,in=north west] (p2);
+    \fill[relE] (nx7.north west) circle[radius=\radiusE] coordinate (p1);
+    \draw[relE] (p1) to[out=north west,in=north east] (nx8.north east);
 
-    \fill[relS] (n6.east) circle[radius=\radiusS] coordinate (p1);
-    \draw[relS] (p1) to[out=north east,in=north west] (n7);
+    \fill[relS] (n1.east) +(-0.1em,-0.4em) circle[radius=\radiusS] coordinate (p1);
+    \fill[relS] (n2.west) +(0.1em,-0.4em) circle[radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[out=-20,in=-160] (p2);
 
-    % x7 x8
-    \fill[relE] (nx7.east) circle[radius=\radiusE] coordinate (p1);
-    \draw[relE] (p1) to[out=30,in=120] (nx8.north west);
+    \fill[relS] (n2.east) +(-0.1em,-0.4em) circle[radius=\radiusS] coordinate (p1);
+    \fill[relS] (n3.west) +(0.1em,-0.4em) circle[radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[out=-20,in=-160] (p2);
 
-    \fill[relE] (n5.north) circle[radius=\radiusE] coordinate (p1);
-    \fill[relE] (n54.west) circle[radius=\radiusE] coordinate (p2);
-    \draw[relE] (p1) to[out=north,in=west] (p2);
-
-    \fill[relE] (nx5.north west) circle[radius=\radiusE] coordinate (p1);
-    \fill[relE] (nx54.west) circle[radius=\radiusE] coordinate (p2);
-    \draw[relE] (p1) to[out=north,in=west] (p2);
-
-    \fill[relP] (n54.north east) circle[radius=\radiusP] coordinate (p1);
-    \draw[relP,tips=never] (p1) to[out=north east] (e54);
-
-    \fill[relP] (nx54.south east) circle[radius=\radiusP] coordinate (p1);
-    \draw[relP,tips=never] (p1) to[out=south east, in=south west] (ex54);
+    \fill[relS] (nx6.south) +(0.5em,0em) circle[radius=\radiusS] coordinate (p1);
+    \fill[relS] (nx7.north) +(0.5em,0em) circle[radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[out=-60,in=60] (p2);
 
   \end{scope}
 

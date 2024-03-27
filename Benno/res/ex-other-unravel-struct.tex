@@ -32,7 +32,8 @@
     % 1 3
     \fill[relE] (n1.west) circle[radius=\radiusE] coordinate (p1);
     \fill[relE] (n3.north east) circle[radius=\radiusE] coordinate (p2);
-    \draw[relE] (p1) to[out=140,in=north] (p2);
+    \draw[relE,overlay] (p1) to[out=140,in=north] (p2);
+    \path (n2.north) +(0,3em) coordinate (x);
 
     % 1 2
     \fill[relS] (n1.east) circle[radius=\radiusS] coordinate (p1);
@@ -42,9 +43,5 @@
     \fill[relS] (n2.east) circle[radius=\radiusS] coordinate (p1);
     \fill[relS] ($(n3.west) + (0,-0.2em)$) circle[radius=\radiusS] coordinate (p2);
     \draw[relS] (p1) to[out=east,in=west] (p2);
-  \end{scope}
-
-  \begin{scope}[on background layer]
-    %\tikzdbg
   \end{scope}
 \end{tikzpicture}

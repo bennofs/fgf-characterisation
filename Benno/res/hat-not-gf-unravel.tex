@@ -1,0 +1,54 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={rectangle,rounded corners=10pt,draw,fill=white,minimum width=2em,minimum height=2em,font=\small}};
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.25em, -{Stealth[round]}, shorten >= 0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em}};
+  \def\radiusP{0.7em};
+  \def\radiusE{0.4em};
+  \def\radiusS{0.2em};
+
+  \matrix[matrix of nodes, every node/.style={el},name=n,column sep=2em, row sep=2em]  {
+    1 & 12 & 123 &[8em] a & ab & abc & b & bc \\
+    3 & 2 & 23 & c & abd &  & bd & d \\
+  };
+
+  \begin{scope}[on background layer]
+    \fill[relP] (n-1-1.north) circle [radius=\radiusP] coordinate (p1);
+    \fill[relP] (n-1-2.north) circle [radius=\radiusP] coordinate (p2);
+    \fill[relP] (n-1-3.north) circle [radius=\radiusP] coordinate (p3);
+    \draw[relP] (p1) to[out=30,in=150] (p2) to[out=30,in=150] (p3);
+
+    \fill[relP] (n-1-4.north) circle [radius=\radiusP] coordinate (p1);
+    \fill[relP] (n-1-5.north) circle [radius=\radiusP] coordinate (p2);
+    \fill[relP] (n-1-6.north) circle [radius=\radiusP] coordinate (p3);
+    \draw[relP] (p1) to[out=30,in=150] (p2) to[out=30,in=150] (p3);
+
+    \fill[relE] (n-1-2.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n-1-3.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to (p2);
+
+    \fill[relE] (n-2-2.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n-2-3.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to (p2);
+
+    \fill[relE] (n-1-5.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n-1-6.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to (p2);
+
+    \fill[relE] (n-1-5.south) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n-2-5.north) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to (p2);
+
+    \fill[relE] (n-1-7.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n-1-8.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to (p2);
+
+    \fill[relE] (n-1-7.south) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n-2-7.north) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to (p2);
+  \end{scope}
+
+  \node[above=3ex of n-1-2] {\huge{$\hatunravel{A}$}};
+  \node[above=3ex of n-1-6] {\huge{$\hatunravel{B}$}};
+  \node at ($(n-1-3.east)!.5!(n-1-4.west)$) {\huge{$\bisimto_{\FGF}$}};
+\end{tikzpicture}

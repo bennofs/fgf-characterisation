@@ -25,7 +25,7 @@ We call a structure $\str{A}$ a \emph{forest} if every element has at most one p
 A forest is a \emph{tree} if it has exactly one root.
 We say that a model is a \emph{forest model} (or \emph{tree model}) if it has a domain which is a forest (or tree).
 
-\section{Existing notions of unraveling for $\FGF$ and $\GF$}
+\section{Existing notions of unraveling for $\FGF$ and $\GF$}\label{sec:existing-unravelings}
 In this section, we review two existing notions of tree unraveling, one for $\FGF$ and one for $\GF$.
 This is helpful to understand the motivation for our new unraveling.
 Readers who are only interested in the new unraveling may safely skip this section.
@@ -63,14 +63,19 @@ Our presentation here is based on a later version of this unraveling, the \emph{
 Similarly to the case for $\GF$, the HAH-unraveling $\hatunravel{A}$ is $\FGF$-bisimilar to the original structure $\str{A}$~\cite[Appendix C.4, Lemma 23]{BednarczykJ22}.
 
 \begin{example}
-  To demonstrate the above definitions, consider the following structure $\str{A}$:\\\vspace{-3em}
-  \begin{center}
-    \Huge{$\str{A}$}\input{res/ex-other-unravel-struct.tex}
-  \end{center}
-  The elements of this structure are $1$, $2$, $3$, $4$ and $5$.
-  There are two relations of arity 2 (\textcolor{tolhighcontrastYellow}{$\relE$} and \textcolor{tolhighcontrastRed}{$\relS$}) and one of arity 3 (\textcolor{tolhighcontrastBlue}{$\relP$}), as indicated by the colored arrows.
+  \newlength\figindent\setlength\figindent{7em}%
+  \newlength\figdist\setlength\figdist{2em}%
+  To demonstrate the above definitions, consider the following structure $\str{A}$:\\[1ex]
+  \begin{minipage}{\figindent}
+    \raggedleft
+    \Huge{$\str{A}$}
+  \end{minipage}
+  \hspace{\figdist}
+  \input{res/ex-other-unravel-struct.tex}\\
 
-  We first construct the $\GF$-unraveling of this structure. The guarded sets are:
+  \noindent
+  We first draw unravelings and explain some details.
+  For the $\GF$-unraveling, the guarded sets of $\str{A}$ are:
   \begin{equation*}
     s_{1} = \{1,2\}\quad
     s_{2} = \{1,3\}\quad
@@ -79,28 +84,51 @@ Similarly to the case for $\GF$, the HAH-unraveling $\hatunravel{A}$ is $\FGF$-b
     s_{5} = \{2,3\}\quad
     s_{6} = \{3,4\}\quad
   \end{equation*}
+  Since we can form elements of the $\GF$-unraveling from any finite sequence of those sets, the $\GF$-unraveling is infinite.
+  The following figure shows a substructure of the full unraveling.
+  For better readability, we use $\rho / a$ to denote the pair $(\rho, a)$ for a sequence $\rho$ and an element $a \in A$.\\[2ex]
+  \begin{minipage}{\figindent}
+    \raggedleft
+    part of \Huge{$\gfunravel{A}$}
+  \end{minipage}
+  \hspace{\figdist}
+  \input{res/ex-other-unravel-gf.tex}\\[1ex]
 
   \noindent
-  Since we can form elements of the $\GF$-unraveling from any finite sequence of those sets, the $\GF$-unraveling is infinite.
-  We focus on a substructure of the unraveling here to highlight the interesting cases.
-  This substructure is shown in the following picture:
-  \begin{center}
-  \input{res/ex-other-unravel-gf.tex}
-  \end{center}
-
-  Next, we construct the HAH-unraveling $\hatunravel{A}$. First, let us draw the graph of elements which appear consecutively in relations, which gives the following picture:
-  \begin{center}
-  \input{res/ex-other-unravel-gaifman.tex}
-  \end{center}
+  Next, we construct the HAH-unraveling $\hatunravel{A}$. First, let us draw the graph of elements which appear consecutively in relations, which gives the following picture:\\[1ex]
+  \begin{minipage}{\figindent}
+    \mbox{}
+  \end{minipage}
+  \hspace{\figdist}
+  \input{res/ex-other-unravel-gaifman.tex}\\[1ex]
   The elements of the HAH-unraveling correspond to paths in this graph.
-  Since the graph has cycles, the HAH-unraveling is infinite.
-  In this example, we focus on the part of the unraveling with paths starting from the element $1$.
-  The full unraveling also has paths starting with $2$, $3$, and so on.
-  However, since all elements are reachable from $1$ in the above graph, those parts are simply copies of substructures of the unraveling starting from element $1$.
-  With this simplification, we get the following (excerpt) of the HAH-unraveling $\hatunravel{A}$:
-  \begin{center}
-  \input{res/ex-other-unravel-forward.tex}
-  \end{center}
+  The following picture shows a part of the unraveling, focusing on paths starting from the element $1$:\\[1ex]
+  \begin{minipage}{\figindent}
+    \raggedleft
+    part of \Huge{$\hatunravel{A}$}
+  \end{minipage}
+  \hspace{\figdist}
+  \input{res/ex-other-unravel-forward.tex}\\[2ex]
+  The black, dashed edges show the underlying tree structure of this unraveling.
+
+  Observe how in the HAH-unraveling, all the relations are perfectly aligned to edges of the tree, \ie{} the tuples in relations are paths in the underlying tree.
+  For example, $(1, 123) \notin \textcolor{tolhighcontrastRed}{\relS}^{\hatunravel{A}}$.
+  This is because of condition (2) in the definition of the HAF-unraveling.
+  The same is not true in the $\GF$-unraveling, since the $\GF$-unraveling does not fix the order of elements in tuples of relations.
+  An example are the elements $s_{1}s_{2}s_{6}s_{4}/2$ and $s_{1}s_{5}/3)$ which are related by $\textcolor{tolhighcontrastRed}{\relS}^{\hatunravel{A}}$, even though the sequence in the first element is longer than the sequence in the second.
+  The $\GF$-unraveling allows this, since condition (2) only asserts the existence of some maximal sequence $\sigma_{j}$ among the elements of the tuple, which does not need to come from the last element.
+
+  To see the effect of condition (3) for relations in the $\GF$-unraveling, consider the relation $\textcolor{tolhighcontrastBlue}{\relP}^{\gfunravel{A}}$ and the tuple of elements $s_{1}/1, s_{1}/2, s_{1}s_{4}/3$.
+  For this tuple, $\sigma_{3} = s_{1}s_{4}$ is a maximal sequence and the elements $(1,2,3)$ are in the relation $\textcolor{tolhighcontrastBlue}{\relP}^{\str{A}}$ in the base structure.
+  Hence, the first two conditions are satisfied.
+  However, the element $1$ is not in $s_{4}$, so it is not present in all guarded sets from $s_{1}$ to the maximal sequence $s_{1}s_{4}$, violating condition (3).
+  Therefore, the elements $s_{1}/1, s_{1}/2, s_{1}s_{4}/3$ are not in $\textcolor{tolhighcontrastBlue}{\relP}^{\hatunravel{A}}$.
+
+  One interesting detail is that the HAH-unraveling preserves some first-order properties which are not preserved by the $\GF$-unraveling, and vice-versa.
+  For the first direction, take the $\FO$-formula $\varphi := \forall{x_{1}x_{2}x_{3}}\; ((\textcolor{tolhighcontrastRed}{\relS}(x_{1},x_{2}) \land \textcolor{tolhighcontrastRed}{\relS}(x_{2},x_{3})) \to \textcolor{tolhighcontrastBlue}{\relP}(x_{1}, x_{2}, x_{3}))$.
+  This formula is true in $\str{A}$ and $\hatunravel{A}$, but not in $\gfunravel{A}$.
+  For the converse, take the $\GF$-formula $\psi = \exists{x_{1}x_{2}x_{3}}\; (\textcolor{tolhighcontrastBlue}{\relP}(x_{1},x_{2},x_{3}) \land \exists{x_{4}}\textcolor{tolhighcontrastBlue}{\relP}(x_{4},x_{3},x_{2}))$.
+  This formula is true in $\str{A}$ and $\gfunravel{A}$, but not in $\hatunravel{A}$.
 \end{example}
 
 In both definitions, the domain of the unraveling is constructed from sequences.
@@ -112,61 +140,24 @@ In the guarded case, condition (2) does not impose an ordering on the elements o
 In contrast, condition (2) in the forward case says that the last sequence is maximal and contains all the other sequences as prefixes.
 In fact, it is even more strict: for any live tuple $\hatunraveltup{a}$ from the HAT-unraveling, the sequence $a_{i}$ is not just required to be a prefix of the sequence $a_{i+1}$, but instead it is \emph{exactly} the sequence obtained by dropping the last element of the sequence $a_{i+1}$.
 
-
-
-
-We begin with the \emph{HAF-unravelling},
-Later, Bednarczyk et al. also described a ,
-Our presentation here is based on this \emph{HAT-unraveling}.
-For any structure $\str{A}$, let $A^{*}$ be the set of all sequences of the form $a_{1}\cdots{}a_{n}$ for any $n \in \N$ and elements $a_{1}, \ldots, a_{n} \in A$.
-We define the binary relation $\relNext^{A^{*}} \subseteq A^{*} \times A^{*}$ over $A^{*}$ such that $(\sigma, \rho) \in \relNext^{A^{*}}$ if:
-\begin{itemize}
-  \item $\sigma = a_{1}\cdots{}a_{n}$ and $\rho = a_{1}\cdots{}a_{n} a_{n+1}$ for some $n \in N$, \ie{} the sequence $\rho$ extends $\sigma$ with exactly one element $a_{n+1}$, and
-  \item $a_{n}$ and $a_{n+1}$ appear consecutively in some relation, \ie{} there is a relation $\relR \in \Sigma$ and (possibly empty) tuples $\elemtuplee, \elemtuplef$ such that $\elemtuplee a_{n} a_{n+1} \elemtuplef \in \relR^{\str{A}}$.
-\end{itemize}
-For any sequence $a_{1}\cdots{}a_{n} \in A^{*}$, we define $\pi(a_{1}\cdots{}a_{n}) = a_{n}$, the projection to the last element.
-
-Consider the two finite structures depicted in \cref{fig:unravel-haf}.
-Both of them are identical to their HAF-unravelling as they are already HAFs.
-Yet, they can be distinguished by a $\GF$ sentence $\exists{x,y}. \relE(x,y) \land \lnot (\exists z. \relP(x,y,z))$.
-Since both structures are $\FGF$-bisimilar, this shows that HAF-unravellings do not satisfy \cref{thm:inf-unraveling-upgrading} even in the finite case.
-
-\begin{figure}[H]
-  \centering
-    \begin{tikzpicture}[baseline=(current bounding box.north)]
-        \draw[tolbrightGreen, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
-        \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
-
-        \draw [black, line width=0.1em, fill=white] (0em, 8em) circle [radius=0.8em] node[anchor=center] {1};
-        \draw [black, line width=0.1em, fill=white] (0em, 4em) circle [radius=0.8em] node[anchor=center] {2};
-        \draw [black, line width=0.1em, fill=white] (0em, 0em) circle [radius=0.8em] node[anchor=center] {3};
-
-        \begin{scope}[xshift=10em]
-            \draw[tolbrightGreen, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
-            \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0em,4em) -> (6em,2em);
-            \draw[tolbrightYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
-
-            \draw [black, line width=0.1em, fill=white] (0em, 8em) circle [radius=0.8em] node[anchor=center] {1};
-            \draw [black, line width=0.1em, fill=white] (0em, 4em) circle [radius=0.8em] node[anchor=center] {2};
-            \draw [black, line width=0.1em, fill=white] (0em, 0em) circle [radius=0.8em] node[anchor=center] {3};
-            \draw [black, line width=0.1em, fill=white] (6em, 2em) circle [radius=0.8em] node[anchor=center] {3'};
-
-            \node[tolbrightGreen] at (-2em, 6em) {P};
-            \node[tolbrightYellow] at (-1.5em, 2em) {E};
-            \node[tolbrightYellow] at (3em, 4em) {E};
-        \end{scope}
-
-        \node[font=\Large] at (5em, 4em) {$\sim_{FGF}$};
-
-        \node[tolbrightGreen] at (-2em, 6em) {P};
-        \node[tolbrightYellow] at (-1.5em, 2em) {E};
-    \end{tikzpicture}%
-    \caption{Two FGF-bisimilar HAFs which are not GF-bisimilar. Relations are drawn top to bottom, so the green area marks the relation $\relP(1,2,3)$}%
-    \label{fig:unravel-haf}
-\end{figure}
+We now show that the notion of HAH-unraveling does not satisfy \cref{thm:inf-bisim-upgrading}.
+Consider the following two structures, with the relational symbols $\textcolor{tolhighcontrastYellow}{\relE}$ of arity two and $\textcolor{tolhighcontrastBlue}{\relP}$ of arity 3:
+\begin{center}
+\input{res/hat-not-gf-structs}
+\end{center}
+These structures are $\FGF$-bisimilar, with a bisimulation that associates $1$ with $a$, $2$ with $b$ and $3$ with $c$ and $d$ (and similar for tuples of elements).
+This means that their HAH-unravelings are also $\FGF$-bisimilar, since they are bisimilar to the original structure and $\bisimto_{\FGF}$ is transitive.
+The unravelings are shown in the following picture:
+\begin{center}
+\input{res/hat-not-gf-unravel}
+\end{center}
+However, $\hatunravel{A}$ and $\hatunravel{B}$ can be distinguished by a $\GF$ sentence $\exists{x_{2}x_{3}}\,( \textcolor{tolhighcontrastYellow}{\relE}(x_{2},x_{3}) \land \lnot (\exists x_{1}. \textcolor{tolhighcontrastBlue}{\relP}(x_{1},x_{2},x_{3})))$.
+Hence, the unravelings are not $\GF$-bisimilar.
+This shows that \cref{thm:inf-unraveling-upgrading} fails for the HAH-unraveling, even in the finite case.
+To fix this, we develop a new unraveling for $\FGF$.
 
 \section{A new unraveling for $\FGF$}
-The new notion of unraveling employs concepts from the $\FGF$-game as introduced in \cref{sec:biseqs-and-bipoints}.
+Our new notion of unraveling employs concepts from the $\FGF$-game as introduced in \cref{sec:biseqs-and-bipoints}.
 The \emph{domain of the unraveling} for a structure $\str{A}$, denoted by $\unraveldom{A}$, is simply the set of all bipoints of the structure $\str{A}$.
 We first introduce a relation $\relNext$ and show that it defines a forest on this set and then specify how to interpret relations in this domain.
 
@@ -178,7 +169,7 @@ On the domain of the unraveling, the binary relation $\relNext \subseteq \unrave
 \end{description}
 \end{definition}
 \begin{example}\label{ex:unravel-dom}
-  The following picture shows a subset of the domain of the unraveling of the structure $\str{E}$ (taken from \cref{fig:unravel-haf}) and the $\relNext$ relation on this domain.
+  The following picture shows a subset of the domain of the unraveling of the structure $\str{E}$ and the $\relNext$ relation on this domain.
 
 \begin{figure}[H]
   \centering
@@ -222,8 +213,10 @@ Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\t
   Since $(\sigma, 1) \in \unraveldom{A}$ for any 0-biseq $\sigma \in \Seq{A}$, the roots are exactly the elements composed of a 0-biseq and a counter equal to 1.
 \end{proofsketch}
 
-Finally, we formalize the property that $\relNext$ links elements that map to consecutive elements in the base structure:
-\begin{lemma}\label{lem:projection-next}
+The above example highlights an important property of $\relNext$.
+If we have elements $s,t \in \unraveldom{A}$ which are linked by $\relNext$ then they appear as consecutive elements in a tuple of a relation in the base structure.
+In fact, they appear as consecutive elements in the tuple equal to the last tuple of the biseq of t (\ie $\Pi(\seq{t})$), as stated in the following lemma:
+\begin{lemma}
 For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relNext$, if $\elemtuplea \sqin \unraveldom{A}$ is the tuple such that $\seq{t} = \cdots \elemtuplea$, then $\pi(s) = a_{k-1}$ and $\pi(t) = a_{k}$ for $k = \ctr{t}$.
 \end{lemma}
 \begin{proofsketch}
@@ -246,6 +239,7 @@ For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relN
 We now give a formal definition of the tree unraveling for a structure, followed by examples to explain this definition.
 Let $\str{A}, \elemtuplea$ be a structure, $\unraveldom{A}$ be the domain of the unraveling and $\elemtuplee$ a tuple of elements $(e_{1}, \ldots, e_{n}) \sqin \unraveldom{A}$..
 The tuple $\elemtuplee$ is a \emph{next-chain} if consecutive elements are related by $\relNext$, namely $(e_{i}, e_{i+1}) \in \relNext$ for all $i < n$.
+If we think of $\relNext$ as representing edges in a tree, then next-chains are precisely the paths in this tree.
 We define the \emph{bound} of $\elemtuptuplee$ (denoted by $\bound{\elemtuptuplee}$) as the counter of its last element, expressed formally as $\bound{\elemtuptuplee} = \ctr{e_{|\elemtuptuplee|}} = \ctr{e_{n}}$.
 \begin{definition}[Tree Unraveling]
 The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ of $\str{A}, \elemtuplea$ is the structure with the forest $\unraveldom{A}$ as domain and $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
@@ -269,7 +263,7 @@ To understand the third condition, recall the structure $\str{E}$ from \cref{ex:
   \graph[use existing nodes] { (chain-1-1) -> (chain-1-2) -> (chain-1-3) };%
 }.
 This chain corresponds to the sequence of moves in the $\FGF$-game given by the biseq $\sigma = (\elemtuplep(2,2)\elemtuplee)$.
-At the end of these moves, the selected elements in the game are $\Pi(\sigma)$.
+At the end of these moves, the selected elements in the game are $(2,3)$, which
 The elements that project to these elements are a suffix of the next-chain of length 2, highlighted in red in the following picture:
 \begin{figure}[H]
   \centering
