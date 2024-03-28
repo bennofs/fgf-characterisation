@@ -1,3 +1,27 @@
 %!TEX root = ../main.tex
 \chapter{Conclusion}\label{chap:conclusion}
-\todo[inline]{write outline}
+The construction of finite $\ell$-unravelings in \cref{chap:finite} completes the proof of the main theorem of this work, the van Benthem characterization of $\FGF$ over finite models.
+This solves the open question of whether the van Benthem characterization of $\FGF$ works in the finite setting as well.
+For this proof, we introduced a new form of unraveling for $\FGF$.
+We saw that this unraveling has the nice property of allowing $\FGF$-bisimilarity to be ``upgraded'' to $\GF$-bisimilarity.
+
+One corollary of this result is a decision procedure to decide whether some $\GF$ formula is expressible in $\FGF$.
+This procedure works as follows.
+If $\varphi \in \GF$, then it is invariant under $\ell$-$\GF$-bisimulation for some $\ell \in N$, by Otto's result on the van Benthem theorem for $\GF$.
+If there is any $\psi \in \FGF$ which is equivalent to $\varphi$, then $\psi$ is also invariant under $\ell$-$\GF$-bisimulation.
+With the result of this thesis, we further know that $\psi$ is then also invariant under $\homop(\ell)$-$\FGF$-bisimulation, for a polynomial function $\homop$ of $\ell$, and logically equivalent to a $\FGF_{\homop(\ell)}$-formula.
+We can now enumerate all logically distinct $\FGF_{\homop(\ell)}$ formula, and check whether one of them is equivalent to $\varphi$, employing the fact that the $\GF$ entailment is decidable and $\FGF \subseteq \GF$.
+
+There are three main directions for future work.
+The first is to see if the techniques employed here are useful to derive van Benthem characterizations for other higher-arity fragments of $\FO$.
+For example, the uniform one-dimensional fragment ($\Logic{UF_{1}}$) studied by Hella et al.\cite{hella2014} like $\FGF$ allows unbounded number of variables.
+Kierónski et al. recently described a Ehrenfeucht-Fraïssé (EF) game for $\Logic{UF_{1}}$~\cite{kieronski2015}, which is similar to the notion of bisimulation.
+However, they only prove the easier direction of van Benthem's theorem: that $\Logic{UF_{1}}$  is preserved under the equivalence defined by this game.
+A proof or a failure for the converse is not found in the literature at this time.
+
+A related, second possible direction is to take the unraveling and generalize the construction to not depend on the particular details of $\FGF$.
+In fact, our construction here is already derived directly from the $\FGF$-game.
+It would be interesting to see if there is a similar unraveling for more abstract games, such as the comandic game described by Bedncarczyk et al.~\cite{bednarczyk2022a} or if the $\FGF$-game can be generalized in such a way.
+
+Finally, the van Benthem theorem for $\FGF$ is only one model-theoretic question regarding $\FGF$.
+Other questions, such a Lindström theorem for $\FGF$, remain open.

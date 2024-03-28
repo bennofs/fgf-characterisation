@@ -1,12 +1,12 @@
 % Proof sketchs
-\let\realproof\proof
-\let\realendproof\endproof
+% \let\realproof\proof
+% \let\realendproof\endproof
 % \newenvironment{proofsketch}{%
 %   \renewcommand{\proofname}{\normalfont\emph{Proof Sketch}}\realproof}{\realendproof}
 
 % hide proofs
-\let\proof\appendixproof
-\let\endproof\endappendixproof
+% \let\proof\appendixproof
+% \let\endproof\endappendixproof
 
 % \newtheorem{theorem}{Theorem}
 % \newtheorem{lemma}[theorem]{Lemma}
@@ -250,19 +250,21 @@
 
 \newcommand{\vocab}[1]{\textbf{\color{ForestGreen!70!black}#1}}
 
-% \makeatletter
-% \renewenvironment{proof}[1][\proofname]{\par
-%   \pushQED{\qed}%
-%   \normalfont \topsep6\p@\@plus6\p@\relax
-%   \list{}{\listparindent 0.5em
-%           \itemindent    \z@
-%           \labelwidth    \z@
-%           \rightmargin   \leftmargin
-%           \parsep        \z@ \@plus\p@}%
-%   \item[\hskip\labelsep\itshape#1\@addpunct{.}]\ignorespaces
-% }{%
-%   \popQED\\\endlist\@endpefalse
-% }
-% \makeatother
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \list{}{\listparindent 0.5em
+          \itemindent    \z@
+          \labelwidth    \z@
+          \rightmargin   \leftmargin
+          \parsep        \z@ \@plus\p@}%
+  \item[\hskip\labelsep\itshape#1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\\\endlist\@endpefalse
+}
+\makeatother
 
 \newcommand{\qedDef}{$\blacktriangleleft$}
+\newenvironment{proofsketch}{%
+  \renewcommand{\proofname}{Proof (sketch)}\proof}{\endproof}

@@ -11,6 +11,8 @@
 \input{settings/tolcolors.tex}
 \input{settings/proofs.tex}
 
+\setcounter{minitocdepth}{3}
+
 \begin{document}
 
 \maketitle
@@ -18,10 +20,12 @@
 
 \clearpage
 \pagenumbering{roman}%
+%\dominitoc
 \tableofcontents
 
 \clearpage
 \pagenumbering{arabic}%
+\newif\ifmainpart\mainparttrue
 \include{content/introduction}
 \include{content/logics}
 \include{content/games}
@@ -35,7 +39,11 @@
 
 \clearpage
 \appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
 \addcontentsline{toc}{chapter}{Appendix}
-\apptocmd{\appendix}{\chapter{Proofs of the theorems in the main text}}{}{}
+\mainpartfalse
+\chapter{Extended proofs of theorems in the main text}
+%\minitoc
+\input{proofs/FGF-bisimulations-work-well}
 
 \end{document}

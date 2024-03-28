@@ -319,7 +319,7 @@ Combining this result with \cref{lem:fgf-type-iso}, we get the following corolla
   If $\ell > \arity(\Sigma)$ and $a_{i} \approx_{z} a_{i}$ for all $i \in [1,k]$ and some $z \in \N$, then $\elemtuptuplea \isoeq \elemtuptupleb$, as witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
 \end{corollary}
 Finally, we employ these isomorphisms to construct a $n$-$\GF$-bisimulation between finite unravelings:
-\begin{lemma}
+\begin{lemma}\label{lem:finite-unravel-gf-bisim}
   Let $\str{A}$ and $\str{B}$ be structures and $W = \arity(\Sigma)$.
   If $\str{A} \bisimto_{\FGF}^{2 * W * n} \str{B}$, then there is a $n$-$GF$-bisimulation between $\unravel{A}_{W * n}$ and $\unravel{B}_{W * n}$, given by the sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{n} \subseteq \PartIso{\unravel{A}_{W * n}}{\unravel{B}_{W * n}}$ defined as:
   \begin{equation*}
@@ -389,3 +389,19 @@ Finally, we employ these isomorphisms to construct a $n$-$\GF$-bisimulation betw
     Now $\mu_{(\elemtuptuplea, \elemtuptupleb)} \in Z_{k-1}$ satisfies the requirements for~\ref{bisim:forth}.
   \end{romanenumerate}
 \end{proof}
+
+The previous lemma shows that the finite $\ell$-unravelings satisfy the requirements laid out for the finite companions in \cref{sec:van-benthem-theorem}.
+We collect the result in the following theorem, the main technical theorem of this work.
+\maintechnicalthm
+\begin{proofsketch}
+  Let $W = \arity(\Sigma)$. We define $\homop(\ell) := 2 * W * \ell$ for all $\ell \in \N$.
+  Then for structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$, the finite $W * \ell$-unravelings $(\unravel{A}_{W * \ell}, \elemtuptuplea)$ and $(\unravel{B}_{W * \ell}, \elemtuptupleb)$ provide the required companions:
+  \begin{itemize}
+    \item The unravelings are finite by design.
+    \item The $\ell$-$\GF$-bisimilarity is exactly the statement of \cref{lem:finite-unravel-gf-bisim}.
+    \item The $\FGF$-bisimilarity between $(\str{A}, \elemtuplea)$ and the unraveling $(\unravel{A}_{W * \ell}, \elemtuplea)$ (and similar for $\str{B}$) is witnessed by the following bisimulation~$\mathcal{Z}$:
+          \begin{equation*}
+            \mathcal{Z} = \{ (\elemtuples, \elemtuptuples):\, \elemtuples \sqin A, \elemtuptuples \sqin \unraveldom{A}, \elemtuptuples \text{ is live and } \elemtuples = \pi[\elemtuptuples] \}
+          \end{equation*}
+  \end{itemize}
+\end{proofsketch}

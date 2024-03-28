@@ -32,6 +32,11 @@ main.pdf main.synctex.gz: latex.out/main-${ENGINE}.pdf
 sandbox.pdf: latex.out/sandbox-${ENGINE}.pdf
 	cp latex.out/sandbox-${ENGINE}.pdf sandbox.pdf
 
+.PHONY: release
+release: main.pdf
+	mkdir -p out
+	cp main.pdf out/master-$$(git rev-list --count HEAD).pdf
+
 .PHONY: clean
 clean:
 	rm -rf latex.out

@@ -1,5 +1,34 @@
-%!TEX root = ../main.tex
-
+\ifmainpart
+\begin{restatable}{lemma}{fgfbisimwork}\label{lem:FGF-bisimulations-work-well}
+For every pair of pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ we have that:
+\begin{enumerate}[(a)]
+\item $(\str{A}, \elemtuplea) \bisimto_{\FGF} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\FGF} (\str{B}, \elemtupleb)$, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$;
+\item $(\str{A}, \elemtuplea) \bisimto_{\FGF}^{\ell} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\FGF_\ell} (\str{B}, \elemtupleb)$ for all $\ell \in \N$;
+\end{enumerate}
+\end{restatable}
+\else
+  \section{\cref{lem:FGF-bisimulations-work-well}}
+  \fgfbisimwork*
+\fi
+\ifmainpart
+\begin{proofsketch}
+  A proof for condition \textbf{(a)} is provided in~\cite[Lemma 3]{BednarczykJ22}.
+  The proof for condition \textbf{(b)} uses the same ideas as the proof for \textbf{(a)}.
+  \begin{itemize}
+    \item
+          For the ``if'' direction, we perform induction over $\ell$ and use~\ref{bisim:fforth} to obtain a witness in $\str{B}$ for every existential quantifier that has a witness in $\str{A}$ (by properties of $\models$, it suffixes to consider existential quantifiers as $\forall\vartuplex\ \cdots \iff \lnot \exists \vartuplex\ \cdots$).
+    \item
+          For the opposite direction, we show that the set of pairs of tuples from $\str{A}$ and $\str{B}$ with the same $\FGF_{\ell}$-type is an $\ell$-$\FGF$-bisimulation.
+          Let $\elemtuplec \sqin A$ and $\elemtupled \sqin B$ be live tuples with equal $\FGF_{\ell}$-types.
+          Consider any tuple $\elemtuplee$ extending an infix $\elemtuplecfromto{i}{j}$ to a new live tuple $\elemtuplecfromto{i}{j}\elemtuplee$.
+          Let $\Gamma$ be the $\FGF_{k-1}$-type of $\elemtuplee$ with regards to $\elemtuplecfromto{i}{j}$.
+          There are only finitely many (up to equivalence) $\FGF_{k{-}1}$ formulae, so $\Gamma$ is logically equivalent to some finite set $\Delta$.
+          For this finite set $\Delta$, we can construct an $\FGF_{k}$-formula that asserts the existence of a witness realizing this finite $\FGF_{k-1}$-type.
+          Hence by $k$-$\FGF$-equivalence, there exists a tuple $\elemtuplef$ that extends $\elemtupledfromto{i}{j}$ and same $\FGF_{k-1}$-type.
+          Therefore, the set of pairs of tuples with equal $\FGF_{\ell}$-types is an $\ell$-$\FGF$-bisimulation, satisfying the theorem.
+  \end{itemize}
+\end{proofsketch}
+\else
 \begin{proof}
   A proof for condition \textbf{(a)} is provided in~\cite[Lemma 3]{BednarczykJ22}, and thus we proceed with condition \textbf{(b)}.
   We start from the ``if'' direction.
@@ -73,3 +102,4 @@ By the choice of $\Gamma$, we know that  $(\str{A}, \elemtuplecfromto{i}{j}\elem
 $(\elemtuplecfromto{i}{j}\elemtuplee, \elemtupledfromto{i}{j}\elemtuplef) \in \bisimZ_{\mathit{k}{-}1}$.
 This concludes the proof of that $\bisimZ_{\mathit{k}}$ satisfies \ref{bisim:fforth}, and thus concludes the proof that the family $\bisimZ_0, \ldots, \bisimZ_\ell$ is an $\ell$-$\FGF$-bisimulation between $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$.
 \end{proof}
+\fi
