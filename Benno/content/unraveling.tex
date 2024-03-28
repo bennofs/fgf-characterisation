@@ -201,7 +201,7 @@ Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\t
 \begin{lemma}
   For any structure $\str{A}$, the domain of the unraveling $\unraveldom{A}$ together with the relation $\relNext$ is a forest. The roots are the elements composed of a 0-biseq and a counter equal to 1.
 \end{lemma}
-\begin{proofsketch}
+\begin{proof}
   The counter of an element $t \in \unraveldom{A}$ is \emph{minimal} if the counter is the smallest among elements of the domain with the same biseq as $t$.
   The key observation now is that if $(s,t) \in \relNext$ because of case~\ref{next:addseq}, then the counter of $t$ is minimal, while if $(s,t) \in \relNext$ because of case~\ref{next:addctr}, then the counter of $t$ cannot be minimal (since $s$ is witness that there are elements with a smaller counter).
   Take an element $t \in \unraveldom{A}$ with $(s, t) \in \relNext$ for some element $s \in \unraveldom{A}$.
@@ -212,29 +212,13 @@ Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\t
   Therefore every element is a descendant of some root and has at most one parent, proving that $\relNext$ forms a forest.
   The only elements without a parent are those composed of a 0-biseq and a minimal counter.
   Since $(\sigma, 1) \in \unraveldom{A}$ for any 0-biseq $\sigma \in \Seq{A}$, the roots are exactly the elements composed of a 0-biseq and a counter equal to 1.
-\end{proofsketch}
+\end{proof}
 
+\noindent
 The above example highlights an important property of $\relNext$.
 If we have elements $s,t \in \unraveldom{A}$ which are linked by $\relNext$ then they appear as consecutive elements in a tuple of a relation in the base structure.
 In fact, they appear as consecutive elements in the tuple equal to the last tuple of the biseq of t (\ie $\Pi(\seq{t})$), as stated in the following lemma:
-\begin{lemma}
-For elements $s, t \in \unraveldom{A}$ with $\ctr{t} \ge 2$ and $(s,t) \in \relNext$, if $\elemtuplea \sqin \unraveldom{A}$ is the tuple such that $\seq{t} = \cdots \elemtuplea$, then $\pi(s) = a_{k-1}$ and $\pi(t) = a_{k}$ for $k = \ctr{t}$.
-\end{lemma}
-\begin{proofsketch}
-  Let $\seq{s} = \cdots \elemtupleb$.
-  Since $(s,t) \in \relNext$, the biseq $\seq{t}$ extends $\seq{s}$.
-  Thus, $\elemtupleb$ and $\elemtuplea$ must an share an infix (by definition of biseqs).
-  The definition of $\relNext$ restricts the counters $\ctr{s}$ and $\ctr{t}$ such that the equality $b_{\ctr{s}} = a_{\ctr{t}-1}$ holds, implying the property of the lemma.
-\end{proofsketch}
-\begin{proof}
-  Note that $\pi(t) = a_{\ctr{t}} = a_{k}$ by definition of the projection $\pi$.
-  We prove that $\pi(s) = a_{k-1}$ by case analysis on the two cases of $\relNext$.
-  The~\ref{next:addctr} case is simple: in this case $\seq{s} = \seq{t}$ and $\ctr{s} = k - 1$, so the property follows directly from the definition of $\pi$.
-  For the~\ref{next:addseq} case, let $\seq{t} = \seq{s} (i,j) \elemtuplea$ and $\seq{s} = \cdots \elemtupleb$.
-  Further, in this case $k = (j - i + 1) + 1$ and $\ctr{s} = j$.
-  By the fact that $\seq{t}$ is a biseq, we know that $\elemtupleafromto{1}{j-i+1} = \elemtuplebfromto{i}{j}$.
-  In particular, it follows that $\pi(s) = b_{j} = a_{j-i+1} = a_{k-1}$, concluding the proof.
-\end{proof}
+\input{proofs/next-is-consecutive}
 
 \noindent
 We now give a formal definition of the tree unraveling for a structure, followed by examples to explain this definition.
@@ -301,13 +285,10 @@ Hence, the unraveling of a structure is a characterization of its behavior in th
   This set is a $\GF$-bisimulation.
   A detailed proof of this is given later for the finite case.
 \end{proofsketch}
-\begin{proof}
-  \bfbox{todo proof for infinite unraveling theorem}
-\end{proof}
 
 Now, the theorem stated in the introduction of this chapter is a simple corollary:
 \thminfupgrading
-\begin{proofsketch}
+\begin{proof}
 Since unravelings are $\FGF$-bisimilar to their base structure, if $(\unravel{A}, \elemtuptuplea) \bisimto_{\FGF} (\unravel{B}, \elemtuptupleb)$, then also $(\str{A}, \elemtuplea) \bisimto_{\FGF} (\str{B}, \elemtupleb)$ by transitivity of bisimilarity.
 The claim then follows directly from \cref{thm:inf-unraveling-upgrading}.
-\end{proofsketch}
+\end{proof}
