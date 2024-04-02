@@ -2,6 +2,7 @@
 
 \usepackage{scrlfile}
 \PreventPackageFromLoading{apxproof}
+\newcommand{\DisemulatePackage}[1]{}
 
 \input{settings/packages.tex}
 \input{settings/macros.tex}
@@ -9,7 +10,11 @@
 
 \begin{document}
 
-\centering
-\input{res/ex-struct}
+\begin{figure}
+  \caption{Test figure}\label{fig}
+\end{figure}
+
+\csname @setcref\endcsname{cref}{fig}{}
+
 
 \end{document}

@@ -13,14 +13,19 @@
 
 \setcounter{minitocdepth}{3}
 
-\begin{document}
-
-\maketitle
+\begin{document}%
+%
+\input{pages/title}
 \thispagestyle{empty}%
 
 \clearpage
 \pagenumbering{roman}%
-%\dominitoc
+\input{pages/abstract}%
+
+\clearpage
+\input{pages/declaration}%
+
+\clearpage%
 \tableofcontents
 
 \clearpage
