@@ -226,7 +226,7 @@ Let $\str{A}, \elemtuplea$ be a structure, $\unraveldom{A}$ be the domain of the
 The tuple $\elemtuplee$ is a \emph{next-chain} if consecutive elements are related by $\relNext$, namely $(e_{i}, e_{i+1}) \in \relNext$ for all $i < n$.
 If we think of $\relNext$ as representing edges in a tree, then next-chains are precisely the paths in this tree.
 We define the \emph{bound} of $\elemtuptuplee$ (denoted by $\bound{\elemtuptuplee}$) as the counter of its last element, expressed formally as $\bound{\elemtuptuplee} = \ctr{e_{|\elemtuptuplee|}} = \ctr{e_{n}}$.
-\begin{definition}[Tree Unraveling]
+\begin{definition}[Tree Unraveling]\label{def:tree-unraveling}
 The \emph{tree unraveling} $\unravel{A}, \elemtuptuplea$ of $\str{A}, \elemtuplea$ is the structure with the forest $\unraveldom{A}$ as domain and $\elemtuptuplea = ((\elemtuplea, 1), \ldots, (\elemtuplea, |\elemtuplea|))$.
 For each relation $\relR \in \Sigma$, a tuple $\elemtuptupler \in \relR^{\unravel{A}}$ if and only if:
 \begin{enumerate}

@@ -144,7 +144,7 @@ We show that in this case, $\elemtuptuplea$ and $\elemtuptupleb$ have the same a
 Let $\elemtuples$ and $\elemtuplet$ be the tuples from $\str{A}$ and $\str{B}$ such that $\seq{a_{k}} = \cdots \elemtuples$ and $\seq{b_{k}} = \cdots \elemtuplet$.
 Since $a_{k} \approx_z b_{k}$, we know that $\elemtuples$ and $\elemtuplet$ have the same atomic-$\FGF$-type.
 Observe that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.
-This follows from \cref{lem:projection-next} since $\elemtuptuplea$ and $\elemtuptupleb$ are live and thus must be next-chains.
+This follows from \cref{lem:next-is-consecutive} since $\elemtuptuplea$ and $\elemtuptupleb$ are live and thus must be next-chains.
 As $\ctr{a_{k}} = \ctr{b_{k}}$, both $\elemtuptuplea$ and $\elemtuptupleb$ project to infixes $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i\ldots{}j$ for $i = \ctr{a_{k}} - k$ and $j = \ctr{a_{k}}$.
 Hence, atomic-$\FGF$-types of $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ are also equal.
 Now consider an infix $\elemtuptuplea_{x\ldots{}y}$ and the corresponding infix $\elemtuptupleb_{x\ldots{}y}$, for some indices $x$ and $y$.
