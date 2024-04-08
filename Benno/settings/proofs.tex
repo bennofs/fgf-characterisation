@@ -207,6 +207,7 @@
 \theoremstyle{definition}
 \declaretheorem[numberwithin=chapter,style=thmgreenbox]{definition}
 \declaretheorem[name=Example,sibling=definition,style=thmblackbox]{examplex}
+\declaretheorem[name=Example,sibling=definition,style=thmblackbox,numbered=no]{examplex*}
 \declaretheorem[name=Property,sibling=definition,style=thmblackbox]{property}
 \declaretheorem[name=Remark,sibling=definition,style=thmblackbox]{remarkx}
 \declaretheorem[name=Fact,sibling=definition,style=thmblackbox]{fact}
@@ -222,6 +223,9 @@
 
 \newenvironment{example}
 {\pushQED{\qed}\renewcommand{\qedsymbol}{$\square$}\examplex}
+{\popQED\endexamplex}
+\newenvironment{example*}
+{\pushQED{\qed}\renewcommand{\qedsymbol}{$\square$}\csname examplex*\endcsname}
 {\popQED\endexamplex}
 
 \newenvironment{remark}

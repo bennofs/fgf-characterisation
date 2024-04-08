@@ -2,10 +2,10 @@
 \chapter{Logics}\label{chap:logics}
 
 In this chapter, we give a short review of first order logic and some of its fragments.
-The goal is to make the thesis self-contained, for a more complete treatment of these topics we refer to appropriate textbooks\cite{Libkin04,monk1976}.
+The goal is to make the thesis self-contained, for a more complete treatment of these topics we refer to appropriate textbooks~\cite{Libkin04,monk1976}.
 We also fix the notation that we employ in the later chapters.
 For quick reference, \cref{fig:notation-quickref} summarizes all notation appearing throughout the thesis.
-\begin{figure}
+\begin{figure}[p]
   \centering
   \bgroup
   \def\arraystretch{1.1}
@@ -36,8 +36,24 @@ For quick reference, \cref{fig:notation-quickref} summarizes all notation appear
   \label{fig:notation-quickref}
 \end{figure}
 
+\begin{figure}[p]
+  \begin{example*}
+    \newcommand\relDouble{\rel{\texttt{Double}}}
+    \newcommand\relRed{\textcolor{tolhighcontrastRed}{\rel{Red}}}
+    \newcommand\relBlue{\textcolor{tolhighcontrastBlue}{\rel{Blue}}}
+    \newcommand\relYellow{\textcolor{tolhighcontrastYellow}{\rel{Yellow}}}
+    Consider a signature $\sigma$ composed of four relational symbols: an unary symbol $\relDouble$, a binary symbol $\relRed$, a 3-ary symbol $\relBlue$ and a 4-ary symbol $\relYellow$.
+    We define a $\sigma$-structure $\str{A}$ over the domain $A = \{1,2,3\}$ with $\relDouble^{\str{A}} = \{2\}$, $\relRed^{\str{A}} = \{(1,2), (2,3)\}$, $\relBlue^{\str{A}} = \{ (1,3,2) \}$ and $\relYellow^{\str{A}} = \{ (1,1,2,3)\}$.
+    We visualize this structure in the following picture, with relations indicated by colored edges (except for $\relDouble$, which we indicate using a double border):
+    \begin{center}
+    \input{res/ex-struct}
+    \end{center}
+  \end{example*}
+  \caption{An example structure, visualized as directed hypergraph\hfill{}}\label{fig:struct-1}
+\end{figure}
+
 We start with basic mathematical notation for tuples.
-A $n$-\emph{tuple} is a list of $n$ components $a_{1}, \ldots{}, a_{n}$.
+An $n$-\emph{tuple} is a list of $n$ components $a_{1}, \ldots{}, a_{n}$.
 We use overlined letters like $\elemtuplea$, $\elemtupleb$ for tuples, except when the components are tuples themselves, in which case we use arrows, as in $\elemtuptuplea$.
 We denote the set of components of a tuple $\elemtuplea$ by $\set(\elemtuplea)$.
 We write $\emptytupl$ for the tuple with zero components.
@@ -48,57 +64,45 @@ We use the notation ``$\cdots e$'' for a tuple where the last element is equal t
 For a function $f$ and tuple $\elemtuplea_{1\ldots\ell}$, we write $f[\elemtuplea_{1\ldots\ell}]$ for the tuple $(f(a_{1}), \ldots, f(a_{\ell}))$.
 
 Next, we present the definition of a \emph{structure}.
-We will not consider structures with functions in this thesis, hence we define a structures without functions here (compare \cite[Definition 2.1]{Libkin04}):
+We will not consider structures with function symbols in this thesis, hence we define a structures without function symbols here (compare \cite[Definition 2.1]{Libkin04}):
 \begin{definition}[Structures]
   A \emph{signature} $\Sigma$ is a collection of constant symbols $c_{1}, \cdots, c_{k}$ and relational symbols $\relR_{1}, \ldots, \relR_{n}$.
-  Each relational symbol has an associated arity, denoted by $\arity(\relR_{i})$ for each $\relR_{i} \in \Sigma$.
+  Each relational symbol $\relR$ has an associated arity, denoted by $\arity(\relR)$.
   A signature is \emph{purely-relational} if it contains no constant symbols.
   A $\Sigma$-\emph{structure} $\str{A} = (A, {\cdot\,}^{\str{A}})$ consists of a domain $A$ together with an interpretation function ${\cdot\,}^{\str{A}}$, which assigns:
   \begin{itemize}
     \item to each constant $c_{i} \in \Sigma$ an element $c_{i}^{\str{A}}$ in $A$, and
-    \item to each $k$-ary relational symbol $\relR_{i} \in \Sigma$ a $k$-ary relation $\relR^{\str{A}}$ on $A$, that is a set $\relR^{\str{A}} \subseteq A^{k}$.
+    \item to each $k$-ary relational symbol $\relR \in \Sigma$ a $k$-ary relation $\relR^{\str{A}}$ on $A$, that is a set $\relR^{\str{A}} \subseteq A^{k}$.
   \end{itemize}
   A structure $\str{A}$ is \emph{finite} if its domain $A$ is finite.
 \end{definition}
+We commonly visualize structures as directed hypergraphs, for an example see \cref{fig:struct-1}.
+
 Given a structure $\str{A}$ and $B \subseteq A$, we use $\restr{\str{A}}{B}$ to denote the \emph{substructure} of $\str{A}$ with domain $B$ and relations appropriately restricted to this domain.
-For a $\sigma$-structure $\str{A}$ and an element $a_{i} \in A$, we write $(\str{A}, a_{i})$ for the $(\sigma \cup {a_{i}})$-structure that extends $\str{A}$ with an additional constant symbol $a_{i}$ interpreted as $a_{i} \in A$, and similar for tuples of elements $\elemtuplea$, where we introduce one constant for each component of the tuple.
+For a $\sigma$-structure $\str{A}$ and an element $a \in A$, we write $(\str{A}, a)$ for the $(\sigma \cup \{a\})$-structure that extends $\str{A}$ with an additional constant symbol $a$ interpreted as $a \in A$, and similar for tuples of elements $\elemtuplea$, where we introduce one constant for each component of the tuple.
 We call a structure with distinguished elements constructed in this way a \emph{pointed structure}.
 We say that a tuple $\elemtuplea \sqin A$ is \emph{live} in a $\sigma$-structure $\str{A}$ if $|\elemtuplea| \leq 1$ or~$\elemtuplea \in \relR^{\str{A}}$ for some predicate~$\relR \in \sigma$.
 Most statements made in this thesis generalize to any finite and purely-relational signature $\Sigma$.
 Thus, we now fix an arbitrary, finite and purely-relational signature $\Sigma$ and adopt the convention that the signature of all structures is $\Sigma$, unless stated otherwise.
 Since $\Sigma$ is finite, there is a maximum arity of the relational symbols in $\Sigma$, which we denote by $\arity(\Sigma)$.
-We commonly visualize structures as directed hypergraphs, as shown in \cref{fig:struct-1}.
 In this visualization, each element of the domain corresponds to a node in the graph.
 For each relational symbol $\relR_{i} \in \Sigma$, we draw (hyper)edges labelled with $\relR_{i}$ between the elements which are in this relation according to its interpretation.
 In examples, we use uppercase letters $\relE, ...$ as relational symbols which we assume to be part of $\Sigma$ for the purposes of these examples.
 
-\begin{figure}[b]
-  \begin{mdframed}[style=mdblackbox]
-  The picture shows a structure with a domain of three elements over a signature of four relational symbols. The double border indicates a unary relation, to which only the element $2$ belongs.
-  \begin{center}
-  \input{res/ex-struct}
-  \end{center}
-  \textcolor{tolhighcontrastRed}{Red} indicates a binary relation, which contains the tuples $(3,1)$ and $(1,2)$.
-  \textcolor{tolhighcontrastBlue}{Blue} indicates a 3-ary relation, which contains the tuple $(1,3,2)$.
-  \textcolor{tolhighcontrastYellow}{Yellow} indicates a 4-ary relation, which contains the tuple $(1,1,2,3)$.
-  \end{mdframed}
-  \caption{An example structure, visualized as directed hypergraph}\label{fig:struct-1}
-\end{figure}
-
 Now, we introduce \emph{first-order logic}, starting with the syntax of formulae, followed by the satisfaction relation between structures and formulae.
 All the other logics considered in this thesis are fragments of first order logic.
 \begin{definition}[Formulae of First-Order Logic, compare {\cite[Definition 2.2]{Libkin04}}]
-  Let $\mathcal{V} := {x_{1}, x_{2}, \ldots}$ be a countably-infinite set of \emph{variables} and $\sigma$ be a signature.
+  Let $\mathcal{V} := \{x_{1}, x_{2}, \ldots\}$ be a countably-infinite set of \emph{variables} and $\sigma$ be a signature.
   An \emph{atomic formula} (or short \emph{atom}) over $\sigma$ is an expression of one of the following forms:
   \begin{itemize}
     \item $c_{i}$ for a constant $c_{i} \in \sigma$, or
-    \item $\relR_{i}(v_{1}, \ldots, v_{n})$ for a relational symbol $\relR_{i} \in \sigma$ with arity $n$ and variables $v_{1}, \ldots, v_{n} \in \mathcal{V}$.
+    \item $\relR_{i}(t_{1}, \ldots, t_{n})$ for a relational symbol $\relR_{i} \in \sigma$ with arity $n$, where $t_{i}$ for $i \in [1,n]$ is either a variable in $\mathcal{V}$ or a constant from $\sigma$.
   \end{itemize}
   A \emph{first-order formula} $\varphi$ over $\sigma$ is an expression formed according to the following rule:
   \begin{equation*}
-    \varphi ::= \alpha
+    \varphi, \varphi' ::= \alpha
       \mid \neg \varphi
-      \mid (\varphi \lor \varphi)
+      \mid (\varphi \lor \varphi')
       \mid \exists{x_{i}}(\varphi)
   \end{equation*}
   where $\alpha$ can be any atomic formula over $\sigma$.
@@ -108,7 +112,7 @@ For first-order formulae $\varphi_{1}$ and $\varphi_{2}$, we use the standard sh
 \begin{multicols}{2}
   \begin{itemize}
     \item $\varphi_{1} \land \varphi_{2}$ for $\neg ((\neg \varphi_{1}) \lor (\neg \varphi_{2}))$
-    \item $\forall{x_{i}}(\varphi_{1})$ for $\neg\exists{x_{i}}(\neg \varphi_{1})$
+    \item $\forall{x_{i}}(\varphi)$ for $\neg\exists{x_{i}}(\neg \varphi)$
     \item $\varphi_{1} \to \varphi_{2}$ for $\neg \varphi_{1} \lor \varphi_{2}$
     \item $\varphi_{1} \iff \varphi_{2}$ for $(\varphi_{1} \to \varphi_{2}) \land (\varphi_{2} \to \varphi_{2})$
     \item $\top$ for $\alpha \lor \neg \alpha$, for an arbitrary atom $\alpha$
@@ -138,10 +142,10 @@ The \emph{free variables} of a formula $\varphi$ are inductively defined as foll
 Variables which are not free are called bound.
 We write $\varphi(\vartuplex)$ if $\vartuplex$ contains exactly the free variables of $\varphi$.
 A \emph{sentence} is a formula without free variables.
-Given a free variable $x_{i}$ of a formula $\varphi$, we can subsitute this free variable by a variable or constant $t$, as follows:
+Given a free variable $x_{i}$ of a formula $\varphi$, we can subsitute this free variable by a variable or constant $t$, as follows.
 \begin{enumerate}
-  \item first, rename instances of bound variables equal to $t$ to a new name,
-  \item then, replace all occurrences of $x_{i}$ by $t$
+  \item First, rename instances of bound variables equal to $t$ to a new name.
+  \item Second, replace all occurrences of $x_{i}$ by $t$.
 \end{enumerate}
 We write $\varphi[x_{i} \mapsto t]$ for the formula obtained this way.
 Similarly, if $\vartupley$ is a $k$-tuple of distinct variables and $\elemtuplea$ is a $k$-tuple of constants, then $\varphi[\vartupley \mapsto \elemtuplea]$ is constructed from $\varphi$ by replacing each free variable $y_{i}$ with the constant $a_{i}$, for $1 \le i \le k$.
@@ -149,7 +153,7 @@ Similarly, if $\vartupley$ is a $k$-tuple of distinct variables and $\elemtuplea
 \begin{definition}[Models of First-Order Formulae]
   A $\sigma$-structure $\str{A}$ is a \emph{model} of a first-order sentence $\varphi$ over $\sigma$, written as $\str{A} \models \varphi$, in the following cases:
 \begin{itemize}
-  \item $\str{A} \models \relR_{i}(a_{1}, \ldots, a_{k})$ for $\relR_{i} \in \Sigma$ and constants $a_{1}, \ldots, a_{k}$ if $({a_{1}}^{\str{A}}, \ldots, {a_{k}}^{\str{A}}) \in \relR_{i}^{\str{A}}$ where $t(y_{i}) = a_{i}$ for $1 \le i \le n$.
+  \item $\str{A} \models \relR_{i}(a_{1}, \ldots, a_{k})$ if $({a_{1}}^{\str{A}}, \ldots, {a_{k}}^{\str{A}}) \in \relR_{i}^{\str{A}}$ for $\relR_{i} \in \Sigma$ and constants $a_{1}, \ldots, a_{k}$.
   \item $\str{A} \models \neg \varphi$ if not $\str{A} \models \varphi$.
   \item $\str{A} \models \varphi_{1} \lor \varphi_{2}$ if $\str{A} \models \varphi_{1}$ or $\str{A} \models \varphi_{2}$.
   \item $\str{A} \models \forall{x_{i}} (\varphi(x_{i}))$ if $(\str{A}, a_{i}) \models (\varphi[x_{i} \mapsto a_{i}])$ for all $a_{i} \in A$
@@ -166,7 +170,7 @@ We write $\str{A} \equiv_\logicL \str{B}$ if $\str{A}$ and~$\str{B}$ satisfy the
 For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ with $n$-tuples $\elemtuplea$ and~$\elemtupleb$ we employ the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to indicate that for all $\varphi \in \logicL$ with free variables $\vartuplex$ we have $\str{A} \models \varphi[\vartuplex \mapsto \elemtuplea]$ if and only if $\str{B} \models \varphi[\vartuplex \mapsto \elemtupleb]$.
 If two structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$ satisfy exactly the same first-order formulae, we write $\str{A}, \elemtuplea \equiv_{\FO} \str{B}, \elemtupleb$, and similar for fragments of $\FO$.
 
-It is well-known that the satisfiability (\ie{} existence of any model) for a given first-order formula $\varphi$ is undecidable\cite[Sec. 1.1]{borger1997}.
+It is well-known that the satisfiability (\ie{} existence of any model) problem for a given first-order formula is undecidable\cite[Sec. 1.1]{borger1997}.
 Trakhtenbrot's theorem states that this is even true over just finite models\cite{trakhtenbrot50}.
 This motivated a study of fragments of first-order logic, for which satisfiability is decidable and ideally has low complexity.
 The fragment studied in this thesis is the \emph{forward guarded fragment}~\cite[Sec. 3.1]{Bednarczyk21}.
@@ -176,7 +180,7 @@ For a better understanding of this fragment, in the following sections we first 
 Modal Logic has a long history, beginning already with Aristotle's study of statements containing the words ``necessary'' and ``possible''\cite{goldblatt2006}.
 It has applications in many different fields, such as philosophy and linguistics\cite{vanBenthem2010-VANMLF-4}.
 However, here we focus on its application to computer science, where modal logic is commonly employed to talk about the behaviour of a dynamic system, consisting of states with certain properties and a relation describing the possible transitions between those states.
-We define modal logic, with first-order semantics, as follows (compare \cite[Sec. 2.1.2]{otto2004a}):
+We~define modal logic, with first-order semantics, as follows (compare \cite[Sec. 2.1.2]{otto2004a}):
 \begin{definition}[Basic Modal Logic]
   Let $\sigma$ be a signature of unary relational symbols $p_{i}, \ldots, p_{n}$ and a single binary relational symbol $\relR$.
   A \emph{basic modal logic formula} $\varphi$ is an expression according to the following rule:
@@ -189,31 +193,33 @@ We define modal logic, with first-order semantics, as follows (compare \cite[Sec
   where $p_{i}$ may be any unary relational symbol.
   The \emph{translation} of a modal logic formula $\varphi$ to first-order logic formula $\varphi^{\FO}$ with exactly one free variable is defined inductively as:
   \begin{itemize}
-    \item $p_{i}^{\FO} = p_{i}(x)$,
+    \item $(p_{i})^{\FO} = p_{i}(x)$,
     \item $(\neg \varphi)^{\FO} = \neg \varphi^{\FO}$,
     \item $(\varphi_{1} \lor \varphi_{2})^{\FO} = \varphi_{1}^{\FO} \lor \varphi_{2}^{\FO}$,
     \item $(\Diamond (\varphi))^{\FO} = \exists{y}(\relR(x,y) \land \varphi^{\FO}[x \mapsto y])$, and
   \end{itemize}
   For a modal formula $\varphi$, we write $\str{A}, a \models \varphi$ if $\str{A}, a \models \varphi^{\FO}$.
 \end{definition}
-For any modal logic formula $\varphi$, we define $\Box(\varphi) := \neg \Diamond(\neg \varphi)$ and $\varphi \land \psi := \neg ((\neg \varphi) \lor (\neg \psi))$ where $\psi$ is another modal logic formula.
+We use $\ML$ to denote the set of all basic modal logic formulae.
+For modal logic formulae $\varphi$ and $\psi$, we define $\Box(\varphi) := \neg \Diamond(\neg \varphi)$ and $\varphi \land \psi := \neg ((\neg \varphi) \lor (\neg \psi))$.
 The satisfiability problem for basic modal logic is $\PSpace$-complete\cite{ladner1977}.
 An interesting property of basic modal logic is that several of its extensions are still decidable.
-Some common extensions for which this is the case are:
+Some common extensions for which this is the case are (see~\cite[Sec. 5.1]{goranko2007}):
 \begin{itemize}
   \item
         \textbf{Multiple modalities}.
-        Instead of having just a single binary relation $\relR$, allow multiple relations $\relR_1, \ldots, \relR_{n}$ and use a separate $\Box_{i}$ and $\Diamond_{i}$ operator for each binary relation $R_{i}$.
-        The translation to $\FO$ is as expected: $(\Diamond_{i}(\varphi))^{FO} = \exists{y}(\relR_{i}(x,y) \land \varphi^{\FO}[x \mapsto y])$ (and the same for $\Box_{i}$).
+        Instead of having just a single binary relation $\relR$, we allow for multiple relations $\relR_1, \ldots, \relR_{n}$ and use a separate $\Box_{i}$ and $\Diamond_{i}$ operator for each binary relation $R_{i}$.
+        The translation to $\FO$ is as expected: $(\Diamond_{i}(\varphi))^{\FO} = \exists{y}(\relR_{i}(x,y) \land \varphi^{\FO}[x \mapsto y])$.
   \item
         \textbf{Inverse modality}.
-        This extension adds new operators $\Diamond^{-}$ and $\Box^{-}$, with the translation: $(\Diamond^{-}(\varphi))^{\FO} = \exists{y}(\relR(y,x) \to \varphi^{FO}[x \mapsto y])$ (and the same for $\Box$).
-        Note how the arguments to $\relR$ are inverted in the translation.
+        This extension adds a new oeprator $\Diamond^{-}$, with the translation: $(\Diamond^{-}(\varphi))^{\FO} = \exists{y}(\relR(y,x) \to \varphi^{\FO}[x \mapsto y])$.
+        Note how the arguments to $\relR$ are inverted in the first-order translation.
   \item
-        \textbf{Universal modality}.
-        In addition to modal quantification, this extension also allows existential and universal quantification, with the new operators $\exists$ and $\forall$.
-        The translation to $\FO$ is: $(\exists \varphi)^{\FO} = \exists{x}(\varphi^{\FO})$, and similar for $\forall$.
+        \textbf{Global modality}.
+        In addition to modal quantification, this extension also allows global quantification, with the new operator $\exists$.
+        The translation to $\FO$ is: $(\exists \varphi)^{\FO} = \exists{x}(\varphi^{\FO})$.
 \end{itemize}
+
 \begin{example}
   Consider the following structure $\str{T}$:
   \begin{center}
@@ -240,8 +246,8 @@ Some common extensions for which this is the case are:
 % - modal logic with inverse modalities
 
 \section{Guarded Fragment}
-Inspired by modal logic, Andréka et al. devised the guarded fragment, with the goal of generalizing modal logic but preserving its nice model-theoretic properties\cite{AndrekaNB98}.
-We take the definition of the guarded fragment from \cite{BednarczykJ22}:
+Inspired by modal logic, Andréka et al.~\cite{AndrekaNB98} devised the guarded fragment, with the goal of generalizing modal logic to signatures of arity greater than two but preserving its nice model-theoretic properties.
+We take the definition of the guarded fragment from~\cite{BednarczykJ22}:
 \begin{definition}[Guarded Fragment]
   $\GF$ is the smallest fragment of $\FO$  such that:
   \begin{itemize}\itemsep0em
@@ -251,24 +257,23 @@ We take the definition of the guarded fragment from \cite{BednarczykJ22}:
       \item If $\varphi(\varx)$ has only a single free-variable $\varx$, then $\forall{\varx}\; \varphi(\varx)$ and $\exists{\varx}\; \varphi(\varx)$ are in $\GF$.
   \end{itemize}
 \end{definition}
-The predicates $\alpha$ appearing in the 3rd item of the above definition are called \emph{guard} for $\varphi$.
+The predicates $\alpha$ appearing in the 3rd item of the above definition are called the \emph{guard} for $\varphi$.
 We~stress that in definition of a quantifier rank for $\GF$ we treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as a single quantifier (not as an abbreviation for a block of quantifiers).
 We write $\GF_{\ell}$ for the subset of $\GF$ of formulae with at most quantifier rank $\ell \in \N$.
 For example, $\forall{x_{1}x_{2}x_{3}} \relR(x_{1}, x_{2}, x_{3}) \in \GF_{1}$.
-The satisfiability problem for $\GF$ is $\TwoExpTime$-complete.
+The satisfiability problem for $\GF$ is $\TwoExpTime$-complete~\cite{gradel1999a}.
 
 \begin{example}
   Examples of formula which are in $\GF$:
   \begin{itemize}
     \item the formula $\exists{x_{1}x_{2}x_{3}}\; (\relR(x_{1}, x_{2}, x_{3}) \land \forall x_{4}(\relR(x_{4}, x_{4}, x_{1}) \to \relR(x_{1}, x_{4}, x_{1})))$,
     \item the tranlsation of every modal logic formulae, allowing for multiple, inverse and global modalities,
-    \item $\forall{x_{1}x_{2}}\; (\relR(x_{1},x_{2}) \to \relR(x_{2},x_{1}))$ (``$\relR$ is symmetric'')
-    \item $\forall{x_{1}}\; (\relR(x_{1},x_{1}))$ (``$\relR$ is reflexive'')
+    \item $\forall{x_{1}x_{2}}\; (\relR(x_{1},x_{2}) \to \relR(x_{2},x_{1}))$ (``$\relR$ is symmetric''), and
+    \item $\forall{x_{1}}\; (\relR(x_{1},x_{1}))$ (``$\relR$ is reflexive'').
   \end{itemize}
-  Examples of formula which are \emph{not} in $\GF$:
-  \begin{itemize}
-    \item the formula $\exists{x_{1}x_{2}x_{3}}\; (\relE(x_{1}, x_{2}) \land \relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$ (``there is a triangle in the graph represented by $\relE$''), because the guard $\relE(x_{1}, x_{2})$ does not cover the free variable $x_{3}$ of $\relE(x_{2},x_{3}) \land \relE(x_{1}, x_{3})$
-  \end{itemize}
+\end{example}
+\begin{example}
+  An example of a formula which is \emph{not} in $\GF$ is: $\exists{x_{1}x_{2}x_{3}}\; (\relE(x_{1}, x_{2}) \land \relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$ (``there is a triangle in the graph represented by $\relE$''), because the guard $\relE(x_{1}, x_{2})$ does not cover the free variable $x_{3}$ of $\relE(x_{2},x_{3}) \land \relE(x_{1}, x_{3})$.
 \end{example}
 
 \section{Forward Guarded Fragment}
@@ -276,7 +281,7 @@ The satisfiability problem for $\GF$ is $\TwoExpTime$-complete.
 The \emph{forward guarded fragment}~\cite[Sec. 3.1]{Bednarczyk21} (or $\FGF$) restricts $\GF$ in a way that the allowed sequences of atoms are infixes of the sequence of already-introduced variables (in the order of their quantification).
 We begin with the formal definition, followed by some examples.
 \begin{definition}[Forward Guarded Fragment]
-  $\FGF(n)$ for $n \in \N$ s the smallest fragment of $\FO$ such that:
+  $\FGF(n)$ for $n \in \N$ is the smallest fragment of $\FO$ such that:
   \begin{itemize}\itemsep0em
       \item An atom $\alpha(\vartuplex)$ belongs to $\FGF(n)$ if $\alpha$ is equality-free and $\vartuplex$ is an infix of $\vartuplexfromto{1}{n}$.
       \item $\FGF(n)$ is closed under boolean connectives $\land, \lor, \neg, \to, \iff$;

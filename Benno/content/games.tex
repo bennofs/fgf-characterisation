@@ -1,11 +1,11 @@
 %!TEX root = ../main.tex
 \chapter{Bisimulations and Games}
 Modal logic and its extensions $\GF$ and $\FGF$ can be seen as logics which describe the ``behavior'' of a structure.
-To make precise what we mean when we speak of the ``behavior'' of a structure, this chapter introduces the notion of bisimulation.
+To make this statement precise, this chapter introduces the notion of bisimulation.
 Bisimulations allow us to say that two structures ``behave the same'' with regard to a specific logic.
 Given a suitable notion of bisimulation for a logic, we show that bisimilar structures satisfy the same formulae from this logic.
-We define bisimulations using back-and-forth conditions, which roughly state that every relation involving a tuple in one structure is matched by a corresponding relation in the other structure.
-As we will see, this definition a natural interpretation in the form of a two-player game, where winning strategies correspond to bisimulations.
+We define bisimulations using certain back-and-forth conditions, which roughly state that every relation involving a tuple in one structure is matched by a corresponding relation in the other structure.
+As we will see, this definition has a natural interpretation in the form of a two-player game (\cref{sec:fgf-game}), where winning strategies correspond to bisimulations.
 This viewpoint is relevant for later chapters, where we use concepts from this two-player game to define the unraveling of structures.
 
 As an introductory example, we consider the notion of bisimulation for transition systems, which is the notion of bisimulation corresponding to basic modal logic $\Logic{ML}$.
@@ -14,27 +14,27 @@ We call elements of $A$ \emph{states} and $a \in A$ the \emph{starting state}.
 The unary predicates $p_{1}, \ldots, p_{n}$ represent properties of states and the relation $\relR$ encodes the possible transitions between states.
 Now, a \emph{basic bisimulation} between two transition systems $(\str{A},s_{a})$ and $(\str{B},s_{b})$ is simply a mapping $\mathcal{Z} \subseteq A \times B$ between states such that $(s_{a}, s_{b}) \in \mathcal{Z}$ and:
 \begin{enumerate}
-  \item if $(a,b) \in \mathcal{Z}$, then $a$ and $b$ satisfy the same properties: $a \in p_{i}^{\str{A}}$ iff $b \in p_{i}^{\str{B}}$ for any unary predicate $p_{i}$,
-  \item if $(a,b) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{A}}$ for some $c \in A$, then there is a $d \in B$ with $(c,d) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{B}}$, and
-  \item if $(a,b) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{A}}$ for some $d \in B$, then there is a $c \in B$ with $(c,d) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{B}}$.
+  \item if $(a,b) \in \mathcal{Z}$, then $a$ and $b$ satisfy the same properties, namely $a \in p_{i}^{\str{A}}$ iff $b \in p_{i}^{\str{B}}$ for all unary predicates $p_{i}$,
+  \item if $(a,b) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{A}}$ for some $c \in A$, then there is a state $d \in B$ with $(c,d) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{B}}$, and
+  \item if $(a,b) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{A}}$ for some $d \in B$, then there is a state $c \in B$ with $(c,d) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{B}}$.
 \end{enumerate}
 We write $\str{A}, s_{a} \bisimto_{\Logic{ML}} \str{B}, s_{b}$ if there is a bisimulation between $(\str{A}, s_{a})$ and $(\str{B}, s_{b})$.
 We say that $(c,d) \in \mathcal{Z}$ obtained via conditions 2 and 3 along some transition above are \emph{witnesses} for $(a,b) \in \mathcal{Z}$.
 The \emph{basic bisimulation game} is an intuitive way to conceptualize this definition.
 The game is played by two players, Spoiler and Duplicator on two structures $\str{A}, s_{a}$ and $\str{B}, s_{b}$.
-At the beginning of the game, we place two pebbles on the states $s_{a}$ and $s_{b}$.
-The task of Duplicator in the game is to uphold the invariant that the states on which the pebbles are placed have the same properties (``atomic harmony'').
+At the beginning of the game, we place exactly two pebbles exactly on the two states $s_{a}$ and $s_{b}$.
+The task of Duplicator in the game is to uphold the invariant that the states on which the pebbles are placed have the same properties (dubbed ``atomic harmony'').
 So, if $s_{a}$ and $s_{b}$ do not have the same properties, Duplicator loses instantly.
 Otherwise, the game continues in rounds.
 In each round, first Spoiler moves one of the pebbles along a transition, and then Duplicator moves the other pebble along a transition, trying to again uphold the invariant that the marked states have the same properties.
 Spoiler wins the game if at any point, Duplicator cannot make a move to uphold the invariant.
 Otherwise, if Spoiler is not able to win in this way, we say that Duplicator has a winning strategy in the game.
-We can see that Duplicator has a winning strategy in this game on structures $(\str{A}, s_{a})$ and $(\str{B}, s_{b})$ if and only if $\str{A}, s_{a} \bisimto_{\Logic{ML}} \str{B}, s_{b}$.
+We can show that Duplicator has a winning strategy in this game on structures $(\str{A}, s_{a})$ and $(\str{B}, s_{b})$ if and only if $\str{A}, s_{a} \bisimto_{\Logic{ML}} \str{B}, s_{b}$.
 
-We may restrict the game to a certain number of rounds, where Spoiler may play at most $\ell$ moves.
+We may restrict the game to a certain number of rounds, where Spoiler has only $\ell$ rounds to win the game.
 Duplicator has a winning strategy if he can always match Spoiler's moves for $\ell$ rounds.
 In this case, we speak of the \emph{$\ell$-round basic bisimulation game}.
-There is a corresponding restricted notion of bisimulation, the $\ell$-basic bisimulation, which consists of sets $\mathcal{Z}_{0} \supseteq \mathcal{Z}_{1}, \ldots, \supseteq \mathcal{Z}_{\ell}$ such that $(s_{a}, s_{b}) \in \mathcal{Z}_{\ell}$ and each $\mathcal{Z}_{i}$ satisfies modified back-and-forth conditions, where the witnesses $(c,d)$ are in $\mathcal{Z}_{i-1}$, but not neccesarily in $\mathcal{Z}_{i}$.
+There is a corresponding restricted notion of bisimulation, the $\ell$-basic bisimulation, which consists of a sequence of sets $\mathcal{Z}_{0} \supseteq \mathcal{Z}_{1}, \ldots, \supseteq \mathcal{Z}_{\ell}$ such that $(s_{a}, s_{b}) \in \mathcal{Z}_{\ell}$ and each $\mathcal{Z}_{i}$ satisfies modified back-and-forth conditions, where the witnesses $(c,d)$ are only required to be in $\mathcal{Z}_{i-1}$, but not neccesarily in $\mathcal{Z}_{i}$.
 
 \begin{example}
   The following figure shows two structures $(\str{A}, \underline{a})$ and $(\str{B}, \underline{a})$ which are bisimilar and two structures $(\str{C}, \underline{a})$ and $(\str{D}, \underline{a})$ which are not.
@@ -62,17 +62,14 @@ There is a corresponding restricted notion of bisimulation, the $\ell$-basic bis
 \noindent
 Basic bisimulations are important since they are tightly coupled to modal equivalence.
 In fact, as shown in the next theorem, bisimilar structures satisfy exactly the same modal formulae:
-\begin{lemma}\label{lemma:ML-bisimulations-work-well}
+\begin{lemma}[Corollary 88 for (a) and Theorem 32 for (b) from \cite{goranko2007}]\label{lemma:ML-bisimulations-work-well}
 For every pair of transition systems $(\str{A}, a)$ and~$(\str{B}, b)$ we have that:
 \begin{enumerate}[(a)]
 \item $(\str{A}, a) \bisimto_{\ML} (\str{B}, b)$ implies $(\str{A}, a) \equiv_{\ML} (\str{B}, b)$, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$;
 \item $(\str{A}, a) \bisimto_{\ML}^{\ell} (\str{B}, b)$ if and only if $(\str{A}, a) \equiv_{\ML_\ell} (\str{B}, b)$ for all $\ell \in \N$;
 \end{enumerate}
 \end{lemma}
-\begin{proof}
-  see \cite{goranko2007}: Corollary 88 for (a) and Theorem 32 for (b)
-\end{proof}
-In the following sections of this chapter, we first present generalized notions of bisimulation that have this same property, but with regards to the logics $\GF$ and $\FGF$ instead of $\ML$.
+In the following sections of this chapter, we first present generalized notions of bisimulation satisfy the analogue of \cref{lemma:ML-bisimulations-work-well}, in which $\ML$ is replaced with the logics $\GF$ and $\FGF$.
 This presentation follows~\cite[Sec. 2.2.3]{Otto04} and~\cite[Sec. 2]{BednarczykJ22}.
 In the final section, we describe the $\FGF$-bisimulation game and define some concepts based on this game which we use in later chapters to construct the $\FGF$ unraveling.
 
@@ -200,7 +197,7 @@ In the following example, we show that there are $\FGF$-bisimilar structures whi
   But the $\GF$-sentence $\exists{\varx_1}\relE(\varx_1,\varx_1)$ can distinguish them, hence they are not $\GF$-bisimilar.
 \end{example}
 
-\section{The $\FGF$-bisimulation game}
+\section{The $\FGF$-bisimulation game}\label{sec:fgf-game}
 Both $\GF$-bisimulation and $\FGF$-bisimulation naturally correspond to games~\cite[Sec. 1.2.1]{Gradel014}.
 We focus on the game corresponding to $\FGF$-bisimulation here.
 The $\FGF$-\emph{bisimulation game} is played on two pointed structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ by two players, Spoiler and Duplicator.
