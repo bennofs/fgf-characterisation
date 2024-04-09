@@ -12,21 +12,22 @@ As an introductory example, we consider the notion of bisimulation for transitio
 A \emph{transition system} is a $\sigma$-structure $(\str{A}, a)$ where the signature $\sigma$ contains only unary predicates $p_{1}, \ldots, p_{n}$ and exactly one binary predicate $\relR$.
 We call elements of $A$ \emph{states} and $a \in A$ the \emph{starting state}.
 The unary predicates $p_{1}, \ldots, p_{n}$ represent properties of states and the relation $\relR$ encodes the possible transitions between states.
-Now, a \emph{basic bisimulation} between two transition systems $(\str{A},s_{a})$ and $(\str{B},s_{b})$ is simply a mapping $\mathcal{Z} \subseteq A \times B$ between states such that $(s_{a}, s_{b}) \in \mathcal{Z}$ and:
-\begin{enumerate}
-  \item if $(a,b) \in \mathcal{Z}$, then $a$ and $b$ satisfy the same properties, namely $a \in p_{i}^{\str{A}}$ iff $b \in p_{i}^{\str{B}}$ for all unary predicates $p_{i}$,
-  \item if $(a,b) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{A}}$ for some $c \in A$, then there is a state $d \in B$ with $(c,d) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{B}}$, and
-  \item if $(a,b) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{A}}$ for some $d \in B$, then there is a state $c \in B$ with $(c,d) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{B}}$.
-\end{enumerate}
+Now, a \emph{basic bisimulation} between two transition systems $(\str{A},s_{a})$ and $(\str{B},s_{b})$ is simply a mapping $\mathcal{Z} \subseteq A \times B$ between states such that $(s_{a}, s_{b}) \in \mathcal{Z}$,  and all of the following three conditions are satisfied:
+\begin{description}
+  \item[\desclabel{(Atomic Harmony)}{sbisim:atomicharmony}] if $(a,b) \in \mathcal{Z}$, then $a$ and $b$ satisfy the same properties, namely $a \in p_{i}^{\str{A}}$ iff $b \in p_{i}^{\str{B}}$ for all unary predicates $p_{i}$,
+  \item[\desclabel{(Basic Forth)}{sbisim:forth}] if $(a,b) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{A}}$ for some $c \in A$, then there is a state $d \in B$ with $(c,d) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{B}}$, and
+  \item[\desclabel{(Basic Back)}{sbisim:back}] if $(a,b) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{A}}$ for some $d \in B$, then there is a state $c \in B$ with $(c,d) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{B}}$.
+\end{description}
 We write $\str{A}, s_{a} \bisimto_{\Logic{ML}} \str{B}, s_{b}$ if there is a bisimulation between $(\str{A}, s_{a})$ and $(\str{B}, s_{b})$.
-We say that $(c,d) \in \mathcal{Z}$ obtained via conditions 2 and 3 along some transition above are \emph{witnesses} for $(a,b) \in \mathcal{Z}$.
+We say that $(c,d) \in \mathcal{Z}$ obtained via the \ref{sbisim:forth} and \ref{sbisim:back} conditions above for some transition starting from $(a,b) \in \mathcal{Z}$ are \emph{witnesses} for $(a,b)$.
 The \emph{basic bisimulation game} is an intuitive way to conceptualize this definition.
 The game is played by two players, Spoiler and Duplicator on two structures $\str{A}, s_{a}$ and $\str{B}, s_{b}$.
 At the beginning of the game, we place exactly two pebbles exactly on the two states $s_{a}$ and $s_{b}$.
 The task of Duplicator in the game is to uphold the invariant that the states on which the pebbles are placed have the same properties (dubbed ``atomic harmony'').
 So, if $s_{a}$ and $s_{b}$ do not have the same properties, Duplicator loses instantly.
 Otherwise, the game continues in rounds.
-In each round, first Spoiler moves one of the pebbles along a transition, and then Duplicator moves the other pebble along a transition, trying to again uphold the invariant that the marked states have the same properties.
+In each round, first Spoiler moves one of the pebbles along a transition, \ie{} Spoiler picks one of the possible successors of the current state according to the transition relation.
+Then, Duplicator moves the other pebble along a transition, trying to again uphold the invariant that the states which are marked by the pebbles have the same properties.
 Spoiler wins the game if at any point, Duplicator cannot make a move to uphold the invariant.
 Otherwise, if Spoiler is not able to win in this way, we say that Duplicator has a winning strategy in the game.
 We can show that Duplicator has a winning strategy in this game on structures $(\str{A}, s_{a})$ and $(\str{B}, s_{b})$ if and only if $\str{A}, s_{a} \bisimto_{\Logic{ML}} \str{B}, s_{b}$.
@@ -37,26 +38,27 @@ In this case, we speak of the \emph{$\ell$-round basic bisimulation game}.
 There is a corresponding restricted notion of bisimulation, the $\ell$-basic bisimulation, which consists of a sequence of sets $\mathcal{Z}_{0} \supseteq \mathcal{Z}_{1}, \ldots, \supseteq \mathcal{Z}_{\ell}$ such that $(s_{a}, s_{b}) \in \mathcal{Z}_{\ell}$ and each $\mathcal{Z}_{i}$ satisfies modified back-and-forth conditions, where the witnesses $(c,d)$ are only required to be in $\mathcal{Z}_{i-1}$, but not neccesarily in $\mathcal{Z}_{i}$.
 
 \begin{example}
-  The following figure shows two structures $(\str{A}, \underline{a})$ and $(\str{B}, \underline{a})$ which are bisimilar and two structures $(\str{C}, \underline{a})$ and $(\str{D}, \underline{a})$ which are not.
+  The following figure shows two structures $(\str{A}, {a})$ and $(\str{B}, {a})$ which are bisimilar and two structures $(\str{C}, {a})$ and $(\str{D}, {a})$ which are not.
   The signature of these structures contains only a single unary relation $p_{1}$.
-  We draw rectangles around states which have the property $p_{1}$:
+  We draw rectangles around states which have the property $p_{1}$, and underline the distinguished state $a$:
 
   \vspace{1em}
   \input{res/modal-bisim-ex.tex}
+  \vspace{-1em}
 
   \noindent
-  The set $\mathcal{Z} = \{(a,a), (b,b), (a,c), (b,d) \}$ is a bisimulation between $(\str{A}, \underline{a})$ and $(\str{B}, \underline{a})$.
+  The set $\mathcal{Z} = \{(a,a), (b,b), (a,c), (b,d) \}$ is a bisimulation between $(\str{A}, {a})$ and $(\str{B}, {a})$.
   We highlight the two equivalence classes of states induced by this bisimulation with the labels $1$ and $2$ in the above pictures.
 
   \noindent
-  To see why $(\str{C}, \underline{a}) \nsim_{\Logic{ML}} (\str{D}, \underline{a})$, consider the following game play:
+  To see why $(\str{C}, {a}) \nsim_{\Logic{ML}} (\str{D}, {a})$, consider the following game play:
   \begin{enumerate}
-    \item We start with pebbles on states $\underline{a}$ in $\str{C}$ and $\underline{a}$ in $\str{D}$.
-    \item Spoiler moves from $\underline{a}$ to $c$ in $\str{C}$, which forces Duplicator to move to $d$ in $\str{D}$ to preserve atomic harmony.
+    \item We start with pebbles on states ${a}$ in $\str{C}$ and ${a}$ in $\str{D}$.
+    \item Spoiler moves from ${a}$ to $c$ in $\str{C}$, which forces Duplicator to move to $d$ in $\str{D}$ to preserve atomic harmony.
     \item Spoiler now picks $c$ in $\str{D}$, to which Duplicator has no answer, so Spoiler wins.
   \end{enumerate}
   We indicate the moves by spoiler with the labels $1$, $2$ and $3$ and the corresponding answers by Duplicator with $1'$, $2'$ in the above pictures.
-  We can encode this strategy of Spoiler with the modal logic formula $\varphi = \Diamond((\neg p_{1}) \land \Diamond (\neg p_{1}))$, which is satisfied in $(\str{D}, \underline{a})$ but not in $(\str{C}, \underline{a})$.
+  We can encode this strategy of Spoiler with the modal logic formula $\varphi = \Diamond((\neg p_{1}) \land \Diamond (\neg p_{1}))$, which is satisfied in $(\str{D}, {a})$ but not in $(\str{C}, {a})$.
 \end{example}
 
 \noindent
@@ -74,23 +76,22 @@ This presentation follows~\cite[Sec. 2.2.3]{Otto04} and~\cite[Sec. 2]{Bednarczyk
 In the final section, we describe the $\FGF$-bisimulation game and define some concepts based on this game which we use in later chapters to construct the $\FGF$ unraveling.
 
 \section{Bisimulation for $\GF$}
-A bisimulation for $\GF$ relates tuples of elements between structures, generalizing basic bisimulations, which only relate single elements between structures.
-Just like basic bisimulations require related states to have the same properties, a $\GF$ bisimulation requires that related tuples have the same properties, which we define as follows.
-Let $\str{A}$ and $\str{B}$ be two structures with tuples $\elemtuplea = (a_{1}, \ldots, a_{n})$ and $\elemtupleb = (b_{1}, \ldots, b_{n})$ for some $n \in N$ where $\elemtuplea \sqin A$ and $\elemtupleb \sqin B$.
-Then $\partisof = (\elemtuplea, \elemtupleb)$ defines a \emph{partial isomorphism} between $\str{A}$ and $\str{B}$ if:
+A bisimulation for $\GF$~\cite{AndrekaNB98} relates tuples of elements between structures, generalizing basic bisimulations, which only relate single elements between structures.
+We first lift the notion of atomic harmony from single states to tuples.
+Let $\str{A}$ and $\str{B}$ be two structures with tuples $\elemtuplea = (a_{1}, \ldots, a_{n})$ and $\elemtupleb = (b_{1}, \ldots, b_{n})$ for some $n \in \N$ where $\elemtuplea \sqin A$ and $\elemtupleb \sqin B$.
+Then a pair of tuples $\partisof = (\elemtuplea, \elemtupleb)$ defines a \emph{partial isomorphism} between $\str{A}$ and $\str{B}$ if:
 \begin{itemize}
   \item $a_{i} = a_{j}$ if and only if $b_{i} = b_{j}$ for every $i,j \le n$, and
   \item for any $\relR \in \Sigma$ and any sequence of (not necessarily distinct) indices $i_{1}, \ldots, i_{k}$ with $k \le n$:
     \begin{equation*}
-    (a_{i_{1}}, \ldots, a_{i_{k}}) \in \relR^{\str{A}} \iff (b_{i_{1}}, \ldots, b_{i_{k}}) \in \relR^{\str{B}}
+    (a_{i_{1}}, \ldots, a_{i_{k}}) \in \relR^{\str{A}} \iff (b_{i_{1}}, \ldots, b_{i_{k}}) \in \relR^{\str{B}}\mathrm{.}
     \end{equation*}
 \end{itemize}
 We say that $\set(\elemtuplea)$ is the \emph{domain} and $\set(\elemtupleb)$ the \emph{image} of $\partisof$.
 For the partial isomorphism $\partisof$, the function $f \colon a_{i} \mapsto b_{i}$ for $i \in [1,n]$ is an isomorphism between $\restr{\str{A}}{\set(\elemtuplea)}$ and $\restr{\str{B}}{\set(\elemtupleb)}$.
-If the structures are clear from the context, we write $\elemtuplea \isoeq \elemtupleb$ to denote that there is a partial isomorphism mapping $\elemtuplea$ to $\elemtupleb$.
-For structures $\str{A}$ and $\str{B}$, the set $\PartIso{\str{A}}{\str{B}}$ is the set of all partial isomorphisms between $\str{A}$ and $\str{B}$.
-
-Like basic bisimulations, we define $\GF$-bisimulations via back-and-forth conditions.
+Two partial isomorphisms $\partisof$ and $\partisog$ \emph{agree on their common domain} if $f(a) = p(a)$ for every element $a$ that is in the domain of both $\partisof$ and $\partisog$.
+Symmetrically, $\partisof$ and $\partisog$ \emph{agree on their common image} if $f^{-1}(a) = g^{-1}(a)$ for every element $a$ in the common image.
+For structures $\str{A}$ and $\str{B}$, the set $\PartIso{\str{A}}{\str{B}}$ is the set of all partial isomorphisms between $\str{A}$ and $\str{B}$. Similarly to basic bisimulations, we now define $\GF$-bisimulations via the back-and-forth conditions. For the following definition, recall that a \emph{live} tuple is a tuple which is in $\relR^{\str{A}}$ for some $\relR \in \Sigma$.
 \begin{definition}[$\GF$ back-and-forth conditions and bisimulation]
 For non-empty $\bisimY, \bisimZ \subseteq \PartIso{\str{A}}{\str{B}}$ we say that $\bisimZ$ satisfies back-and-forth conditions for $\bisimY$ if for every partial isomorphism $\partisof \in \bisimY$ we have:
 %
@@ -100,12 +101,11 @@ For non-empty $\bisimY, \bisimZ \subseteq \PartIso{\str{A}}{\str{B}}$ we say tha
 \end{description}
 A non-empty set $\bisimZ \subseteq \PartIso{\str{A}}{\str{B}}$ is a $\GF$-\emph{bisimulation} between $\str{A}$ and $\str{B}$ if it itself satisfies \ref{bisim:forth} and~\ref{bisim:back} conditions given above.
 \end{definition}
-An $\ell$-$\GF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence of sets $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell \subseteq \PartIso{\str{A}}{\str{B}}$ such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:forth} and~\ref{bisim:back} conditions for $\bisimZ_{i{+}1}$.
+An $\ell$-$\GF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence of sets $\bisimZ_0, \bisimZ_1, \ldots, \bisimZ_\ell \subseteq \PartIso{\str{A}}{\str{B}}$ with $\bisimZ_{0} \supseteq \bisimZ_{1} \supseteq \cdots \supseteq \bisimZ_{\ell}$ such that for all $i < \ell$ we have that $\bisimZ_i$ satisfies~\ref{bisim:forth} and~\ref{bisim:back} conditions for $\bisimZ_{i{+}1}$.
 We say that pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ are $\GF$-\emph{bisimilar}, denoted $(\str{A}, \elemtuplea) \bisimto_{\GF} (\str{B}, \elemtupleb)$, if there exists a $\GF$-bisimulation between $\str{A}$ and $\str{B}$ containing the partial isomorphism that maps $\elemtuplea$ to $\elemtupleb$.
-We analogously speak about $\ell$-$\GF$-\emph{bisimilarity} and employ the notation $(\str{A}, \elemtuplea) \bisimto_{\GF}^{\ell} (\str{B}, \elemtupleb)$.
-We use the notation $\elemtuplea \bisimto_{\GF} \elemtupleb$ or $\elemtuplea \bisimto_{\GF}^{\ell} \elemtupleb$ if the structures $\str{A}$ and $\str{B}$ are clear from the context.
+We analogously speak about $\ell$-$\GF$-\emph{bisimilarity} and employ the notation $(\str{A}, \elemtuplea) \bisimto_{\GF}^{\ell} (\str{B}, \elemtupleb)$ if $(\elemtuplea, \elemtupleb) \in \bisimZ_{\ell}$.
 
-The following classical lemma links bisimulations and logical~equivalence, in the same way \cref{lemma:ML-bisimulations-work-well} does for modal logic.
+The following classical lemma links bisimulations and logical~equivalence for $\GF$, in the same way \cref{lemma:ML-bisimulations-work-well} does for modal logic.
 \begin{lemma}[Thm. 1.12 of~\cite{Gradel014}]\label{lemma:GF-bisimulations-work-well}
 For every pair of pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ we have that:
 \begin{enumerate}[(a)]
@@ -242,8 +242,9 @@ We say that a biseq $\sigma$ \emph{extends} a biseq $\rho$ if $\sigma$ can be co
 The set of all biseqs for a structure $\str{A}$, denoted by $\Seq{A}$, intuitively collects all possible ways in which Spoiler can explore this structure.
 For any $\ell$-biseq, if $\str{B}, \elemtupleb^{(0)}$ is a structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding biseq in $\str{B}$.
 The latter sequence represents a possible choice of moves for Duplicator in response to the moves played by Spoiler in the game on the structures $\str{A}, \elemtuplea^{(0)}$ and $\str{B}, \elemtupleb^{(0)}$.
-Below are some examples of biseqs.
-\begin{example}\label{fig:biseq-examples}
+The next example illustrates this definition of biseqs.
+
+\begin{example}[needspace=6em]\label{fig:biseq-examples}
   \mbox{}\par
   \centering
   \begin{minipage}[t]{0.2\textwidth}

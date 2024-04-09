@@ -1,7 +1,9 @@
 \begin{tikzpicture}
-  \matrix[matrix of nodes, row sep=2em, column sep=3em, every node/.style={anchor=center, inner sep=0.2em}] {
-    {} & |[draw, circle, double] (d)| d & {} \\
-    |(a)| a & |[draw, rectangle] (b)| b & |[draw, circle, double] (c)| c \\
+  \tikzset{el/.style={minimum width=1.5em, minimum height=1.5em}};
+  \matrix[matrix of nodes, row sep=1em, column sep=3em, every node/.style={el}, name=g] {
+    {} & |[draw, circle, double] (d)| $d$ & {} \\
+    |(a)| $a$ & & \\
+    & |[draw, rectangle] (b)| $b$ & |[draw, circle, double] (c)| $c$ \\
   };
 
   \path[->]
@@ -11,8 +13,21 @@
     (d.east) edge[out=-10,in=280,looseness=4] (d.south)
   ;
 
-  \node[right=7em of d.base east] (legend) { legend (relations) };
-  \matrix[every node/.style={anchor=base west}, row sep=0.5em, column sep=1em, below=0em of legend.south west, anchor=north west] {
-    \node[draw,double,circle,inner sep=0.2em] {$p_{c}$}; & \node[draw,rectangle,inner sep=0.2em] {$p_{r}$}; & \draw[->] (0,0) -- node[midway,above] {$\relR$} (2em,0)  ; \\
+  \matrix[right=7em of g.north east, row sep=1em, matrix anchor=north west, name=legend, column sep=1em, every node/.style={anchor=base west}] {
+    \node[draw, circle, double, el] (l1) {$p_c$}; & \node {$p_{c}^{\str{A}} = \{ c,d \}$}; \\
+    \node[draw, rectangle, el] {$p_r$}; & \node {$p_{r}^{\str{A}} = \{ b \}$ }; \\
+    \draw[->] (0,0) -- node[pos=0.35,above] {$\relR$} (2em,0); & \node {$\relR^{\str{A}} = \{ (a,d), (a,b), (b,a), (b,c) \}$};  \\
   };
+
+  \node[left=1em of l1] { \textit{legend} };
+
+  % padding
+  \node[above=0.5em of l1.north] (x) {};
+
+  % \node[right=7em of d.base east] (legend) { legend (relations) };
+  % \matrix[every node/.style={anchor=base west,el}, row sep=0.5em, column sep=1em, below=0em of legend.south west, anchor=north west] {
+  %   \node[draw,double,circle,inner sep=0.2em] {$p_{c}$}; & \node[draw,rectangle,inner sep=0.2em] {$p_{r}$}; & \draw[->] (0,0) -- node[midway,above] {$\relR$} (2em,0)  ; \\
+  % };
+
+
 \end{tikzpicture}

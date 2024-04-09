@@ -221,12 +221,10 @@ Some common extensions for which this is the case are (see~\cite[Sec. 5.1]{goran
 \end{itemize}
 
 \begin{example}
-  Consider the following structure $\str{T}$:
+  Consider a structure $\str{T}$ with the domain $\mathcal{T} = \{ a,b,c,d \}$, two unary relations $p_{c}^{\str{A}} = \{c,d\}$ and $p_{r}^{\str{A}} = \{ b \}$ and a single binary relation $\relR^{\str{A}} = \{ (a,d), (a,b), (b,a), (b,c) \}$. We view this structure as a transition system: the elements are the states of the system and the relation $\relR$ encodes the possible transitions from a given state, as shown in the following picture:
   \begin{center}
   \input{res/modal-logic-ex}
   \end{center}
-  We view this structure as a transition system: the elements are the states of the system and the relation $\relR$ encodes the possible transitions from a given state.
-  The unary predicates $p_{c}$ (marked by a circle) and $p_{r}$ (marked by a rectangle) are properties of states.
   We say that a modal formula $\varphi$ is true at some \emph{state} $s \in T$ if $\str{T}, s \models \varphi$.
   Some properties of this structure that we can express with modal logic are:
   \begin{itemize}
