@@ -109,7 +109,7 @@ The following classical lemma links bisimulations and logical~equivalence for $\
 \begin{lemma}[Thm. 1.12 of~\cite{Gradel014}]\label{lemma:GF-bisimulations-work-well}
 For every pair of pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ we have that:
 \begin{enumerate}[(a)]
-\item $(\str{A}, \elemtuplea) \bisimto_{\GF} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF} (\str{B}, \elemtupleb)$, the converse holds for $\omega$-saturated $\str{A}$ and $\str{B}$;
+\item $(\str{A}, \elemtuplea) \bisimto_{\GF} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF} (\str{B}, \elemtupleb)$, the converse holds for $\omega$-saturated\footnote{An $\omega$-saturated structure is, roughly speaking, a structure in which all consistent sets of formulae with one free variable over a finite number of constants interpreted as elements of that structure are realized by some element of the structure. In classical model theory, for any given structure, there is a structure which is $\omega$-saturated and satisfies the same first-order sentences. For details, see~\cite[Chapter 28]{monk1976}} $\str{A}$ and $\str{B}$;
 \item $(\str{A}, \elemtuplea) \bisimto_{\GF}^{\ell} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF_\ell} (\str{B}, \elemtupleb)$ for all $\ell \in \N$;
 \end{enumerate}
 \end{lemma}
