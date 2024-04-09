@@ -30,6 +30,7 @@ Examples of this include:
   \item $\GF$ is the $\GF$-bisimulation invariant fragment of $\FO$, both in the classical~\cite{AndrekaNB98} and finite setting~\cite{Otto2012}.
   \item Modal logic extended with fixed point operators ($\mu\ML$) is the bisimulation-invariant fragment of monadic second order logic ($\Logic{MSO}$) (Janin-Walukiwicz theorem)~\cite{janin1996}, and similar for the guarded fragment extended with fixed point operators~\cite{gradel2002}.
         However, whether this is true in the finite as well is an open question.
+  \item First-order logic restricted to two variables ($\FO{}2$) is the two-pebble game invariant fragment of $\FO$~\cite{gradel1999}, but not in the finite~\cite{otto2017}.
   \item Sabotage modal logic, which extends modal logic with an ``edge-deletion'' operator, is the sabotage-bisimulation invariant fragment of $\FO$~\cite{aucher2015}.
   \item Coalgebaric modal logic is, under some constraints, the behavioral-equivalence invariant fragment of Coalgebaric Predicate Logic\cite{litak2012}, both in the finite and the classical sense.
   \item Concept expressions of different description logics including \Logic{FL^{-}}, \Logic{FLU^-}, \Logic{ALC}, \Logic{ALCQIO}, \Logic{DL{-}Lite} and others are fragments of $\FO$ invariant under corresponding equivalence relations\cite{kurtonina1999, lutz2011, piro2013}.
@@ -38,7 +39,7 @@ Examples of this include:
   \item Weakly Aggregative Modal Logic, a polyadic modal logic, is the $wa$-bisimulation invariant fragment of $\FO$.
 \end{itemize}
 
-With exception of the guarded fragments and the last example, all these results are for logics where predicates have arity of at most two.
+With exception of the guarded fragments and the last example, all these results are for logics where predicates have arity of at most two, or allow at most two variables.
 A possible reason for this may be that higher-arity relations are difficult to work with, as demonstrated by the proof of the van Benthem characterization of $\GF$\cite{Otto2012}.
 Compared to an earlier result for $\GF$ with relations of arity at most 2\cite{Otto04}, the details of this proof are much more complex.
 Luckily, since $\FGF$ is a subset of $\GF$ and any formula preserved under $\FGF$-bisimulation is also preserved under $\GF$-bisimulation, we can focus on characterizing $\FGF$ as a subset of $\GF$ here.

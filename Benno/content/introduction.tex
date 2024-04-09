@@ -53,10 +53,12 @@ Succinctly, we obtain the following result: $\FGF \simeq \FO/{\bisimto_{\FGF}}$ 
 This shows that $\bisimto_{\FGF}$ is in fact the right notion of bisimulation for $\FGF$.
 
 We study two versions of the problem: the classical one where we take $\bisimto_{\FGF}$ to be an equivalence relation over the class of all structures (including infinite structures of large, uncountable cardinalities), and the finitary version, where $\bisimto_{\FGF}$ relates finite structures.
-In the classical setting, \cref{thm:invariance-iff-fgf} is a known result~\cite{BednarczykJ22}, but with an unconstructive proof relying heavily on compactness, which is known to fail over finite models.
-In the finite case, we may only assume invariance under $\bisimto_{\FGF}$-equivalent models that are finite, but we also only need to establish logical equivalence under finite models.
-Hence, a van Benthem theorem for the class of all models does not imply a van Benthem theorem for the class of finite models.
-However, the approach that we follow in this thesis works in both settings, thus we show that \cref{thm:invariance-iff-fgf} holds in both the classical and the finite setting.
+These are two independent problems, as can be seen in the case of the two-variable fragment of first order logic, which is the two-pebble game invariant fragment of $\FO$ in the classical sense~\cite{gradel1999} but not in the finite~\cite{otto2017}.
+This is because in the finite case, while we only need to establish logical equivalence over finite models, we may also only assume invariance over models that are finite.
+Indeed, in the case of the two variable fragment, we have the first-order sentence that says ``$\relR$ is a linear order over the universe'' (with three variables) which is invariant under the two-pebble game in the finite, but not in the infinite setting.
+In the classical case, the van Benthem Theorem for $\FGF$ (\cref{thm:invariance-iff-fgf}) is a known result, but with an unconstructive proof relying heavily on compactness, which is known to fail over finite models.
+The approach that we follow in this thesis is different and works in both the finitary and the classical setting.
+Hence, we show that \cref{thm:invariance-iff-fgf} is true in both the finite and the classical sense, which is a new result.
 
 \section{Contributions and Outline}
 
