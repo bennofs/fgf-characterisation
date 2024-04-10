@@ -9,7 +9,7 @@ One decidable fragment of first-order logic is the \emph{Forward Guarded Fragmen
 The forward guarded fragment derives from the popular \emph{Guarded Fragment} ($\GF$)~\cite{AndrekaNB98}.
 In the guarded fragment, instead of general quantification with $\exists$ and $\forall$, we only allow quantification of the form $\exists{x_{1}\cdots{}x_{k}}\; (\relR(\vartupley) \land \varphi)$ or $\forall{x_{1}\cdots{}x_{k}} (\relR(\vartupley) \to \varphi)$, where $\relR(\vartupley)$ (the \emph{guard}) is an atom and $\vartupley$ is a tuple such that each free (unbound) variable of $\varphi$ appears at least once in $\vartupley$.
 The forward guarded fragment then further restricts this fragment by requiring that variables appear in a consistent order throuhghout the whole formula.
-For example, consider the following list of $FO$ formulae:
+For example, consider the following list of $\FO$ formulae:
 \begin{enumerate}
   \item $\forall{x_{1}x_{2}x_{3}}\; ((\mathrm{dayAfter}(x_{1},x_{2}) \land \mathrm{dayAfter}(x_{2},x_{3})) \to \mathrm{dayAfter}(x_{1}, x_{3}))$ \\
         ``if $x_{3}$ is a day after $x_{2}$ and $x_{2}$ itself is a day after $x_{1}$, then $x_{3}$ is after $x_{1}$ as well (transitivity)'' \\
@@ -40,7 +40,7 @@ Here, ``invariant'' means that if there are two bisimilar structures, the formul
 Now, the classical van Benthem theorem~\cite{van1983modal} proves the much harder converse: any $\FO$-formula which invariant under this kind of bisimulation is equivalent to a first-order translation of a modal logic formula.
 This classical result is restated in the following theorem:
 \begin{theorem}[Van Benthem Theorem]
-  A first-order formula $\varphi$ is invariant under bisimulation if and only if it is equivalent to a first-order translation of a modal logic formulae.
+  A first-order formula $\varphi$ is invariant under bisimulation if and only if it is equivalent to a first-order translation of a modal logic formula.
 \end{theorem}
 
 We show in this thesis that a similar characterization is possible for $\FGF$.

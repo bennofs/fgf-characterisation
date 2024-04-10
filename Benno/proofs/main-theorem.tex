@@ -36,13 +36,13 @@
 \begin{proofsketch}
   The invariance of $\FGF$ under $\bisimto_{\FGF}$ was already shown in \cref{lem:FGF-bisimulations-work-well}, hence what is left to show is the expressive completeness.
   By \cref{cor:ell-invariant-has-ell-formula}, it suffices to show that for every first-order formula that is $\bisimto_{\FGF}$-invariant (in the finite) is also $\bisimto_{\FGF}^{\ell}$-invariant (in the finite) for some $\ell \in \N$.
-  Like Otto, we employ an``upgrading'' to show this.
+  Like Otto, we employ an ``upgrading'' to show this.
   For structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$, the upgrading is shown in the following diagram:
   \begin{center}%
     \usebox{\diagupgrading}
   \end{center}
   where $\str{A'}, \elemtuplea'$, $\str{B'}, \elemtupleb'$ are the companions and $\homop$ is the polynomial function as given by \cref{thm:main-technical-thm}.
-  For every $\bisimto_{\FGF}$-invariant (and hence also $\bisimto_{\GF}$-invariant) $\FO$-formula $\phi$, there is a $g$ such that $\phi$ is $\bisimto_{\GF}^{g}$ invariant (\cref{thm:vanBenthem-for-GF}).
+  For every $\bisimto_{\FGF}$-invariant (and hence also $\bisimto_{\GF}$-invariant) $\FO$-formula $\phi$, there is a number $g$ such that $\phi$ is $\bisimto_{\GF}^{g}$ invariant (\cref{thm:vanBenthem-for-GF}).
   By the above diagram, this implies that $\phi$ is $\bisimto_{\FGF}^{\homop(g)}$ invariant.
   Since all the structures involved in the proof are finite if $\str{A}, \elemtuplea$ and $\str{B},  \elemtupleb$ are finite, this works for both classical model theory and in the finite, concluding the proof.
 \end{proofsketch}

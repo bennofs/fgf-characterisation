@@ -105,26 +105,27 @@ An $\ell$-$\GF$-bisimulation between $\str{A}$ and $\str{B}$ is a sequence of se
 We say that pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ are $\GF$-\emph{bisimilar}, denoted $(\str{A}, \elemtuplea) \bisimto_{\GF} (\str{B}, \elemtupleb)$, if there exists a $\GF$-bisimulation between $\str{A}$ and $\str{B}$ containing the partial isomorphism that maps $\elemtuplea$ to $\elemtupleb$.
 We analogously speak about $\ell$-$\GF$-\emph{bisimilarity} and employ the notation $(\str{A}, \elemtuplea) \bisimto_{\GF}^{\ell} (\str{B}, \elemtupleb)$ if $(\elemtuplea, \elemtupleb) \in \bisimZ_{\ell}$.
 
-The following classical lemma links bisimulations and logical~equivalence for $\GF$, in the same way \cref{lemma:ML-bisimulations-work-well} does for modal logic.
+The following classical lemma links bisimulations and logical~equivalence for $\GF$, in the same way as \cref{lemma:ML-bisimulations-work-well} does for modal logic.
 \begin{lemma}[Thm. 1.12 of~\cite{Gradel014}]\label{lemma:GF-bisimulations-work-well}
 For every pair of pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \elemtupleb)$ we have that:
 \begin{enumerate}[(a)]
-\item $(\str{A}, \elemtuplea) \bisimto_{\GF} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF} (\str{B}, \elemtupleb)$, the converse holds for $\omega$-saturated\footnote{An $\omega$-saturated structure is, roughly speaking, a structure in which all consistent sets of formulae with one free variable over a finite number of constants interpreted as elements of that structure are realized by some element of the structure. In classical model theory, for any given structure, there is a structure which is $\omega$-saturated and satisfies the same first-order sentences. For details, see~\cite[Chapter 28]{monk1976}} $\str{A}$ and $\str{B}$;
+\item $(\str{A}, \elemtuplea) \bisimto_{\GF} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF} (\str{B}, \elemtupleb)$, the converse holds for $\omega$-saturated\footnote{An $\omega$-saturated structure is, roughly speaking, a structure in which all consistent sets of formulae with one free variable over a finite number of constants interpreted as elements of that structure are realized by some element of the structure. In classical model theory, for any given structure, there is a structure which is $\omega$-saturated and satisfies the same first-order sentences. For details, see~\cite[Chapter 28]{monk1976}.} $\str{A}$ and $\str{B}$;
 \item $(\str{A}, \elemtuplea) \bisimto_{\GF}^{\ell} (\str{B}, \elemtupleb)$ implies $(\str{A}, \elemtuplea) \equiv_{\GF_\ell} (\str{B}, \elemtupleb)$ for all $\ell \in \N$;
 \end{enumerate}
 \end{lemma}
 For an example, we use the above lemma to show that there are structures which satisfy the same $\GF$ sentences but can be distinguished by a first-order sentence.
 \begin{example}
-  Consider an $\FO[\{\relE\}]$-formula $\varphi \deff \exists{x_{1}, x_{2}, x_{3}}(\relE(x_{1}, x_{2}) \land \relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$, and structures $\str{A}$, and $\str{B}$ depicted below.
+  Consider an $\FO[\{\relE\}]$-formula $\varphi \deff \exists{x_{1}x_{2}x_{3}}(\relE(x_{1}, x_{2}) \land \relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$, and structures $\str{A}$, and $\str{B}$ depicted below.
   \begin{figure}[H]
   \centering
+  \vspace{-0.2em}
   \begin{tikzpicture}[every node/.style={draw,circle}, baseline=(current bounding box.north)]
     \begin{scope}[xshift=-70]
     \node[draw=none, font=\Large] {$\str{A}$};
     \path[->]
-      (0,1) node(n1) {1}
-      (-1,-1) node(n2) {2}
-      (1,-1) node(n3) {3}
+      (0,0.8) node(n1) {1}
+      (-1,-0.8) node(n2) {2}
+      (1,-0.8) node(n3) {3}
       (n1) edge (n2)
       (n2) edge (n3)
       (n3) edge (n1);
@@ -135,10 +136,10 @@ For an example, we use the above lemma to show that there are structures which s
     \begin{scope}[xshift=70]
     \node[draw=none, font=\Large] {$\str{B}$};
     \path[->]
-      (-1,1) node(n1) {a}
-      (-1,-1) node(n2) {b}
-      (1,-1) node(n3) {c}
-      (1,1) node(n4) {d}
+      (-1,0.8) node(n1) {a}
+      (-1,-0.8) node(n2) {b}
+      (1,-0.8) node(n3) {c}
+      (1,0.8) node(n4) {d}
       (n1) edge (n2)
       (n2) edge (n3)
       (n3) edge (n4)
@@ -146,25 +147,28 @@ For an example, we use the above lemma to show that there are structures which s
     \end{scope}
   \end{tikzpicture}
   \end{figure}
+  \vspace{-0.5em}
+  \noindent
   By design we clearly have $\str{A}\models \varphi$ and $\str{B} \not\models \varphi$. On the other hand, $\str{A}$ and $\str{B}$ are $\GF$-bisimilar, witnessed by the bisimulation $\bisimZ$ consisting of the partial isomorphisms:
   \begin{itemize}
-    \item $s_{1} \mapsto t_{1}$ for every $s_{1} \in \{1,2,3\}$ and $t_{1} \in \{a,b,c,d\}$, and
-    \item $s_{1}s_{2} \mapsto t_{1}t_{2}$ for every $s_{1}s_{2} \in \{12,23,31\}$ and $t_{1}t_{2} \in \{ab,bc,cd,da\}$
+    \item $(s_{1}, t_{1})$ for every $s_{1} \in \{1,2,3\}$ and $t_{1} \in \{a,b,c,d\}$, and
+    \item $(s_{1}s_{2}, t_{1}t_{2})$ for every $s_{1}s_{2} \in \{12,23,31\}$ and $t_{1}t_{2} \in \{ab,bc,cd,da\}$
   \end{itemize}
-  where $s_{1}s_{2} \mapsto t_{1}t_{2}$ denotes the partial isomorphism mapping the element $s_{1}$ to $t_{1}$ and the element $s_{2}$ to $t_{2}$.
+  where $(s_{1}s_{2}, t_{1}t_{2})$ denotes the partial isomorphism mapping the element $s_{1}$ to $t_{1}$ and the element $s_{2}$ to $t_{2}$.
 \end{example}
 
-
+\clearpage
 \section{Bisimulation for $\FGF$}
 The notion of bisimulation for $\FGF$ is similar to the one for $\GF$, but takes the ``forwardness'' of $\FGF$ into account.
-Due to the ``forwardness'', atomic formula of $\FGF$ cannot fully describe a tuple up to partial isomorphism.
+Due to the ``forwardness'', two tuples which satisfy the exact same atomic formula of $\FGF$ do not necessarily induce a partial isomorphism.
 Hence, we now define \emph{forward partial maps}, which exactly represent the properties captured by atomic $\FGF$ formulae.
-Let $\elemtuplea \sqin A$ and $\elemtupleb \sqin B$ be tuples with $|\elemtuplea| = |\elemtupleb| $from structures $\str{A}$ and $\str{B}$.
+Let $\elemtuplea \sqin A$ and $\elemtupleb \sqin B$ be tuples with $|\elemtuplea| = |\elemtupleb|$ from structures $\str{A}$ and $\str{B}$.
 The pair $(\elemtuplea, \elemtupleb)$ is a \emph{forward partial map} between if $\elemtuplea$ and $\elemtupleb$ are live and $\atp{\FGF}{\str{A}}{\elemtuplea} = \atp{\FGF}{\str{B}}{\elemtupleb}$~holds.
-For our fixed signature $\Sigma$, we note that $|\elemtuplea| = |\elemtupleb| \le \arity(\Sigma)$, due to the requirement that those tuples are live.
+For our fixed signature $\Sigma$, we note that $|\elemtuplea| = |\elemtupleb|$ is smaller or equal to $\arity(\Sigma)$, due to the requirement that these tuples are live.
 A \emph{system of forward partial maps} between structures $\str{A}$ and $\str{B}$ is a set of $\mathcal{Z}$ where each element is a forward partial map.
 
 Now, we define bisimulations for $\FGF$ in terms of back-and-forth conditions.
+Here, the definition of forward partial maps takes the role of the \ref{sbisim:atomicharmony} condition of basic bisimulations.
 \begin{definition}[$\FGF$ back-and-forth conditions and bisimulation]
   For non-empty systems of partial maps $\mathcal{Y}, \mathcal{Z}$ between structure $\str{A}$ and $\str{B}$, we say that $\mathcal{Z}$ satisfies the back-and-forth conditions for $\mathcal{Y}$ if for every forward partial map $(\elemtuplea, \elemtupleb) \in \mathcal{Y}$ we have:
   \begin{description}\itemsep0em
@@ -179,11 +183,11 @@ We stress that the back-and-forth conditions allow for choosing an empty infix, 
 Instead, even for $\ell = 1$, every guarded tuple must be mapped to a tuple in the other structure.
 
 Bisimulations for $\FGF$ correspond to logical equivalence with respect to formulae of $\FGF$.
-A ``forward'' counterpart of \cref{lemma:GF-bisimulations-work-well} is presented below.
+Below, we present a ``forward'' counterpart of \cref{lemma:GF-bisimulations-work-well}.
 \input{proofs/FGF-bisimulations-work-well}
 
 \noindent
-In the following example, we show that there are $\FGF$-bisimilar structures which are not $\GF$-bisimilar.
+In the following example, we establish the existence of $\FGF$-bisimilar structures which are not $\GF$-bisimilar.
 \begin{example}
   Consider the two structures
   $\str{A} := \tikz[baseline=0.5ex]{\path (0pt,-2.5ex) -- (0pt,-2.5ex); \path[->] (0,0) node[draw,circle] (n1) {a} (n1) edge[loop above,in=70,out=110,looseness=10] (n1);}$ and
@@ -193,12 +197,12 @@ In the following example, we show that there are $\FGF$-bisimilar structures whi
   \begin{equation*}
   \mathcal{Z} = \{ (a,1), (a,2), (aa,12), (aa, 21) \}
   \end{equation*}
-  This shows that the two structures are $\FGF[\{\relE\}]$-bisimilar.
+  This show that these two structures are $\FGF[\{\relE\}]$-bisimilar.
   But the $\GF$-sentence $\exists{\varx_1}\relE(\varx_1,\varx_1)$ can distinguish them, hence they are not $\GF$-bisimilar.
 \end{example}
 
 \section{The $\FGF$-bisimulation game}\label{sec:fgf-game}
-Both $\GF$-bisimulation and $\FGF$-bisimulation naturally correspond to games~\cite[Sec. 1.2.1]{Gradel014}.
+Both $\GF$-bisimulation and $\FGF$-bisimulation naturally correspond to games~\cite[Sec. 1.2.1]{Gradel014}, which are natural generalizations of the basic bisimulation game.
 We focus on the game corresponding to $\FGF$-bisimulation here.
 The $\FGF$-\emph{bisimulation game} is played on two pointed structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ by two players, Spoiler and Duplicator.
 The game starts by selecting the tuples $\elemtuplea$ and $\elemtupleb$ from the corresponding structures.
@@ -206,8 +210,8 @@ Throughout the game, Duplicator must maintain the condition that the two current
 If $\elemtuplea$ and $\elemtupleb$ already do not have the same atomic $\FGF$-type, then Duplicator loses instantly.
 Otherwise, the game proceeds in rounds.
 In each round, Spoiler first chooses a structure.
-As the game is symmetric, let us assume that spoiler chooses the structure $\str{A}$.
-Spoiler then selects an infix $\elemtupleafromto{i}{j}$ of the currently selected tuple and a new live tuple $\elemtuplec$ which has $\elemtupleafromto{i}{j}$ as a prefix.
+As the game is symmetric, let us assume that Spoiler chooses the structure $\str{A}$.
+Spoiler then selects an infix $\elemtupleafromto{i}{j}$ of the currently selected tuple $\elemtuplea$ and a fresh live tuple $\elemtuplec$ which has $\elemtupleafromto{i}{j}$ as a prefix.
 For convenience, we use the terms \emph{shared elements} for the prefix $\elemtuplecfromto{1}{j-i+1}$ and \emph{unshared elements} for the remaining elements, namely $\elemtuplecfromto{j-i+1+1}{|\elemtuplec|}$.
 Duplicator, in order to continue the game, must then find a live tuple $\elemtupled$ in $\str{B}$ having $\elemtuplebfromto{i}{j}$ as prefix such that $\elemtuplec$ and $\elemtupled$ have equal $\FGF$-types.
 Note that Spoiler may choose an index $j$ that is not maximal, so that the situation of $a_{j+1} = c_{j-i+1+1}$ is still possible.
@@ -230,24 +234,22 @@ We collect these observations in the following corollary:
 \end{corollary}
 
 \section{Biseqs and Bipoints}\label{sec:biseqs-and-bipoints}
-We next define two concepts (biseqs and bipoints) which represent a sequence of moves that Spoiler takes and the elements that Spoiler selects, respectively, in one of the possible plays of the $\FGF$-bisimulation game.
+We next define two concepts (\emph{biseqs} and \emph{bipoints}) which represent a sequence of moves that Spoiler takes and the elements that Spoiler selects, respectively, in one of the possible plays of the $\FGF$-bisimulation game.
 Later, in \cref{chap:unraveling}, we employ these concepts to characterize a structure in terms of its behavior under the game.
 
 Let $\str{A}, \elemtuplea^{(0)}$ be a pointed structure where $\elemtuplea^{(0)}$ is just tuple of elements from $A$, labelled with a zero index as it is the start of a sequence of tuples selected by Spoiler.
-An $\ell$-\emph{biseq} is a word in $A^*{(\N\N{}A^{*})}^{\ell}$, written as a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices with $i \le j$ for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
+An $\ell$-\emph{biseq} ($\ell$-bisimimulation sequence) is a word in $A^*{(\N\N{}A^{*})}^{\ell}$, written as a sequence of the form $\elemtuplea^{(0)}(i^{(1)}, j^{(1)})\elemtuplea^{(1)}\cdots(i^{(\ell)}, j^{(\ell)})\elemtuplea^{(\ell)}$, where each $a^{(k)}$ is a live tuple from $\str{A}$ and $i^{(k)}, j^{(k)}$ are indices with $i \le j$ for which $\elemtupleafromto{i^{(k)}}{j^{(k)}}^{(k-1)} = \elemtupleafromto{1}{j^{(k)}-i^{(k)}+1}^{k}$.
 Conceptually, an $\ell$-biseq represents a play of Spoiler in the $\ell$-round $\FGF$-game involving the structure $\str{A}$, where in each round $k$, Spoiler chooses the non-empty infix corresponding to the indices $i^{(k)}\ldots{}j^{(k)}$ and the new tuple $\elemtuplea^{(k)}$.
 Biseqs are denoted by greek letters $\rho, \sigma, \theta, \ldots$ and for
 a biseq $\sigma$ we refer to the parameter $\ell$ in the above definition as the \emph{level} of $\sigma$.
 We say that a biseq $\sigma$ \emph{extends} a biseq $\rho$ if $\sigma$ can be constructed from $\rho$ by adding moves to the end, \ie{} $\rho$ is a prefix of $\sigma$.
 The set of all biseqs for a structure $\str{A}$, denoted by $\Seq{A}$, intuitively collects all possible ways in which Spoiler can explore this structure.
 For any $\ell$-biseq, if $\str{B}, \elemtupleb^{(0)}$ is a structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding biseq in $\str{B}$.
-The latter sequence represents a possible choice of moves for Duplicator in response to the moves played by Spoiler in the game on the structures $\str{A}, \elemtuplea^{(0)}$ and $\str{B}, \elemtupleb^{(0)}$.
-The next example illustrates this definition of biseqs.
+The latter sequence represents a possible choice of moves for Duplicator in response to the moves played by Spoiler in the game on the structures $\str{A}, \elemtuplea^{(0)}$ and $\str{B}, \elemtupleb^{(0)}$. The example on the following page illustrates this definition of biseqs.\clearpage
 
-\begin{example}[needspace=6em]\label{fig:biseq-examples}
-  \mbox{}\par
-  \centering
-  \begin{minipage}[t]{0.2\textwidth}
+\begin{example}\label{fig:biseq-examples}
+  \mbox{}\\
+  \hfill{}\begin{minipage}[t]{0.2\textwidth}
       \raggedleft%
       \vspace{0pt}
       \includegraphics[scale=0.5]{res/example-struct-1}
@@ -278,21 +280,22 @@ The next example illustrates this definition of biseqs.
     \end{itemize}
     }
   \end{minipage}
+  \hfill{}\\
 \end{example}
 
 Let $\Seq{\str{A}}$ be the set of all biseqs for a structure $\str{A}$.
-There is a natural projection $\Pi$ from a biseq $\sigma \in \Seq{A}$ to tuples of $\str{A}$: for $\sigma = \cdots (i,j) \elemtuples$, we define $\Pi(\sigma)$ as $\Pi(\sigma) = \elemtuples$.
+There is a natural projection $\Pi$ from a biseq $\sigma \in \Seq{A}$ to tuples of $\str{A}$: for $\sigma = \cdots (i,j) \elemtuples$, we define $\Pi(\sigma)$ to be $\Pi(\sigma) = \elemtuples$.
 Intuitively, this projection gives the tuple of selected elements in structure $\str{A}$ in the bisimulation game after playing the moves of $\sigma$.
-We now introduce ``bipoints'', which instead of tuples, project to individual selected elements (``points'') of $\str{A}$.
-A \emph{bipoint} of a structure $\str{A}$ is a tuple $(\sigma, k) \in \Seq{A} \times \mathbb{N}$ such that
+We now introduce ``bipoints'', which have a projection to individual selected elements (``points'') of $\str{A}$ instead.
+A \emph{bipoint} of a structure $\str{A}$ is a tuple $(\sigma, k) \in \Seq{A} \times \mathbb{N}$ such that either
 \begin{itemize}
-  \item $\sigma = \elemtuplea$, $k \ge 1$ and $k \le |\elemtuplea|$ for some $\elemtuplea \sqin A$, or
-  \item $\sigma = \cdots (i,j) \elemtuplea$, $k \ge (j-i+1) + 1$ and $k \le |\elemtuplea|$ for some $\elemtuplea \sqin A$.
+  \item $\sigma = \elemtuplea$, for some $\elemtuplea \sqin A$ where $1 \le k$ and $k \le |\elemtuplea|$, or
+  \item $\sigma = \cdots (i,j) \elemtuplea$, for some $\elemtuplea \sqin A$ where $(j-i+1) + 1 \le k$ and $k \le |\elemtuplea|$ .
 \end{itemize}
-For a bipoint $e$ of a structure $A$ that can be decomposed as $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the biseq and the counter of this bipoint, respectively.
+For a bipoint $e$ of a structure $\str{A}$ that can be decomposed as $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the biseq and the counter of this bipoint, respectively.
 The counter of the bipoint identifies one component of the tuple of elements that the biseq projects to.
-We define the projection $\pi$ from bipoints of a structure $\str{A}$ to elements of $\str{A}$ as follows: if $e = (\sigma, k)$ is a bipoint, then $\pi(e) = {\Pi(\sigma)}_{k}$ (= $\elema_{k}$ for $\sigma = \cdots\elemtuplea$).
-The condition that ``$k \ge (j-i+1) + 1$'' ensures that we do not have more than one bipoint for the shared elements in a move in the bisimulation game.
+We define the projection $\pi$ from bipoints of a structure $\str{A}$ to elements of $\str{A}$ as follows: if $e = (\sigma, k)$ is a bipoint, then $\pi(e) = {\Pi(\sigma)}_{k}$ (which is equal to $\elema_{k}$ in case $\sigma = \cdots\elemtuplea$).
+The condition ``$k \ge (j-i+1) + 1$'' ensures that we do not have more than one bipoint for the shared elements in a move in the bisimulation game.
 \Cref{ex:bipoints} shows a concrete application for this condition.
 
 \begin{example}\label{ex:bipoints}

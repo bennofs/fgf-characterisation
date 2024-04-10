@@ -53,6 +53,7 @@ For quick reference, \cref{fig:notation-quickref} summarizes all notation appear
 \end{figure}
 
 We start with basic mathematical notation for tuples.
+For $n \in \N$, we write $[1,n]$ to denote the set $\{1, \ldots, n \}$.
 An $n$-\emph{tuple} is a list of $n$ components $a_{1}, \ldots{}, a_{n}$.
 We use overlined letters like $\elemtuplea$, $\elemtupleb$ for tuples, except when the components are tuples themselves, in which case we use arrows, as in $\elemtuptuplea$.
 We denote the set of components of a tuple $\elemtuplea$ by $\set(\elemtuplea)$.
@@ -111,12 +112,12 @@ We write $\FO$ for the set of all first-order formulae.
 For first-order formulae $\varphi_{1}$ and $\varphi_{2}$, we use the standard shorthands:
 \begin{multicols}{2}
   \begin{itemize}
-    \item $\varphi_{1} \land \varphi_{2}$ for $\neg ((\neg \varphi_{1}) \lor (\neg \varphi_{2}))$
-    \item $\forall{x_{i}}(\varphi)$ for $\neg\exists{x_{i}}(\neg \varphi)$
-    \item $\varphi_{1} \to \varphi_{2}$ for $\neg \varphi_{1} \lor \varphi_{2}$
-    \item $\varphi_{1} \iff \varphi_{2}$ for $(\varphi_{1} \to \varphi_{2}) \land (\varphi_{2} \to \varphi_{2})$
-    \item $\top$ for $\alpha \lor \neg \alpha$, for an arbitrary atom $\alpha$
-    \item $\bot$ for $\neg \top$
+    \item $\varphi_{1} \land \varphi_{2}$ for $\neg ((\neg \varphi_{1}) \lor (\neg \varphi_{2}))$,
+    \item $\forall{x_{i}}(\varphi)$ for $\neg\exists{x_{i}}(\neg \varphi)$,
+    \item $\varphi_{1} \to \varphi_{2}$ for $\neg \varphi_{1} \lor \varphi_{2}$,
+    \item $\varphi_{1} \iff \varphi_{2}$ for $(\varphi_{1} \to \varphi_{2}) \land (\varphi_{2} \to \varphi_{2})$,
+    \item $\top$ for $\alpha \lor \neg \alpha$, for an arbitrary atom $\alpha$,
+    \item $\bot$ for $\neg \top$.
   \end{itemize}
 \end{multicols}
 \noindent
@@ -158,7 +159,7 @@ Similarly, if $\vartupley$ is a $k$-tuple of distinct variables and $\elemtuplea
   \item $\str{A} \models \varphi_{1} \lor \varphi_{2}$ if $\str{A} \models \varphi_{1}$ or $\str{A} \models \varphi_{2}$.
   \item $\str{A} \models \forall{x_{i}} (\varphi(x_{i}))$ if $(\str{A}, a_{i}) \models (\varphi[x_{i} \mapsto a_{i}])$ for all $a_{i} \in A$
 \end{itemize}
-For a first-order formula $\varphi(\vartuplex)$, we write $\str{A}, \elemtuplea \models \varphi$ if $\str{A} \models \varphi[\elemtuplex \mapsto \elemtuplea]$ for a tuple $\elemtuplea \sqin A$ with $|\elemtuplea| = |\elemtuplex|$.
+We write $\str{A}, \elemtuplea \models \varphi$ if $\str{A} \models \varphi[\elemtuplex \mapsto \elemtuplea]$ for an $\FO$ formula $\varphi(\vartuplex)$ and a tuple $\elemtuplea \sqin A$ with $|\elemtuplea| = |\elemtuplex|$.
 \end{definition}
 
 We next introduce notation that we use for any logic $\logicL \subseteq \FO$, \ie{} a logic $\logicL$ that is $\FO$ or a fragment of $\FO$.
@@ -170,15 +171,15 @@ We write $\str{A} \equiv_\logicL \str{B}$ if $\str{A}$ and~$\str{B}$ satisfy the
 For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ with $n$-tuples $\elemtuplea$ and~$\elemtupleb$ we employ the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to indicate that for all $\varphi \in \logicL$ with free variables $\vartuplex$ we have $\str{A} \models \varphi[\vartuplex \mapsto \elemtuplea]$ if and only if $\str{B} \models \varphi[\vartuplex \mapsto \elemtupleb]$.
 If two structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$ satisfy exactly the same first-order formulae, we write $\str{A}, \elemtuplea \equiv_{\FO} \str{B}, \elemtupleb$, and similar for fragments of $\FO$.
 
-It is well-known that the satisfiability (\ie{} existence of any model) problem for a given first-order formula is undecidable\cite[Sec. 1.1]{borger1997}.
-Trakhtenbrot's theorem states that this is even true over just finite models\cite{trakhtenbrot50}.
+It is well-known that the satisfiability (\ie{} existence of any model) problem for a given first-order formula is undecidable~\cite[Sec. 1.1]{borger1997}.
+Trakhtenbrot's theorem states that this is even true over just finite models~\cite{trakhtenbrot50}.
 This motivated a study of fragments of first-order logic, for which satisfiability is decidable and ideally has low complexity.
 The fragment studied in this thesis is the \emph{forward guarded fragment}~\cite[Sec. 3.1]{Bednarczyk21}.
 For a better understanding of this fragment, in the following sections we first describe two related fragments, \emph{basic modal logic} and the \emph{guarded fragment}, before moving to the forward guarded fragment.
 
 \section{Modal Logic}
-Modal Logic has a long history, beginning already with Aristotle's study of statements containing the words ``necessary'' and ``possible''\cite{goldblatt2006}.
-It has applications in many different fields, such as philosophy and linguistics\cite{vanBenthem2010-VANMLF-4}.
+Modal Logic has a long history, beginning already with Aristotle's study of statements containing the words ``necessary'' and ``possible''~\cite{goldblatt2006}.
+It has applications in many different fields, such as philosophy and linguistics~\cite{vanBenthem2010-VANMLF-4}.
 However, here we focus on its application to computer science, where modal logic is commonly employed to talk about the behaviour of a dynamic system, consisting of states with certain properties and a relation describing the possible transitions between those states.
 We~define modal logic, with first-order semantics, as follows (compare \cite[Sec. 2.1.2]{otto2004a}):
 \begin{definition}[Basic Modal Logic]
@@ -202,9 +203,9 @@ We~define modal logic, with first-order semantics, as follows (compare \cite[Sec
 \end{definition}
 We use $\ML$ to denote the set of all basic modal logic formulae.
 For modal logic formulae $\varphi$ and $\psi$, we define $\Box(\varphi) := \neg \Diamond(\neg \varphi)$ and $\varphi \land \psi := \neg ((\neg \varphi) \lor (\neg \psi))$.
-The satisfiability problem for basic modal logic is $\PSpace$-complete\cite{ladner1977}.
-An interesting property of basic modal logic is that several of its extensions are still decidable.
-Some common extensions for which this is the case are (see~\cite[Sec. 5.1]{goranko2007}):
+The satisfiability problem for basic modal logic is $\PSpace$-complete~\cite{ladner1977}.
+An interesting property of basic modal logic is that several of its extensions remain decidable.
+Common extensions for which this is the case are (see~\cite[Sec.~5.1]{goranko2007}):
 \begin{itemize}
   \item
         \textbf{Multiple modalities}.
@@ -212,7 +213,7 @@ Some common extensions for which this is the case are (see~\cite[Sec. 5.1]{goran
         The translation to $\FO$ is as expected: $(\Diamond_{i}(\varphi))^{\FO} = \exists{y}(\relR_{i}(x,y) \land \varphi^{\FO}[x \mapsto y])$.
   \item
         \textbf{Inverse modality}.
-        This extension adds a new oeprator $\Diamond^{-}$, with the translation: $(\Diamond^{-}(\varphi))^{\FO} = \exists{y}(\relR(y,x) \to \varphi^{\FO}[x \mapsto y])$.
+        This extension adds a new operator $\Diamond^{-}$, with the translation: $(\Diamond^{-}(\varphi))^{\FO} = \exists{y}(\relR(y,x) \to \varphi^{\FO}[x \mapsto y])$.
         Note how the arguments to $\relR$ are inverted in the first-order translation.
   \item
         \textbf{Global modality}.
@@ -221,7 +222,7 @@ Some common extensions for which this is the case are (see~\cite[Sec. 5.1]{goran
 \end{itemize}
 
 \begin{example}
-  Consider a structure $\str{T}$ with the domain $\mathcal{T} = \{ a,b,c,d \}$, two unary relations $p_{c}^{\str{A}} = \{c,d\}$ and $p_{r}^{\str{A}} = \{ b \}$ and a single binary relation $\relR^{\str{A}} = \{ (a,d), (a,b), (b,a), (b,c) \}$. We view this structure as a transition system: the elements are the states of the system and the relation $\relR$ encodes the possible transitions from a given state, as shown in the following picture:
+  Consider a structure $\str{T}$ with the domain $T = \{ a,b,c,d \}$, two unary relations $p_{c}^{\str{A}} = \{c,d\}$ and $p_{r}^{\str{A}} = \{ b \}$ and a single binary relation $\relR^{\str{A}} = \{ (a,d), (a,b), (b,a), (b,c) \}$. We view this structure as a transition system: the elements are the states of the system and the relation $\relR$ encodes the possible transitions from a given state, as shown in the following picture:
   \begin{center}
   \input{res/modal-logic-ex}
   \end{center}
@@ -293,8 +294,8 @@ We use $\FGF$ to denote $\FGF(0)$. Note that $\FGF(0)$ is solely composed of sen
 A formula $\exists{x_1x_{2}x_{3}}\; [\relR(x_{1}, x_{2}, x_{3}) \land \forall{x_{4}x_{5}}(\relS(x_{3}, x_{4}, x_{5}) \to \relT(x_{4})) \land \exists{x_{3}}(\relR(x_{1}, x_{2}, x_{3}))]$ belongs to $\FGF$.
 Moreover, first-order translations of modal logic formulae, allowing for multiple and global modalities (but not inverses) are also in $\FGF$.
 In contrast, formulae $\exists{x_{1}}\; \relE(x_{1}, x_{1})$ and $\exists{x_{1}}\; (\forall{x_{2}} \relT(x_{1}, x_{2}))$ are not in $\FGF$.
-For the former formula the reason is that the sequence $x_1x_1$ is not an infix of the sequence~$x_1$.
-The latter formula is not even in $\GF$ as the sequence $x_{1}, x_{2}$ is not guarded.
+For the former formula this is since the sequence $x_1x_1$ is not an infix of the sequence~$x_1$.
+The latter formula is not even in $\GF$ as the sequence $x_{1}x_{2}$ is not~guarded.
 \end{example}
 % introduced by Bart et al, generalization of multi-modal logic global modalities but without inverse modalities
 % state definition; followed by examples

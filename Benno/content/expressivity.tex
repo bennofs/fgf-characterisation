@@ -9,17 +9,17 @@ In this chapter, we show that $\FGF$ is expressively complete with respect to $\
 We first present a short review of related preservation theorems in \cref{sec:related-work} and then prove a van Benthem theorem for $\FGF$.
 We give the high-level structure of the proof, leaving concrete details to be filled in by later chapters.
 
-We already saw in the previous chapter that every $\FGF$ formula is invariant under $\FGF$-bisimulation.
+We already saw in the previous chapter (in \cref{lem:FGF-bisimulations-work-well}) that every $\FGF$ formula is invariant under $\FGF$-bisimulation.
 Combined with the result of this chapter, this means that the properties expressible as $\FGF$-formula are precisely those first-order properties which are $\bisimto_{\FGF}$-invariant.
 In general, we say that a logic $\logicL$ is the \emph{$\bisimto_{\logicL}$-invariant fragment} of $\FO$ (in the finite) if all formulae of $\logicL$ are $\bisimto_{\logicL}$-invariant and every $\bisimto_{\logicL}$-invariant first-order formula is equivalent (in the finite) to some formula of $\logicL$.
-This lets us formulate the central theorem of this thesis, which we prove at the end of this chapter.
+This allows us to formulate the central theorem of this thesis, which we prove at the end of this chapter.
 \begin{restatable*}{maintheorem}{vanbenthemFGF}\label{thm:main}
 The forward guarded fragment is the $\bisimto_{\FGF}$-invariant fragment of $\FO$, both in a sense of classical model theory and in the finite.
 \end{restatable*}
 
 \section{Related Work}\label{sec:related-work}
 We focus on \emph{preservation theorems}, which characterize a logic $\logicL$ as a fragment of a richer logic $\logicL'$ as exactly the fragment that is able to express all properties preserved under some form of structural equivalence.
-Other ways to measure the expressive power of logics, such as Lindström theorems which characterize $\logicL$ as being the maximally expressive logic that still has certain model theoretic properties~\cite{benthem2009} are out of scope for this work.
+Other ways of measuring the expressive power of logics, such as Lindström theorems~\cite{lindstrom1969, benthem2009} which characterize $\logicL$ as being the maximally expressive logic that still has certain model theoretic properties are out of scope for this work.
 
 There is a large body of work extending van Benthem's classical result for basic modal logic~\cite{van1983modal} to other variants of modal logic.
 Examples of this include:
@@ -29,35 +29,36 @@ Examples of this include:
   \item Graded modal logic characterized as the counting bisimulation invariant fragment of $\FO$, over both finite and infinite relational structures \cite{derijke2000,otto2023}.
   \item $\GF$ is the $\GF$-bisimulation invariant fragment of $\FO$, both in the classical~\cite{AndrekaNB98} and finite setting~\cite{Otto2012}.
   \item Modal logic extended with fixed point operators ($\mu\ML$) is the bisimulation-invariant fragment of monadic second order logic ($\Logic{MSO}$) (Janin-Walukiwicz theorem)~\cite{janin1996}, and similar for the guarded fragment extended with fixed point operators~\cite{gradel2002}.
-        However, whether this is true in the finite as well is an open question.
+        However, whether this is true in the finite as well is a long-standing open question.
   \item First-order logic restricted to two variables ($\FO{}2$) is the two-pebble game invariant fragment of $\FO$~\cite{gradel1999}, but not in the finite~\cite{otto2017}.
+        This shows that the notion of being $\bisimto_{\logicL}$-invariant and being $\bisimto_{\logicL}$-invariant in the finite do not coincide.
   \item Sabotage modal logic, which extends modal logic with an ``edge-deletion'' operator, is the sabotage-bisimulation invariant fragment of $\FO$~\cite{aucher2015}.
-  \item Coalgebaric modal logic is, under some constraints, the behavioral-equivalence invariant fragment of Coalgebaric Predicate Logic\cite{litak2012}, both in the finite and the classical sense.
-  \item Concept expressions of different description logics including \Logic{FL^{-}}, \Logic{FLU^-}, \Logic{ALC}, \Logic{ALCQIO}, \Logic{DL{-}Lite} and others are fragments of $\FO$ invariant under corresponding equivalence relations\cite{kurtonina1999, lutz2011, piro2013}.
-  \item $\Logic{XPath}_{=}$, a logic able to express (parts of) the navigational aspect of the XPath XML query language, is a $\FO$ fragment invariant under a corresponding notion of bisimulation for different navigational axes (child, descendant)\cite{figueira2015}.
-  \item \Logic{HornALC} is the Horn-simulation invariant fragment of $\FO$\cite{jung2019}.
-  \item Weakly Aggregative Modal Logic, a polyadic modal logic, is the $wa$-bisimulation invariant fragment of $\FO$.
+  \item Coalgebaric modal logic is, under some constraints, the behavioral-equivalence invariant fragment of Coalgebaric Predicate Logic~\cite{litak2012}, both in the finite and the classical sense.
+  \item Concept expressions of different description logics including \Logic{FL^{-}}, \Logic{FLU^-}, \Logic{ALC}, \Logic{ALCQIO}, \Logic{DL{-}Lite} and others are fragments of $\FO$ invariant under corresponding equivalence relations~\cite{kurtonina1999, lutz2011, piro2013}.
+  \item $\Logic{XPath}_{=}$, a logic able to express (parts of) the navigational aspect of the XPath XML query language, is a $\FO$ fragment invariant under a corresponding notion of bisimulation for different navigational axes (child, descendant)~\cite{figueira2015}.
+  \item \Logic{HornALC} is the Horn-simulation invariant fragment of $\FO$~\cite{jung2019}.
+  \item Weakly Aggregative Modal Logic, a polyadic modal logic, is the $wa$-bisimulation invariant fragment of $\FO$~\cite{liu2019}.
 \end{itemize}
 
 With exception of the guarded fragments and the last example, all these results are for logics where predicates have arity of at most two, or allow at most two variables.
-A possible reason for this may be that higher-arity relations are difficult to work with, as demonstrated by the proof of the van Benthem characterization of $\GF$\cite{Otto2012}.
-Compared to an earlier result for $\GF$ with relations of arity at most 2\cite{Otto04}, the details of this proof are much more complex.
+A possible reason for this may be that higher-arity relations are difficult to work with, as demonstrated by the proof of the van Benthem characterization of $\GF$~\cite{Otto2012}.
+Compared to an earlier result for $\GF$ with relations of arity at most 2~\cite{Otto04}, the details of this proof are much more complex.
 Luckily, since $\FGF$ is a subset of $\GF$ and any formula preserved under $\FGF$-bisimulation is also preserved under $\GF$-bisimulation, we can focus on characterizing $\FGF$ as a subset of $\GF$ here.
 The full van Benthem theorem for $\FGF$ then follows from Otto's van Benthem theorem for $\GF$.
 
-The proof technique in this thesis closely follows the approach taken by Otto to prove van Benthem theorems for variations of modal logic\cite{Otto04, otto2004a}.
+The proof technique in this thesis closely follows the approach taken by Otto to prove van Benthem theorems for variations of modal logic~\cite{Otto04, otto2004a}.
 The central part of this technique is the construction of structures called ``finite companions''.
 Like Otto, we construct these companions by stopping the infinite unraveling at some depth and then relinking edges to roots, to preserve similarity with the original structure.
-The method of unraveling that we employ is inspired by the construction that Bednarczyk used to show the $\ExpTime$-completeness of $\FGF$\cite{Bednarczyk21}.
+The method of unraveling that we employ is inspired by the construction that Bednarczyk used to show the $\ExpTime$-completeness of $\FGF$~\cite{Bednarczyk21}.
 Bednarczyk's construction however is not sufficient to construct the finite companions.
-Our new method turns out to be similar to a method of unraveling already described by Andréka et al. when introducing the guarded fragment\cite{AndrekaNB98}.
+Our new method turns out to be similar to a method of unraveling already described by Andréka et al. when introducing the guarded fragment~\cite{AndrekaNB98}.
 We present a comparison to these two existing methods of unraveling in \cref{sec:existing-unravelings}.
 In the next section, we introduce our approach to prove van Benthem for $\FGF$ following Otto in detail.
 
 \section{Van Benthem for $\FGF$}\label{sec:van-benthem-theorem}
 The high-level idea for the proof of the van Benthem theorem for $\FGF$ is to show that for any given $\bisimto_{\FGF}$ first-order formula $\varphi$, there is some number $\ell \in \N$ such that $\varphi$ is $\bisimto_{\FGF}^{\ell}$ invariant.
 An observation by Otto~\cite[Obs.~13]{Otto04} then implies the above theorem.
-In the following, we present this observation in detail for $\FGF$.
+In the following, we present this observation in full for $\FGF$.
 First, we can see that every $\bisimto_{\FGF}^{\ell}$ equivalence class is characterized by an $\FGF_{\ell}$ formula, as stated in the following lemma:
 \begin{lemma}
   For any structure $(\str{A}, \elemtuplea)$ and $\ell \in \N$, there is a formula $\chi_{(\str{A}, \elemtuplea)} \in \FGF_{\ell}$ such that $(\str{A}, \elemtuplea) \models \chi_{(\str{A}, \elemtuplea)}$, but $(\str{B}, \elemtupleb) \not\models \chi_{\str{A}, \elemtuplea}$ for every structure $(\str{B}, \elemtupleb) \nsim^{\ell}_{\FGF} (\str{A}, \elemtuplea)$.
@@ -67,32 +68,32 @@ First, we can see that every $\bisimto_{\FGF}^{\ell}$ equivalence class is chara
   \begin{equation*}
     \Gamma = \{ \psi:\, \psi \in \FGF_{\ell} \text{ and } (\str{A}, \elemtuplea) \models \psi \}.
   \end{equation*}
-  Since the number of logically distinct $\FGF_{\ell}$ formula is finite, there is a set $\Delta$ which is finite and logically equivalent to $\Gamma$.
+  Since the number of logically unequivalent $\FGF_{\ell}$ formula is finite, there is a set $\Delta$ which is finite and logically equivalent to $\Gamma$.
   We show that $\chi_{(\str{A}, \elemtuplea)} = \bigwedge \Delta$ satisfies the above lemma.
   For any structure $(\str{B}, \elemtupleb)$ with $(\str{B}, \elemtupleb) \nsim_{\FGF}^{\ell} (\str{A}, \elemtuplea)$, by \cref{lem:FGF-bisimulations-work-well} there is a formula $\varphi$ in $\FGF_{\ell}$ such that $(\str{A}, \elemtuplea) \models \varphi$ but $(\str{B}, \elemtupleb) \not\models \varphi$.
   But $(\str{A}, \elemtuplea) \models \varphi$ means that $\varphi \in \Gamma$ and hence $\chi_{(\str{A},\elemtuplea)} \to \varphi$.
   Since $(\str{B}, \elemtupleb) \not\models \varphi$, we have $(\str{B}, \elemtupleb) \not\models \chi_{(\str{A}, \elemtuplea)}$ as required.
 \end{proof}
-Because the characteristic formula $\chi_{(\str{A}, \elemtuplea)}$ is an $\FGF_{\ell}$ formula, there are only a finite number of logically distinct characteristic formulae.
+Because the characteristic formula $\chi_{(\str{A}, \elemtuplea)}$ is an $\FGF_{\ell}$ formula, there are only a finite number of logically unequivalent characteristic formulae.
 It follows that $\bisimto_{\FGF}^{\ell}$ has a finite number of equivalence classes.
 For a $\bisimto_{\FGF}^{\ell}$-invariant formula $\varphi$, we can hence enumerate all equivalence classes of $\bisimto_{\FGF}^{\ell}$ in which $\varphi$ is satisfied, and take the disjunction of their characteristic formulae to obtain an equivalent $\FGF_{\ell}$ formula.
 This leads to the following corollary:
 \begin{corollary}\label{cor:ell-invariant-has-ell-formula}
-  For any $\ell \in \N$, a $\bisimto_{\FGF}^{\ell}$-invariant $\FO$ formula $\varphi$ is equivalent to a formula in $\FGF_{\ell}$.
+  For any $\ell \in \N$, every $\bisimto_{\FGF}^{\ell}$-invariant $\FO$ formula $\varphi$ is equivalent to some formula in $\FGF_{\ell}$.
 \end{corollary}
 
 \noindent
 Our proof for the van Benthem characterization of $\FGF$ relies on the van Benthem characterization of $\GF$ provided by Otto~\cite{Otto2012}.
 For convenience, we restate this result here, in the form of the folowing theorem.
-\begin{theorem}\label{thm:vanBenthem-for-GF}
+\begin{theorem}[Theorem 4.7 by Otto~\cite{Otto2012}]\label{thm:vanBenthem-for-GF}
   The guarded fragment is the $\bisimto_{\GF}$-invariant fragment of $\FO$, both in a sense of classical model theory and in the finite.
   More specifically, there is a computable function $\homof \colon \N \to \N$ such that every $\FO$-formula $\varphi$ of quantifier rank $q$ that is $\bisimto_{\GF}$-invariant (in the finite) is also $\bisimto^{\homof(q)}_{\GF}$-invariant (in the finite) and logically-equivalent (in the finite) to a $\GF$-formula of quantifier rank at most $\homof(q)$.
 \end{theorem}
-Additionally, we assume the following theorem, which is the main technical theorem whose proof we develop through \cref{chap:unraveling} and \cref{chap:finite}.
+Additionally, we state the following theorem, which is the main technical theorem whose proof we develop through \cref{chap:unraveling} and \cref{chap:finite}.
 \begin{restatable*}{theorem}{maintechnicalthm}\label{thm:main-technical-thm}
   There exists a positive polynomial function~$\homop$ such that for every $\ell$ and every pair of $\homop(\ell)$-$\FGF$-bisimilar pointed structures, there exists $\FGF$-bisimilar companions $(\str{A}', \elemtuplea')$ and $(\str{B}', \elemtupleb')$ (that are finite if $\str{A}$ and $\str{B}$ are) of $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$ such that $(\str{A}', \elemtuplea') \bisimto^{\ell}_{\GF} (\str{B}', \elemtupleb')$.
 \end{restatable*}
 
 \noindent
-Finally, we show how these two theorems combined imply our main theorem, the van Benthem characterization of $\FGF$.
+Note that the companions from \cref{thm:main-technical-thm} are not only $\ell$-$\FGF$-bisimilar, but even $\ell$-$\GF$ bisimilar. Finally, we show how these two theorems combined imply our main theorem, the van Benthem characterization of $\FGF$.
 \input{proofs/main-theorem}

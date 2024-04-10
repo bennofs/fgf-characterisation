@@ -24,14 +24,14 @@ This follows from the following two obvervations:
 Furthermore, this tree is finite:
 \input{proofs/bounded-trees-are-finite}
 \noindent
-We now consider the collection of finite trees with roots that have a short biseq, more precisely with roots which in the set $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$.
+We now consider the collection of finite trees with roots that have a ``short'' biseq, more precisely with roots which in the set $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$.
 This set is finite, by the same argumentation as in the proof of \cref{lem:bounded-trees-are-finite}.
-The trees in the set $\mathcal{S}$ are exactly those trees for which we can guarrantee that the shortest path from the root to any leaf with a biseq of level $2 * \ell$ has at least length $\ell$:
+The trees in the set $\mathcal{S}$ are exactly those trees for which we can guarrantee that the shortest path from the root to any leaf with a biseq of level $2 * \ell$ has at least length $\ell$.
 \begin{lemma}\label{lem:bounded-trees-shortest-next-path}
   If $r \in \unraveldom{A}$ is an element with a biseq of level at most $\ell$, and $e \in \mathcal{T}_{r,\ell}(\str{A})$ is a leaf with a biseq of exactly level $2 * \ell$, then the shortest next-path from $r$ to $e$ has length at least $\ell$.
 \end{lemma}
 \begin{proof}
-  For any elements $(a,b) \in \relNext$, the level of $seq{b}$ is at most one more than the level of $\seq{a}$.
+  For any elements $(a,b) \in \relNext$, the level of $\seq{b}$ is at most one more than the level of $\seq{a}$.
   If the level of $\seq{r}$ is at most $\ell$, and $e$ is an element where the level of $\seq{e}$ is $2 * \ell$, then the difference between both levels is at least $\ell$.
   It follows that any next chain from $r$ to $e$ must go through at least $\ell$ $\relNext$-edges, so it has length at least $\ell$.
 \end{proof}
@@ -69,9 +69,9 @@ We define $\relNext_{\ell}$ such that $(a^{*}, b^{*}) \in \relNext_{\ell}$ for a
             \item $\seq{b}$ is the level-$\ell$ suffix of $\seq{a'}$.
           \end{enumerate}
   \end{itemize}
-We use this $\relNext_{\ell}$ relation, which is the finitary variant of the $\relNext$ relation, to define the \emph{finite $\ell$-unraveling}:
+We use this $\relNext_{\ell}$ relation, which is the finitary variant of the $\relNext$ relation, to define the \emph{finite $\ell$-unravelings}:
 \begin{definition}[Finite $\ell$-Unraveling]
-  Let $\unravel{A}$ be an unraveling, $\mathcal{S}$ be the set of trees $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$ and
+  Let $\unravel{A}$ be an unraveling of $\str{A}$, $\mathcal{S}$ be the set of trees $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$ and
   $M$ be the maximum associated index of any missing child of any tree $\mathcal{T}_{r,\ell} \in \mathcal{S}$.
 
   The \emph{finite $\ell$-unraveling} $\unravel{A}_{\ell}$ is a structure with the domain consisting of $M$ isomorphic, disjoint copies of each tree $\mathcal{T}_{r,\ell}$ from $\mathcal{S}$.
