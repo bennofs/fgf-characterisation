@@ -7,8 +7,17 @@
   \def\radiusE{0.4em};
   \def\radiusS{0.2em};
 
-  \matrix[matrix of nodes, every node/.style={el}, column sep=4em] {
+  \matrix[matrix of nodes, every node/.style={el}, column sep=4em, name=g] {
     |(n1)| 1 & |(n2)| 2 & |(n3)| 3 & |(n4)| 4  \\
+  };
+
+  \def\relYellow{\textcolor{tolhighcontrastYellow}{E}};
+  \def\relBlue{\textcolor{tolhighcontrastBlue}{P}};
+  \def\relRed{\textcolor{tolhighcontrastRed}{S}};
+  \matrix[matrix of nodes, right=1.5em of g.east, yshift=2ex, matrix anchor=west, every node/.style={anchor=west}] {
+    {$\relYellow^{\str{A}} = \{ (1,3), (3,4) \}$} \\
+    {$\relRed^{\str{A}} = \{ (1,2), (2,3) \}$} \\
+    {$\relBlue^{\str{A}} = \{ (1,2,3), (4,3,2) \}$} \\
   };
 
   \begin{scope}[on background layer]

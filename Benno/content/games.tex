@@ -242,10 +242,10 @@ An $\ell$-\emph{biseq} ($\ell$-bisimimulation sequence) is a word in $A^*{(\N\N{
 Conceptually, an $\ell$-biseq represents a play of Spoiler in the $\ell$-round $\FGF$-game involving the structure $\str{A}$, where in each round $k$, Spoiler chooses the non-empty infix corresponding to the indices $i^{(k)}\ldots{}j^{(k)}$ and the new tuple $\elemtuplea^{(k)}$.
 Biseqs are denoted by greek letters $\rho, \sigma, \theta, \ldots$ and for
 a biseq $\sigma$ we refer to the parameter $\ell$ in the above definition as the \emph{level} of $\sigma$.
-We say that a biseq $\sigma$ \emph{extends} a biseq $\rho$ if $\sigma$ can be constructed from $\rho$ by adding moves to the end, \ie{} $\rho$ is a prefix of $\sigma$.
+We say that a biseq $\sigma$ \emph{extends} a biseq $\rho$ if $\sigma$ can be constructed from $\rho$ by adding moves to the end, \ie{} if $\rho$ is a prefix of $\sigma$.
 The set of all biseqs for a structure $\str{A}$, denoted by $\Seq{A}$, intuitively collects all possible ways in which Spoiler can explore this structure.
 For any $\ell$-biseq, if $\str{B}, \elemtupleb^{(0)}$ is a structure that is \FGF-bisimilar to $\str{A}, \elemtuplea^{(0)}$, then we can apply~\ref{bisim:fforth} $\ell$ times to find tuples $\elemtupleb^{1}, \ldots, \elemtupleb^{\ell}$ for a corresponding biseq in $\str{B}$.
-The latter sequence represents a possible choice of moves for Duplicator in response to the moves played by Spoiler in the game on the structures $\str{A}, \elemtuplea^{(0)}$ and $\str{B}, \elemtupleb^{(0)}$. The example on the following page illustrates this definition of biseqs.\clearpage
+The latter sequence represents a possible choice of moves for Duplicator in response to the moves played by Spoiler in the game on the structures $\str{A}, \elemtuplea^{(0)}$ and $\str{B}, \elemtupleb^{(0)}$. The example on the following page illustrates the definition of biseqs.\clearpage
 
 \begin{example}\label{fig:biseq-examples}
   \mbox{}\\
@@ -264,18 +264,18 @@ The latter sequence represents a possible choice of moves for Duplicator in resp
     The picture on the left shows a structure with the relations: $(1,2,3) \in \relS^{\str{A}}$, $(2,3,4) \in \relP^{\str{A}}$, $(3,4,5) \in \relT^{\str{A}}$, $(4,5) \in \relQ^{\str{A}}$.
 
     \vspace{1ex}
-    Let $\tups = (1, 2, 3), \tupp = (2, 3, 4), \tupt = (3, 4, 5), \tupq = (4,5)$.
+    Let $\tups = (1, 2, 3)$, $\tupp = (2, 3, 4)$, $\tupt = (3, 4, 5)$ and $\tupq = (4,5)$.
 
     \vspace{1ex}
     Some examples of biseqs in this structure are:
     \begin{itemize}
-        \item $\tups(3,3)\tupt$,
+        \item $\tups(3,3)\tupt$, and
         \item $\tups(2,3)\tupp(2,3)\tupt$.
     \end{itemize}
 
     Biseqs are not required to use maximal infixes, so the following are also valid biseqs:
     \begin{itemize}
-        \item $\tups(2,2)\tupp$,
+        \item $\tups(2,2)\tupp$, and
         \item $\tups(3,3)\tupt(2,2)\tupq$.
     \end{itemize}
     }
