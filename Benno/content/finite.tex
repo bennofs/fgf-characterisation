@@ -1,5 +1,5 @@
 \chapter{Finite Companions}\label{chap:finite}
-The goal in this chapter is to develop finite companions, as required for the proof of \cref{thm:main-technical-thm}.
+The goal of this chapter is to develop finite companions, as required for the proof of \cref{thm:main-technical-thm}.
 Let $\unravel{A}, \elemtuptuplea$ be the tree unraveling of a finite structure $\str{A}, \elemtuplea$.
 As finite companion for $(\str{A}, \elemtuplea)$ we use the \emph{finite $\ell$-unravelings} $\unravel{A}_{\ell}, \elemtuptuplea_{\ell}$ for a number $\ell$ which is a structure that is $\ell$-$\FGF$-bisimilar to $\unravel{A}, \elemtuptuplea$ (and hence $\ell$-$\FGF$-bisimilar to $\str{A}, \elemtuplea$ by transitivity of bisimilarity).
 The precise construction of this $\ell$-unraveling is the topic of this chapter.
@@ -18,7 +18,7 @@ For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}
 
 \noindent
 The set $\mathcal{T}_{r,\ell}(\unravel{A})$ with the $\relNext$ relation is a tree with the root $r$, because for every element $e \in \mathcal{T}_{r,\ell}(\str{A}) \setminus \{r\}$, its parent $p$ is also in $\mathcal{T}_{r,\ell}(\unravel{A})$.
-This follows from the following two obvervations:
+This follows from the following two observations:
 \begin{itemize}
   \item $p$ is a descendant of $r$, since $e$ is a descendant of $r$ and $e \neq r$, and
   \item since $p$ is a parent of $e$, the level of $\seq{p}$ is lower or equal to the level of $\seq{e}$ (which is at most $2 * l$ because $e \in \mathcal{T}_{r,\ell}(\unravel{A})$), and hence the level of $\seq{p}$ is at most $2 * \ell$ as well.
@@ -28,30 +28,30 @@ Furthermore, this tree is finite:
 \noindent
 We now consider the collection of finite trees with roots that have a ``short'' biseq, more precisely with roots which in the set $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$.
 This set is finite, by the same argumentation as in the proof of \cref{lem:bounded-trees-are-finite}.
-The trees in the set $\mathcal{S}$ are exactly those trees for which we can guarrantee that the shortest path from the root to any leaf with a biseq of level $2 * \ell$ has at least length $\ell$.
+The trees in the set $\mathcal{S}$ are exactly those trees for which we can guarantee that the shortest path from the root to any leaf with a biseq of level $2 * \ell$ has at least length $\ell$.
 \begin{lemma}\label{lem:bounded-trees-shortest-next-path}
-  If $r \in \unraveldom{A}$ is an element with a biseq of level at most $\ell$, and $e \in \mathcal{T}_{r,\ell}(\str{A})$ is a leaf with a biseq of exactly level $2 * \ell$, then the shortest next-path from $r$ to $e$ has length at least $\ell$.
+  If $r \in \unraveldom{A}$ is an element with a biseq of level at most $\ell$, and $e \in \mathcal{T}_{r,\ell}(\str{A})$ is a leaf with a biseq of exactly level $2 * \ell$, then the shortest next-path from $r$ to $e$ has a length of at least $\ell$.
 \end{lemma}
 \begin{proof}
   For any elements $(a,b) \in \relNext$, the level of $\seq{b}$ is at most one more than the level of $\seq{a}$.
   If the level of $\seq{r}$ is at most $\ell$, and $e$ is an element where the level of $\seq{e}$ is $2 * \ell$, then the difference between both levels is at least $\ell$.
   It follows that any next chain from $r$ to $e$ must go through at least $\ell$ $\relNext$-edges, so it has length at least $\ell$.
 \end{proof}
-Next we construct a structure which for all $\mathcal{T} \in \mathcal{S}$, has a number of distinct, isomorphic copies of the substructure $\restr{\unravel{A}}{\mathcal{T}}$ (we say precisely how many copies we need later).
+Next, we construct a structure which for all $\mathcal{T} \in \mathcal{S}$, has a number of distinct, isomorphic copies of the substructure $\restr{\unravel{A}}{\mathcal{T}}$ (we say precisely how many copies we need later).
 This is shown in \cref{fig:finite-unraveling}.
 Take any tree $\mathcal{T} \in \mathcal{S}$.
 We say that $b \in \unraveldom{A}$ is a \emph{missing child} of $a \in \mathcal{T}$ if $b$ is a child of $a$ in $\unravel{A}$ but $b \notin \mathcal{T}$.
 Intuitively, if $b$ is a missing child of $a$, then this is because the biseq of $b$ has a level greater than the bound $2 * \ell$.
 Due to missing children, the structure constructed so far is not $\FGF$-equivalent to the original structure, as these children are missing as witnesses for the $\FGF$-game.
-To fix this, we replace each missing child $b$ with an element that is similar, but has a shorter biseq.
+To fix this, we replace each missing child $b$ with an element that is similar but has a shorter biseq.
 The element we choose for this is a root of a copy of a tree in $\mathcal{S}$ with a biseq equal to the level-$\ell$ suffix of the biseq of the original child $b$.
-If we view biseqs as representing a history of game play in $\FGF$-game, this corresponds to forgetting all except the last $\ell$ moves.
+If we view biseqs as representing a history of gameplay in $\FGF$-game, this corresponds to forgetting all except the last $\ell$ moves.
 We take care to ensure that for any given tree $\mathcal{T}$ in $\mathcal{S}$, two missing children are always replaced by roots of distinct copies of trees in $\mathcal{S}$.
 
 \begin{figure}
   \centering
   \input{res/finite-unraveling}
-  \caption{Construction of the finite unraveling. First, the trees of the infinite unraveling are cut at biseq level $2*\ell$, and all the missing children are labelled with indices $1, \ldots, M$ (as shown in the left part of the above picture). Then, any $\relNext$-link to a missing child is replaced with a link to the corresponding copy (as shown in the right part of the picture) of the tree that is similar to the subtree originally rooted at the position of the missing child.}
+  \caption{Construction of the finite unraveling. First, the trees of the infinite unraveling are cut at biseq level $2*\ell$, and all the missing children are labeled with indices $1, \ldots, M$ (as shown in the left part of the above picture). Then, any $\relNext$-link to a missing child is replaced with a link to the corresponding copy (as shown in the right part of the picture) of the tree that is similar to the subtree originally rooted at the position of the missing child.}
   \label{fig:finite-unraveling}
 \end{figure}
 
@@ -76,12 +76,13 @@ We define $\relNext_{\ell}$ such that $(a^{*}, b^{*}) \in \relNext_{\ell}$ for a
           \end{enumerate}
   \end{itemize}
 
-Finally, to construct the \emph{finite $\ell$-unravelings}, we only take those copies of trees which are either rooted at an element with sequence level equal to zero and counter equal to one or are needed to replace missing children.
+Finally, to construct the \emph{finite $\ell$-unravelings}, we only take those copies of trees that are either rooted at an element with sequence level equal to zero and counter equal to one or are needed to replace missing children.
 This is made precise in the following definition.
 \begin{definition}[Finite $\ell$-Unraveling]\label{def:finite-tree-unraveling}
   Let $\unravel{A}$ be an unraveling of $\str{A}$, $\mathcal{S}$ be the set of trees $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$, and
   $M$ be the maximum associated index of any missing child of any tree $\mathcal{T}_{r,\ell} \in \mathcal{S}$.
 
+  \noindent
   The \emph{finite $\ell$-unraveling} $\unravel{A}_{\ell}$ is a structure with the domain $\unraveldom{A}_{\ell}$ consisting of $M$ isomorphic, disjoint copies of each tree $\mathcal{T}_{r,\ell}$ from $\mathcal{S}$, subject to the following restriction: each element $e \in \unraveldom{A}_{\ell}$ either has counter equal to one and sequence level equal to zero or is reachable via a $\relNext_{\ell}$-chain from such an element.
   The relations in $\unravel{A}_{\ell}$ follow the same conditions as in \cref{def:tree-unraveling} (infinite tree unraveling), but with $\relNext$ replaced by its finitary variant $\relNext_{\ell}$.
 \end{definition}
@@ -90,15 +91,16 @@ This is made precise in the following definition.
 The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following lemma:
 \input{proofs/companion-tree-like}
 
+\noindent
 In the following, let $\elemtuplea \isoeq \elemtupleb$ denote that $\restr{\str{A}}{\set(\elemtuplea)}$ is isomorphic to $\restr{\str{B}}{\set(\elemtupleb)}$, for tuples $\elemtuplea$ and $\elemtupleb$ from some structures $\str{A}$ and $\str{B}$.
 Consider two tuples with equal atomic forward types from two $\ell$-unravelings.
-We employ \cref{lem:companion-tree-like} to show that if $\ell$ is sufficient large, this means that those two tuples are in fact isomorphic.
+We employ \cref{lem:companion-tree-like} to show that if $\ell$ is sufficiently large, this means that those two tuples are in fact isomorphic.
 \input{proofs/fgf-type-iso}
 
 Our main goal for the remainder of this section is to show that $\unravel{A}_{\ell} \bisimto_{\GF}^{n} \unravel{B}_{\ell}$, given that $\str{A} \bisimto_{\FGF}^{m} \str{B}$ for some $m$ and $\ell$ which depend only on $n$.
 For this proof, we first introduce the notion of $z$-\emph{similar} elements for $z \in \N$, which is a relation between elements from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
 We later lift this relation to tuples to construct the $n$-$\GF$-bisimulation.
-Intuitively, the idea behind the notion of $z$-similarity is to relate elements which behave similar for up to $z$ transitions along $\relNext$-edges, in both forward and backward direction.
+Intuitively, the idea behind the notion of $z$-similarity is to relate elements that behave similar for up to $z$ transitions along $\relNext$-edges, in both forward and backward directions.
 In other words, our notion of $z$-similarity ensures that if $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-similar elements, then for every parent (or child) $c \in \unraveldom{A}_{\ell}$ of $a$, there exists a parent (or child) $d \in \unraveldom{B}_{\ell}$ of $b$ which is $(z{-}1)$-similar to $c$.
 Let us first consider the simpler case of only achieving this property for children (i.e.\ forward transitions along $\relNext$-edges).
 We say that elements $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-\emph{forward-similar} if $\ctr{a} = \ctr{b}$, $\seq{a} = \cdots \elemtuples$ and $\seq{b} = \cdots \elemtuplet$ for tuples $\elemtuples$ and $\elemtuplet$ that satisfy $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$.
@@ -133,9 +135,9 @@ Intuitively, we obtain the history of an element by replacing the individual tup
   If $h < z$, then $\hist{z}{a}$ is called a \emph{short $z$-history}.
 \end{definition}
 In the case that the original sequence already has less than $z$ steps, then the truncation to the last $z$ steps does nothing and we get a short $z$-history, also with less than $z$ steps.
-This definition is analogous to a construction used by Otto in the upgrading from global bisimulation to two-way global bisismulation for modal logic~\cite[Def. 39]{Otto04}.
-Histories can be compared across unravelings of different structures, since they no longer refer to concrete elements from the base structure.
-For two finite unravelings $\str{A}_{\ell}$ and $\str{B}_{\ell}$ of different base structures $\str{A}$ and $\str{B}$, we define \emph{$z$-similar elements} to be those elements which have equal $z$-histories and equal counters.
+This definition is analogous to a construction used by Otto in the upgrading from global bisimulation to two-way global bisimulation for modal logic~\cite[Def. 39]{Otto04}.
+Histories can be compared across unravelings of different structures since they no longer refer to concrete elements from the base structure.
+For two finite unravelings $\str{A}_{\ell}$ and $\str{B}_{\ell}$ of different base structures $\str{A}$ and $\str{B}$, we define \emph{$z$-similar elements} to be those elements that have equal $z$-histories and equal counters.
 \begin{definition}[$z$-similar elements]
  Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be bipoints, and $z$ be a natural number. Then $e$ and $f$ are \emph{$z$-similar}, written $e \approx_{z} f$, if $\ctr{e} = \ctr{f}$ and $\hist{z}{e} = \hist{z}{f}$.
 \end{definition}
@@ -178,7 +180,7 @@ We show that tuples of $z$-similar elements have the same atomic-$\FGF$-type, wh
   Therefore, infixes of $\elemtuptuplea$ and $\elemtuptupleb$ are in the same relations.
   We conclude that $\elemtuptuplea$ and $\elemtuptupleb$ have equal $\FGF$-types.
 \end{proof}
-Combining the result of with \cref{lem:fgf-type-iso}, we get the following corollary:
+Combining \cref{lem:tuple-sim-eq-atp} with \cref{lem:fgf-type-iso}, we get the following corollary:
 \begin{corollary}\label{cor:tuple-similar-iso}
   Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples of size $k$ in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ for structures $\str{A}$, $\str{B}$ and some $\ell \in \N$.
   If $\ell > \arity(\Sigma)$ and $a_{i} \approx_{z} a_{i}$ for all $i \in [1,k]$ and some $z \in \N$, then $\elemtuptuplea \isoeq \elemtuptupleb$, as witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.

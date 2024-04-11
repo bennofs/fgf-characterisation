@@ -40,7 +40,7 @@ For every pair of pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \el
   We proceed by induction.
   For the inductive base, take any $\elemtuplea$ from $\str{A}$, any $\elemtupleb$ from $\str{B}$, and suppose that the antecedent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$ holds.
   Thus, by definition of forward partial maps, we know that $\elemtuplea$ and~$\elemtupleb$ have equal $\FGF$-types.
-  This means that for all atomic $\varphi$ of $\FGF$ we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$.
+  This means that for all atomic $\varphi$ of $\FGF$, we have $\str{A} \models \varphi[\elemtuplea]$ if and only if $\str{B} \models \varphi[\elemtupleb]$.
   Hence, by a routine case analysis employing obvious properties of $\models$ relation, the above equivalence is lifted to the case of all quantifier-free $\FGF$-formulae, establishing the consequent of $(\heartsuit_0)(\elemtuplea,\elemtupleb)$.
   For the inductive step, fix any positive $\ell$ and assume that for all $k$ smaller than $\ell$ and the condition $(\heartsuit_k)(\elemtuplea,\elemtupleb)$ is satisfied for all tuples $\elemtuplea$ and $\elemtupleb$.
   Now take any tuple $\elemtuplea$ from $\str{A}$ and $\elemtupleb$ from $\str{B}$.
@@ -57,7 +57,7 @@ For every pair of pointed structures $(\str{A}, \elemtuplea)$ and~$(\str{B}, \el
   Then there exists a (possibly empty) tuple $\elemtuplee$ in $\str{A}$ such that $\str{A} \models \relR[\elemtuplec\elemtuplee] \land \psi[\elemtuplec\elemtuplee]$.
   Note that $\elemtuplec\elemtuplee$ is live.
   By~\ref{bisim:fforth} we can find a (possibly empty) tuple $\elemtuplef$ in $\str{B}$ such that $(\str{A}, \elemtuplec\elemtuplee) \bisimto_{\FGF}^{\ell{-}1} (\str{B}, \elemtupled\elemtuplef)$ for~$\elemtupled$ equal to $\elemtuplebfromto{i}{n}$.
-  Applying inductive hypothesis, namely $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$, we know that the consequent of $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$ holds true.
+  Applying the inductive hypothesis, namely $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$, we know that the consequent of $(\heartsuit_{\ell{-}1})(\elemtuplec\elemtuplee,\elemtupled\elemtuplef)$ holds true.
   This clearly implies $\str{B} \models \relR[\elemtupled\elemtuplef] \land \psi[\elemtupled\elemtuplef]$, which finally lead us to $\str{B} \models \varphi[\elemtupleb]$.
 
   \item $\varphi$ is of the form $\exists{x_{1}} \psi(x_1)$. Then the quantifier rank of $\psi$ is less than $\ell$.
@@ -77,7 +77,7 @@ We construct a family $\bisimZ_0, \ldots, \bisimZ_\ell$ of systems of forward pa
 \]
 We claim that such a family is an $\ell$-$\FGF$-bisimulation between $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$.
 	Note that the condition of forward partial maps is trivially satisfied by all the $\bisimZ_{\mathit{k}}$ above, and that $(\elemtuplea, \elemtupleb)$ belongs to all the sets $\bisimZ_{\mathit{k}}$ by design.
-Thus it suffices to show that for all $\mathit{k} \in \{ 1, 2, \ldots, \ell\}$ that the system of forward partial
+Thus it suffices to show that for all $\mathit{k} \in \{ 1, 2, \ldots, \ell\}$, the system of forward partial
 maps $\bisimZ_{k-1}$ satisfies \ref{bisim:fforth} and \ref{bisim:fback} for $\bisimZ_{\mathit{k}}$.
 Hence, take any such $j$ and let us proceed with a proof of \ref{bisim:fforth} (the case of \ref{bisim:fback} is symmetric).
 	Let $(\elemtuplec, \elemtupled) \in \bisimZ_{\mathit{k}}$, $\elemtuplecfromto{i}{j}$ be a (possibly empty) infix of $\elemtuplec$

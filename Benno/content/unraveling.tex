@@ -3,7 +3,7 @@
 A fundamental property of modal logics is that their models are tree-like, which roughly speaking means they look like trees as known from graph theory (we give an exact definition later).
 We show in this chapter that a special form of tree models can be characterized unusually well by $\FGF$ formulae (they provide logically tractable models for $\FGF$, in the sense of~\cite{otto2013}).
 In this class of models, the weak form of $\bisimto_{\FGF}$-equivalence coincides with the stronger notion of $\bisimto_{\GF}$-equivalence.
-To obtain such models, we introduce a new notion of tree unraveling for $\FGF$, which takes an arbitrary model and constructs a structure which is bisimilar to this model but additionally is tree-like.
+To obtain such models, we introduce a new notion of tree unraveling for $\FGF$, which takes an arbitrary model and constructs a structure that is bisimilar to this model but additionally is tree-like.
 An explanation for why we need a new unraveling is provided in the first section of this chapter, where we give a short review of existing notions of unraveling for $\FGF$ and $\GF$.
 In essence, the tree model obtained via our new method of unraveling provides a representative for a $\bisimto_{\FGF}$ equivalence class, which is unique up to $\bisimto_{\GF}$-equivalence.
 This is the first step towards the construction of finite companions as required for \cref{thm:main-technical-thm}.
@@ -12,7 +12,7 @@ The following theorem highlights the main property of our new notion of unraveli
   For unravelings $(\unravel{A}, \elemtuptuplea)$ and $(\unravel{B}, \elemtuptupleb)$  of two structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$, if $(\unravel{A}, \elemtuptuplea) \bisimto_{\FGF} (\unravel{B}, \elemtuptupleb)$ then $(\unravel{A}, \elemtuptuplea) \bisimto_{\GF} (\unravel{B}, \elemtuptupleb)$.
 \end{restatable*}%
 
-For structures $\str{A}$ with a distinguished binary predicate $\relNext$, we employ tailored terminology from graph theory.
+For a structure $\str{A}$ with a distinguished binary predicate $\relNext$, we employ tailored terminology from graph theory.
 For instance, whenever $(\eleme_1, \eleme_2) \in \relNext^{\str{A}}$, we call the element $\eleme_2$ a \emph{child} of $\eleme_1$. Respectively, we call $\eleme_1$ a \emph{parent} of $\eleme_2$.
 A \emph{root} is an element without parents.
 The set of \emph{descendants} of an element $\eleme$ is the smallest set containing $\eleme$ that is closed under taking children (\ie{} if an element is in the set then so are its children).
@@ -22,12 +22,12 @@ We say that a model is a \emph{forest model} (or \emph{tree model}) if its restr
 
 \section{Existing notions of unraveling for $\FGF$ and $\GF$}\label{sec:existing-unravelings}
 In this section, we review two existing notions of tree unraveling, one for $\FGF$ and one for $\GF$.
-This is helpful to understand the motivation for our new unraveling.
+This is helpful in understanding the motivation for our new unraveling.
 Readers who are only interested in the new unraveling may safely skip this section.
 
 We focus on structures $\str{A}$ without distinguished elements here, to simplify the definitions.
 However, extending these definitions to pointed structures $(\str{A}, \elemtuplea)$ is not difficult.
-We start with the definitions, and show some examples afterwards.
+We start with the definitions and show some examples afterwards.
 We begin with the unraveling for $\GF$, as described by Andréka et al.~\cite[Sec 4.3, p. 247]{AndrekaNB98}.
 \begin{definition}[$\GF$-unraveling]
   The domain of the \emph{$\GF$-unraveling} $\gfunravel{A}$ of a structure $\str{A}$ consists of pairs $(\rho, a)$ where $\rho$ is a finite sequence of guarded sets and $a \in A$ is an element which is ``new'' in $\rho$: it occurs in the last set of $\rho$, but not in the one before that.
@@ -108,11 +108,12 @@ Similarly to the case for $\GF$, the HAH-unraveling $\hatunravel{A}$ is $\FGF$-b
   \input{res/ex-other-unravel-forward.tex}\\[2ex]
   The black, dashed edges show the underlying tree structure of this unraveling.
 
-  Observe how in the HAH-unraveling, all the relations are perfectly aligned to edges of the tree, \ie{} the tuples in relations are paths in the underlying tree.
+  \noindent
+  Observe how in the HAH-unraveling, all the relations are perfectly aligned to the edges of the tree, \ie{} the tuples in relations are paths in the underlying tree.
   For example, $(1, 123) \notin \textcolor{tolhighcontrastRed}{\relS}^{\hatunravel{A}}$.
   This is because of condition (2) in the definition of the HAH-unraveling.
   The same is not true in the $\GF$-unraveling, since the $\GF$-unraveling does not fix the order of elements in tuples of relations.
-  An example are the elements $s_{1}s_{2}s_{6}s_{4}/2$ and $s_{1}s_{5}/3)$ which are related by $\textcolor{tolhighcontrastRed}{\relS}^{\hatunravel{A}}$, even though the sequence in the first element is longer than the sequence in the second.
+  An example is provided by the elements $s_{1}s_{2}s_{6}s_{4}/2$ and $s_{1}s_{5}/3)$ which are related by $\textcolor{tolhighcontrastRed}{\relS}^{\hatunravel{A}}$, even though the sequence in the first element is longer than the sequence in the second.
   The $\GF$-unraveling allows this, since condition (2) only asserts the existence of some maximal sequence $\sigma_{j}$ among the elements of the tuple, which does not need to come from the last element.
 
   To see the effect of condition (3) for relations in the $\GF$-unraveling, consider the relation $\textcolor{tolhighcontrastBlue}{\relP}^{\gfunravel{A}}$ and the tuple of elements $s_{1}/1, s_{1}/2, s_{1}s_{4}/3$.
@@ -130,9 +131,9 @@ Similarly to the case for $\GF$, the HAH-unraveling $\hatunravel{A}$ is $\FGF$-b
 
 In both definitions, the domain of the unraveling is constructed from sequences.
 In the guarded case, these sequences consist of guarded sets, with an additional distinguished element from the last guarded set in the sequence.
-In the case for $\FGF$, because of the forwardness, we do not need the power to arbitrary chose a distinguished element among a set of elements.
+In the case for $\FGF$, because of the forwardness, we do not need the power to arbitrarily choose a distinguished element among a set of elements.
 Instead, it is sufficient to consider sequences consisting of single elements only, with the distinguished element fixed to the last element of the sequence.
-This difference also shows in condition (2) of the above definitions.
+This difference also manifests in condition (2) of the above definitions.
 In the guarded case, condition (2) does not impose an ordering on the elements of tuples, it simply asserts the existence of some maximial sequence $p_{j}$ among all the available sequences $p_{i}$.
 In contrast, condition (2) in the forward case says that the last sequence is maximal and contains all the other sequences as prefixes.
 In fact, it is even more strict: for any live tuple $\hatunraveltup{a}$ from the HAH-unraveling, the sequence $a_{i}$ is not just required to be a prefix of the sequence $a_{i+1}$, but instead it is \emph{exactly} the sequence obtained by dropping the last element of the sequence $a_{i+1}$.
@@ -182,14 +183,14 @@ On the domain of the unraveling $\unravel{A}$, the binary relation $\relNext \su
 \noindent{%
 \newcommand{\tupp}{{\color{tolbrightGreenDarker}\elemtuplep}}%
 \newcommand{\tupe}{{\color{tolbrightYellowDarker}\elemtuplee}}%
-The relation $\relNext$ links elements which represent consecutive components within a tuple of the base structure, but following the structure imposed by the biseqs, as explained below.
+The relation $\relNext$ links elements that represent consecutive components within a tuple of the base structure, but following the structure imposed by the biseqs, as explained below.
 There are two cases.
 In the~\ref{next:addctr} case we keep the biseq the same and increase the counter by one.
 This case is represented by vertical arrows in the above picture.
 For example, the elements $(\tupp, 1)$ and $(\tupp, 2)$ represent the elements $1$ and~$2$ which are consecutive elements of the tuple $\tupp$, so $((\tupp, 1), (\tupp, 2)) \in \relNext$.
 In the~\ref{next:addseq} case, we extend the biseq with one more bisimulation move.
 This case is represented by arrows that branch sideways in the above picture.
-If the biseq is extended during a transation along a $\relNext$ edge, then the start of the edge is the last (with the highest counter) shared element and the end of the edge is the first (with the lowest counter) unshared element for the new biseq.
+If the biseq is extended when moving along a $\relNext$ edge, then the start of the edge is the last (with the highest counter) shared element and the end of the edge is the first (with the lowest counter) unshared element for the new biseq.
 As an example, consider the element $(\tupp, 2)$.
 The biseq $\tupp(2,2)\tupe$ represents the move from $\tupp$ to $\tupe$, while keeping the second element of $\tupp$ fixed.
 Thus, the last shared element is $(\tupp, 2)$ and the first unshared element is $(\tupp(2,2)\tupe, 2)$, so those two elements are in $\relNext$.
@@ -207,7 +208,7 @@ Similarly, there is no edge from $(\tupp, 1)$ to $(\tupp(1,1)\tupp, 3)$, as $(\t
   The counter of an element $t \in \unraveldom{A}$ is \emph{minimal} if the counter is the smallest among elements of the domain with the same biseq as $t$.
   The key observation now is that if $(s,t) \in \relNext$ because of case~\ref{next:addseq}, then the counter of $t$ is minimal, while if $(s,t) \in \relNext$ because of case~\ref{next:addctr}, then the counter of $t$ cannot be minimal (since $s$ is witness that there are elements with a smaller counter).
   Take an element $t \in \unraveldom{A}$ with $(s, t) \in \relNext$ for some element $s \in \unraveldom{A}$.
-  If the counter is not minimal, then the unique parent $s$ is element obtained by decreasing the counter by one.
+  If the counter is not minimal, then the unique parent $s$ is an element obtained by decreasing the counter by one.
   If the counter is minimal and cannot be further decreased, then the unique parent $s$ is the element with the biseq reduced by one move and counter equal to the index $j$ as specified in the~\ref{next:addseq} case of the definition of $\relNext$.
   We observe that the parent of an element either has a biseq with a decreased level or it has a biseq with the same level but a decreased counter.
   Thus, taking parents repeatedly must end in a root at some point.
@@ -261,11 +262,11 @@ But $\elemtuptuplea \in \relP^{\unravel{A}}$ while $\elemtuptupleb \notin \relP^
 This is because $\bound{\elemtuptupleb} = 2$ and $|\elemtuptupleb| = 3$, so the bound for $\elemtuptupleb$ is not large enough.
 \end{example}
 
-Intuitively, the unraveling $\unravel{E}$ can be seen as extending the structure $\str{E}$ with additional structure that $\GF$ can distinguish but $\FGF$ cannot.
+Intuitively, the unraveling $\unravel{E}$ can be seen as extending the structure $\str{E}$ with the additional structure that $\GF$ can distinguish but $\FGF$ cannot.
 For example, we saw in \cref{fig:hat-not-gf-unravel} that there is an $\FGF$-bisimilar structure to $\str{E}$ satisfying the $\GF$ sentence $\exists{xy}\,(\relE(x,y) \land \lnot (\exists z \relP(x,y,z)))$, which is not satisfied in $\str{E}$.
 But the unraveling $\unravel{E}$ has added the necessary extra elements so that this sentence is satisfied in the unraveling.
 Observe that the unraveling mainly depends on the behavior of the original structure in the $\FGF$-game, not on concrete details of its representation.
-To make this claim precise, we show that if we take two structures which behave the same in the $\FGF$-game (\ie{} they are $\FGF$-bisimilar), this new notion of unraveling yields structures which are indistinguishable by $\GF$.
+To make this claim precise, we show that if we take two structures that behave the same in the $\FGF$-game (\ie{} they are $\FGF$-bisimilar), this new notion of unraveling yields structures that are indistinguishable by $\GF$.
 Hence, the unraveling of a structure is a characterization of its behavior in the $\FGF$-game, up to $\GF$-equivalence. The following theorem makes this claim more concrete.
 \begin{restatable}{theorem}{thminfunraveling}\label{thm:inf-unraveling-upgrading}
   Let $\str{A}, \elemtuplea \bisimto_{\FGF} \str{B}, \elemtupleb$ for two pointed structures.

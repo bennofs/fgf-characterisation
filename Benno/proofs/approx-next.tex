@@ -66,7 +66,7 @@
   Therefore, as $c \in \unraveldom{A}_{\ell}$, it follows that $d$ is a bipoint.
   Hence $d \in \unraveldom{B}_{\ell}$.
 
-  For the remaining two cases, we make use of the following auxillary function which \emph{truncates} a biseq $\sigma$ to level at most $2 * \ell$, by only keeping a suffix of $\sigma$ if its level is too large.
+  For the remaining two cases, we make use of the following auxilliary function which \emph{truncates} a biseq $\sigma$ to level at most $2 * \ell$, by only keeping a suffix of $\sigma$ if its level is too large.
   It is defined as follows:
   \begin{displaymath}
     \mathsf{trunc}_{\ell}[\sigma] =
@@ -87,7 +87,7 @@
   Recall that $\ctr{c} = (j-i+1)+1$ and thus $\ctr{c} = \ctr{d}$.
   It remains to be shown that $d$ has the same $(z-1)$-history as $c$.
   Recall that $\seq{c} = \mathsf{trunc}_{\ell}[\sigma]$ and $\seq{d} = \mathsf{trunc}_{\ell}[\theta]$.
-  Let us first consider the bipoints with untrucated biseqs, namely $c' = (\sigma, \ctr{c})$ and $d' = (\theta, \ctr{d})$.
+  Let us first consider the bipoints with untruncated biseqs, namely $c' = (\sigma, \ctr{c})$ and $d' = (\theta, \ctr{d})$.
   Note that these are not necessarily elements of $\str{A}_{\ell}$ or $\str{B}_{\ell}$, since their biseqs may have a level greater than $2 * \ell$.
   However, observe that since $\hist{z}{a} = \hist{z}{b}$ and we chose $\elemtuplet$ such that it has the same $\FGF_{z-1}$-type as $\elemtuplet$, we have that $\hist{z-1}{c'} = \hist{z-1}{d'}$.
   Furthermore, if $\sigma$ has some biseq $\rho$ of level $z-1$ as suffix, then $\mathsf{trunc}_{\ell}(\sigma)$ also has $\rho$ as suffix, since $z-1 \le \ell$ by the precondition $z \le \ell$ of the lemma.
@@ -98,7 +98,7 @@
   Let $a$ and $c$ be elements with $\seq{a} \ne \seq{c}$ and $(c,a) \in \relNext_{\ell}$.
   By definition of $\relNext_{\ell}$, this means that $\seq{a} = \mathsf{trunc}_{\ell}[\sigma]$ with $\sigma = \seq{c}(i,j)\elemtuples$ and $\ctr{a} = (j-i+1)+1$, for some tuple $\elemtuples \sqin A$ and indices $(i,j)$.
   Let $b \in \unraveldom{B}_{\ell}$ be an element with $a \approx_{z} b$
-  Due to equivalence of $z$-histories, it follows that $\seq{b} = \cdots (i,j) \elemtuplet$ for some indices $(i,j)$ and a tuple $\elemtuplet$.
+  Due to the equivalence of $z$-histories, it follows that $\seq{b} = \cdots (i,j) \elemtuplet$ for some indices $(i,j)$ and a tuple $\elemtuplet$.
   Importantly, this shows that the level of $\seq{b}$ is greater than 1.
   Recall that by definition of $\ell$-unravelings (\cref{def:finite-tree-unraveling}), all elements in an $\ell$-unraveling are reachable via a $\relNext_{\ell}$-chain from elements with a sequence level equal to 1.
   Since the level of $\seq{b}$ is greater than 1, the element $b$ must have at least one $\relNext_{\ell}$-parent in $\unraveldom{B}_{\ell}$.

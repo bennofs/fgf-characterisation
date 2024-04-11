@@ -25,7 +25,7 @@ Let $\elemtuptupler$ be a tuple with $\elemtuptupler \sqin \set(\elemtuptuplea)$
 We first show that $\elemtuptupler$ is an infix of $\elemtuptuplea$.
 Suppose to the contrary that $\elemtuptupler$ is not an infix of $\elemtuptuplea$, thus there is an $i$ such that $r_{i} = a_{v}$ and $r_{i+1} = a_{w}$ with $w \ne v + 1$.
 But then both $(a_{v}, a_{w}) \in \relNext_{\ell}$ and $(a_{w-1}, a_{w}) \in \relNext_{\ell}$ since $\elemtuptupler$ and $\elemtuptuplea$ are live.
-This is a contradiction, since $D_{a_{1}, W}$ defined in \cref{lem:companion-tree-like} includes $a_{v}, a_{w-1}$ and $a_{w}$ but cannot be a tree since $a_{w}$ would have two parents $a_{v}$ and $a_{w-1}$.
+This is a contradiction since $D_{a_{1}, W}$ defined in \cref{lem:companion-tree-like} includes $a_{v}, a_{w-1}$ and $a_{w}$ but cannot be a tree since $a_{w}$ would have two parents $a_{v}$ and $a_{w-1}$.
 Therefore, $\elemtuptupler$ is an infix of $\elemtuptuplea$.
 It follows from equality of atomic-$\FGF$-types that $\mu_{(\elemtuptuplea, \elemtuptupleb)}[\elemtuptupler] \in \relR^{\str{B}}$.
 Since the argument is symmetric, we conclude that elements of $\elemtuptuplea$ and $\elemtuptupleb$ satisfy the same relations so $\mu_{(\elemtuptuplea, \elemtuptupleb)}$ is an isomorphism and $\elemtuptuplea \simeq \elemtuptupleb$.

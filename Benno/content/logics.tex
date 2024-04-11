@@ -1,7 +1,7 @@
 %!TEX root = ../main.tex
 \chapter{Logics}\label{chap:logics}
 
-In this chapter, we give a short review of first order logic and some of its fragments.
+In this chapter, we give a short review of first-order logic and some of its fragments.
 The goal is to make the thesis self-contained, for a more complete treatment of these topics we refer to appropriate textbooks~\cite{Libkin04,monk1976}.
 We also fix the notation that we employ in the later chapters.
 For quick reference, \cref{fig:notation-quickref} summarizes all notation appearing throughout the thesis.
@@ -42,14 +42,14 @@ For quick reference, \cref{fig:notation-quickref} summarizes all notation appear
     \newcommand\relRed{\textcolor{tolhighcontrastRed}{\rel{Red}}}
     \newcommand\relBlue{\textcolor{tolhighcontrastBlue}{\rel{Blue}}}
     \newcommand\relYellow{\textcolor{tolhighcontrastYellow}{\rel{Yellow}}}
-    Consider a signature $\sigma$ composed of four relational symbols: an unary symbol $\relDouble$, a binary symbol $\relRed$, a 3-ary symbol $\relBlue$ and a 4-ary symbol $\relYellow$.
+    Consider a signature $\sigma$ composed of four relational symbols: a unary symbol $\relDouble$, a binary symbol $\relRed$, a 3-ary symbol $\relBlue$, and a 4-ary symbol $\relYellow$.
     We define a $\sigma$-structure $\str{A}$ over the domain $A = \{1,2,3\}$ with $\relDouble^{\str{A}} = \{2\}$, $\relRed^{\str{A}} = \{(1,2), (2,3)\}$, $\relBlue^{\str{A}} = \{ (1,3,2) \}$ and $\relYellow^{\str{A}} = \{ (1,1,2,3)\}$.
     We visualize this structure in the following picture, with relations indicated by colored edges (except for $\relDouble$, which we indicate using a double border):
     \begin{center}
     \input{res/ex-struct}
     \end{center}
   \end{example*}
-  \caption{An example structure, visualized as directed hypergraph\hfill{}}\label{fig:struct-1}
+  \caption{An example structure, visualized as a directed hypergraph\hfill{}}\label{fig:struct-1}
 \end{figure}
 
 We start with basic mathematical notation for tuples.
@@ -65,11 +65,11 @@ We use the notation ``$\cdots e$'' for a tuple where the last element is equal t
 For a function $f$ and tuple $\elemtuplea_{1\ldots\ell}$, we write $f[\elemtuplea_{1\ldots\ell}]$ for the tuple $(f(a_{1}), \ldots, f(a_{\ell}))$.
 
 Next, we present the definition of a \emph{structure}.
-We will not consider structures with function symbols in this thesis, hence we define a structures without function symbols here (compare \cite[Definition 2.1]{Libkin04}):
+We will not consider structures with function symbols in this thesis, hence we define structures without function symbols here (compare \cite[Definition 2.1]{Libkin04}):
 \begin{definition}[Structures]
   A \emph{signature} $\Sigma$ is a collection of constant symbols $c_{1}, \cdots, c_{k}$ and relational symbols $\relR_{1}, \ldots, \relR_{n}$.
   Each relational symbol $\relR$ has an associated arity, denoted by $\arity(\relR)$.
-  A signature is \emph{purely-relational} if it contains no constant symbols.
+  A signature is \emph{purely relational} if it contains no constant symbols.
   A $\Sigma$-\emph{structure} $\str{A} = (A, {\cdot\,}^{\str{A}})$ consists of a domain $A$ together with an interpretation function ${\cdot\,}^{\str{A}}$, which assigns:
   \begin{itemize}
     \item to each constant $c_{i} \in \Sigma$ an element $c_{i}^{\str{A}}$ in $A$, and
@@ -83,15 +83,15 @@ Given a structure $\str{A}$ and $B \subseteq A$, we use $\restr{\str{A}}{B}$ to 
 For a $\sigma$-structure $\str{A}$ and an element $a \in A$, we write $(\str{A}, a)$ for the $(\sigma \cup \{a\})$-structure that extends $\str{A}$ with an additional constant symbol $a$ interpreted as $a \in A$, and similar for tuples of elements $\elemtuplea$, where we introduce one constant for each component of the tuple.
 We call a structure with distinguished elements constructed in this way a \emph{pointed structure}.
 We say that a tuple $\elemtuplea \sqin A$ is \emph{live} in a $\sigma$-structure $\str{A}$ if $|\elemtuplea| \leq 1$ or~$\elemtuplea \in \relR^{\str{A}}$ for some predicate~$\relR \in \sigma$.
-Most statements made in this thesis generalize to any finite and purely-relational signature $\Sigma$.
-Thus, we now fix an arbitrary, finite and purely-relational signature $\Sigma$ and adopt the convention that the signature of all structures is $\Sigma$, unless stated otherwise.
+Most statements made in this thesis generalize to any finite and purely relational signature $\Sigma$.
+Thus, we now fix an arbitrary, finite, and purely relational signature $\Sigma$ and adopt the convention that the signature of all structures is $\Sigma$ unless stated otherwise.
 Since $\Sigma$ is finite, there is a maximum arity of the relational symbols in $\Sigma$, which we denote by $\arity(\Sigma)$.
 In this visualization, each element of the domain corresponds to a node in the graph.
-For each relational symbol $\relR_{i} \in \Sigma$, we draw (hyper)edges labelled with $\relR_{i}$ between the elements which are in this relation according to its interpretation.
+For each relational symbol $\relR_{i} \in \Sigma$, we draw (hyper)edges labeled with $\relR_{i}$ between the elements which are in this relation according to its interpretation.
 In examples, we use uppercase letters $\relE, ...$ as relational symbols which we assume to be part of $\Sigma$ for the purposes of these examples.
 
 Now, we introduce \emph{first-order logic}, starting with the syntax of formulae, followed by the satisfaction relation between structures and formulae.
-All the other logics considered in this thesis are fragments of first order logic.
+All the other logics considered in this thesis are fragments of first-order logic.
 \begin{definition}[Formulae of First-Order Logic, compare {\cite[Definition 2.2]{Libkin04}}]
   Let $\mathcal{V} := \{x_{1}, x_{2}, \ldots\}$ be a countably-infinite set of \emph{variables} and $\sigma$ be a signature.
   An \emph{atomic formula} (or short \emph{atom}) over $\sigma$ is an expression of one of the following forms:
@@ -140,10 +140,10 @@ The \emph{free variables} of a formula $\varphi$ are inductively defined as foll
   \item the free variables of $\exists{x_{i}(\varphi)}$ are the free variables of $\varphi$ minus the variable $x_{i}$.
 \end{itemize}
 \end{samepage}
-Variables which are not free are called bound.
+Variables that are not free are called bound.
 We write $\varphi(\vartuplex)$ if $\vartuplex$ contains exactly the free variables of $\varphi$.
 A \emph{sentence} is a formula without free variables.
-Given a free variable $x_{i}$ of a formula $\varphi$, we can subsitute this free variable by a variable or constant $t$, as follows.
+Given a free variable $x_{i}$ of a formula $\varphi$, we can substitute this free variable with a variable or constant $t$, as follows.
 \begin{enumerate}
   \item First, rename instances of bound variables equal to $t$ to a new name.
   \item Second, replace all occurrences of $x_{i}$ by $t$.
@@ -162,7 +162,7 @@ Similarly, if $\vartupley$ is a $k$-tuple of distinct variables and $\elemtuplea
 We write $\str{A}, \elemtuplea \models \varphi$ if $\str{A} \models \varphi[\elemtuplex \mapsto \elemtuplea]$ for an $\FO$ formula $\varphi(\vartuplex)$ and a tuple $\elemtuplea \sqin A$ with $|\elemtuplea| = |\elemtuplex|$.
 \end{definition}
 
-We next introduce notation that we use for any logic $\logicL \subseteq \FO$, \ie{} a logic $\logicL$ that is $\FO$ or a fragment of $\FO$.
+We next introduce the notation that we use for any logic $\logicL \subseteq \FO$, \ie{} a logic $\logicL$ that is $\FO$ or a fragment of $\FO$.
 The set $\logicL_{\ell}$ is the set of all formulae of $\logicL$ with quantifier rank at most $\ell$, where the quantifier rank is defined according to the definition of $\logicL$.
 The \emph{$\logicL$-type} of $\elemtuplea$ in $\str{A}$, denoted with~$\tp{\logicL}{\str{A}}{\elemtuplea}$, consists of all $\logicL$-formulae with free variables~$\vartuplexfromto{1}{n}$ that are satisfied by $\elemtuplea$ in $\str{A}$.
 If we restrict the type to only atomic and negated atomic $\logicL$-formulae, we obtain the \emph{atomic-$\logicL$-type} of $\elemtuplea$ in $\str{A}$, denoted with~$\atp{\logicL}{\str{A}}{\elemtuplea}$.
@@ -171,16 +171,16 @@ We write $\str{A} \equiv_\logicL \str{B}$ if $\str{A}$ and~$\str{B}$ satisfy the
 For pointed structures $(\str{A}, \elemtuplea), (\str{B}, \elemtupleb)$ with $n$-tuples $\elemtuplea$ and~$\elemtupleb$ we employ the notation $(\str{A}, \elemtuplea) \equiv_\logicL (\str{B}, \elemtupleb)$ to indicate that for all $\varphi \in \logicL$ with free variables $\vartuplex$ we have $\str{A} \models \varphi[\vartuplex \mapsto \elemtuplea]$ if and only if $\str{B} \models \varphi[\vartuplex \mapsto \elemtupleb]$.
 If two structures $\str{A}, \elemtuplea$ and $\str{B}, \elemtupleb$ satisfy exactly the same first-order formulae, we write $\str{A}, \elemtuplea \equiv_{\FO} \str{B}, \elemtupleb$, and similar for fragments of $\FO$.
 
-It is well-known that the satisfiability (\ie{} existence of any model) problem for a given first-order formula is undecidable~\cite[Sec. 1.1]{borger1997}.
+It is well-known that the satisfiability (\ie{} the existence of any model) problem for a given first-order formula is undecidable~\cite[Sec. 1.1]{borger1997}.
 Trakhtenbrot's theorem states that this is even true over just finite models~\cite{trakhtenbrot50}.
 This motivated a study of fragments of first-order logic, for which satisfiability is decidable and ideally has low complexity.
 The fragment studied in this thesis is the \emph{forward guarded fragment}~\cite[Sec. 3.1]{Bednarczyk21}.
-For a better understanding of this fragment, in the following sections we first describe two related fragments, \emph{basic modal logic} and the \emph{guarded fragment}, before moving to the forward guarded fragment.
+For a better understanding of this fragment, in the following sections, we first describe two related fragments, \emph{basic modal logic} and the \emph{guarded fragment}, before moving to the forward guarded fragment.
 
 \section{Modal Logic}
 Modal Logic has a long history, beginning already with Aristotle's study of statements containing the words ``necessary'' and ``possible''~\cite{goldblatt2006}.
 It has different interpretations and applications, even in fields outside of computer science such as philosophy and linguistics~\cite{vanBenthem2010-VANMLF-4}.
-However, here we focus on its application to computer science, where modal logic is commonly employed to talk about the behaviour of a dynamic system, consisting of states with certain properties and a relation describing the possible transitions between those states.
+However, here we focus on its application to computer science, where modal logic is commonly employed to talk about the behavior of a dynamic system, consisting of states with certain properties and a relation describing the possible transitions between those states.
 We~define modal logic, with first-order semantics, as follows (compare \cite[Sec. 2.1.2]{otto2004a}):
 \begin{definition}[Basic Modal Logic]
   Let $\sigma$ be a signature of unary relational symbols $p_{i}, \ldots, p_{n}$ and a single binary relational symbol $\relR$.
@@ -257,7 +257,7 @@ We take the definition of the guarded fragment from~\cite{BednarczykJ22}:
   \end{itemize}
 \end{definition}
 The predicates $\alpha$ appearing in the 3rd item of the above definition are called the \emph{guard} for $\varphi$.
-We~stress that in definition of a quantifier rank for $\GF$ we treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as a single quantifier (not as an abbreviation for a block of quantifiers).
+We~stress that in the definition of a quantifier rank for $\GF$, we treat quantifiers $\exists{\vartuplex}$ introducing tuples of variables as a single quantifier (not as an abbreviation for a block of quantifiers).
 We write $\GF_{\ell}$ for the subset of $\GF$ of formulae with at most quantifier rank $\ell \in \N$.
 For example, $\forall{x_{1}x_{2}x_{3}} \relR(x_{1}, x_{2}, x_{3}) \in \GF_{1}$.
 The satisfiability problem for $\GF$ is $\TwoExpTime$-complete~\cite{gradel1999a}.
@@ -266,19 +266,19 @@ The satisfiability problem for $\GF$ is $\TwoExpTime$-complete~\cite{gradel1999a
   Examples of formula which are in $\GF$:
   \begin{itemize}
     \item the formula $\exists{x_{1}x_{2}x_{3}}\; (\relR(x_{1}, x_{2}, x_{3}) \land \forall x_{4}(\relR(x_{4}, x_{4}, x_{1}) \to \relR(x_{1}, x_{4}, x_{1})))$,
-    \item the tranlsation of every modal logic formulae, allowing for multiple, inverse and global modalities,
+    \item the translation of every modal logic formulae, allowing for multiple, inverse and global modalities,
     \item $\forall{x_{1}x_{2}}\; (\relR(x_{1},x_{2}) \to \relR(x_{2},x_{1}))$ (``$\relR$ is symmetric''), and
     \item $\forall{x_{1}}\; (\relR(x_{1},x_{1}))$ (``$\relR$ is reflexive'').
   \end{itemize}
 \end{example}
 \begin{example}
-  An example of a formula which is \emph{not} in $\GF$ is: $\exists{x_{1}x_{2}x_{3}}\; (\relE(x_{1}, x_{2}) \land \relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$ (``there is a triangle in the graph represented by $\relE$''), because the guard $\relE(x_{1}, x_{2})$ does not cover the free variable $x_{3}$ of $\relE(x_{2},x_{3}) \land \relE(x_{1}, x_{3})$.
+  An example of a formula that is \emph{not} in $\GF$ is: $\exists{x_{1}x_{2}x_{3}}\; (\relE(x_{1}, x_{2}) \land \relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$ (``there is a triangle in the graph represented by $\relE$''), because the guard $\relE(x_{1}, x_{2})$ does not cover the free variable $x_{3}$ of $\relE(x_{2},x_{3}) \land \relE(x_{1}, x_{3})$.
 \end{example}
 
 \section{Forward Guarded Fragment}
 
 The \emph{forward guarded fragment}~\cite[Sec. 3.1]{Bednarczyk21} (or $\FGF$) restricts $\GF$ in a way that the allowed sequences of atoms are infixes of the sequence of already-introduced variables (in the order of their quantification).
-We begin with the formal definition, followed by some examples.
+We begin with the formal definition followed by some examples.
 \begin{definition}[Forward Guarded Fragment]
   $\FGF(n)$ for $n \in \N$ is the smallest fragment of $\FO$ such that:
   \begin{itemize}\itemsep0em
@@ -294,7 +294,7 @@ We use $\FGF$ to denote $\FGF(0)$. Note that $\FGF(0)$ is solely composed of sen
 A formula $\exists{x_1x_{2}x_{3}}\; [\relR(x_{1}, x_{2}, x_{3}) \land \forall{x_{4}x_{5}}(\relS(x_{3}, x_{4}, x_{5}) \to \relT(x_{4})) \land \exists{x_{3}}(\relR(x_{1}, x_{2}, x_{3}))]$ belongs to $\FGF$.
 Moreover, first-order translations of modal logic formulae, allowing for multiple and global modalities (but not inverses) are also in $\FGF$.
 In contrast, formulae $\exists{x_{1}}\; \relE(x_{1}, x_{1})$ and $\exists{x_{1}}\; (\forall{x_{2}} \relT(x_{1}, x_{2}))$ are not in $\FGF$.
-For the former formula this is since the sequence $x_1x_1$ is not an infix of the sequence~$x_1$.
+For the former formula, this is since the sequence $x_1x_1$ is not an infix of the sequence~$x_1$.
 The latter formula is not even in $\GF$ as the sequence $x_{1}x_{2}$ is not~guarded.
 \end{example}
 % introduced by Bart et al, generalization of multi-modal logic global modalities but without inverse modalities

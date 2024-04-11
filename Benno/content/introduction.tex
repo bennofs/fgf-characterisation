@@ -3,12 +3,12 @@
 
 First-order logic ($\FO$)---also known as predicate logic---is undecidable in its full generality~\cite[Sec. 1.1]{borger1997}.
 In particular, this means that there is no algorithm that for any first-order formula $\varphi$, decides whether it is valid (true in all models) or not.
-For practical applications, this leaves two choices: either accept the undecidability and hope that it does not occur in ``real-world problems'' or use another, less expressive logic, limited in some way to regain decidability of the validity problem.
+For practical applications, this leaves two choices: either accept the undecidability and hope that it does not occur in ``real-world problems'' or use another, less expressive logic, limited in some way to regain the decidability of the validity problem.
 
-One decidable fragment of first-order logic is the \emph{Forward Guarded Fragment}~($\FGF$), recently shown to have nice algorithmic properties~\cite{Bednarczyk21}.
+One decidable fragment of first-order logic is the \emph{Forward Guarded Fragment}~($\FGF$), which was recently shown to have nice algorithmic properties~\cite{Bednarczyk21}.
 The forward guarded fragment derives from the popular \emph{Guarded Fragment} ($\GF$)~\cite{AndrekaNB98}.
 In the guarded fragment, instead of general quantification with $\exists$ and $\forall$, we only allow quantification of the form $\exists{x_{1}\cdots{}x_{k}}\; (\relR(\vartupley) \land \varphi)$ or $\forall{x_{1}\cdots{}x_{k}} (\relR(\vartupley) \to \varphi)$, where $\relR(\vartupley)$ (the \emph{guard}) is an atom and $\vartupley$ is a tuple such that each free (unbound) variable of $\varphi$ appears at least once in $\vartupley$.
-The forward guarded fragment then further restricts this fragment by requiring that variables appear in a consistent order throuhghout the whole formula.
+The forward guarded fragment then further restricts this fragment by requiring that variables appear in a consistent order throughout the whole formula.
 For example, consider the following list of $\FO$ formulae:
 \begin{enumerate}
   \item $\forall{x_{1}x_{2}x_{3}}\; ((\mathrm{dayAfter}(x_{1},x_{2}) \land \mathrm{dayAfter}(x_{2},x_{3})) \to \mathrm{dayAfter}(x_{1}, x_{3}))$ \\
@@ -16,16 +16,16 @@ For example, consider the following list of $\FO$ formulae:
         \emph{not guarded}: no atom covers all the variables $x_{1}, x_{2}, x_{3}$.
   \item $\forall{x_{1}}\; (\mathrm{sunny}(x_{1}) \to \exists{x_{2}} (\mathrm{dayAfter}(x_{2},x_{1}) \land \neg \mathrm{sunny}(x_{2})))$ \\
         ``for every sunny day, there is a day before which was not sunny'' \\
-        \emph{not forward}: $x_{2}, x_{1}$ is in wrong order.
+        \emph{not forward}: $x_{2}, x_{1}$ is in the wrong order.
   \item $\forall{x_{1}x_{2}x_{3}}\; (\mathrm{dayBetween}(x_{1},x_{2},x_{3}) \to ((\mathrm{mon}(x_{1}) \land \mathrm{fri}(x_{3})) \to \mathrm{workday}(x_{2})))$ \\
-        ``days between monday and friday are workdays'' \\
+        ``days between Monday and Friday are workdays'' \\
         \emph{forward and guarded}
 \end{enumerate}
 The forward guarded fragment consists of formulae which are both forward and guarded, like the third formula in the above list.
-Now, we ask the question: if we restrict first-order logic in this way, which properties can we express, and which not?
+Now, we ask the question: if we restrict first-order logic in this way, which properties can we express, and which can we not?
 In this thesis, we give a precise answer to this question, in the form of a van Benthem characterization for $\FGF$.
 Our characterization works both over the class of all models and in restriction to just finite models.
-The later is a new result.
+The latter is a new result.
 
 Van Benthem's theorem characterizes a logic using a notion of \emph{bisimulation}.
 For a simple example of one notion of bisimulation, consider transition systems, which are structures consisting of a set of states with associated properties and a transition relation between the states.
@@ -37,7 +37,7 @@ Two transition systems are \emph{bisimilar} if there is a mapping (bisimulation)
 This notion of bisimulation defines an equivalence relation on structures.
 It is easy to see that certain kinds of formulae, in particular first-order translations of modal logic formulae, are invariant under this equivalence.
 Here, ``invariant'' means that if there are two bisimilar structures, the formula must either satisfy both of them or neither of them, \ie{} the formula does not distinguish between bisimilar structures.
-Now, the classical van Benthem theorem~\cite{van1983modal} proves the much harder converse: any $\FO$-formula which invariant under this kind of bisimulation is equivalent to a first-order translation of a modal logic formula.
+Now, the classical van Benthem theorem~\cite{van1983modal} proves the much harder converse: any $\FO$-formula invariant under this kind of bisimulation is equivalent to a first-order translation of a modal logic formula.
 This classical result is restated in the following theorem:
 \begin{theorem}[Van Benthem Theorem]
   A first-order formula $\varphi$ is invariant under bisimulation if and only if it is equivalent to a first-order translation of a modal logic formula.
@@ -53,19 +53,19 @@ Succinctly, we obtain the following result: $\FGF \simeq \FO/{\bisimto_{\FGF}}$ 
 This shows that $\bisimto_{\FGF}$ is in fact the right notion of bisimulation for $\FGF$.
 
 We study two versions of the problem: the classical one where we take $\bisimto_{\FGF}$ to be an equivalence relation over the class of all structures (including infinite structures of large, uncountable cardinalities), and the finitary version, where $\bisimto_{\FGF}$ relates finite structures.
-These are two independent problems, as can be seen in the case of the two-variable fragment of first order logic, which is the two-pebble game invariant fragment of $\FO$ in the classical sense~\cite{gradel1999} but not in the finite~\cite{otto2017}.
+These are two independent problems, as can be seen in the case of the two-variable fragment of first-order logic, which is the two-pebble game invariant fragment of $\FO$ in the classical sense~\cite{gradel1999} but not in the finite~\cite{otto2017}.
 This is because in the finite case, while we only need to establish logical equivalence over finite models, we may also only assume invariance over models that are finite.
-Indeed, in the case of the two variable fragment, we have the first-order sentence that says ``$\relR$ is a linear order over the universe'' (with three variables) which is invariant under the two-pebble game in the finite, but not in the infinite setting.
+Indeed, in the case of the two-variable fragment, we have the first-order sentence that says ``$\relR$ is a linear order over the universe'' (with three variables) which is invariant under the two-pebble game in the finite, but not in the infinite setting.
 In the classical case, the van Benthem Theorem for $\FGF$ (\cref{thm:invariance-iff-fgf}) is a known result, but with an unconstructive proof relying heavily on compactness, which is known to fail over finite models.
 The approach that we follow in this thesis is different and works in both the finitary and the classical setting.
 Hence, we show that \cref{thm:invariance-iff-fgf} is true in both the finite and the classical sense, which is a new result.
 
 \section{Contributions and Outline}
 
-Our main contribution is the proof of a van Benthem theorem for $\FGF$ both in the finite and in classical sense.
+Our main contribution is the proof of a van Benthem theorem for $\FGF$ both in the finite and in the classical sense.
 The proof relies on a notion of \emph{unraveling}, which is a formula-preserving way of turning structures into tree-like structures.
 The essential property of unravelings for our proof is that they provide a canonical (up to $\GF$ bisimulation) structure for an $\FGF$ equivalence class.
-This means that whenever we take unravelings of two structures from the same $\FGF$ equivalence class, we obtain structures which are $\bisimto_{\GF}$-equivalent.
+This means that whenever we take unravelings of two structures from the same $\FGF$ equivalence class, we obtain structures that are $\bisimto_{\GF}$-equivalent.
 We show that the known notion of unraveling for $\FGF$~\cite{Bednarczyk21} does not have this property and introduce a new kind of unraveling for $\FGF$ which does in \cref{chap:unraveling}.
 We believe that this property makes our new method of unraveling interesting on its own.
 As a corollary, this shows that checking whether a given $\GF$ formula can be expressed as formula of $\FGF$ is decidable.
