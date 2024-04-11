@@ -39,9 +39,13 @@ Examples of this include:
   \item \Logic{HornALC} is the Horn-simulation invariant fragment of $\FO$~\cite{jung2019}.
   \item Weakly Aggregative Modal Logic, a polyadic modal logic, is the $wa$-bisimulation invariant fragment of $\FO$~\cite{liu2019}.
 \end{itemize}
+With exception of the guarded fragments and the last example, all these results are for logics where predicates have arity of at most two, or allow for at most two variables.
+Van Benthem characterizations of logics that allow higher-arity predicates or more than two variables are rarely found.
+Two notable examples are the unary negation fragment ($\Logic{UNFO}$)~\cite{segoufin2013} together with its extension, the guarded negation fragment ($\Logic{GNFO}$)~\cite{barany2015}, and the forward fragment ($\Logic{FF}$)~\cite{BednarczykJ22}, which each have a van Benthem characterization in terms of a corresponding notion of bisimulation.
+In the case of $\Logic{UNFO}$, this characterization works also in the finite, while in the case of $\Logic{GNFO}$, a finite version is only known for a restricted version limited to $k$ variables.
+In the case of the forward fragment, a characterization in the finite is an open problem.
 
-With exception of the guarded fragments and the last example, all these results are for logics where predicates have arity of at most two, or allow at most two variables.
-A possible reason for this may be that higher-arity relations are difficult to work with, as demonstrated by the proof of the van Benthem characterization of $\GF$~\cite{Otto2012}.
+A possible reason for the popularity of logics without higher-arity relations may be that higher-arity relations are difficult to work with, as demonstrated by the proof of the van Benthem characterization of $\GF$~\cite{Otto2012}.
 Compared to an earlier result for $\GF$ with relations of arity at most 2~\cite{Otto04}, the details of this proof are much more complex.
 Luckily, since $\FGF$ is a subset of $\GF$ and any formula preserved under $\FGF$-bisimulation is also preserved under $\GF$-bisimulation, we can focus on characterizing $\FGF$ as a subset of $\GF$ here.
 The full van Benthem theorem for $\FGF$ then follows from Otto's van Benthem theorem for $\GF$.
