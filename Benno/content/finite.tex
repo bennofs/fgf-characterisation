@@ -9,12 +9,14 @@ For an element $r \in \unraveldom{A}$, we construct the finite tree $\mathcal{T}
 \begin{equation*}
   \mathcal{T}_{r,\ell}(\unravel{A}) = \left\{ e \in \unraveldom{A}:\, e\ \text{is a descendant of $r$ and the level of $\seq{e}$ is at most $2 * \ell$} \right\}.
 \end{equation*}
-\begin{figure}%
+\Cref{fig:cutting} illustrates this construction.
+\begin{figure}[H]%
   \centering
   \input{res/cutting}
   \caption{Cutting the tree unraveling to obtain a finite tree and numbering missing children}\label{fig:cutting}
 \end{figure}%
-\Cref{fig:cutting} illustrates this construction.
+
+\noindent
 The set $\mathcal{T}_{r,\ell}(\unravel{A})$ with the $\relNext$ relation is a tree with the root $r$, because for every element $e \in \mathcal{T}_{r,\ell}(\str{A}) \setminus \{r\}$, its parent $p$ is also in $\mathcal{T}_{r,\ell}(\unravel{A})$.
 This follows from the following two obvervations:
 \begin{itemize}
@@ -49,17 +51,18 @@ We take care to ensure that for any given tree $\mathcal{T}$ in $\mathcal{S}$, t
 \begin{figure}
   \centering
   \input{res/finite-unraveling}
-  \caption{Construction of the finite unraveling. First, the trees of the infinite unraveling are cut at biseq level $2*\ell$ and missing children are labelled with indices $1, \ldots, M$ (shown in the left part). Then, $\relNext$-links to those children are replaced with links to corresponding copies (shown in the right part) of a similar tree.}
+  \caption{Construction of the finite unraveling. First, the trees of the infinite unraveling are cut at biseq level $2*\ell$, and all the missing children are labelled with indices $1, \ldots, M$ (as shown in the left part of the above picture). Then, any $\relNext$-link to a missing child is replaced with a link to the corresponding copy (as shown in the right part of the picture) of the tree that is similar to the subtree originally rooted at the position of the missing child.}
   \label{fig:finite-unraveling}
 \end{figure}
 
 We make the replacement of missing children precise with the following definition of the \emph{finitary $\relNext_{\ell}$ relation}.
-We assign an \emph{associated index} to each missing child such that no missing children $b_{1}$ and $b_{2}$ from the same tree in $\mathcal{S}$ share the same associated index.
-One way to do this is to draw the tree and then label the missing children from left to right with increasing indices, so the leftmost child gets index 1, the next one index 2 and so on.
-This is possible since the trees, and hence also the number of missing children, is finite.
+We assign an \emph{associated index} to each of the missing children such that no missing children $b_{1}$ and $b_{2}$ from the same tree in $\mathcal{S}$ share the same associated index.
+One possible way to do this is as follows.
+For each tree, we form a sequence of all the missing children, by enumerating them in an arbitrary order.
+We then label the missing children with their index in such a sequence.
 
-We assume that there enough copies of each tree $\mathcal{T} \in \mathcal{S}$ such that for any associated index $i$, we can uniquely assign a distinct copy of $\mathcal{T}$ to this $i$.
-We call this copy the \emph{$i$-th copy of $\mathcal{T}$}.
+We assume that our structure contains enough copies of each tree $\mathcal{T} \in \mathcal{S}$ such that for any associated index $i$, we can uniquely assign a distinct copy of $\mathcal{T}$ to such an index $i$.
+We call such a copy the \emph{$i$-th copy of the tree $\mathcal{T}$}.
 Let $\mathcal{T}^{*}$ be any copy of the tree $\mathcal{T} \in \mathcal{S}$ and $a^{*} \in \mathcal{T}^{*}$ be the copy of the element $a \in \mathcal{T}$.
 We define $\relNext_{\ell}$ such that $(a^{*}, b^{*}) \in \relNext_{\ell}$ for a copy $b^{*}$ of some $b \in \unraveldom{A}$ if:
   \begin{itemize}
@@ -67,18 +70,20 @@ We define $\relNext_{\ell}$ such that $(a^{*}, b^{*}) \in \relNext_{\ell}$ for a
     \item
           $(a,a') \in \relNext$, where $a'$ is a missing child with associated index $m$, and its replacement $b^{*}$ satisfies all of the following:
           \begin{enumerate}
-            \item $b^{*}$ is the root of the $m$-th copy of a tree in $S$,
+            \item $b^{*}$ is the root of the $m$-th copy of some tree in $S$,
             \item $\ctr{b} = \ctr{a'}$, and
             \item $\seq{b}$ is the level-$\ell$ suffix of $\seq{a'}$.
           \end{enumerate}
   \end{itemize}
-We use this $\relNext_{\ell}$ relation, which is the finitary variant of the $\relNext$ relation, to define the \emph{finite $\ell$-unravelings}:
-\begin{definition}[Finite $\ell$-Unraveling]
-  Let $\unravel{A}$ be an unraveling of $\str{A}$, $\mathcal{S}$ be the set of trees $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$ and
+
+Finally, to construct the \emph{finite $\ell$-unravelings}, we only take those copies of trees which are either rooted at an element with sequence level equal to zero and counter equal to one or are needed to replace missing children.
+This is made precise in the following definition.
+\begin{definition}[Finite $\ell$-Unraveling]\label{def:finite-tree-unraveling}
+  Let $\unravel{A}$ be an unraveling of $\str{A}$, $\mathcal{S}$ be the set of trees $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$, and
   $M$ be the maximum associated index of any missing child of any tree $\mathcal{T}_{r,\ell} \in \mathcal{S}$.
 
-  The \emph{finite $\ell$-unraveling} $\unravel{A}_{\ell}$ is a structure with the domain consisting of $M$ isomorphic, disjoint copies of each tree $\mathcal{T}_{r,\ell}$ from $\mathcal{S}$.
-  The relations in $\unravel{A}_{\ell}$ follow the same conditions as in \cref{def:tree-unraveling} (infinite tree unraveling), but with $\relNext$ replaced by the finitary variant $\relNext_{\ell}$.
+  The \emph{finite $\ell$-unraveling} $\unravel{A}_{\ell}$ is a structure with the domain $\unraveldom{A}_{\ell}$ consisting of $M$ isomorphic, disjoint copies of each tree $\mathcal{T}_{r,\ell}$ from $\mathcal{S}$, subject to the following restriction: each element $e \in \unraveldom{A}_{\ell}$ either has counter equal to one and sequence level equal to zero or is reachable via a $\relNext_{\ell}$-chain from such an element.
+  The relations in $\unravel{A}_{\ell}$ follow the same conditions as in \cref{def:tree-unraveling} (infinite tree unraveling), but with $\relNext$ replaced by its finitary variant $\relNext_{\ell}$.
 \end{definition}
 
 \noindent
@@ -86,7 +91,8 @@ The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following l
 \input{proofs/companion-tree-like}
 
 In the following, let $\elemtuplea \isoeq \elemtupleb$ denote that $\restr{\str{A}}{\set(\elemtuplea)}$ is isomorphic to $\restr{\str{B}}{\set(\elemtupleb)}$, for tuples $\elemtuplea$ and $\elemtupleb$ from some structures $\str{A}$ and $\str{B}$.
-We employ \cref{lem:companion-tree-like} to establish that over finite $\ell$-unravelings and a sufficient large $\ell$, to show that two tuples are isomorphic it suffices to show that they have equal atomic forward types:
+Consider two tuples with equal atomic forward types from two $\ell$-unravelings.
+We employ \cref{lem:companion-tree-like} to show that if $\ell$ is sufficient large, this means that those two tuples are in fact isomorphic.
 \input{proofs/fgf-type-iso}
 
 Our main goal for the remainder of this section is to show that $\unravel{A}_{\ell} \bisimto_{\GF}^{n} \unravel{B}_{\ell}$, given that $\str{A} \bisimto_{\FGF}^{m} \str{B}$ for some $m$ and $\ell$ which depend only on $n$.
@@ -105,7 +111,7 @@ As we saw above, forward transitions along $\relNext$-edges extend the sequence 
 If we allow backward transitions, then we need to consider the opposite case: that moves are removed from the end of the sequence.
 It is thus no longer sufficient to only look at the type of the last tuple in a sequence.
 Instead, we need to consider the types of the last $z$ tuples.
-Intuitively, we obtain the history of an element by replacing the individual tuples $\elemtuples^{(0)}, \elemtuples^{(1)}, \ldots$ in the biseq with their $\FGF_{z}$-types $\tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(0)}}, \tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(1)}}, \ldots$ and truncating this sequence to only the last $z$ steps:
+Intuitively, we obtain the history of an element by replacing the individual tuples $\elemtuples^{(0)}, \elemtuples^{(1)}, \ldots$ in the biseq with their $\FGF_{z}$-types $\tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(0)}}, \tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(1)}}, \ldots$ and truncating this sequence to its last $z$ steps:
 \begin{definition}[$z$-history]
   Let $\str{A}$ be a structure, $\ell \in \N$ and $a \in \unraveldom{A}_{\ell}$ be an element with $\seq{a} = \elemtuples^{(0)} \cdots (i^{n}, j^{n})\elemtuples^{n}$ for some $n \in \N$, tuples $\elemtuples^{(0)}, \ldots, \elemtuples^{(n)}$ and indices $i^{(1)}, \ldots, i^{(n)}$ and $j^{(1)}, \ldots, j^{(n)}$.\\
   The \emph{$z$-history} of $a$, denoted by $\hist{z}{a}$, is the following sequence:
@@ -123,51 +129,61 @@ Intuitively, we obtain the history of an element by replacing the individual tup
       \,
       \Gamma_{n}
   \end{equation*}
-  where $\Gamma_{i} = \tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(i)}}$ for all $i \in [0,n]$ and $h = \min(z, n)$. \\
+  where $\Gamma_{i} = \tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(i)}}$ for all $i \in [0,n]$ and $h = \min(z, n)$. \\[0.5ex]
   If $h < z$, then $\hist{z}{a}$ is called a \emph{short $z$-history}.
 \end{definition}
-In the case that the original sequence already has less than $z$ steps, then this truncation does nothing and we get a short $z$-history, also with less than $z$ steps.
+In the case that the original sequence already has less than $z$ steps, then the truncation to the last $z$ steps does nothing and we get a short $z$-history, also with less than $z$ steps.
 This definition is analogous to a construction used by Otto in the upgrading from global bisimulation to two-way global bisismulation for modal logic~\cite[Def. 39]{Otto04}.
 Histories can be compared across unravelings of different structures, since they no longer refer to concrete elements from the base structure.
-For two finite unravelings $\str{A}_{\ell}$ and $\str{B}_{\ell}$ of different base structures $\str{A}$ and $\str{B}$, we define $z$-similar elements to be those elements which have equal $z$-histories and equal counters:
+For two finite unravelings $\str{A}_{\ell}$ and $\str{B}_{\ell}$ of different base structures $\str{A}$ and $\str{B}$, we define \emph{$z$-similar elements} to be those elements which have equal $z$-histories and equal counters.
 \begin{definition}[$z$-similar elements]
- Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be bipoints, and $z$ be a natural number. Then $e$ and $f$ are $z$-similar, written $e \approx_{z} f$, if $\ctr{e} = \ctr{f}$ and $\hist{z}{e} = \hist{z}{f}$.
+ Let $e \in \unraveldom{A}_{\ell}$ and $f \in \unraveldom{B}_{\ell}$ be bipoints, and $z$ be a natural number. Then $e$ and $f$ are \emph{$z$-similar}, written $e \approx_{z} f$, if $\ctr{e} = \ctr{f}$ and $\hist{z}{e} = \hist{z}{f}$.
 \end{definition}
 Note that if $e$ and $f$ are $z$-similar and $\hist{z}{e}$ is a short $z$-history, then $\hist{z}{f}$ must also be a short $z$-history.
-So if either $\seq{e}$ or $\seq{f}$ has a level less than $z$, then $\seq{e}$ and $\seq{f}$ have the same level.
-Compared to the notion of $z$-forward-similarity, $z$-similarity requires not just the $\FGF_{z}$-type of the last tuple in the sequences to match.
+So if either $\seq{e}$ or $\seq{f}$ has a level smaller than $z$, then $\seq{e}$ and $\seq{f}$ have equal level.
+Compared to the notion of $z$-forward-similarity, note that $z$-similarity requires not just the $\FGF_{z}$-type of the last tuple in the sequences to match.
 Rather, it additionally requires that the types of the $z$ last tuples of the sequences are equal.
-Because of this, $z$-similar elements have both $(z{-}1)$-similar children and $(z{-}1)$-similar parents, as we prove with the next lemma:
+Because of this, $z$-similar elements have both $(z{-}1)$-similar children and $(z{-}1)$-similar parents, as we prove with the next lemma.
 \input{proofs/approx-next}
 
-We now lift the notion of $z$-similarity from elements to tuples of elements.
+\noindent
+We now lift the notion of $z$-similarity from elements to tuples of elements, with the following definition.
+\begin{definition}[tuples of $z$-similar elements]
 Let $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ be live tuples of equal size $k$ with $\elemtuptuplea = (a_{1}, \ldots, a_{k})$ and $\elemtuptupleb = (b_{1}, \ldots, b_{k})$.
 We say that $\elemtuptuplea$ and $\elemtuptupleb$ are \emph{tuples of $z$-similar elements} if $a_{i} \approx_{z} b_{i}$ for every $i \in [1,k]$.
-We show that in this case, $\elemtuptuplea$ and $\elemtuptupleb$ have the same atomic-$\FGF$-type, which further implies by \cref{lem:fgf-type-iso} that they are isomorphic.
-Let $\elemtuples$ and $\elemtuplet$ be the tuples from $\str{A}$ and $\str{B}$ such that $\seq{a_{k}} = \cdots \elemtuples$ and $\seq{b_{k}} = \cdots \elemtuplet$.
-Since $a_{k} \approx_z b_{k}$, we know that $\elemtuples$ and $\elemtuplet$ have the same atomic-$\FGF$-type.
-Observe that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.
-This follows from \cref{lem:next-is-consecutive} since $\elemtuptuplea$ and $\elemtuptupleb$ are live and thus must be next-chains.
-As $\ctr{a_{k}} = \ctr{b_{k}}$, both $\elemtuptuplea$ and $\elemtuptupleb$ project to infixes $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i\ldots{}j$ for $i = \ctr{a_{k}} - k$ and $j = \ctr{a_{k}}$.
-Hence, atomic-$\FGF$-types of $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ are also equal.
-Now consider an infix $\elemtuptuplea_{x\ldots{}y}$ and the corresponding infix $\elemtuptupleb_{x\ldots{}y}$, for some indices $x$ and $y$.
-Our claim is that $\elemtuptuplea_{x\ldots{}y}$ and $\elemtuptupleb_{x\ldots{}y}$ are in the same relations.
-We prove this claim by examining the three conditions of the definition of relations in the unraveling in turn.
-We show that each condition is true for $\elemtuptuplea_{x\ldots{}y}$ if and only if it is true for $\elemtuptupleb_{x\ldots{}y}$.
-Let $\relR$ be any relational symbol. Then:
-\begin{enumerate}
-  \item $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ have equal atomic-$\FGF$-types,
-  \item $\elemtuptuplea_{x\ldots{}y}$ is a next-chain if and only if $\elemtuptupleb_{x\ldots{}y}$ is a next-chain, because both infixes are always next-chains since $\elemtuptuplea$ and $\elemtuptupleb$ are next-chains as they are live,
-  \item $|\elemtuptuplea_{x\ldots{}y}| \le \bound{\elemtuptuplea_{x\ldots{}y}}$ if and only if $|\elemtuptupleb_{x\ldots{}y}| \le \bound{\elemtuptupleb_{x\ldots{}y}}$ because $|\elemtuptuplea_{x\ldots{}y}| = |\elemtuptupleb_{x\ldots{}y}| = y-x+1$ and $\bound{\elemtuptuplea_{x\ldots{}y}} = \bound{\elemtuptupleb_{x\ldots{}y}}$ since $\ctr{a_{j}} = \ctr{b_{j}}$ follows from $a_{j} \approx_{z} b_{j}$.
-\end{enumerate}
-Therefore, infixes of $\elemtuptuplea$ and $\elemtuptupleb$ are in the same relations.
-We conclude that $\elemtuptuplea$ and $\elemtuptupleb$ have equal $\FGF$-types.
-Combining this result with \cref{lem:fgf-type-iso}, we get the following corollary:
+\end{definition}
+We show that tuples of $z$-similar elements have the same atomic-$\FGF$-type, which further implies by \cref{lem:fgf-type-iso} that they are isomorphic.
+\begin{lemma}\label{lem:tuple-sim-eq-atp}
+  Let $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ be finite unravelings of structures $\str{A}$ and $\str{B}$ for an arbitrary $\ell \in \N$.
+  If $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ are tuples of $z$-similar elements for some $z \in \N$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$.
+\end{lemma}
+\begin{proof}
+  Take tuples $\elemtuptuplea$ and $\elemtuptupleb$ of $z$-similar elements from unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
+  Let $\elemtuples$ and $\elemtuplet$ be the tuples from $\str{A}$ and $\str{B}$ such that $\seq{a_{k}} = \cdots \elemtuples$ and $\seq{b_{k}} = \cdots \elemtuplet$.
+  Since $a_{k} \approx_z b_{k}$, we know that $\elemtuples$ and $\elemtuplet$ have the same atomic-$\FGF$-type.
+  Observe that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.
+  This follows from \cref{lem:next-is-consecutive} since $\elemtuptuplea$ and $\elemtuptupleb$ are live and thus must be next-chains.
+  As $\ctr{a_{k}} = \ctr{b_{k}}$, both $\elemtuptuplea$ and $\elemtuptupleb$ project to infixes $\elemtuples_{i\ldots{}j}$ and $\elemtuplet_{i\ldots{}j}$ over the common range $i\ldots{}j$ for $i = \ctr{a_{k}} - k$ and $j = \ctr{a_{k}}$.
+  Hence, atomic-$\FGF$-types of $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ are also equal.
+  Now consider an infix $\elemtuptuplea_{x\ldots{}y}$ and the corresponding infix $\elemtuptupleb_{x\ldots{}y}$, for some indices $x$ and $y$.
+  Our claim is that $\elemtuptuplea_{x\ldots{}y}$ and $\elemtuptupleb_{x\ldots{}y}$ are in the same relations.
+  We prove this claim by examining the three conditions of the definition of relations in the unraveling in turn.
+  We show that each condition is true for $\elemtuptuplea_{x\ldots{}y}$ if and only if it is true for $\elemtuptupleb_{x\ldots{}y}$.
+  Let $\relR$ be any relational symbol. Then:
+  \begin{enumerate}
+    \item $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{A}}$ if and only if $\pi[\elemtuptuplea_{x\ldots{}y}] \in \relR^{\str{B}}$, because $\pi[\elemtuptuplea]$ and $\pi[\elemtuptupleb]$ have equal atomic-$\FGF$-types,
+    \item $\elemtuptuplea_{x\ldots{}y}$ is a next-chain if and only if $\elemtuptupleb_{x\ldots{}y}$ is a next-chain, because both infixes are always next-chains since $\elemtuptuplea$ and $\elemtuptupleb$ are next-chains as they are live,
+    \item $|\elemtuptuplea_{x\ldots{}y}| \le \bound{\elemtuptuplea_{x\ldots{}y}}$ if and only if $|\elemtuptupleb_{x\ldots{}y}| \le \bound{\elemtuptupleb_{x\ldots{}y}}$ because $|\elemtuptuplea_{x\ldots{}y}| = |\elemtuptupleb_{x\ldots{}y}| = y-x+1$ and $\bound{\elemtuptuplea_{x\ldots{}y}} = \bound{\elemtuptupleb_{x\ldots{}y}}$ since $\ctr{a_{j}} = \ctr{b_{j}}$ follows from $a_{j} \approx_{z} b_{j}$.
+  \end{enumerate}
+  Therefore, infixes of $\elemtuptuplea$ and $\elemtuptupleb$ are in the same relations.
+  We conclude that $\elemtuptuplea$ and $\elemtuptupleb$ have equal $\FGF$-types.
+\end{proof}
+Combining the result of with \cref{lem:fgf-type-iso}, we get the following corollary:
 \begin{corollary}\label{cor:tuple-similar-iso}
   Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples of size $k$ in finite unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ for structures $\str{A}$, $\str{B}$ and some $\ell \in \N$.
   If $\ell > \arity(\Sigma)$ and $a_{i} \approx_{z} a_{i}$ for all $i \in [1,k]$ and some $z \in \N$, then $\elemtuptuplea \isoeq \elemtuptupleb$, as witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
 \end{corollary}
-Finally, we employ these isomorphisms to construct a $n$-$\GF$-bisimulation between finite unravelings:
+Finally, we employ these isomorphisms to construct an $n$-$\GF$-bisimulation between finite unravelings.
 \input{proofs/finite-unravel-gf-bisim}
 
 The previous lemma shows that the finite $\ell$-unravelings satisfy the requirements laid out for the finite companions in \cref{sec:van-benthem-theorem}.
@@ -175,7 +191,8 @@ We collect the result in the following theorem, the main technical theorem of th
 \maintechnicalthm
 \begin{proof}
   Let $W = \arity(\Sigma)$. We define $\homop(\ell) := 2 * W * \ell$ for all $\ell \in \N$.
-  Then for structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$, the finite $W * \ell$-unravelings $(\unravel{A}_{W * \ell}, \elemtuptuplea)$ and $(\unravel{B}_{W * \ell}, \elemtuptupleb)$ provide the required companions:
+  Then for structures $(\str{A}, \elemtuplea)$ and $(\str{B}, \elemtupleb)$, the finite $W * \ell$-unravelings $(\unravel{A}_{W * \ell}, \elemtuptuplea)$ and $(\unravel{B}_{W * \ell}, \elemtuptupleb)$ provide the required companions.
+  Indeed:
   \begin{itemize}
     \item The unravelings are finite by design.
     \item The $\ell$-$\GF$-bisimilarity is exactly the statement of \cref{lem:finite-unravel-gf-bisim}.

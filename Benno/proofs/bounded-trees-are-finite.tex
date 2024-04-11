@@ -2,19 +2,19 @@
 \begin{restatable}{lemma}{boundedTreesAreFinite}\label{lem:bounded-trees-are-finite}
   If $\unravel{A}$ is the unraveling of a finite structure $\str{A}$, then $\mathcal{T}_{r,\ell}(\unravel{A})$ is finite for every choice of $\ell \in \N$ and $r \in \unraveldom{A}$.
 \end{restatable}
-\else
-  \section{Lemma~\ref{lem:bounded-trees-are-finite}}
-  \boundedTreesAreFinite*
+% \else
+%   \section{Lemma~\ref{lem:bounded-trees-are-finite}}
+%   \boundedTreesAreFinite*
 \fi
 \ifmainpart
-\begin{proofsketch}
-  For a finite structure, there are only a finite number of live tuples and thus for any fixed $k$, there are only a finite number of $k$-biseqs in this structure.
-  Hence, the number of elements where the level of $\seq{e}$ is at most $2 * \ell$ is also finite, so $\mathcal{T}_{r,\ell}(\str{A})$ is finite.
-\end{proofsketch}
-\else
+% \begin{proofsketch}
+%   For a finite structure, there are only a finite number of live tuples and thus for any fixed $k$, there are only a finite number of $k$-biseqs in this structure.
+%   Hence, the number of elements where the level of $\seq{e}$ is at most $2 * \ell$ is also finite, so $\mathcal{T}_{r,\ell}(\str{A})$ is finite.
+% \end{proofsketch}
+% \else
 \begin{proof}
-If $A$ is finite, then there are only a finite number of live tuples in $A$.
 Recall that an $\ell$-biseq is just a word in $A^*{(\N\N{}A^{*})}^{\ell}$, consisting of live tuples from $A^{*}$ and indices into those tuples from $\N\N$.
+If $A$ is finite, then there are only a finite number of live tuples in $A$.
 Let $W$ be the maximum size of a live tuple.
 Then an index into a live tuple must be in the range $[1,W]$, which is finite, so the set of possible indices is finite.
 Thus there are only a finite number of $\ell$-biseqs, since both the set of live tuples and the set of indices is finite.

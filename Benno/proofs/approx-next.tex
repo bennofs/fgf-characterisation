@@ -11,87 +11,114 @@
   \section{Lemma~\ref{lem:approx-next}}
   \lemApproxNext*
 \fi
-\ifmainpart
-\begin{proofsketch}
-  Since $(a,c) \in \relNext_{\ell}$ or $(c,a) \in \relNext_{\ell}$, we have three cases:
-  \begin{romanenumerate}
-    \item only counter changed: $\seq{a} = \seq{c}$ and $\ctr{c} = \ctr{a} \pm 1$,
-    \item sequence extended: $\seq{c} = \mathsf{trunc}_{\ell}[\seq{a} (i,j) \elemtuples]$ and $\ctr{c} = j-i+1$, or
-    \item sequence reduced: $\seq{c}$ is such that $\seq{a} = \mathsf{trunc}_{\ell}[\seq{c} (i,j) \elemtuples]$.
-  \end{romanenumerate}
-  where
+% \ifmainpart
+% \begin{proofsketch}
+%   Since $(a,c) \in \relNext_{\ell}$ or $(c,a) \in \relNext_{\ell}$, we have three cases:
+%   \begin{romanenumerate}
+%     \item only counter changed: $\seq{a} = \seq{c}$ and $\ctr{c} = \ctr{a} \pm 1$,
+%     \item sequence extended: $\seq{c} = \mathsf{trunc}_{\ell}[\seq{a} (i,j) \elemtuples]$ and $\ctr{c} = j-i+1$, or
+%     \item sequence reduced: $\seq{c}$ is such that $\seq{a} = \mathsf{trunc}_{\ell}[\seq{c} (i,j) \elemtuples]$.
+%   \end{romanenumerate}
+%   where
+%   \begin{displaymath}
+%     \mathsf{trunc}_{\ell} =
+%     \begin{cases}
+%       \sigma & \text{if $\sigma$ has level at most $2 * \ell$} \\
+%       \text{level-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has level greater than $2 * \ell$.}
+%     \end{cases}
+%   \end{displaymath}
+%   Note that case (\romannumeral2) is possible only for~\ref{elemeq:succ} and (\romannumeral3) only for~\ref{elemeq:pred}.
+
+%   In case (\romannumeral1), $a$ and $c$ have the same history.
+%   We can find an element $d$ with $(b,d) \in \relNext_{\ell}$ (or $(d,b) \in \relNext_{\ell}$) by incrementing (or decrementing) the counter of $b$ accordingly, keeping the history the same, thus $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
+%   It can be seen that $\hist{1}{a} = \hist{1}{b}$ and $c \in \unraveldom{A}_{\ell}$ implies $d \in \unraveldom{B}_{\ell}$.
+
+%   In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$-type.
+%   Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a biseq and $\elemtuplet$ has the same $\FGF_{z{-}1}$-type as $\elemtuples$.
+%   Next, we construct the element $d$ with $\seq{d} = \mathsf{trunc}_{\ell}[\seq{b}(i,j)\elemtuplet]$ and $\ctr{d} = (j-i+1) + 1$.
+%   Cleary, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$.
+%   The function $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$ since $z \le \ell$, so it does not affect $z$-histories.
+%   By our choice of $\elemtuplet$, we have $\hist{z-1}{c} = \hist{z-1}{d}$.
+%   It follows that $c \approx_{z-1} d$, as wanted.
+
+%   In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma \cdots(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a bismimulation sequence $\sigma$ with level at most $2 * \ell$.
+%   Further, by equivalence of counters, $\ctr{b} = \ctr{a} = (j-i+1) + 1$.
+%   By definition of the unraveling, there is an element $d \in \unraveldom{B}_{\ell}$ with $(d,b) \in \relNext_{\ell}$, which has $\seq{d} = \sigma$.
+%   This element satisfies $c \approx_{z-1} d$.
+% \end{proofsketch}
+% \else
+\begin{proof}
+  We start with the simple case, where $\seq{a} = \seq{c}$ (Case \romannumeral1).
+  We then consider the case of $\seq{a} \ne \seq{c}$ separately for~\ref{elemeq:succ} (Case \romannumeral2) and \ref{elemeq:pred} (Case \romannumeral3).
+
+  \paragraph{Case \romannumeral1: $\seq{a} = \seq{c}$.}
+  Let $a$ and $c$ be elements with $\seq{a} = \seq{c}$ and $(a,c) \in \relNext_{\ell}$ (or $(c,a) \in \relNext$ for the proof of~\ref{elemeq:pred}).
+  By definition of $\relNext_{\ell}$, then $\ctr{c} = \ctr{a} + 1$ (or $\ctr{c} = \ctr{a} - 1$ for the proof of~\ref{elemeq:pred}).
+  Construct the element $d = (\seq{b}, \ctr{b} + 1)$ (or $d = (\seq{b}, \ctr{b} - 1)$ for the proof of~\ref{elemeq:pred}).
+  Note that by construction, $\ctr{c} = \ctr{d}$ and $\hist{z}{c} = \hist{z}{a} = \hist{z}{b} = \hist{z}{d}$.
+  It follows that $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
+  It remains to be shown that $d \in \unraveldom{B}_{\ell}$, \ie{} that $d$ is a bipoint and the level of $\seq{d}$ is less or equal to $2 * \ell$.
+  The latter condition follows immediately from the fact that $b \in \unraveldom{B}_{\ell}$ and $\seq{d} = \seq{b}$.
+  To show that $d$ is a bipoint, observe that $\seq{c}$ and $\seq{d}$ ``look similar'', since the $z$-histories of $c$ and $d$ are equal.
+  This means that either $\seq{c} = \elemtuples$ and $\seq{d} = \elemtuplet$ or $\seq{c} = \cdots(i,j)\elemtuples$ and $\seq{d} = \cdots(i,j)\elemtuplet$, for tuples $\elemtuples \sqin A$ and $\elemtuplet \sqin B$ with $|\elemtuples| = |\elemtuplet|$ and a pair of indices $(i,j)$.
+  Further, we have $\ctr{c} = \ctr{d}$.
+  Inspecting the conditions from the definition of a bipoint, we see that in this case, $d$ is a bipoint exactly if $c$ is a bipoint.
+  Therefore, as $c \in \unraveldom{A}_{\ell}$, it follows that $d$ is a bipoint.
+  Hence $d \in \unraveldom{B}_{\ell}$.
+
+  For the remaining two cases, we make use of the following auxillary function which \emph{truncates} a biseq $\sigma$ to level at most $2 * \ell$, by only keeping a suffix of $\sigma$ if its level is too large.
+  It is defined as follows:
   \begin{displaymath}
-    \mathsf{trunc}_{\ell} =
+    \mathsf{trunc}_{\ell}[\sigma] =
     \begin{cases}
-      \sigma & \text{if $\sigma$ has level at most $2 * \ell$} \\
-      \text{level-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has level greater than $2 * \ell$.}
+      \sigma & \text{if $\sigma$ has level at most $2 * \ell$,} \\
+      \text{suffix of $\sigma$ with level $\ell$} & \text{if $\sigma$ has level greater than $2 * \ell$.}
     \end{cases}
   \end{displaymath}
-  Note that case (\romannumeral2) is possible only for~\ref{elemeq:succ} and (\romannumeral3) only for~\ref{elemeq:pred}.
 
-  In case (\romannumeral1), $a$ and $c$ have the same history.
-  We can find an element $d$ with $(b,d) \in \relNext_{\ell}$ (or $(d,b) \in \relNext_{\ell}$) by incrementing (or decrementing) the counter of $b$ accordingly, keeping the history the same, thus $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
-  It can be seen that $\hist{1}{a} = \hist{1}{b}$ and $c \in \unraveldom{A}_{\ell}$ implies $d \in \unraveldom{B}_{\ell}$.
+  \paragraph{Case \romannumeral2: $\seq{a} \ne \seq{c}$, for~\ref{elemeq:succ}.}
+  Let $a$ and $c$ be elements with $\seq{a} \ne \seq{c}$ and $(a,c) \in \relNext_{\ell}$.
+  By definition of $\relNext_{\ell}$, this means that $\seq{c} = \mathsf{trunc}_{\ell}[\sigma]$ with $\sigma = \seq{a}(i,j)\elemtuples$ and $\ctr{c} = (j-i+1)+1$, for some tuple $\elemtuples \sqin A$ and indices $(i,j)$.
+  We now employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$-type.
+  This is implied by the precondition $\hist{z}{a} = \hist{z}{b}$ of the lemma.
+  Thus, we can find a tuple $\elemtuplet$ such that $\theta = \seq{b} (i,j) \elemtuplet$ is a biseq and $\elemtuplet$ has the same $\FGF_{z{-}1}$-type as $\elemtuples$.
+  We claim that the bipoint $d = (\mathsf{trunc}_{\ell}[\theta], k)$ with $k = (j-i+1)+1$ satisfies the lemma.
+  First, by construction $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$.
+  Recall that $\ctr{c} = (j-i+1)+1$ and thus $\ctr{c} = \ctr{d}$.
+  It remains to be shown that $d$ has the same $(z-1)$-history as $c$.
+  Recall that $\seq{c} = \mathsf{trunc}_{\ell}[\sigma]$ and $\seq{d} = \mathsf{trunc}_{\ell}[\theta]$.
+  Let us first consider the bipoints with untrucated biseqs, namely $c' = (\sigma, \ctr{c})$ and $d' = (\theta, \ctr{d})$.
+  Note that these are not necessarily elements of $\str{A}_{\ell}$ or $\str{B}_{\ell}$, since their biseqs may have a level greater than $2 * \ell$.
+  However, observe that since $\hist{z}{a} = \hist{z}{b}$ and we chose $\elemtuplet$ such that it has the same $\FGF_{z-1}$-type as $\elemtuplet$, we have that $\hist{z-1}{c'} = \hist{z-1}{d'}$.
+  Furthermore, if $\sigma$ has some biseq $\rho$ of level $z-1$ as suffix, then $\mathsf{trunc}_{\ell}(\sigma)$ also has $\rho$ as suffix, since $z-1 \le \ell$ by the precondition $z \le \ell$ of the lemma.
+  Since we have $\hist{z-1}{c'} = \hist{z-1}{d'}$, it follows that also $\hist{z-1}{c} = \hist{z-1}{d}$.
+  Hence $c \approx_{z-1} d$ as wanted.
 
-  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$-type.
-  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a biseq and $\elemtuplet$ has the same $\FGF_{z{-}1}$-type as $\elemtuples$.
-  Next, we construct the element $d$ with $\seq{d} = \mathsf{trunc}_{\ell}[\seq{b}(i,j)\elemtuplet]$ and $\ctr{d} = (j-i+1) + 1$.
-  Cleary, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$.
-  The function $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$ since $z \le \ell$, so it does not affect $z$-histories.
-  By our choice of $\elemtuplet$, we have $\hist{z-1}{c} = \hist{z-1}{d}$.
-  It follows that $c \approx_{z-1} d$, as wanted.
+  \paragraph{Case \romannumeral3: $\seq{a} \ne \seq{c}$, for~\ref{elemeq:pred}.}
+  Let $a$ and $c$ be elements with $\seq{a} \ne \seq{c}$ and $(c,a) \in \relNext_{\ell}$.
+  By definition of $\relNext_{\ell}$, this means that $\seq{a} = \mathsf{trunc}_{\ell}[\sigma]$ with $\sigma = \seq{c}(i,j)\elemtuples$ and $\ctr{a} = (j-i+1)+1$, for some tuple $\elemtuples \sqin A$ and indices $(i,j)$.
+  Let $b \in \unraveldom{B}_{\ell}$ be an element with $a \approx_{z} b$
+  Due to equivalence of $z$-histories, it follows that $\seq{b} = \cdots (i,j) \elemtuplet$ for some indices $(i,j)$ and a tuple $\elemtuplet$.
+  Importantly, this shows that the level of $\seq{b}$ is greater than 1.
+  Recall that by definition of $\ell$-unravelings (\cref{def:finite-tree-unraveling}), all elements in an $\ell$-unraveling are reachable via a $\relNext_{\ell}$-chain from elements with a sequence level equal to 1.
+  Since the level of $\seq{b}$ is greater than 1, the element $b$ must have at least one $\relNext_{\ell}$-parent in $\unraveldom{B}_{\ell}$.
+  Let $d \in \unraveldom{B}_{\ell}$ be any $\relNext_{\ell}$-parent of $b$, \ie{} we have $(d,b) \in \relNext_{\ell}$.
 
-  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma \cdots(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a bismimulation sequence $\sigma$ with level at most $2 * \ell$.
-  Further, by equivalence of counters, $\ctr{b} = \ctr{a} = (j-i+1) + 1$.
-  By definition of the unraveling, there is an element $d \in \unraveldom{B}_{\ell}$ with $(d,b) \in \relNext_{\ell}$, which has $\seq{d} = \sigma$.
-  This element satisfies $c \approx_{z-1} d$.
-\end{proofsketch}
-\else
-\begin{proof}
-  Since $(a,c) \in \relNext_{\ell}$ or $(c,a) \in \relNext_{\ell}$, we have three cases:
-  \begin{romanenumerate}
-    \item only counter changed: $\seq{a} = \seq{c}$ and $\ctr{c} = \ctr{a} \pm 1$,
-    \item sequence extended: $\seq{c} = \mathsf{trunc}_{\ell}[\seq{a} (i,j) \elemtuples]$ and $\ctr{c} = j-i+1$, or
-    \item sequence reduced: $\seq{c}$ is such that $\seq{a} = \mathsf{trunc}_{\ell}[\seq{c} (i,j) \elemtuples]$.
-  \end{romanenumerate}
-  where
-  \begin{displaymath}
-    \mathsf{trunc}_{\ell} =
-    \begin{cases}
-      \sigma & \text{if $\sigma$ has level at most $2 * \ell$} \\
-      \text{level-$\ell$ suffix of $\sigma$} & \text{if $\sigma$ has level greater than $2 * \ell$}
-    \end{cases}
-  \end{displaymath}.
-  Note that case (\romannumeral2) is possible only for~\ref{elemeq:succ} and (\romannumeral3) only for~\ref{elemeq:pred}.
+  We claim that $c \approx_{z-1} d$.
+  First, recall that $\ctr{a} = \ctr{b} = (j-i+1)+1$ and $\seq{b} = \cdots(i,j) \elemtuplet$.
+  Remember that $(\seq{b}, j-i+1)$ is not a bipoint, since all bipoints with a sequence equal to $\seq{b}$ have a counter of at least $(j-i+1)+1$.
+  Hence, if $(d,b) \in \relNext_{\ell}$, then $\seq{d} \ne \seq{b}$.
 
-  In case (\romannumeral1), $a$ and $c$ have the same history.
-  We can find an element $d$ with $(b,d) \in \relNext_{\ell}$ (or $(d,b) \in \relNext_{\ell}$) by incrementing (or decrementing) the counter of $b$ accordingly, keeping the history the same, thus $c \approx_{z-1} d$ (in fact, even $c \approx_{z} d$).
-  We claim that this element $d$ is in $\unraveldom{B}_{\ell}$.
-  We consider two cases: either $\seq{a} = \elemtuples$ or $\seq{a} = \cdots (i,j) \elemtuples$, for some tuple $\elemtuples$.
-  Since $b$ has the same $z$-history as $a$, there is a tuple $\elemtuplet$ with the same $\FGF_{z}$-type as $s$ such that $\seq{b} = \elemtuplet$ or $\seq{b} = \cdots (i,j) \elemtuplet$, respectively.
-  Since $\elemtuples$ and $\elemtuplet$ have equal types, $|\elemtuplet| = |\elemtuples|$.
-  Further, we have $\ctr{c} = \ctr{d}$.
-  We can see that in this case, the conditions for $d$ to be in $\unraveldom{B}_{\ell}$ are equivalent to the conditions for $c$ to be in $\unraveldom{A}_{\ell}$.
-  As we know that $c \in \unraveldom{A}_{\ell}$, it follows that $d$ is in $\unraveldom{B}_{\ell}$.
-
-  In case (\romannumeral2), we employ the fact that the last tuples of $\seq{a}$ and $\seq{b}$ have the same $\FGF_{z}$-type, due to their equal $z$-histories.
-  Thus, we can find a tuple $\elemtuplet$ such that $\seq{b} (i,j) \elemtuplet$ is a biseq and $\elemtuplet$ has the same $\FGF_{z{-}1}$-type as $\elemtuples$.
-  Next, we construct the element $d$ with $d = (\mathsf{trunc}_{\ell}, \ctr{c})$ for $\sigma = \seq{b}(i,j)\elemtuplet$.
-  By construction, $d \in \unraveldom{B}_{\ell}$ and $(b,d) \in \relNext_{\ell}$ (recall that $\ctr{c} = (j-i+1)+1$).
-  Observe that $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$, since $z \le \ell$.
-  Hence, the $(z{-}1)$-history of the element $c$ is equal to the $(z{-}1)$-history of an element $e$ with $e = (\seq{a}(i,j)\elemtuples, \ctr{c})$.
-  Similary, the $(z{-}1)$-history of $d$ is equal to the $(z{-}1)$-history of an element $f$ with $f = (\seq{b}(i,j)\elemtuplet, \ctr{d})$.
-  As $\elemtuples$ and $\elemtuplet$ have the same $\FGF_{z{-}1}$-type, we can see that $\hist{z-1}{e} = \hist{z-1}{f}$ and hence $\hist{z-1}{c} = \hist{z-1}{d}$.
-  It follows that $c \approx_{z-1} d$, as wanted.
-
-  In case (\romannumeral3), by equivalence of $z$-histories, we know that $\seq{b} = \mathsf{trunc}_{\ell}[\sigma(i,j)\elemtuplet]$ for some tuple $\elemtuplet$ and a biseq $\sigma$ with level at most $2 * \ell$.
-  Further, by equivalence of counters, $\ctr{b} = \ctr{a} = (j-i+1) + 1$.
-  By definition of the unraveling, there is an element $d \in \unraveldom{B}_{\ell}$ with $(d,b) \in \relNext_{\ell}$, which has $\seq{d} = \sigma$.
-  Again, because $\mathsf{trunc}_{\ell}$ preserves suffixes with level $z$, the $z$-history of $b$ is equal to the $z$-history of an element $b'$ with $b' = (\sigma(i,j)\elemtuplet, \ctr{b})$.
-  As $\seq{d} = \sigma$, the $(z{-}1)$-history of $d$ is equal to the $z$-history of $b'$ minus the last step.
-  As $b$ and $a$ have the same $z$-history and the $(z{-}1)$-history of $c$ is also equal to the $z$-history of $a$ minus the last step, it follows that $c$ and $d$ have equal $(z{-}1)$-histories.
-  Further, both $\ctr{c} = j$ and $\ctr{d} = j$.
-  This follows from $(c,a) \in \relNext_{\ell}$ and $(d,b) \in \relNext_{\ell}$.
-  Hence, $c \approx_{z-1} d$ as required.
+  At this point, we know that:
+  \begin{enumerate}
+    \item $(c,a) \in \relNext$ with $\seq{c} \ne \seq{a}$,
+    \item $(d,b) \in \relNext$ with $\seq{d} \ne \seq{b}$,
+    \item $\seq{a} = \mathsf{trunc}_{\ell}[\sigma]$ with $\sigma = \seq{c}(i,j)\elemtuples$, and
+    \item $\seq{b} = \mathsf{trunc}_{\ell}[\theta]$ with $\theta = \seq{d}(i,j)\elemtuplet$.
+  \end{enumerate}
+  Items (1) and (2) imply $\ctr{c} = j = \ctr{d}$.
+  Because of the precondition $a \approx_{z} b$ of the lemma, the elements $a$ and $b$ have equal $z$-histories.
+  Since $\mathsf{trunc}_{\ell}$ preserves suffixes of level $z-1$ (see Case \romannumeral2), from items (3) and (4) above it follows that $c$ and $d$ have the same $(z-1)$-history.
+  Therefore, $a \approx_{z-1} b$, as wanted.
 \end{proof}
-\fi
+%\fi

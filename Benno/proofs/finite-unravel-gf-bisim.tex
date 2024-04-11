@@ -1,52 +1,52 @@
 \ifmainpart
 \begin{restatable}{lemma}{finiteUnravelGfBisim}\label{lem:finite-unravel-gf-bisim}
   Let $\str{A}$ and $\str{B}$ be structures and $W = \arity(\Sigma)$.
-  If $\str{A} \bisimto_{\FGF}^{2 * W * n} \str{B}$, then there is a $n$-$GF$-bisimulation between $\unravel{A}_{W * n}$ and $\unravel{B}_{W * n}$, given by the sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{n} \subseteq \PartIso{\unravel{A}_{W * n}}{\unravel{B}_{W * n}}$ defined as:
+  If $\str{A} \bisimto_{\FGF}^{2 * W * n} \str{B}$, then there is an $n$-$\GF$-bisimulation between $\unravel{A}_{W * n}$ and $\unravel{B}_{W * n}$, given by the sequence of sets $\bisimZ_{0}, \ldots, \bisimZ_{n} \subseteq \PartIso{\unravel{A}_{W * n}}{\unravel{B}_{W * n}}$ defined as:
   \begin{equation*}
     \bisimZ_{k} = \left\{
       \mu_{(\elemtuptuples, \elemtuptuplet)}:\,
       \elemtuptuples\ \text{and}\ \elemtuptuplet\ \text{are live and}\ \
-      s_{i} \approx_{W * k} t_{i}\ \text{for all indices $i$}
+      s_{i} \approx_{W * k} t_{i}\ \text{for all indices $1 \le i \le |\elemtuptuples|$}
     \right\}
   \end{equation*}
   where $\mu_{(\elemtuptuples, \elemtuptuplet)}$ is the isomorphism between $\elemtuptuples$ and $\elemtuptuplet$ as in \cref{cor:tuple-similar-iso}.
 \end{restatable}
-\else
-  \section{Lemma~\ref{lem:finite-unravel-gf-bisim}}
-  \finiteUnravelGfBisim*
-\fi
-\ifmainpart
-\begin{proofsketch}
-  We show that $\bisimZ_{k-1}$ satisfies~\ref{bisim:forth} for $\bisimZ_{k}$, the proof for the condition~\ref{bisim:back} is symmetric.
-  Let $\elemtuptuplea$ be a live tuple in $\unravel{A}_{W * n}$ and $\mu_{(\elemtuptuples, \elemtuptuplet)} \in \bisimZ_{k}$.
-  We differentiate between two cases: (i) $\elemtuptuplea$ and $\elemtuptuples$ have at least one common element and (ii) $\elemtuptuplea$ and $\elemtuptuples$ have no common elements.
-  \begin{romanenumerate}
-    \item
-    If there are common elements, then due to the tree-like nature of the unraveling, there are indices $i$ and $j$ such that the infix $\elemtuptuples_{i\ldots{}j}$ contains all the common elements of $\elemtuptuplea$ and $\elemtuptuples$, and the remaining elements $s_{1}, \ldots s_{i-1}, s_{j+1}, \ldots, s_{|\elemtuptuples|}$ are all distinct from elements of $\elemtuptuplea$.
-    These common elements are also an infix of $\elemtuptuplea$, so there are indices $v$ and $w$ such that $\elemtuptuplea_{v\ldots{}w} = \elemtuptuples_{i\ldots{}j}$ and the remaining elements $a_1, \ldots, a_{v-1}, a_{w+1}, \ldots, a_{|\elemtuptuplea|}$ are all distinct from elements of $\elemtuptuples$.
-    We iteratively apply~\ref{elemeq:pred} and~\ref{elemeq:succ} from \cref{lem:approx-next} to find elements $b_{1}, \ldots, b_{v-1}$ and $b_{w+1}, \ldots, b_{|\elemtuptuplea|}$ from $\unravel{B}_{W * n}$ such that $\elemtuptupleb$ with $\elemtuptupleb = b_{1}\cdots{}b_{v-1}\elemtuptuplet_{i\ldots{}j}b_{w+1}\cdots{}b_{|a|}$ is a tuple of elements that are each $(W*(k-1))$-similar to the corresponding elements of $\elemtuptuplea$.
-    Additionally, $\elemtuptupleb$ is live since $\elemtuptuplea$ is live and they have the same atomic-$\FGF$-type.
-    Thus the isomorphism $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is in $Z_{k-1}$.
-    The common domain of $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is $\set(\elemtuptuplea_{v\ldots{}w})$, on which $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ agree since $\elemtuptuplea_{v\ldots{}w} = \elemtuptuples_{i\ldots{}j}$ and $\elemtuptupleb_{v\ldots{}w} = \elemtuptuplet_{i\ldots{}j}$.
-    This satsifies the requirements for~\ref{bisim:forth}.
+% \else
+%   \section{Lemma~\ref{lem:finite-unravel-gf-bisim}}
+%   \finiteUnravelGfBisim*
+% \fi
+% \ifmainpart
+% \begin{proofsketch}
+%   We show that $\bisimZ_{k-1}$ satisfies~\ref{bisim:forth} for $\bisimZ_{k}$, the proof for the condition~\ref{bisim:back} is symmetric.
+%   Let $\elemtuptuplea$ be a live tuple in $\unravel{A}_{W * n}$ and $\mu_{(\elemtuptuples, \elemtuptuplet)} \in \bisimZ_{k}$.
+%   We differentiate between two cases: (i) $\elemtuptuplea$ and $\elemtuptuples$ have at least one common element and (ii) $\elemtuptuplea$ and $\elemtuptuples$ have no common elements.
+%   \begin{romanenumerate}
+%     \item
+%     If there are common elements, then due to the tree-like nature of the unraveling, there are indices $i$ and $j$ such that the infix $\elemtuptuples_{i\ldots{}j}$ contains all the common elements of $\elemtuptuplea$ and $\elemtuptuples$, and the remaining elements $s_{1}, \ldots s_{i-1}, s_{j+1}, \ldots, s_{|\elemtuptuples|}$ are all distinct from elements of $\elemtuptuplea$.
+%     These common elements are also an infix of $\elemtuptuplea$, so there are indices $v$ and $w$ such that $\elemtuptuplea_{v\ldots{}w} = \elemtuptuples_{i\ldots{}j}$ and the remaining elements $a_1, \ldots, a_{v-1}, a_{w+1}, \ldots, a_{|\elemtuptuplea|}$ are all distinct from elements of $\elemtuptuples$.
+%     We iteratively apply~\ref{elemeq:pred} and~\ref{elemeq:succ} from \cref{lem:approx-next} to find elements $b_{1}, \ldots, b_{v-1}$ and $b_{w+1}, \ldots, b_{|\elemtuptuplea|}$ from $\unravel{B}_{W * n}$ such that $\elemtuptupleb$ with $\elemtuptupleb = b_{1}\cdots{}b_{v-1}\elemtuptuplet_{i\ldots{}j}b_{w+1}\cdots{}b_{|a|}$ is a tuple of elements that are each $(W*(k-1))$-similar to the corresponding elements of $\elemtuptuplea$.
+%     Additionally, $\elemtuptupleb$ is live since $\elemtuptuplea$ is live and they have the same atomic-$\FGF$-type.
+%     Thus the isomorphism $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is in $Z_{k-1}$.
+%     The common domain of $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is $\set(\elemtuptuplea_{v\ldots{}w})$, on which $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ agree since $\elemtuptuplea_{v\ldots{}w} = \elemtuptuples_{i\ldots{}j}$ and $\elemtuptupleb_{v\ldots{}w} = \elemtuptuplet_{i\ldots{}j}$.
+%     This satsifies the requirements for~\ref{bisim:forth}.
 
-    \item
-    If $\elemtuptuplea$ and $\elemtuptuples$ have no common elements, then we first find an element $b_{1} \in \unraveldom{B}_{W * n}$ that is $(W * k)$-similar to $a_{1}$.
-    We can find such an element by employing~\ref{bisim:forth} $W * k$ times, ``replaying'' the $(W*k)$-history of $a_{1}$ in the structure $\unravel{B}_{W * n}$.
-    Similar to case (i), we now use~\ref{elemeq:succ} to find elements $b_{2}, \ldots, b_{|\elemtuptuplea|} \in \unraveldom{B}_{W * n}$ such that the tuple $\elemtuptupleb$ with $\elemtuptupleb = (b_{1}, \ldots, b_{|\elemtuptuplea|})$ is $W * (k - 1)$-similar to $\elemtuptuplea$.
-    Now $\mu_{(\elemtuptuplea, \elemtuptupleb)} \in Z_{k-1}$ satisfies the requirements for~\ref{bisim:forth}.
-  \end{romanenumerate}
-\end{proofsketch}
-\else
+%     \item
+%     If $\elemtuptuplea$ and $\elemtuptuples$ have no common elements, then we first find an element $b_{1} \in \unraveldom{B}_{W * n}$ that is $(W * k)$-similar to $a_{1}$.
+%     We can find such an element by employing~\ref{bisim:forth} $W * k$ times, ``replaying'' the $(W*k)$-history of $a_{1}$ in the structure $\unravel{B}_{W * n}$.
+%     Similar to case (i), we now use~\ref{elemeq:succ} to find elements $b_{2}, \ldots, b_{|\elemtuptuplea|} \in \unraveldom{B}_{W * n}$ such that the tuple $\elemtuptupleb$ with $\elemtuptupleb = (b_{1}, \ldots, b_{|\elemtuptuplea|})$ is $W * (k - 1)$-similar to $\elemtuptuplea$.
+%     Now $\mu_{(\elemtuptuplea, \elemtuptupleb)} \in Z_{k-1}$ satisfies the requirements for~\ref{bisim:forth}.
+%   \end{romanenumerate}
+% \end{proofsketch}
+% \else
 \begin{proof}
   We show that $\bisimZ_{k-1}$ satisfies~\ref{bisim:forth} for $\bisimZ_{k}$, the proof for the condition~\ref{bisim:back} is symmetric.
   Let $\elemtuptuplea$ be a live tuple in $\unravel{A}_{W * n}$ and $\mu_{(\elemtuptuples, \elemtuptuplet)} \in \bisimZ_{k}$.
-  We differentiate between two cases: (i) $\elemtuptuplea$ and $\elemtuptuples$ have at least one common element and (ii) $\elemtuptuplea$ and $\elemtuptuples$ have no common elements.
+  We consider two cases: (i) $\elemtuptuplea$ and $\elemtuptuples$ have at least one common element and (ii) $\elemtuptuplea$ and $\elemtuptuples$ have no common elements.
   \begin{romanenumerate}
     \item
     If there are common elements, then we claim that due to the tree-like nature of the unraveling, there are indices $i$ and $j$ such that the infix $\elemtuptuples_{i\ldots{}j}$ contains all the common elements of $\elemtuptuplea$ and $\elemtuptuples$, and the remaining elements $s_{1}, \ldots s_{i-1}, s_{j+1}, \ldots, s_{|\elemtuptuples|}$ are all distinct from elements of $\elemtuptuplea$.
-    Assume by contradiction that this is not the case, thus there are elements $s_{x}, s_{y} \in \set(\elemtuptuplea)$ with $x < y$ and $s_{y-1} \notin \set(\elemtuptuplea)$.
-    Since $s_{x}, s_{y} \in \set(\elemtuptuplea)$ and $\elemtuptuplea$ is live, either $s_{x} a_{u} a_{u+1} \cdots s_{y}$ or $s_{y} a_{u} a_{u+1} \cdots s_{x}$ for some elements $a_{u}, a_{u+1}$ of $\elemtuptuplea$ is a next chain.
+    Towards a contradiction, suppose that this is not the case, thus there are elements $s_{x}, s_{y} \in \set(\elemtuptuplea)$ with $x < y$ and $s_{y-1} \notin \set(\elemtuptuplea)$.
+    Since $s_{x}, s_{y} \in \set(\elemtuptuplea)$ and $\elemtuptuplea$ is live, either $s_{x} a_{u} a_{u+1} \cdots s_{y}$ or $s_{y} a_{u} a_{u+1} \cdots s_{x}$ for some elements $a_{u}, a_{u+1}$ of $\elemtuptuplea$ is a next-chain.
     However, since $\elemtuptuples$ is live, there exists another next-chain $s_{x} s_{x+1} \cdots s_{y-1} s_{y}$ between $s_{x}$ and $s_{y}$, clearly distinct as it contains $s_{y-1} \notin \set(\elemtuptuplea)$.
     This conflicts with \cref{lem:companion-tree-like}, since these two next-chains show that $D_{s_{x},W}(\unravel{A}_{W * n})$ is not a tree.
     Therefore, as claimed, the common elements of $\elemtuptuplea$ and $\elemtuptuples$ form an infix of $\elemtuptuples$.
@@ -57,17 +57,18 @@
     Therefore, we have $a_{x} \approx_{W * (k - 1)} b_{x}$ for $1 \le x$ and $x \le |\elemtuptuplea|$.
     By \cref{cor:tuple-similar-iso}, there exists an isomorphism $\mu_{(\elemtuptuplea,\elemtuptupleb)}$.
     Now, if $\elemtuptuplea$ is live, then by isomorphism $\elemtuptupleb$ must also be live.
-    Thus the isomorphism $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is in $Z_{k-1}$.
+    Thus the isomorphism $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is in $\mathcal{Z}_{k-1}$.
     The common domain of $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ is $\set(\elemtuptuplea_{v\ldots{}w})$, on which $\mu_{(\elemtuptuples,\elemtuptuplet)}$ and $\mu_{(\elemtuptuplea,\elemtuptupleb)}$ agree since $\elemtuptuplea_{v\ldots{}w} = \elemtuptuples_{i\ldots{}j}$ and $\elemtuptupleb_{v\ldots{}w} = \elemtuptuplet_{i\ldots{}j}$.
-    This satsifies the requirements for~\ref{bisim:forth}.
+    This satisfies the requirements for~\ref{bisim:forth}.
 
     \item
     If $\elemtuptuplea$ and $\elemtuptuples$ have no common elements, then we first find an element $b_{1} \in \unraveldom{B}_{W * n}$ that is $(W * k - 1)$-similar to $a_{1}$.
     Let $\seq{a_{1}} = \cdots \elemtuples^{(0)} \cdots (i^{(z)}, j^{(z)}) \elemtuptuples^{(z)}$ for $z = \min(W * k, |\seq{a_{1}}|)$.
     Since $\str{A}$ and $\str{B}$ are $2 * W * n$-$\FGF$-bisimilar, there must be a tuple $\elemtuplet^{(0)}$ such that $\str{A}, \elemtuples^{(0)} \bisimto_{\FGF}^{2 * W * n - 1} \str{B}, \elemtuplet^{(0)}$.
-    Next, we apply~\ref{bisim:forth} $z$ times to find tuples $\elemtuplet^{(1)}, \ldots, \elemtuplet^{(z)}$ such that $\sigma$ with $\sigma = \elemtuplet^{(0)}\cdots(i^{(z)}, j^{(z)})\elemtuplet^{(z)}$ is a biseq and $\str{A}, \elemtuples^{(x)} \bisimto_{\FGF}^{2 * W * n - 1 - x} \str{B}, \elemtuplet^{(x)}$ for all $x \in [1,z]$.
+    Next, we apply~\ref{bisim:forth} $z$ times to find tuples $\elemtuplet^{(1)}, \ldots, \elemtuplet^{(z)}$ such that $\sigma$ with $\sigma = \elemtuplet^{(0)}\cdots(i^{(z)}, j^{(z)})\elemtuplet^{(z)}$ is a $z$-biseq and $\str{A}, \elemtuples^{(x)} \bisimto_{\FGF}^{2 * W * n - 1 - x} \str{B}, \elemtuplet^{(x)}$ for all $x \in [1,z]$.
     As $z \le W * k$ and $W * k \le W * n$, we have $2 * W * n - 1 - z \ge  W * k - 1$ and thus $\str{A}, \elemtuples^{(x)} \bisimto_{\FGF}^{W * k - 1} \str{B}, \elemtuplet^{(x)}$ for all $x \in [1, z]$.
     We construct the element $b_{1} \in \unraveldom{B}_{W * n}$ with $\seq{b_{1}} = \sigma$ and $\ctr{b_{1}} = \ctr{a_{1}}$.
+    Note that $b_{1} \in \unraveldom{B}_{W*n}$ because it $b_{1}$ is reachable from the bipoint $(\elemtuplet^{(0)}, 1)$, which has sequence level equal to zero and counter equal to one.
     By construction of $\sigma$, we have $\hist{(W * k - 1)}{b_{1}} = \hist{(W * k - 1)}{a_{1}}$ so $a_{1} \approx_{W * k - 1} b_{1}$.
     Similar to case (i), we now use~\ref{elemeq:succ} to find elements $b_{2}, \ldots, b_{|\elemtuptuplea|} \in \unraveldom{B}_{W * n}$ such that $b_{2} \cdots b_{|\elemtuptuplea|}$ is a next-chain.
     Since $|\elemtuptuplea| \le W$, this requires at most $W - 1$ applications of~\ref{elemeq:succ}.

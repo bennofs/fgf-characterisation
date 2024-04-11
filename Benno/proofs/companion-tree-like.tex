@@ -1,34 +1,37 @@
 \ifmainpart
 \begin{restatable}{lemma}{companionTreeLike}\label{lem:companion-tree-like}
-  Let $D_{a, \ell}(\unravel{A}_{\ell})$ be the set of elements $b$ for which there exists a next-chain of length at most $\ell$ starting from $a$ and ending in $b$.
+  Let $D_{a, \ell}(\unravel{A}_{\ell})$ be the set of elements $b$ for which there exists a $\relNext_{\ell}$-chain of length at most $\ell$ starting from $a$ and ending in $b$.
   For any element $a \in \unraveldom{A}_{\ell}$, the set $D_{a, \ell}$ is a tree rooted at $a$.
 \end{restatable}
-\else
-  \section{Lemma~\ref{lem:companion-tree-like}}
-  \companionTreeLike*
+% \else
+%   \section{Lemma~\ref{lem:companion-tree-like}}
+%   \companionTreeLike*
 \fi
 \ifmainpart
-\begin{proofsketch}
-  Towards a contradiction, suppose that $D_{a,\ell}$ is not a tree. Since all elements in $D_{a,\ell}$ are descendants of $a$, the only case in which $D_{a,\ell}$ is not a tree is if some element $e \in D_{a,\ell}$ has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
-  In this case, $p_{1}$ and $p_{2}$ must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2},\ell}$ of the structure $\unravel{A}_{\ell}$ and both have sequences with level $2 * \ell$.
-  Now, at least one of $p_{1}$ or $p_{2}$ must be in a different subtree than $a$.
-  Reaching the root of that subtree from $a$ requires traversing at least one $\relNext$-edge.
-  Then, to reach the leaf $p_{1}$ or $p_{2}$ from the root requires an additional next-chain of length at least $\ell$ by \cref{lem:bounded-trees-shortest-next-path}.
-  In total, this is a next chain of length at least $\ell + 1$ and hence the element does not belong to $D_{a,\ell}$, a~contradiction.
-\end{proofsketch}
-\else
+% \begin{proofsketch}
+%   Towards a contradiction, suppose that $D_{a,\ell}$ is not a tree.
+%   Since all elements in $D_{a,\ell}$ are descendants of $a$, the only case in which $D_{a,\ell}$ is not a tree is if some element $e \in D_{a,\ell}$ has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
+%   In this case, $p_{1}$ and $p_{2}$ must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2},\ell}$ of the structure $\unravel{A}_{\ell}$ and both have sequences with level $2 * \ell$.
+%   Now, at least one of $p_{1}$ or $p_{2}$ must be in a different subtree than $a$.
+%   Reaching the root of that subtree from $a$ requires traversing at least one $\relNext$-edge.
+%   Then, to reach the leaf $p_{1}$ or $p_{2}$ from the root requires an additional next-chain of length at least $\ell$ by \cref{lem:bounded-trees-shortest-next-path}.
+%   In total, this is a next chain of length at least $\ell + 1$ and hence the element does not belong to $D_{a,\ell}$, a~contradiction.
+% \end{proofsketch}
+% \else
 \begin{proof}
-  Assume by contradiction that $D_{a,\ell}$ is not a tree.
-  Clearly, all elements in $D_{a,\ell}$ are descendants of $a$.
-  Thus, if $D_{a,\ell}$ is not a tree, there must be an element $e \in D_{a,\ell}$ which has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
-  Recall that the structure $\str{A}$ is consists of subtrees $\mathcal{T}_{r,\ell}$.
-  For $e$ to have two different parents, those parents must be leaves of different subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2}, \ell}$ for different roots $r_{1}, r_{2} \in \unraveldom{A}$.
+  Towards a contradiction, suppose that $D_{a,\ell}$ is not a tree.
+  Since all elements in $D_{a,\ell}$ are descendants of $a$, the only case in which $D_{a,\ell}$ is not a tree is if some element $e \in D_{a,\ell}$ has at least two parents $p_{1}, p_{2} \in D_{a,\ell}$.
+  Recall that the structure $\unravel{A}_{\ell}$ consists of subtrees $\mathcal{T}_{r,\ell}$.
+  By construction, the only elements which have more than one parent in a finite $\ell$-unraveling are roots of such subtrees.
+  Additionally, the parents of roots are leaves of other subtrees and have sequences with level $2 * \ell$.
+  Hence, if $e$ has two different parents, we know that $e$ is a root of a subtree and the parents $p_{1}$ and $p_{2}$ are leaves of subtrees $\mathcal{T}_{r_{1},\ell}$ and $\mathcal{T}_{r_{2},\ell}$ of the structure $\unravel{A}_{\ell}$.
+  Furthermore, both of those leaves $p_{1}$ and $p_{2}$ have sequences with level $2 * \ell$.
+
+  The parents are leaves of \emph{different} subtrees since no two leaves of any subtree link to the same root.
   At least one of the elements $p_{1}$ and $p_{2}$ must therefore be in a different subtree than $a$.
   By symmetry, let us assume that $p_{1}$ is not in the same subtree as $a$.
-  Then the shortest next-chain from $a$ to $p_{1}$ must traverse through the whole subtree from $r_{1}$ to the leaf $p_{1}$.
-  With every transition along the a $\relNext_{\ell}$-edge, the level of the sequence of an element increases by at most 1.
-  Hence, the next-chain from $r_{1}$ to $p_{1}$ has a length of at least $\ell$.
-  Since the shortest next-chain from $a$ to $p_{1}$ must go through $r_{1}$ (as $a$ is not in the same subtree as $p_{1}$) and reaching $r_{1}$ from $a$ also requires at least one next transition, the shortest next-chain from $a$ to $p_{1}$ is longer than $\ell$.
-  Hence, $p_{1} \notin D_{a,\ell}$, a contradiction.
+  Reaching the root of that subtree from $a$ requires traversing at least one $\relNext_{\ell}$-edge.
+  Then, to reach the leaf $p_{1}$ from the root requires an additional $\relNext_{\ell}$-chain of length at least $\ell$ by \cref{lem:bounded-trees-shortest-next-path}.
+  In total, this is a $\relNext_{\ell}$-chain of length at least $\ell + 1$ and hence the element does not belong to $D_{a,\ell}$, a~contradiction.
 \end{proof}
 \fi

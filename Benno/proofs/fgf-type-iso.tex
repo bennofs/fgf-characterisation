@@ -3,27 +3,27 @@
   Let $\elemtuptuplea$ and $\elemtuptupleb$ be live tuples in finite $\ell$-unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$ of structures $\str{A}$ and $\str{B}$ for a parameter $\ell$.
   If $\ell > \arity(\Sigma)$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$ implies $\elemtuptuplea \isoeq \elemtuptupleb$, as witnessed by the isomorphism $\mu_{(\elemtuptuplea, \elemtuptupleb)}\colon\, a_{i} \mapsto b_{i}$ for every $i \in [1, k]$.
 \end{restatable}
-\else
-  \section{Lemma~\ref{lem:fgf-type-iso}}
-  \fgfTypeIso*
-\fi
-\ifmainpart
-\begin{proofsketch}
-  If $\elemtuptuplea = (a_{1}, \ldots, a_{n})$, then any tuple $\elemtuptupleb$ with the same elements as $\elemtuplea$, but in a different order, cannot be live.
-  To see why, suppose that such a tuple is live.
-  Then this implies that there is $\relNext_{\ell}$-edge from $a_{i}$ to $a_{j}$ for some $j < i$.
-  However, that implies the existence of a $\relNext_{\ell}$-cycle of length at most $\arity(\Sigma)$ in $\unravel{A}_{\ell}$, which is impossible by \cref{lem:companion-tree-like}.
-  Similarly, all live tuples consisting of a subset of the elements of $\elemtuptuplea$ must be infixes of $\elemtuptuplea$.
-  Hence, the atomic-$\FGF$-type fully characterizes the atomic relations among the set of elements in $\elemtuptuplea$.
-  Therefore, equivalence of atomic-$\FGF$-types is sufficient to ensure isomorphism in tree unravelings.
-\end{proofsketch}
-\else
+% \else
+%   \section{Lemma~\ref{lem:fgf-type-iso}}
+%   \fgfTypeIso*
+% \fi
+% \ifmainpart
+% \begin{proofsketch}
+%   If $\elemtuptuplea = (a_{1}, \ldots, a_{n})$, then any tuple $\elemtuptupleb$ with the same elements as $\elemtuplea$, but in a different order, cannot be live.
+%   To see why, suppose that such a tuple is live.
+%   Then this implies that there is $\relNext_{\ell}$-edge from $a_{i}$ to $a_{j}$ for some $j < i$.
+%   However, that implies the existence of a $\relNext_{\ell}$-cycle of length at most $\arity(\Sigma)$ in $\unravel{A}_{\ell}$, which is impossible by \cref{lem:companion-tree-like}.
+%   Similarly, all live tuples consisting of a subset of the elements of $\elemtuptuplea$ must be infixes of $\elemtuptuplea$.
+%   Hence, the atomic-$\FGF$-type fully characterizes the atomic relations among the set of elements in $\elemtuptuplea$.
+%   Therefore, equivalence of atomic-$\FGF$-types is sufficient to ensure isomorphism in tree unravelings.
+% \end{proofsketch}
+% \else
 \begin{proof}
-Let $\ell > W$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal atomic-$\FGF$-types and equal size $k$.
+Let $l \in \N$ with $\ell > \arity(\Sigma)$ and consider live tuples $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ with equal atomic-$\FGF$-types and equal size $k$.
 We claim that the map $\mu_{(\elemtuptuplea, \elemtuptupleb)}:\, a_{i} \mapsto b_{i}$ for all $i \in [1, k]$, is an isomorphism between $\restr{\str{\unravel{A}_{\ell}}}{\set(\elemtuptuplea)}$ and $\restr{\str{\unravel{B}_{\ell}}}{\set(\elemtuptupleb)}$.
-Let $\elemtuptupler$ be a tuple with $\elemtuptupler \sqin \set(\elemtuptuplea)$ and $\elemtuptupler \in \relR^{\str{A}}$ for some relation $\relR \in \Sigma$.
+Let $\elemtuptupler$ be a tuple with $\elemtuptupler \sqin \set(\elemtuptuplea)$ and $\elemtuptupler \in \relR^{\str{A}}$ for some predicate $\relR \in \Sigma$.
 We first show that $\elemtuptupler$ is an infix of $\elemtuptuplea$.
-Suppose to the contrary that $\elemtuptupler$ is not an infix of $\elemtuptuplea$, thus there is an $i$ such that $r_{i} = a_{v}$ and $r_{i+1} = a_{w}$ with $v \ne w - 1$.
+Suppose to the contrary that $\elemtuptupler$ is not an infix of $\elemtuptuplea$, thus there is an $i$ such that $r_{i} = a_{v}$ and $r_{i+1} = a_{w}$ with $w \ne v + 1$.
 But then both $(a_{v}, a_{w}) \in \relNext_{\ell}$ and $(a_{w-1}, a_{w}) \in \relNext_{\ell}$ since $\elemtuptupler$ and $\elemtuptuplea$ are live.
 This is a contradiction, since $D_{a_{1}, W}$ defined in \cref{lem:companion-tree-like} includes $a_{v}, a_{w-1}$ and $a_{w}$ but cannot be a tree since $a_{w}$ would have two parents $a_{v}$ and $a_{w-1}$.
 Therefore, $\elemtuptupler$ is an infix of $\elemtuptuplea$.
