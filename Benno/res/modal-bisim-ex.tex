@@ -4,7 +4,9 @@
   \tikzset{p1/.style={draw=black,rectangle,el}};
   \tikzset{eq1/.style={color=tolvibrantBlue,label distance=0em, label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.2em]45:\scriptsize{1}}}};
   \tikzset{eq2/.style={color=tolvibrantOrange,label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.4em]40:\scriptsize{2}}}};
-  \tikzset{eq3/.style={color=tolvibrantTeal,label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.2em]40:\scriptsize{3}}}};
+  \tikzset{eq3/.style={color=tolvibrantTeal,label={[overlay,draw,circle,inner sep=0.1em,outer sep=0em,label distance=0em]60:\scriptsize{3}}}};
+  \tikzset{eq1p/.style={color=tolvibrantBlue,label distance=0em, label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0em]45:\scriptsize{1'}}}};
+  \tikzset{eq2p/.style={color=tolvibrantOrange,label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.4em]-10:\scriptsize{2'}}}};
 
   \matrix[matrix of nodes, row sep=1.5em, matrix anchor=a1.base east] (t1) {
     |[nop,eq1] (a1)| \underline{a} \\
@@ -16,18 +18,20 @@
     |[p1,eq2]  (b2)| b & |[nop,eq1] (c2)| c \\
   };
 
-  \matrix[matrix of nodes, row sep=1.5em, column sep=2em, right=5em of t2.east, yshift=0.5em, matrix anchor=a3.base west] (t3) {
-    |[nop] (a3)| \underline{a}  &
+  \tikzset{eq1/.style={color=tolvibrantBlue,label distance=0em, label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.2em]45:\scriptsize{1}}}};
+  \tikzset{eq2/.style={color=tolvibrantOrange,label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0em]-40:\scriptsize{2}}}};
+  \matrix[matrix of nodes, row sep=1.5em, column sep=1.5em, right=5em of t2.east, yshift=0.5em, matrix anchor=a3.base west] (t3) {
+    |[nop,eq1] (a3)| \underline{a}  &
     |[p1]  (b3)| b  &
-    |[nop] (c3)| c  \\
+    |[nop,eq2] (c3)| c  \\
   };
 
-  \matrix[matrix of nodes, row sep=1.5em, column sep=2em, at={($(a1.base east -| c3.west)+(6em,0)$)}, matrix anchor=a4.base west] (t4) {
-    |[nop] (a4)| \underline{a}  &
+  \matrix[matrix of nodes, row sep=1.5em, column sep=1.5em, at={($(a1.base east -| c3.west)+(6em,0)$)}, matrix anchor=a4.base west] (t4) {
+    |[nop,eq1p] (a4)| \underline{a}  &
     |[p1]  (b4)| b  &
-    |[nop] (c4)| c  \\
+    |[nop,eq3] (c4)| c  \\
     &
-    |[nop] (d4)| d &
+    |[nop,eq2p] (d4)| d &
     &
     \\
   };

@@ -57,7 +57,7 @@ There is a corresponding restricted notion of bisimulation, the $\ell$-basic bis
     \item Spoiler moves from ${a}$ to $c$ in $\str{C}$, which forces Duplicator to move to $d$ in $\str{D}$ to preserve atomic harmony.
     \item Spoiler now picks $c$ in $\str{D}$, to which Duplicator has no answer, so Spoiler wins.
   \end{enumerate}
-  We indicate the moves by spoiler with the labels $1$, $2$ and $3$ and the corresponding answers by Duplicator with $1'$, $2'$ in the above pictures.
+  We indicate the moves by Spoiler with the labels $1$, $2$ and $3$ and the corresponding answers by Duplicator with $1'$, $2'$ in the above pictures.
   We can encode this strategy of Spoiler with the modal logic formula $\varphi = \Diamond((\neg p_{1}) \land \Diamond (\neg p_{1}))$, which is satisfied in $(\str{D}, {a})$ but not in $(\str{C}, {a})$.
 \end{example}
 
@@ -71,7 +71,7 @@ For every pair of transition systems $(\str{A}, a)$ and~$(\str{B}, b)$ we have t
 \item $(\str{A}, a) \bisimto_{\ML}^{\ell} (\str{B}, b)$ if and only if $(\str{A}, a) \equiv_{\ML_\ell} (\str{B}, b)$ for all $\ell \in \N$;
 \end{enumerate}
 \end{lemma}
-In the following sections of this chapter, we first present generalized notions of bisimulation satisfy the analog of \cref{lemma:ML-bisimulations-work-well}, in which $\ML$ is replaced with the logics $\GF$ and $\FGF$.
+In the following sections of this chapter, we first present generalized notions of bisimulation that satisfy the analog of \cref{lemma:ML-bisimulations-work-well}, in which $\ML$ is replaced with the logics $\GF$ and $\FGF$.
 This presentation follows~\cite[Sec. 2.2.3]{Otto04} and~\cite[Sec. 2]{BednarczykJ22}.
 In the final section, we describe the $\FGF$-bisimulation game and define some concepts based on this game which we use in later chapters to construct the $\FGF$ unraveling.
 
@@ -87,7 +87,7 @@ Then a pair of tuples $\partisof = (\elemtuplea, \elemtupleb)$ defines a \emph{p
     (a_{i_{1}}, \ldots, a_{i_{k}}) \in \relR^{\str{A}} \iff (b_{i_{1}}, \ldots, b_{i_{k}}) \in \relR^{\str{B}}\mathrm{.}
     \end{equation*}
 \end{itemize}
-We say that $\set(\elemtuplea)$ is the \emph{domain} and $\set(\elemtupleb)$ is the \emph{image} of $\partisof$.
+We say that $\set(\elemtuplea)$ is the \emph{domain} of $\partisof$ and $\set(\elemtupleb)$ is the \emph{image} of $\partisof$.
 For the partial isomorphism $\partisof$, the function $f \colon a_{i} \mapsto b_{i}$ for $i \in [1,n]$ is an isomorphism between $\restr{\str{A}}{\set(\elemtuplea)}$ and $\restr{\str{B}}{\set(\elemtupleb)}$.
 Two partial isomorphisms $\partisof$ and $\partisog$ \emph{agree on their common domain} if $f(a) = p(a)$ for every element $a$ that is in the domain of both $\partisof$ and $\partisog$.
 Symmetrically, $\partisof$ and $\partisog$ \emph{agree on their common image} if $f^{-1}(a) = g^{-1}(a)$ for every element $a$ in the common image.
@@ -163,7 +163,7 @@ The notion of bisimulation for $\FGF$ is similar to the one for $\GF$ but takes 
 Due to the ``forwardness'', two tuples that satisfy the exact same atomic formula of $\FGF$ do not necessarily induce a partial isomorphism.
 Hence, we now define \emph{forward partial maps}, which exactly represent the properties captured by atomic $\FGF$ formulae.
 Let $\elemtuplea \sqin A$ and $\elemtupleb \sqin B$ be tuples with $|\elemtuplea| = |\elemtupleb|$ from structures $\str{A}$ and $\str{B}$.
-The pair $(\elemtuplea, \elemtupleb)$ is a \emph{forward partial map} between if $\elemtuplea$ and $\elemtupleb$ are live and $\atp{\FGF}{\str{A}}{\elemtuplea} = \atp{\FGF}{\str{B}}{\elemtupleb}$~holds.
+The pair $(\elemtuplea, \elemtupleb)$ is a \emph{forward partial map} between $\str{A}$ and $\str{B}$ if $\elemtuplea$ and $\elemtupleb$ are live and $\atp{\FGF}{\str{A}}{\elemtuplea} = \atp{\FGF}{\str{B}}{\elemtupleb}$~holds.
 For our fixed signature $\Sigma$, we note that $|\elemtuplea| = |\elemtupleb|$ is smaller or equal to $\arity(\Sigma)$, due to the requirement that these tuples are live.
 A \emph{system of forward partial maps} between structures $\str{A}$ and $\str{B}$ is a set of $\mathcal{Z}$ where each element is a forward partial map.
 
@@ -289,8 +289,8 @@ Intuitively, this projection gives the tuple of selected elements in structure $
 We now introduce ``bipoints'', which have a projection to individual selected elements (``points'') of $\str{A}$ instead.
 A \emph{bipoint} of a structure $\str{A}$ is a tuple $(\sigma, k) \in \Seq{A} \times \mathbb{N}$ such that either
 \begin{itemize}
-  \item $\sigma = \elemtuplea$, for some $\elemtuplea \sqin A$ where $1 \le k$ and $k \le |\elemtuplea|$, or
-  \item $\sigma = \cdots (i,j) \elemtuplea$, for some $\elemtuplea \sqin A$ where $(j-i+1) + 1 \le k$ and $k \le |\elemtuplea|$ .
+  \item $\sigma = \elemtuplea$, for some $\elemtuplea \sqin A$ and $1 \le k$ and $k \le |\elemtuplea|$, or
+  \item $\sigma = \cdots (i,j) \elemtuplea$, for some $\elemtuplea \sqin A$ and $(j-i+1) + 1 \le k$ and $k \le |\elemtuplea|$ .
 \end{itemize}
 For a bipoint $e$ of a structure $\str{A}$ that can be decomposed as $e = (\rho, k)$, we use the notation $\seq{e} = \rho$ and $\ctr{e} = k$ to denote the biseq and the counter of this bipoint, respectively.
 The counter of the bipoint identifies one component of the tuple of elements that the biseq projects to.

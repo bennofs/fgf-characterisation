@@ -113,7 +113,7 @@ Similarly to the case for $\GF$, the HAH-unraveling $\hatunravel{A}$ is $\FGF$-b
   For example, $(1, 123) \notin \textcolor{tolhighcontrastRed}{\relS}^{\hatunravel{A}}$.
   This is because of condition (2) in the definition of the HAH-unraveling.
   The same is not true in the $\GF$-unraveling, since the $\GF$-unraveling does not fix the order of elements in tuples of relations.
-  An example is provided by the elements $s_{1}s_{2}s_{6}s_{4}/2$ and $s_{1}s_{5}/3)$ which are related by $\textcolor{tolhighcontrastRed}{\relS}^{\hatunravel{A}}$, even though the sequence in the first element is longer than the sequence in the second.
+  An example is provided by the elements $s_{1}s_{2}s_{6}s_{4}/2$ and $s_{1}s_{5}/3$ which are related by $\textcolor{tolhighcontrastRed}{\relS}^{\hatunravel{A}}$, even though the sequence in the first element is longer than the sequence in the second.
   The $\GF$-unraveling allows this, since condition (2) only asserts the existence of some maximal sequence $\sigma_{j}$ among the elements of the tuple, which does not need to come from the last element.
 
   To see the effect of condition (3) for relations in the $\GF$-unraveling, consider the relation $\textcolor{tolhighcontrastBlue}{\relP}^{\gfunravel{A}}$ and the tuple of elements $s_{1}/1, s_{1}/2, s_{1}s_{4}/3$.
@@ -155,7 +155,10 @@ The unravelings are shown in the following picture:
 \end{figure}
 
 \noindent
-However, $\hatunravel{A}$ and $\hatunravel{B}$ can be distinguished by a $\GF$ sentence $\exists{x_{2}x_{3}}\,( \textcolor{tolhighcontrastYellow}{\relE}(x_{2},x_{3}) \land \lnot (\exists x_{1} \textcolor{tolhighcontrastBlue}{\relP}(x_{1},x_{2},x_{3})))$.
+However, $\hatunravel{A}$ and $\hatunravel{B}$ can be distinguished by the following $\GF$ sentence $\varphi$:
+\begin{equation*}
+  \varphi = \exists{x_{2}x_{3}}\,( \textcolor{tolhighcontrastYellow}{\relE}(x_{2},x_{3}) \land (\exists{x_{4},x_{5}}\textcolor{tolhighcontrastBlue}{\relP}(x_{4},x_{2},x_{3})) \land \lnot (\exists x_{1} \textcolor{tolhighcontrastBlue}{\relP}(x_{1},x_{2},x_{3})))
+\end{equation*}
 Hence, the unravelings are not $\GF$-bisimilar.
 This shows that \cref{thm:inf-unraveling-upgrading} fails for the HAH-unraveling, even in the finite case.
 To fix this, we develop a new unraveling for $\FGF$.

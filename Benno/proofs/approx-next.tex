@@ -97,11 +97,11 @@
   \paragraph{Case \romannumeral3: $\seq{a} \ne \seq{c}$, for~\ref{elemeq:pred}.}
   Let $a$ and $c$ be elements with $\seq{a} \ne \seq{c}$ and $(c,a) \in \relNext_{\ell}$.
   By definition of $\relNext_{\ell}$, this means that $\seq{a} = \mathsf{trunc}_{\ell}[\sigma]$ with $\sigma = \seq{c}(i,j)\elemtuples$ and $\ctr{a} = (j-i+1)+1$, for some tuple $\elemtuples \sqin A$ and indices $(i,j)$.
-  Let $b \in \unraveldom{B}_{\ell}$ be an element with $a \approx_{z} b$
+  Let $b \in \unraveldom{B}_{\ell}$ be an element with $a \approx_{z} b$.
   Due to the equivalence of $z$-histories, it follows that $\seq{b} = \cdots (i,j) \elemtuplet$ for some indices $(i,j)$ and a tuple $\elemtuplet$.
-  Importantly, this shows that the level of $\seq{b}$ is greater than 1.
-  Recall that by definition of $\ell$-unravelings (\cref{def:finite-tree-unraveling}), all elements in an $\ell$-unraveling are reachable via a $\relNext_{\ell}$-chain from elements with a sequence level equal to 1.
-  Since the level of $\seq{b}$ is greater than 1, the element $b$ must have at least one $\relNext_{\ell}$-parent in $\unraveldom{B}_{\ell}$.
+  Importantly, this shows that the level of $\seq{b}$ is greater than 0.
+  Recall that by definition of $\ell$-unravelings (\cref{def:finite-tree-unraveling}), all elements in an $\ell$-unraveling are reachable via a $\relNext_{\ell}$-chain from elements with a sequence level equal to 0.
+  Since the level of $\seq{b}$ is greater than 0, the element $b$ must have at least one $\relNext_{\ell}$-parent in $\unraveldom{B}_{\ell}$.
   Let $d \in \unraveldom{B}_{\ell}$ be any $\relNext_{\ell}$-parent of $b$, \ie{} we have $(d,b) \in \relNext_{\ell}$.
 
   We claim that $c \approx_{z-1} d$.

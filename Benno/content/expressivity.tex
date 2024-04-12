@@ -24,9 +24,9 @@ Other ways of measuring the expressive power of logics, such as Lindström theor
 There is a large body of work extending van Benthem's classical result for basic modal logic~\cite{van1983modal} to other variants of modal logic.
 Examples of this include:
 \begin{itemize}
-  \item Rosen's result shows that van Benthem's theorem also works in the finite~\cite{Rosen97}.
-  \item Modal logics with multiple, global and inverse modalities are bisimulation invariant fragments of $\FO$ for notions of bisimulation, over both finite and infinite structures~\cite{Otto04}.
-  \item Graded modal logic characterized as the counting bisimulation invariant fragment of $\FO$, over both finite and infinite relational structures \cite{derijke2000,otto2023}.
+  \item Rosen's result shows that the classical van Benthem theorem also works in the finite~\cite{Rosen97}.
+  \item Modal logics with multiple, global and inverse modalities are bisimulation invariant fragments of $\FO$ for appropriate notions of bisimulation, over both finite and infinite structures~\cite{Otto04}.
+  \item Graded modal logic is the counting bisimulation invariant fragment of $\FO$, over both finite and infinite relational structures \cite{derijke2000,otto2023}.
   \item $\GF$ is the $\GF$-bisimulation invariant fragment of $\FO$, both in the classical~\cite{AndrekaNB98} and finite setting~\cite{Otto2012}.
   \item Modal logic extended with fixed point operators ($\mu\ML$) is the bisimulation-invariant fragment of monadic second-order logic ($\Logic{MSO}$) (Janin-Walukiwicz theorem)~\cite{janin1996}, and similar for the guarded fragment extended with fixed point operators~\cite{gradel2002}.
         However, whether this is true in the finite as well is a long-standing open question.
@@ -60,7 +60,7 @@ We present a comparison to these two existing methods of unraveling in \cref{sec
 In the next section, we introduce our approach to prove van Benthem for $\FGF$ following Otto in detail.
 
 \section{Van Benthem for $\FGF$}\label{sec:van-benthem-theorem}
-The high-level idea for the proof of the van Benthem theorem for $\FGF$ is to show that for any given $\bisimto_{\FGF}$ first-order formula $\varphi$, there is some number $\ell \in \N$ such that $\varphi$ is $\bisimto_{\FGF}^{\ell}$ invariant.
+The high-level idea for the proof of the van Benthem theorem for $\FGF$ is to show that for any given $\bisimto_{\FGF}$ first-order formula $\varphi$, there is some number $\ell \in \N$ such that $\varphi$ is $\bisimto_{\FGF}^{\ell}$-invariant.
 An observation by Otto~\cite[Obs.~13]{Otto04} then implies the above theorem.
 In the following, we present this observation in full for $\FGF$.
 First, we can see that every $\bisimto_{\FGF}^{\ell}$ equivalence class is characterized by an $\FGF_{\ell}$ formula, as stated in the following lemma:

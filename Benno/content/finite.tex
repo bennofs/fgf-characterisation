@@ -26,7 +26,7 @@ This follows from the following two observations:
 Furthermore, this tree is finite:
 \input{proofs/bounded-trees-are-finite}
 \noindent
-We now consider the collection of finite trees with roots that have a ``short'' biseq, more precisely with roots which in the set $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$.
+We now consider the collection of finite trees with roots that have a ``short'' biseq, more precisely with roots which are in the set $\mathcal{S} = \left\{ \mathcal{T}_{r,\ell}(\str{A}):\, r \in A \text{ and } \seq{r}\ \text{has level at most $\ell$}\right\}$.
 This set is finite, by the same argumentation as in the proof of \cref{lem:bounded-trees-are-finite}.
 The trees in the set $\mathcal{S}$ are exactly those trees for which we can guarantee that the shortest path from the root to any leaf with a biseq of level $2 * \ell$ has at least length $\ell$.
 \begin{lemma}\label{lem:bounded-trees-shortest-next-path}
@@ -88,7 +88,7 @@ This is made precise in the following definition.
 \end{definition}
 
 \noindent
-The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following lemma:
+Similar to the case of the infinite unraveling, we say that a tuple $\elemtuptuplee \sqin \unraveldom{A}_{\ell}$ of size $n$ is a next chain if $(e_{i}, e_{i+1}) \in \relNext_{\ell}$ for all $i < n$. The structure $\unravel{A}_{\ell}$ is tree-like, in the sense of the following lemma:\\[-1ex]
 \input{proofs/companion-tree-like}
 
 \noindent
@@ -100,20 +100,20 @@ We employ \cref{lem:companion-tree-like} to show that if $\ell$ is sufficiently 
 Our main goal for the remainder of this section is to show that $\unravel{A}_{\ell} \bisimto_{\GF}^{n} \unravel{B}_{\ell}$, given that $\str{A} \bisimto_{\FGF}^{m} \str{B}$ for some $m$ and $\ell$ which depend only on $n$.
 For this proof, we first introduce the notion of $z$-\emph{similar} elements for $z \in \N$, which is a relation between elements from $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
 We later lift this relation to tuples to construct the $n$-$\GF$-bisimulation.
-Intuitively, the idea behind the notion of $z$-similarity is to relate elements that behave similar for up to $z$ transitions along $\relNext$-edges, in both forward and backward directions.
+Intuitively, the idea behind the notion of $z$-similarity is to relate elements that behave similar for up to $z$ transitions along $\relNext_{\ell}$-edges, in both forward and backward directions.
 In other words, our notion of $z$-similarity ensures that if $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-similar elements, then for every parent (or child) $c \in \unraveldom{A}_{\ell}$ of $a$, there exists a parent (or child) $d \in \unraveldom{B}_{\ell}$ of $b$ which is $(z{-}1)$-similar to $c$.
-Let us first consider the simpler case of only achieving this property for children (i.e.\ forward transitions along $\relNext$-edges).
+Let us first consider the simpler case of only achieving this property for children (i.e.\ forward transitions along $\relNext_{\ell}$-edges).
 We say that elements $a \in \unraveldom{A}_{\ell}$ and $b \in \unraveldom{B}_{\ell}$ are $z$-\emph{forward-similar} if $\ctr{a} = \ctr{b}$, $\seq{a} = \cdots \elemtuples$ and $\seq{b} = \cdots \elemtuplet$ for tuples $\elemtuples$ and $\elemtuplet$ that satisfy $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$.
 Note that $\tp{\FGF_{z}}{\str{A}}{\elemtuples} = \tp{\FGF_{z}}{\str{B}}{\elemtuplet}$ is equivalent to $\str{A}, \elemtuples \bisimto_{\FGF}^{z} \str{B}, \elemtuplet$ by \cref{lem:FGF-bisimulations-work-well}.
 If we have such $z$-forward-similar elements $a$ and $b$ and $c \in \unraveldom{A}_{\ell}$ is a child of $a$, then by definition of $\relNext_{\ell}$ there are two possible situations: either (\romannumeral1) $c$ has the same sequence as $a$ but an incremented counter, or (\romannumeral2) $c$ adds a move to the sequence of $a$ (possibly removing elements from the beginning of the sequence if the result is too long).
 In both cases, we can find a child $b$ that is $(z{-}1)$-forward-similar to $c$: in case (\romannumeral1) we simply increment the counter of $b$, whereas in case (\romannumeral2) we employ~\ref{bisim:fforth} to find a move in $\str{B}$ that we can add to the end of the sequence of $b$ to obtain a child $d$ of $b$ so that the (new) last tuples of $\seq{c}$ and $\seq{d}$ have equal $\FGF_{z{-}1}$-types.
 
 We now consider the general case, including backward transitions.
-As we saw above, forward transitions along $\relNext$-edges extend the sequence of an element by adding moves to the end.
+As we saw above, forward transitions along $\relNext_{\ell}$-edges extend the sequence of an element by adding moves to the end.
 If we allow backward transitions, then we need to consider the opposite case: that moves are removed from the end of the sequence.
 It is thus no longer sufficient to only look at the type of the last tuple in a sequence.
 Instead, we need to consider the types of the last $z$ tuples.
-Intuitively, we obtain the history of an element by replacing the individual tuples $\elemtuples^{(0)}, \elemtuples^{(1)}, \ldots$ in the biseq with their $\FGF_{z}$-types $\tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(0)}}, \tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(1)}}, \ldots$ and truncating this sequence to its last $z$ steps:
+We define the \emph{$z$-history} of an element, obtained by replacing the individual tuples $\elemtuples^{(0)}, \elemtuples^{(1)}, \ldots$ in the biseq with their $\FGF_{z}$-types $\tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(0)}}, \tp{\FGF_{z}}{\str{A}_{\ell}}{\elemtuples^{(1)}}, \ldots$ and truncating this sequence to its last $z$ steps.
 \begin{definition}[$z$-history]
   Let $\str{A}$ be a structure, $\ell \in \N$ and $a \in \unraveldom{A}_{\ell}$ be an element with $\seq{a} = \elemtuples^{(0)} \cdots (i^{n}, j^{n})\elemtuples^{n}$ for some $n \in \N$, tuples $\elemtuples^{(0)}, \ldots, \elemtuples^{(n)}$ and indices $i^{(1)}, \ldots, i^{(n)}$ and $j^{(1)}, \ldots, j^{(n)}$.\\
   The \emph{$z$-history} of $a$, denoted by $\hist{z}{a}$, is the following sequence:
@@ -160,7 +160,8 @@ We show that tuples of $z$-similar elements have the same atomic-$\FGF$-type, wh
   If $\elemtuptuplea \sqin \unraveldom{A}_{\ell}$ and $\elemtuptupleb \sqin \unraveldom{B}_{\ell}$ are tuples of $z$-similar elements for some $z \in \N$, then $\atp{\FGF}{\unravel{A}_{\ell}}{\elemtuptuplea} = \atp{\FGF}{\unravel{B}_{\ell}}{\elemtuptupleb}$.
 \end{lemma}
 \begin{proof}
-  Take tuples $\elemtuptuplea$ and $\elemtuptupleb$ of $z$-similar elements from unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
+  Take tuples $\elemtuptuplea$ and $\elemtuptupleb$ of $z$-similar elements with size $k$ from unravelings $\unravel{A}_{\ell}$ and $\unravel{B}_{\ell}$.
+  The last elements of those tuples are $a_{k}$ and $b_{k}$.
   Let $\elemtuples$ and $\elemtuplet$ be the tuples from $\str{A}$ and $\str{B}$ such that $\seq{a_{k}} = \cdots \elemtuples$ and $\seq{b_{k}} = \cdots \elemtuplet$.
   Since $a_{k} \approx_z b_{k}$, we know that $\elemtuples$ and $\elemtuplet$ have the same atomic-$\FGF$-type.
   Observe that $\pi[\elemtuptuplea] = \elemtuples_{(\ctr{a_{k}}-k)\ldots{}\ctr{a_{k}}}$ and likewise $\pi[\elemtuptupleb] = \elemtuplet_{(\ctr{b_{k}}-k)\ldots{}\ctr{b_{k}}}$.

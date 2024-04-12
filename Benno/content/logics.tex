@@ -2,7 +2,8 @@
 \chapter{Logics}\label{chap:logics}
 
 In this chapter, we give a short review of first-order logic and some of its fragments.
-The goal is to make the thesis self-contained, for a more complete treatment of these topics we refer to appropriate textbooks~\cite{Libkin04,monk1976}.
+The goal is to make the thesis self-contained.
+For a more complete treatment of these topics we refer to appropriate textbooks~\cite{Libkin04,monk1976}.
 We also fix the notation that we employ in the later chapters.
 For quick reference, \cref{fig:notation-quickref} summarizes all notation appearing throughout the thesis.
 \begin{figure}[p]
@@ -86,8 +87,6 @@ We say that a tuple $\elemtuplea \sqin A$ is \emph{live} in a $\sigma$-structure
 Most statements made in this thesis generalize to any finite and purely relational signature $\Sigma$.
 Thus, we now fix an arbitrary, finite, and purely relational signature $\Sigma$ and adopt the convention that the signature of all structures is $\Sigma$ unless stated otherwise.
 Since $\Sigma$ is finite, there is a maximum arity of the relational symbols in $\Sigma$, which we denote by $\arity(\Sigma)$.
-In this visualization, each element of the domain corresponds to a node in the graph.
-For each relational symbol $\relR_{i} \in \Sigma$, we draw (hyper)edges labeled with $\relR_{i}$ between the elements which are in this relation according to its interpretation.
 In examples, we use uppercase letters $\relE, ...$ as relational symbols which we assume to be part of $\Sigma$ for the purposes of these examples.
 
 Now, we introduce \emph{first-order logic}, starting with the syntax of formulae, followed by the satisfaction relation between structures and formulae.
@@ -134,9 +133,9 @@ The \emph{quantifier rank} of $\varphi$, denoted by $\qr(\varphi)$, is the maxim
 \noindent%
 The \emph{free variables} of a formula $\varphi$ are inductively defined as follows:
 \begin{itemize}
-  \item the free variables of an atom $\alpha = \relR_{i}(v_{1}, \ldots, v_{n})$ are exactly the variables $v_{1}, \ldots, v_{n}$,
+  \item the free variables of an atom $\alpha = \relR_{i}(t_{1}, \ldots, t_{n})$ are exactly the variables that occur in $t_{1}, \ldots, t_{n}$,
   \item the free variables of $\neg \varphi$ are the same as those of $\varphi$,
-  \item the free variables of $\varphi_{1} \lor \varphi_{2}$ are the union of the free variables of $\varphi_{1}$ and $\varphi_{2}$,
+  \item the free variables of $\varphi_{1} \lor \varphi_{2}$ are the union of the free variables of $\varphi_{1}$ and $\varphi_{2}$, and
   \item the free variables of $\exists{x_{i}(\varphi)}$ are the free variables of $\varphi$ minus the variable $x_{i}$.
 \end{itemize}
 \end{samepage}
@@ -157,7 +156,7 @@ Similarly, if $\vartupley$ is a $k$-tuple of distinct variables and $\elemtuplea
   \item $\str{A} \models \relR_{i}(a_{1}, \ldots, a_{k})$ if $({a_{1}}^{\str{A}}, \ldots, {a_{k}}^{\str{A}}) \in \relR_{i}^{\str{A}}$ for $\relR_{i} \in \Sigma$ and constants $a_{1}, \ldots, a_{k}$.
   \item $\str{A} \models \neg \varphi$ if not $\str{A} \models \varphi$.
   \item $\str{A} \models \varphi_{1} \lor \varphi_{2}$ if $\str{A} \models \varphi_{1}$ or $\str{A} \models \varphi_{2}$.
-  \item $\str{A} \models \forall{x_{i}} (\varphi(x_{i}))$ if $(\str{A}, a_{i}) \models (\varphi[x_{i} \mapsto a_{i}])$ for all $a_{i} \in A$
+  \item $\str{A} \models \forall{x_{i}} (\varphi(x_{i}))$ if $(\str{A}, a_{i}) \models (\varphi[x_{i} \mapsto a_{i}])$ for all $a_{i} \in A$.
 \end{itemize}
 We write $\str{A}, \elemtuplea \models \varphi$ if $\str{A} \models \varphi[\elemtuplex \mapsto \elemtuplea]$ for an $\FO$ formula $\varphi(\vartuplex)$ and a tuple $\elemtuplea \sqin A$ with $|\elemtuplea| = |\elemtuplex|$.
 \end{definition}
@@ -196,8 +195,8 @@ We~define modal logic, with first-order semantics, as follows (compare \cite[Sec
   \begin{itemize}
     \item $(p_{i})^{\FO} = p_{i}(x)$,
     \item $(\neg \varphi)^{\FO} = \neg \varphi^{\FO}$,
-    \item $(\varphi_{1} \lor \varphi_{2})^{\FO} = \varphi_{1}^{\FO} \lor \varphi_{2}^{\FO}$,
-    \item $(\Diamond (\varphi))^{\FO} = \exists{y}(\relR(x,y) \land \varphi^{\FO}[x \mapsto y])$, and
+    \item $(\varphi_{1} \lor \varphi_{2})^{\FO} = \varphi_{1}^{\FO} \lor \varphi_{2}^{\FO}$, and
+    \item $(\Diamond (\varphi))^{\FO} = \exists{y}(\relR(x,y) \land \varphi^{\FO}[x \mapsto y])$.
   \end{itemize}
   For a modal formula $\varphi$, we write $\str{A}, a \models \varphi$ if $\str{A}, a \models \varphi^{\FO}$.
 \end{definition}
@@ -232,10 +231,10 @@ Common extensions for which this is the case are (see~\cite[Sec.~5.1]{goranko200
     \item $p_{c}$ (``the state is circled''), true at states $d$ and $c$
     \item $\Diamond(p_{c})$ (``some successor state is a circled one''), true at states $a, b, d$.
     \item $\Diamond(\Box(p_{c}))$ (``there is a successor which only has circled successors''), true at states $a, b, d$.
-    \item $\Box(\Diamond(p_{c}))$ (``all successors have at least one successor that is circled''), true at $c,d$.
+    \item $\Box(\Diamond(p_{c}))$ (``all successors have at least one successor that is circled''), true at $a,c,d$.
     \item $(\Diamond(p_{r})) \to (\Diamond(p_{c}))$ (``if there is a successor which is a rectangle, then there is also a circled successor''), true at all states.
     \item $(\Diamond(\top)) \land (\Box(p_{c}))$ (``there is at least one successor and all successors are circled''), true at $d$.
-    \item with inverse modality: $\Box^{-}(p_{r})$ (``all predecessors are rectangles''), true at $c$.
+    \item with inverse modality: $\Box^{-}(p_{r})$ (``all predecessors are rectangles''), true at $a,c$.
   \end{itemize}
 \end{example}
 % basic modal logic: ML
