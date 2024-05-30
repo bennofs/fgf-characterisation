@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+  \tikzset{hl/.style={color=white, fill=toldarkDarkgreen}};
+
+  \matrix (n) [
+    nodes={
+      draw,
+      circle,
+      minimum height=5ex,
+      minimum width=5ex,
+      anchor=center
+    },
+    column sep=1.5em,
+    row sep=1.5em,
+    matrix of nodes
+  ] {
+    |[hl] (b)| b & |[hl] (a)| a & |[hl] (c)| c & |[hl] (d)| d & |(e)| e \\
+      &   &   & |(f)| f &   \\
+  };
+
+  \path[->]
+    (b) edge (a) (a) edge (c) (c) edge (d) (d) edge (e)
+    (a) edge[bend left=40] (d)
+    (c) edge (f);
+
+  \node[right=2em of e,font=\Large] { $\restr{\str{A}}{\textcolor{tolmutedGreen}{\mathcal{N}_{1}(a)}}$ };
+\end{tikzpicture}

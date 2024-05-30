@@ -1,0 +1,129 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={minimum height=3ex,minimum width=3ex,inner sep=0pt,outer sep=0pt,anchor=center}};
+  \tikzset{nop/.style={el}};
+  \tikzset{p1/.style={draw=black,rectangle,el}};
+  \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
+  \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 100pt}};
+
+  \matrix[matrix of nodes, row sep=1.5em, column sep=1.5em, matrix anchor=a4.base west] (t4) {
+    |[nop] (a4)| \underline{a}  &
+    |[p1]  (b4)| b  &
+    |[nop] (c4)| c  \\
+    &
+    |[nop,minimum height=2ex] (d4)| d &
+    &
+    \\
+  };
+
+  \path[->]
+    % (a3) edge (b3) (b3) edge (c3) (a3) edge[bend right] (c3)
+    (a4) edge (b4) (b4) edge (c4) (a4) edge (d4) (d4) edge (c4)
+    (c4) edge[bend right=40] (a4)
+  ;
+
+  % \node[font=\Large] (bisim2) at ($(t3.east)!.5!(t4.west)$) { $\nsim_{\Logic{ML}}$ };
+
+  % \node[at=(t3.center), yshift=-3em, anchor=base] (label3) { $\str{C}, \underline{a}$ };
+  \node[at=(b4.center), anchor=base, yshift=3em] (label4) { $\str{A}, \underline{a}$ };
+
+  \node[right=9em of label4] (unravlabel) { $\str{A}^{*}, \underline{a}$ };
+
+  \matrix[
+  matrix of nodes, row sep=1.5em, column sep=1em,
+  matrix anchor=root.base east, right=4em of unravlabel,
+  row 2/.style={uncover=<2->},
+  row 3/.style={uncover=<3->},
+  row 4/.style={uncover=<4>},
+  row 5/.style={uncover=<4>}
+  ] {
+    & & |[nop] (root)| \underline{a} & & \\
+    & |[p1] (rab)| ab & & |[nop] (rad)| ad & \\
+    & |[nop] (rabc)| abc & & |[nop] (radc)| adc & \\
+    & |[nop] (rabca)| abca & & |[nop] (radca)| adca & \\
+    |[p1] (rabcab)| abcab & |[nop] (rabcad)| abcad & & |[p1] (radcab)| adcab & |[nop] (radcad)| adcad \\
+  };
+
+  \path<2->[->]
+    (root) edge (rab)
+    (root) edge (rad);
+
+  \path<3->[->]
+    (rab) edge (rabc)
+    (rad) edge (radc);
+
+  \path<4>[->]
+    (rabc) edge (rabca)
+    (radc) edge (radca)
+    (rabca) edge (rabcab)
+    (rabca) edge (rabcad)
+    (radca) edge (radcab)
+    (radca) edge (radcad);
+
+  \draw[uncover=<4>, faded edge reverse] (rabcab) -- ($(rabcab.south) + (0,-3em)$);
+  \draw[uncover=<4>, faded edge reverse] (rabcad) -- ($(rabcad.south) + (0,-3em)$);
+  \draw[uncover=<4>, faded edge reverse] (radcab) -- ($(radcab.south) + (0,-3em)$);
+  \draw[uncover=<4>, faded edge reverse] (radcad) -- ($(radcad.south) + (0,-3em)$);
+
+  \begin{scope}[uncover=<5>]
+    \node[anchor=east,rotate=20,inner sep=0pt, outer sep=0pt] at (rabca) {
+      \tikz {
+        \draw [use as bounding box] (0,0) -- (0,0);
+    \matrix[matrix of nodes, row sep=1.5em, column sep=1.5em, at={(0,0)}, matrix anchor=a4.center, outer sep=0pt] (t4) {
+      |[nop] (c4)| c  &
+      |[p1]  (b4)| b  &
+      |[nop] (a4)| a  \\
+      &
+      |[nop,minimum height=2ex] (d4)| d &
+      \\
+    };
+
+    \path[->]
+    (a4) edge (b4) (b4) edge (c4) (a4) edge (d4) (d4) edge (c4)
+    (c4) edge[bend left=40] (a4);
+    }};
+    \path[->] (rabc) edge (rabca);
+  ;
+  \end{scope}
+
+  \begin{scope}[uncover=<5>]
+    \node[anchor=east,rotate=-45,inner sep=0pt, outer sep=0pt] at (radca) {
+      \tikz {
+        \draw [use as bounding box] (0,0) -- (0,0);
+        \matrix[matrix of nodes, row sep=1.5em, column sep=1.5em, at={(0,0)}, matrix anchor=a4.center, outer sep=0pt] (t4) {
+          |[nop] (a4)| a  &
+          |[p1]  (b4)| b  &
+          |[nop] (c4)| c  \\
+          & |[nop,minimum height=2ex] (d4)| d & \\
+        };
+    \path[->]
+    (a4) edge (b4) (b4) edge (c4) (a4) edge (d4) (d4) edge (c4)
+    (c4) edge[bend right=40] (a4);
+    }};
+    \path[->] (radc) edge (radca);
+  ;
+  \end{scope}
+
+  % \begin{scope}[uncover=<5>]
+  %   \matrix[matrix of nodes, row sep=1.5em, column sep=1.5em, at=(rabca), matrix anchor=a4.center] (t4) {
+  %     |[nop] (c4)| c  &
+  %     |[p1]  (b4)| b  &
+  %     |[nop] (a4)| a  \\
+  %     &
+  %     |[nop,minimum height=2ex] (d4)| d &
+  %     &
+  %     \\
+  %   };
+
+  %   \path[->]
+  %   % (a3) edge (b3) (b3) edge (c3) (a3) edge[bend right] (c3)
+  %   (a4) edge (b4) (b4) edge (c4) (a4) edge (d4) (d4) edge (c4)
+  %   (c4) edge[bend left=40] (a4)
+  % ;
+  % \end{scope}
+
+
+  \begin{scope}[on background layer]
+  %\tikzdbg
+  \end{scope}
+
+\end{tikzpicture}

@@ -1,0 +1,25 @@
+
+  \begin{tikzpicture}
+    \matrix[row sep=2em, column sep=3em]
+    {
+        \node (a) {$(\str{A}, a)$}; &
+         \node[font=\large] (sim_ab) {$\bisimto_{\ML}^{\ell}$}; &
+        \node (b) {$(\str{B}, b)$}; &
+        \node[anchor=west] {}; \\
+
+        \node[font=\large] (sim_a_unravel) {$\bisimto_{\ML}$}; &
+        \node {}; &
+        \node[font=\large] (sim_b_unravel) {$\bisimto_{\ML}$}; &
+        \node[anchor=west] {}; \\
+
+        \node (a_unravel) {$(\str{A}', a')$}; &
+        \node[font=\large] (sim_unravel) {$\triangleq^{\ell}$}; &
+        \node (b_unravel) {$(\str{B}', b')$};
+        \node[anchor=west] {}; \\
+    };
+
+    \draw[->] (a) -- (sim_ab) -> (b);
+    \draw[dashed,->] (a) -- (sim_a_unravel) -> (a_unravel);
+    \draw[->] (a_unravel) -- (sim_unravel) -> (b_unravel);
+    \draw[dashed,->] (b_unravel) -- (sim_b_unravel) -> (b);
+  \end{tikzpicture}

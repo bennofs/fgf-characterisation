@@ -245,6 +245,17 @@
   \fill[red] (0,0) circle (0.1);%
 }
 
+\tikzset{
+  onslide/.code args={<#1>#2}{%
+    \only<#1>{\pgfkeysalso{#2}}% \pgfkeysalso doesn't change the path
+  },
+  temporal/.code args={<#1>#2#3#4}{%
+    \temporal<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}{\pgfkeysalso{#4}}%
+  },
+  hidden/.style = {opacity=0},
+  uncover/.style = {temporal=#1{hidden}{}{hidden}},
+}
+
 % Descriptions
 \makeatletter
 \def\desclabel#1#2{\begingroup
