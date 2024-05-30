@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={circle,draw,fill=white,minimum width=2em,minimum height=2em}};
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.25em, -{Stealth[round]}, shorten >= 0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em}};
+  \def\radiusP{0.7em};
+  \def\radiusE{0.4em};
+  \def\radiusS{0.2em};
+
+  \matrix[matrix of nodes, every node/.style={el},name=n,column sep=4em, row sep=4em]  {
+    |(n1)| $1$ & |(n2)| 2 & |(n3)| 3 \\
+  };
+  \begin{scope}[on background layer]
+    \fill[relE] (n1.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n2.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to node[above]{E} (p2);
+    \fill[relE] (n2.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n3.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to node[above]{E} (p2);
+    \fill[relE] (n3.south) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n1.south) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE,dashed] (p1) to[out=-160,in=-20] node[below]{E} (p2);
+  \end{scope}
+\end{tikzpicture}

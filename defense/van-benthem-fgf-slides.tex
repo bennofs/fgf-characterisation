@@ -1,0 +1,180 @@
+\documentclass[169]{beamer}
+
+\usetheme{auriga}
+\input{settings/packages.tex}
+\usepackage{appendixnumberbeamer}
+
+\includeonlyframes{current}
+
+\lstset{upquote=true}
+%\setsansfont[BoldFont={Fira Sans SemiBold}]{Fira Sans Book}
+\makeatletter
+\newlength\beamerleftmargin
+\setlength\beamerleftmargin{\Gm@lmargin}
+\makeatother
+
+\hypersetup{bookmarks=true,colorlinks=true,allcolors=blue}
+
+\title{A Constructive Proof of a Van~Benthem Theorem for the Forward Guarded Fragment of First~Order~Logic}
+\author{Benno Fünfstück}
+\institute{Master's defense}
+\date{24.06.2024}
+
+\include{tolcolors.tex}
+\input{macros.tex}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{What is the ``Forward Guarded Fragment ($\FGF$)''?}
+  \textbf{guarded}: quantification follows pattern ``$\exists{\elemtuplex} (\relR(\vartuplex, \vartupley) \land \varphi(\vartuplex, \vartupley))$''
+  \vspace{0.5em}
+  \begin{overprint}
+    \onslide<-2>
+      \begin{exampleblock}{Example 1}
+        $\varphi_{1} = \exists{x_{1}x_{2}}\; (\relE(x_{1}, x_{2}) \land (\exists{x_{3}}(\relE(x_{2}, x_{3}) \land \relP(x_{3}))$
+        \begin{center}
+        \input{res/ex1.tex}
+        \end{center}
+      \end{exampleblock}
+      \uncover<2>{
+      \begin{alertblock}{Counterexample 1}
+        $\varphi_{2} = \exists{x_{1}x_{2}}\; (\relE(x_{1}, x_{2}) \land (\exists{x_{3}}(\relE(x_{2}, x_{3}) \land \relE(x_{3}, x_{1}))$
+        \begin{center}
+        \input{res/counterex1.tex}
+        \end{center}
+      \end{alertblock}
+      }
+    \onslide<3->
+      \begin{exampleblock}{More examples}
+        \vspace{1em}
+        \hspace{1em}
+        \begin{minipage}{20em}
+        $\varphi_{3} = \lnot \exists{x_{1}x_{2}}\; (\relG(x_{1}, x_{2}) \land \lnot \relE(x_{2}, x_{1}))$ \\[1em]
+        $\varphi_{3} = \forall{x_{1}x_{2}}\; (\relG(x_{1}, x_{2}) \to \relE(x_{2}, x_{1}))$ \\[1em]
+        $\varphi_{4} = \forall{x_{1}}\; (\relG(x_{1}, x_{1}) \to \exists{x_{2}} (\relP(x_{1},x_{2}, x_{1})))$
+        \end{minipage}
+      \end{exampleblock}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}{What is the ``Forward Guarded Fragment ($\FGF$)''?}
+  \textbf{forward}: variables must appear in order $x_{1}$, $x_2$, \ldots
+  \vspace{0.5em}
+  \begin{alertblock}{Counterexamples}
+    $\varphi_{3} = \forall{x_{1}x_{2}}\; (\relG(x_{1}, x_{2}) \to \relE(x_{2}, x_{1}))$ \\[1em]
+    $\varphi_{5} = \exists{x_{1}}\; (\relE(x_{1}, x_{1}))$ \\[1em]
+    $\varphi_{6} = \exists{x_{1}x_{2}x_{3}}\; (\relP(x_{1}, x_{2}, x_{3}) \land \relE(x_{1}, x_{3}))$ \\[1em]
+    $\varphi_{7} = \exists{x_{2}x_{1}} \relE(x_{2}, x_{1})$
+  \end{alertblock}
+
+  \begin{exampleblock}{Examples}
+    $\varphi_{1} = \exists{x_{1}x_{2}}\; (\relE(x_{1}, x_{2}) \land (\exists{x_{3}}(\relE(x_{2}, x_{3}) \land \relP(x_{3}))$ \\[1em]
+
+    $\varphi_{8} = \exists{x_{1}x_{2}x_{3}}\; (\relP(x_{1}x_{2}x_{3}) \land \exists{x_{3}}(\relE(x_{2}, x_{3})))$ \\[1em]
+    $\varphi_{9} = \exists{x_{1}x_{2}x_{3}}\; (\relP(x_{1}x_{2}x_{3}) \land \relE(x_{2}, x_{3}))$ \\[1em]
+  \end{exampleblock}
+
+  \vskip 0pt plus 1filll
+\end{frame}
+
+\begin{frame}{How expressive is $\FGF$?}
+  \begin{center}
+    \input{res/bisim1.tex}
+  \end{center}
+  \begin{itemize}
+    \item \emph{FGF-bisimulation}: equivalence relation on structures
+    \item $\FGF$-formulae are $\FGF$-bisimulation-invariant
+    \item \textbf{Can we express all $\FGF$-bisimulation-invariant $\FO$-definable properties in $\FGF$?}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle<1>{Van Benthem's theorem}\frametitle<2>{Van Benthem's theorem (finitary version)}
+  \begin{theorem}[Van Benthem's theorem for $\FGF$]
+    A first-order formula $\varphi$ is equivalent to some $\FGF$-formula\only<2>{ \textbf{over finite structures}} if and only if it is invariant under $\FGF$-bisimulation\only<2>{ \textbf{over finite structures}}.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Part 1 of 2}
+  First, look at the simpler example of modal logic to introduce concepts
+\end{frame}
+
+\begin{frame}[label=current]{Bisimulation for Modal Logic ($\ML$)}
+  $\ML$ = quantification restricted to $\varphi(x) = \exists{y} (\relR(x,y) \land \psi(y))$
+  \vspace{0.5em}
+  \begin{definition}[$\ML$-bisimulation between $(\str{A}, s_{a})$ and $(\str{B}, s_{b})$]
+    A $\ML$-bisimulation is a set $\mathcal{Z} \subseteq A \times B$ with $(s_{a}, s_{b}) \in \mathcal{Z}$ and:
+    \begin{description}[itemsep=0.5em]
+      \item[(Atomic Harmony)] if $(a,b) \in \mathcal{Z}$, then $a \in p_{i}^{\mathcal{A}}$ if and only if $b \in p_{i}^{\mathcal{B}}$,
+      \item[(Forth)] if $(a,b) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{A}}$, there exists $d \in B$ with $(c,d) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{B}}$, and
+      \item[(Back)] vice-versa of \textbf{(Forth)}
+    \end{description}
+  \end{definition}
+\end{frame}
+
+\begin{frame}[label=current]{$\ML$-bisimulation example}
+  \begin{center}
+    \include{res/modal-bisim-ex1.tex}
+  \end{center}
+\end{frame}
+
+\begin{frame}[label=current]{$\ML$-bisimulation counterexample}
+  \begin{center}
+    \include{res/modal-bisim-ex2.tex}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Van Benthem for ML}
+
+\end{frame}
+
+\begin{frame}{Classical Proof}
+
+\end{frame}
+
+\begin{frame}{Tree Unraveling}
+
+\end{frame}
+
+\begin{frame}{Constructive Proof}
+
+\end{frame}
+
+\begin{frame}{Part 2 of 2}
+  Now, adapt techniques to $\FGF$
+\end{frame}
+
+\begin{frame}{Bisimulation and van Benthem for FGF}
+
+\end{frame}
+
+\begin{frame}{Adapting the proof}
+
+\end{frame}
+
+\begin{frame}{Challenge 1: higher arity relations}
+
+\end{frame}
+
+\begin{frame}{HAH-unraveling}
+
+\end{frame}
+
+\begin{frame}{Problem with the HAH-unraveling}
+
+\end{frame}
+
+\begin{frame}{Game-based unraveling}
+
+\end{frame}
+
+\begin{frame}{Challenge 2: global modality and finiteness}
+
+\end{frame}
+
+\section{Conclusion}
+
+\end{document}

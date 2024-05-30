@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+  \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
+  \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 100pt}};
+
+  \begin{scope}
+    \graph[empty nodes, nodes={draw,circle}] {
+        subgraph C_n [n=7,clockwise,radius=1.5cm];
+    };
+    \node[font=\LARGE] (strA) at (0,0) { $\str{A}$ };
+    \draw[faded edge reverse] (1) -- (strA);
+    \draw[faded edge reverse] (7) -- (2);
+    \draw[faded edge reverse] (7) -- (4);
+    \draw[faded edge reverse] (2) -- (6);
+    \draw[faded edge reverse] (4) -- (1);
+    \draw[faded edge reverse] (5) -- (3);
+    \draw[faded edge reverse] (6) -- (3);
+  \end{scope}
+
+  \begin{scope}[xshift=15em]
+    \graph[empty nodes, nodes={draw,circle}] {
+        subgraph C_n [n=7,clockwise,radius=1.5cm];
+    };
+    \node[font=\LARGE] (strB) at (0,0) { $\str{B}$ };
+    \draw[faded edge reverse] (1) -- (4);
+    \draw[faded edge reverse] (1) -- (5);
+    \draw[faded edge reverse] (7) -- (3);
+    \draw[faded edge reverse] (2) -- (6);
+    \draw[faded edge reverse] (4) -- (1);
+    \draw[faded edge reverse] (5) -- (3);
+    \draw[faded edge reverse] (6) -- (3);
+    \draw[faded edge reverse] (3) -- (strB);
+  \end{scope}
+
+  \node[font=\LARGE] at ($(strA)!.5!(strB)$) { $\bisimto_{\FGF}$ };
+
+\end{tikzpicture}

@@ -1,0 +1,41 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={minimum height=3ex,minimum width=3ex,inner sep=0pt,outer sep=0pt,anchor=center}};
+  \tikzset{nop/.style={el}};
+  \tikzset{p1/.style={draw=black,rectangle,el}};
+  \tikzset{eq1/.style={color=tolvibrantBlue,label distance=0em, label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.2em]45:\scriptsize{1}}}};
+  \tikzset{eq2/.style={color=tolvibrantOrange,label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.4em]40:\scriptsize{2}}}};
+  \tikzset{eq3/.style={color=tolvibrantTeal,label={[overlay,draw,circle,inner sep=0.1em,outer sep=0em,label distance=0em]60:\scriptsize{3}}}};
+  \tikzset{eq1p/.style={color=tolvibrantBlue,label distance=0em, label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0em]45:\scriptsize{1'}}}};
+  \tikzset{eq2p/.style={color=tolvibrantOrange,label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.4em]-10:\scriptsize{2'}}}};
+  \tikzset{eq1/.style={color=tolvibrantBlue,label distance=0em, label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.2em]45:\scriptsize{1}}}};
+  \tikzset{eq2/.style={color=tolvibrantOrange,label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0em]-40:\scriptsize{2}}}};
+  \matrix[matrix of nodes, row sep=1.5em, column sep=1.5em, yshift=0.5em, matrix anchor=a3.base west] (t3) {
+    |[nop,eq1] (a3)| \underline{a}  &
+    |[p1]  (b3)| b  &
+    |[nop,eq2] (c3)| c  \\
+  };
+
+  \matrix[matrix of nodes, row sep=1.5em, column sep=1.5em, at={($(a3.base east -| c3.west)+(8em,0)$)}, matrix anchor=a4.base west] (t4) {
+    |[nop,eq1p] (a4)| \underline{a}  &
+    |[p1]  (b4)| b  &
+    |[nop,eq3] (c4)| c  \\
+    &
+    |[nop,eq2p] (d4)| d &
+    &
+    \\
+  };
+
+  \path[->]
+    (a3) edge (b3) (b3) edge (c3) (a3) edge[bend right] (c3)
+    (a4) edge (b4) (b4) edge (c4) (a4) edge (d4) (d4) edge (c4)
+  ;
+
+  \node[font=\Large] (bisim2) at ($(t3.east)!.5!(t4.west)$) { $\nsim_{\Logic{ML}}$ };
+
+  \node[at=(t3.center), yshift=-3em, anchor=base] (label3) { $\str{C}, \underline{a}$ };
+  \node[at=(d4.center), yshift=-2em, anchor=base] (label4) { $\str{D}, \underline{a}$ };
+
+  \begin{scope}[on background layer]
+  %\tikzdbg
+  \end{scope}
+\end{tikzpicture}

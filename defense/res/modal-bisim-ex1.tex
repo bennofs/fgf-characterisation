@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={minimum height=3ex,minimum width=3ex,inner sep=0pt,outer sep=0pt,anchor=center}};
+  \tikzset{nop/.style={el}};
+  \tikzset{p1/.style={draw=black,rectangle,el}};
+  \tikzset{eq1/.style={color=tolvibrantBlue,label distance=0em, label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.2em]45:\scriptsize{1}}}};
+  \tikzset{eq2/.style={color=tolvibrantOrange,label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.4em]40:\scriptsize{2}}}};
+  \tikzset{eq3/.style={color=tolvibrantTeal,label={[overlay,draw,circle,inner sep=0.1em,outer sep=0em,label distance=0em]60:\scriptsize{3}}}};
+  \tikzset{eq1p/.style={color=tolvibrantBlue,label distance=0em, label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0em]45:\scriptsize{1'}}}};
+  \tikzset{eq2p/.style={color=tolvibrantOrange,label={[draw,circle,inner sep=0.1em,outer sep=0em,label distance=0.4em]-10:\scriptsize{2'}}}};
+
+  \matrix[matrix of nodes, row sep=1.5em, matrix anchor=a1.base east] (t1) {
+    |[nop,eq1] (a1)| \underline{a} \\
+    |[p1,eq2]  (b1)| b \\
+  };
+
+  \matrix[matrix of nodes, row sep=1.5em, column sep=2em, right=6em of a1.base east, matrix anchor=a2.base west] (t2) {
+    |[nop,eq1] (a2)| \underline{a} & |[p1,eq2]  (d2)| d \\
+    |[p1,eq2]  (b2)| b & |[nop,eq1] (c2)| c \\
+  };
+
+
+  \path[->]
+    (a1) edge[bend right] (b1) (b1) edge[bend right] (a1)
+    (a2) edge (b2) (b2) edge (c2) (c2) edge (d2) (d2) edge (a2);
+
+  \node[font=\Large] at ($(t1.east)!.5!(t2.west)$) { $\bisimto_{\Logic{ML}}$ };
+
+  \node[below=0.5em of t1] (label1) { $\str{A}, \underline{a}$ };
+  \node[at=(label1.base -| t2.center), anchor=base] (label2) { $\str{B}, \underline{a}$ };
+\end{tikzpicture}
