@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+  \tikzset{adj/.style={densely dashed,thick,draw}};
+  \tikzset{el/.style={circle,draw,fill=white,minimum width=2em,minimum height=2em}};
+
+  \matrix[matrix of nodes, every node/.style={el}, column sep=4em] {
+    |(n1)| 1 & |(n2)| 2 & |(n3)| 3 & |(n4)| 4 \\
+  };
+
+  \graph[use existing nodes, edges=adj] {
+    (n1) -> (n2),
+    (n1) ->[bend left] (n3),
+    (n2) -> (n3),
+    (n3) -> (n4),
+    (n4) ->[bend left] (n3),
+    (n3) ->[bend left] (n2)
+  };
+\end{tikzpicture}

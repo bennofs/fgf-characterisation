@@ -1,0 +1,77 @@
+\begin{tikzpicture}
+  \matrix[
+  matrix of nodes,
+  name=n,
+  ampersand replacement=§,
+  column sep=2em,
+  row sep=2em,
+  nodes={draw, circle, fill=white, minimum width=4ex, minimum height=4ex, outer sep=1ex, anchor=center},
+  row 1/.style={every node/.style={draw=none}},
+  matrix anchor=n-1-4.base east,
+  ] {
+    1       § 2       § 3       § 4       \\[-1.2em]
+    |(a)| a § |(b)| b § |(c)| c § |(d)| d \\
+            §         § |(e)| e §         \\
+            §         § |(f)| f §         \\
+  };
+
+  \begin{scope}[on background layer]
+    \node[fit={(a) (b) (c) (d)}, fill, tolhighcontrastBlue, rounded corners=5pt] {};
+    \coordinate (bnw) at (b.north -| b.west);
+    \coordinate (bsw) at (b.south -| b.west);
+    \coordinate (cne) at (c.north -| c.east);
+    \coordinate (cse) at (c.south -| c.east);
+    \coordinate (csw) at (c.south -| c.west);
+    \coordinate (fsw) at (f.south -| f.west);
+    \coordinate (fse) at (f.south -| f.east);
+    \fill[tolhighcontrastYellow, rounded corners=5pt] {
+      (bnw) -- (cne) -- (fse) -- (fsw) -- (csw) -- (bsw) -- cycle
+    };
+  \end{scope}
+
+  \node[left=0.5em of a, color=tolhighcontrastBlue, font=\huge] { $\elemtuples$ };
+  \node[below=0.5em of f, color=tolbrightYellowDarkest, font=\huge] { $\elemtupler$ };
+
+  \node[right=5em of n-1-4.base east, font=\large, anchor=base west] (title) { bisimulation sequence (biseq) };
+
+  \def\tups{\textcolor{tolhighcontrastBlue}{\elemtuples}};
+  \def\tupr{\textcolor{tolhighcontrastYellow}{\elemtupler}};
+  \node[below=3em of title.base west, anchor=base west, font=\Huge, uncover=<-3>] (biseq) {
+    $\tups(2,3)\tupr$
+  };
+  \node[below=3em of title.base west, anchor=base west, font=\Huge, uncover=<4->] (biseq) {
+    $\tups(2,2)\tupr$
+  };
+  \begin{scope}[uncover=<2>]
+  \node[below=3em of biseq.base west, anchor=base west, font=\Huge] (biseq2) {
+    $\tups(2,2)\tupr$
+  };
+  \node[below=3em of biseq2.base west, anchor=base west, font=\Huge] (biseq3) {
+    $\tups$
+  };
+  \end{scope}
+
+  \node[uncover=<3->, below=4em of biseq.base west, font=\large, anchor=base west] (bipointdesc) { bisimulation points (bipoints) };
+  \begin{scope}[uncover=<3>]
+    \node[below=3em of bipointdesc.base west, anchor=base west, font=\Huge] (bipoint1) {
+      $\langle\tups(2,3)\tupr / 3\rangle$
+    };
+    \node[below=3.5em of bipoint1.base west, anchor=base west, font=\Huge] (bipoint2) {
+      $\langle\tups(2,3)\tupr / 4\rangle$
+    };
+  \end{scope}
+  \begin{scope}[uncover=<4>]
+    \node[below=3em of bipointdesc.base west, anchor=base west, font=\Huge] (bipoint1) {
+      $\langle\tups(2,2)\tupr / 3\rangle$
+    };
+    \node[below=3.5em of bipoint1.base west, anchor=base west, font=\Huge] (bipoint2) {
+      $\langle\tups(2,2)\tupr / 4\rangle$
+    };
+    \node[below=3.5em of bipoint2.base west, anchor=base west, font=\Huge] (bipoint3) {
+      $\langle\tups(2,2)\tupr / 2\rangle$
+    };
+  \end{scope}
+
+  \node[below=3em of a] (tupsdef) { $\tups = (a,b,c,d)$ };
+  \node[below=1em of tupsdef] { $\tupr = (b,c,e,f)$ };
+\end{tikzpicture}

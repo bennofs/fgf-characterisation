@@ -1,0 +1,81 @@
+\begin{tikzpicture}
+
+  \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
+  \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 100pt}};
+
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.25em, -{Stealth[round]}, shorten >= 0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.10em, -{Stealth[round]}, shorten >= 0.2em}};
+  \def\radiusE{0.2em};
+  \def\radiusP{0.4em};
+  \def\radiusS{0.2em};
+
+  \def\r{1.3cm};
+  \def\rnode{0.6cm};
+
+  \begin{scope}[name prefix=a]
+    \foreach \i in {0, ..., 6} {
+      \draw[gray] (\i*360/7:\r) -- ({(\i+1)*360/7}:\r);
+    };
+
+    \node at (0, 1.3*\r) { $\str{A}$ };
+
+    \begin{scope}[every node/.style={draw,circle,inner sep=0.5ex,fill=white,font=\small}]
+      \node (1) at (4*360/14:1.2*\rnode) {2};
+      \node (2) at (9*360/14:1.1*\rnode) {3};
+      \node (3) at (0*360/14:\rnode) {1};
+    \end{scope}
+
+    \begin{scope}[on background layer]
+      \fill[relP] (1.west) circle [radius=\radiusP] coordinate (p1);
+      \fill[relP] (2.south west) circle [radius=\radiusP] coordinate (p2);
+      \fill[relP] (3.south) circle [radius=\radiusP] coordinate (p3);
+      \draw[relP] (p1) to[out=-120,in=120] (p2) to[out=-60,in=-100] (p3);
+
+      \fill[relS] (1.south east) circle [radius=\radiusS] coordinate (p1);
+      \fill[relS] (3.north west) circle [radius=\radiusS] coordinate (p2);
+      \draw[relS] (p1) to (p2);
+
+      \fill[relE] (2.north) circle [radius=\radiusE] coordinate (p1);
+      \fill[relE] (1.240) circle [radius=\radiusE] coordinate (p2);
+      \draw[relE] (p1) to (p2);
+    \end{scope}
+  \end{scope}
+
+  \begin{scope}[xshift=15em, name prefix=b]
+    \foreach \i in {0, ..., 7} {
+      \draw[gray] (\i*360/8:\r) -- ({(\i+1)*360/8}:\r);
+    };
+    \node at (0, 1.3*\r) { $\str{B}$ };
+
+    \begin{scope}[every node/.style={draw,rectangle,inner sep=0.7ex,font=\large,fill=white}]
+      \node (1) at (3*360/16:\rnode) {b};
+      \node (2) at (-3*360/16:\rnode) {c};
+      \node (3) at (180:\rnode) {a};
+    \end{scope}
+
+    \begin{scope}[on background layer]
+      \fill[relP] (1.east) circle [radius=\radiusP] coordinate (p1);
+      \fill[relP] (2.south east) circle [radius=\radiusP] coordinate (p2);
+      \fill[relP] (3.south) circle [radius=\radiusP] coordinate (p3);
+      \draw[relP] (p1) to[out=-60,in=60] (p2) to[out=-120,in=-90] (p3);
+
+      \fill[relS] (1.west) circle [radius=\radiusS] coordinate (p1);
+      \fill[relS] (3.north) circle [radius=\radiusS] coordinate (p2);
+      \draw[relS] (p1) to (p2);
+
+      \fill[relE] (2.north) circle [radius=\radiusE] coordinate (p1);
+      \fill[relE] (1.south) circle [radius=\radiusE] coordinate (p2);
+      \draw[relE] (p1) to (p2);
+    \end{scope}
+  \end{scope}
+
+  \coordinate (mid) at ($(a3)!0.5!(b3)$);
+  \node[below=3em of mid] { \emph{partial isomorphism} $\homop$ };
+
+  \begin{scope}[dotted, very thick]
+    \draw (a1) -- (b1);
+    \draw (a2) -- (b2);
+    \draw (a3) -- (b3);
+  \end{scope}[dashed]
+\end{tikzpicture}

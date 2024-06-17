@@ -1,4 +1,4 @@
-\documentclass[169]{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 \usetheme{auriga}
 \input{settings/packages.tex}
@@ -15,13 +15,14 @@
 
 \hypersetup{bookmarks=true,colorlinks=true,allcolors=blue}
 
-\title{A Constructive Proof of a Van~Benthem Theorem for the Forward Guarded Fragment of First~Order~Logic}
-\author{Benno Fünfstück}
-\institute{Master's defense}
+\title{\textcolor{tolhighcontrastBlue}{A Constructive Proof of a Van~Benthem Theorem for the Forward Guarded Fragment of First~Order~Logic}}
+\author{\textcolor{toldarkDarkblue}{Benno \textcolor{tolbrightYellowDarkest}{Fünfstück}}}
+\institute{\textcolor{toldarkDarkcyan}{Master's defense}}
 \date{24.06.2024}
 
 \include{tolcolors.tex}
 \input{macros.tex}
+\input{beamermacros.tex}
 
 \begin{document}
 
@@ -98,126 +99,192 @@
   \end{theorem}
 \end{frame}
 
-\begin{frame}{Part 1 of 2}
-  First, look at the simpler example of modal logic to introduce concepts
-\end{frame}
-
-\begin{frame}{Bisimulation for Modal Logic ($\ML$)}
-  $\ML$ = quantification restricted to $\varphi(x) = \exists{y} (\relR(x,y) \land \psi(y))$
-  \vspace{1em}
-  \begin{definition}[$\ML$-bisimulation between $(\str{A}, s_{a})$ and $(\str{B}, s_{b})$]
-    A $\ML$-bisimulation is a set $\mathcal{Z} \subseteq A \times B$ with $(s_{a}, s_{b}) \in \mathcal{Z}$ and:\\[0.5em]
-      \textbf{(Atomic Harmony)} if $(a,b) \in \mathcal{Z}$, then $a \in p_{i}^{\mathcal{A}}$ if and only if $b \in p_{i}^{\mathcal{B}}$\\[0.5em]
-      \textbf{(Forth)} if $(a,b) \in \mathcal{Z}$ and $(a,c) \in \relR^{\str{A}}$, there exists $d \in B$ with $(c,d) \in \mathcal{Z}$ and $(b,d) \in \relR^{\str{B}}$, and\\[0.5em]
-      \textbf{(Back)} vice-versa of \textbf{(Forth)}.
-  \end{definition}
-\end{frame}
-
-\begin{frame}{$\ML$-bisimulation example}
-  \begin{center}
-    \include{res/modal-bisim-ex1.tex}
-  \end{center}
-\end{frame}
-
-\begin{frame}{$\ML$-bisimulation counterexample}
-  \begin{center}
-    \include{res/modal-bisim-ex2.tex}
-  \end{center}
-\end{frame}
-
-\begin{frame}{Van Benthem for $\ML$}
-  \begin{theorem}[Van Benthem's theorem for $\ML$]
-    A first-order formula $\varphi$ is equivalent to some $\ML$-formula over finite structures if (and only if) it is invariant under $\ML$-bisimulation.
-  \end{theorem}
-\end{frame}
-
-\begin{frame}[label=current]{$\ell$-bisimulation}
-  A sequence of sets $\mathcal{Z}_{0} \supseteq \cdots \supseteq \mathcal{Z}_{\ell}$ is a \textbf{$\ell$-bisimulation} ($\bisimto^{\ell})$ if $\mathcal{Z}_{i}$ contains the witnesses for the back-and-forth conditions of $\mathcal{Z}_{i+1}$ and all $\mathcal{Z}_{i}$ satisfy atomic harmony.
-
-  \vspace{1em}
-
-  \begin{overprint}
-    \onslide<1>
-      The \textbf{quantifier rank $\qr(\varphi)$} is the maximum degree of nesting of quantifiers in $\varphi$.
-
-      \begin{example}
-        $\varphi(x) = \forall{y}\; (\relR(x,y) \to \exists{z} \relR(y,z)) \lor \exists{y}(\relR(x,y) \land \relP(y))$ has quantifier rank 2.
-      \end{example}
-
-      \vspace{1em}
-
-      $\ML_{\ell}$ denotes the set of all $\ML$ formulae with quantifier rank at most $\ell$.
-    \onslide<2>
-      \begin{enumerate}
-        \item $(\str{A}, a) \bisimto_{\ML}^{\ell} (\str{B}, b)$ if and only if $(\str{A}, a)$ and $(\str{B}, b)$ satisfy the same $\ML$ formulae with quantifier rank at most $\ell$.
-        \item The number of $\bisimto_{\ML}^{\ell}$ equivalence classes is finite for fixed $\ell$.
-        \item Any $\FO$ formula which is invariant under $\bisimto_{\ML}^{\ell}$ is equivalent to a formula of $\ML_{\ell}$.
-      \end{enumerate}
-  \end{overprint}
-\end{frame}
-
-\begin{frame}[label=current]{Tree unraveling}
-  \input{res/ml-tree-unraveling}
-\end{frame}
-
-\begin{frame}[label=current]{$\ell$-locality}
-  Let $\restr{\str{A}}{\mathcal{N}_{\ell}(a)}$ be the restriction of $\str{A}$ to all elements reachable through a path of length at most $\ell$ from $a$.%
-  \vspace{-0.5em}
-  \begin{center}
-  \include{res/neigh-example.tex}
-  \end{center}
-  \vspace{-1em}
-  A formula $\varphi(x)$ is $\ell$-local if $(\str{A}, a) \models \varphi \iff (\restr{\str{A}}{\mathcal{N}_{\ell}(a)}, a) \models \varphi$.\\[1em]
-  $(\str{A}, a) \triangleq^{\ell} (\str{B}, b)$: structures satisfy the same $\ell$-local formulae.
-\end{frame}
-
-\begin{frame}[label=current]{Upgrading}
-  \begin{center}
-    \input{res/upgrading-ml}
-  \end{center}
-  \vspace{1em}
+\begin{frame}<-2>[label=outline]{Outline}%
   \begin{enumerate}
-    \item Let $(\str{A}, a) \models \varphi$ for some $\ell$-local $\varphi$
-    \item $(\str{A}', a') \models \varphi$ by $\bisimto_{\ML}$-invariance
-    \item $(\str{B}', b') \models \varphi$ by $\triangleq^{\ell}$-invariance
-    \item $(\str{B}, b) \models \varphi$ by $\bisimto_{\ML}$-invariance
+    \item<alert@2| check@3-> Definitions: $\GF$-, $\FGF$- and $\ell$-bisimulation
+    \item<check@3-> Observation: $\ell$-$\FGF$-invariance implies expressibility in $\FGF$
+    \item<alert@4>
+          Upgrading: $\FGF$-invariance implies $\ell$-$\FGF$-invariance
+          \only<3->{\uncover<4->{\\\textcolor{black}{\small(Martin Otto has proved the same for $\GF$)}}}
   \end{enumerate}
+
+  \onslide*<3->{
+  \uncover<4->{
+    \begin{itemize}
+      \item[]
+            \begin{center}
+              \input{res/upgrade-plan.tex}
+            \end{center}
+    \end{itemize}
+  }
+  }
 \end{frame}
 
-\begin{frame}[label=current]{Proving van Benthem for $\ML$}
-
+\begin{frame}{$\GF$-bisimulation: partial isomorphism}
+  A $\GF$-bisimulation is a set $\mathcal{Z}$ of \emph{partial isomorphisms} between two structures, satisfying \emph{back-and-forth conditions} (next slide)
+  \vfill
+  \begin{center}
+  \input{res/partiso.tex}
+  \end{center}
 \end{frame}
 
-\begin{frame}{Part 2 of 2}
-  Now, adapt techniques to $\FGF$
+\begin{frame}
+  \frametitle{$\GF$-bisimulation: back-and-forth}
+  \begin{center}
+    \input{res/gfbackandforth.tex}
+    \gfbackandforth{ante}
+    \pause\vfill
+    \gfbackandforth{conseq}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[yshift=-2.5em, xshift=-1em, rotate=-90, font=\LARGE\bfseries] (implies) at (current page.center) { $\implies$ };
+      \node[right=0.5em of implies.center] { (forth) };
+    \end{tikzpicture}
+  \end{center}
 \end{frame}
 
-\begin{frame}{Bisimulation and van Benthem for FGF}
-
+\begin{frame}{$\GF$-bisimulation: example}
 \end{frame}
 
-\begin{frame}{Adapting the proof}
-
+\begin{frame}{$\FGF$-bisimulation: forward partial map}
+  An $\FGF$-bisimulation is a set $\mathcal{Z}$ of \emph{forward partial maps} between two structures, satisfying \emph{back-and-forth conditions} (next slide)
+  \begin{center}
+    \input{res/forwardmap.tex}
+    \forwardmap{
+      nonforwardedges/.style = {
+        onslide=<3>{opacity=0.2},
+      },
+      tuples/.style = {
+        onslide=<1>{hidden, every path/.style=hidden},
+      },
+      caption/.style={
+        onslide=<-2>{hidden},
+      }
+    }
+  \end{center}
 \end{frame}
 
-\begin{frame}{Challenge 1: higher arity relations}
-
+\begin{frame}{$\FGF$-bisimulation: back and forth}
+  \input{res/fgfbackandforth}
+  \begin{center}
+    \fgfbackandforth{
+      conseq/.style={hidden, overlay},
+      tupler/.style={uncover=<3->},
+      infix/.style={uncover=<2>}
+    }
+  \uncover<4->{
+  \vfill
+  \fgfbackandforth{ante/.style={hidden, overlay}}
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[xshift=-1em, rotate=-90, font=\LARGE\bfseries] (implies) at (current page.center) { $\implies$ };
+    \node[right=0.5em of implies.center] { (forth) };
+  \end{tikzpicture}
+  }
+  \end{center}
 \end{frame}
 
-\begin{frame}{HAH-unraveling}
-
+\begin{frame}{$\FGF$-bisimulation: example}
+  \begin{center}
+    \input{res/fgf-bisim-simple}
+  \end{center}
 \end{frame}
 
-\begin{frame}{Problem with the HAH-unraveling}
+\begin{frame}{$\ell$-bisimulation}
+  The sets $\mathcal{Z}_{0} \supseteq \cdots \supseteq \mathcal{Z}_{\ell}$ form an \textbf{$\ell$-bisimulation} ($\bisimto^{\ell}$) if $\mathcal{Z}_{i}$ contains the witnesses for the back-and-forth conditions of $\mathcal{Z}_{i+1}$.
 
+  \vspace{0.5em}
+
+  \begin{center}
+    \tikz {
+      \node (p) { $\homop \in \mathcal{Z}_{i}$ };
+      \node[right=5em of p] (f) { $\homof \in \mathcal{Z}_{i-1}$ };
+      \draw[->,thick] ($(p.east) + (0.5em,0em)$) -- node[above,midway] {(forth)} ($(f.west) - (0.5em,0em)$);
+    }
+  \end{center}
+
+  \vspace{1em}
+
+  \pause
+  The \textbf{quantifier rank $\qr(\varphi)$} is the maximum degree of nesting of quantifiers in $\varphi$. \\[1em]
+  $\FGF_{\ell}$ denotes the set of all $\FGF$ formulae with quantifier rank at most $\ell$.\\[0.5em]
+  \begin{example}
+    $\varphi(x) = \forall{y}\; \textcolor{tolbrightRed}{\textbf{(}}\relR(x,y) \to \exists{z} \relR(y,z)\textcolor{tolbrightRed}{\textbf{)}} \lor \exists{y}\textcolor{tolbrightRed}{\textbf{(}}\relR(x,y) \land \relP(y)\textcolor{tolbrightRed}{\textbf{)}}$ has quantifier rank 2, hence $\varphi \in \FGF_{2}$.
+  \end{example}
 \end{frame}
 
-\begin{frame}{Game-based unraveling}
-
+\begin{frame}{$\FGF_{\ell}$-invariance $\cong$ $\FGF$-expressible}
+  \textbf{every $\FGF_{\textcolor{tolhighcontrastRed}{\ell}}$-invariant $\varphi$ is expressible in $\FGF$}:
+  \begin{enumerate}
+    \item each $\bisimto_{\FGF}^{\ell}$ equivalence class is characterized by some $\FGF_{\ell}$ formula
+    \item the number of distinct $\FGF_{\ell}$ formulae is finite
+    \item let $\mathcal{C}$ be the set of charateristic formulae of those $\bisimto_{\FGF}^{\ell}$ equivalence classes in which $\varphi$ is satisfied
+    \item now, $\varphi \equiv \bigvee C$
+  \end{enumerate}
+  \vspace{0.5em}
+  \begin{center}
+  \input{res/finite-classes}
+  \end{center}
 \end{frame}
 
-\begin{frame}{Challenge 2: global modality and finiteness}
+\againframe<3->{outline}
 
+\begin{frame}{Tree unraveling}
+  \begin{center}
+    \input{res/tree-simple}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{Higher-arity relations: HAF unraveling}
+  \input{res/ex-other-unravel-hat}
+  \input{res/ex-other-unravel-struct}
+
+  \begin{columns}
+    \begin{column}{0.2\textwidth}
+      \begin{overprint}
+        \onslide<1>
+
+        \onslide<2-3>
+        \exunravelstruct{reledges/.style={hidden}, gaifman/.style={}}
+
+        \onslide<4>
+        \exunravelstruct{gaifman/.style={}}
+      \end{overprint}
+    \end{column}
+    \begin{column}{0.75\textwidth}
+      \begin{overprint}
+        \onslide<1-2>
+        \exunravelstruct{}
+
+        \onslide<3>
+        \exunravelhat{reledges/.style={hidden}}
+
+        \onslide<4>
+        \exunravelhat{}
+      \end{overprint}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{HAF-unraveling does not upgrade to $\GF$}
+  \input{res/hat-not-gf-unravel}
+\end{frame}
+
+\begin{frame}{Biseqs and Bipoints}
+  \input{res/biseq}
+\end{frame}
+
+\begin{frame}{The tree structure of bipoints}
+  \input{res/bipoint-tree}
+\end{frame}
+
+\begin{frame}{Making the unraveling finite: cutting}
+  \begin{center}
+    \input{res/cutting}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Making the unraveling finite: relinking}
+  \input{res/finite-unraveling}
 \end{frame}
 
 \section{Conclusion}

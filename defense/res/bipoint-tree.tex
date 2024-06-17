@@ -1,0 +1,150 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={circle,draw,fill=white,minimum width=2em,minimum height=2em}};
+  \def\radiusP{0.7em};
+  \def\radiusE{0.4em};
+  \def\radiusS{0.2em};
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em, radius=\radiusP}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.25em, -{Stealth[round]}, shorten >= 0.2em, radius=\radiusE}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em, radius=\rediusS}};
+
+  \def\tupp{{\color{tolhighcontrastBlue}\elemtuplep}}%
+  \def\tupe{{\color{tolbrightYellowDarkest}\elemtuplee}}%
+
+  \matrix[matrix of nodes, every node/.style={el},name=n,column sep=2em, row sep=2em, ampersand replacement=§, matrix anchor=1.base]  {
+    |(1)| a \\ |(2)| b \\ |(3)| c \\
+  };
+
+  \begin{scope}[on background layer]
+    \fill[relP] (1.west) circle [radius=\radiusP] coordinate (p1);
+    \fill[relP] (2.west) circle [radius=\radiusP] coordinate (p2);
+    \fill[relP] (3.west) circle [radius=\radiusP] coordinate (p3);
+    \draw[relP] (p1) to[out=-150,in=150] (p2) to[out=-150,in=150] (p3);
+
+    \fill[relE] (2.south) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (3.north) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to (p2);
+  \end{scope}
+
+  \node[above=1.5ex of 1] (laba) {\huge{$\str{A}$}};
+
+  \begin{scope}[uncover=<2->]
+    \tikzset{element/.style = {
+        inner sep=0.25em, fill=white, rounded corners=0.7em, draw=black
+      }};
+    \tikzset{edge from parent/.style = {draw=none}};
+    \node[font=\Large, right=14em of laba.center] (heading) { domain $\unraveldom{A}$ of the unraveling };
+    \node[element, anchor=base, xshift=-2em, below=1em of heading] (p1) {$\langle\tupp/1\rangle$}
+      [level distance=4em, grow=down, sibling distance=8em]
+      child[missing]
+      child[grow=down, sibling distance=5em] { node[element] (p2) {$\langle\tupp/2\rangle$}
+        child[uncover=<3->] { node[element] (p22e2) {$\langle\tupp(2,2)\tupe/2\rangle$} }
+        child [grow=down] { node[element] (p3) {$\langle\tupp/3\rangle$}
+        }
+        child [missing]
+      }
+      child [uncover=<3->] { node[element] (p11p2) {$\langle\tupp(1,1)\tupp/2\rangle$}
+        child { node[element] (p11p3) {$\langle\tupp(1,1)\tupp/3\rangle$} }
+      }
+    ;
+
+    \tikzset{link/.style={-{Stealth[round]}}}
+    \begin{scope}[on background layer, every path/.style={uncover=<2->, link}]
+      \draw (p1) -- (p2);
+      \draw (p2) -- (p3);
+    \end{scope}
+    \begin{scope}[on background layer, every path/.style={uncover=<3->, link}]
+      \draw (p2) -- (p22e2);
+      \draw (p1) -- (p11p2);
+      \draw (p11p2) -- (p11p3);
+    \end{scope}
+
+    \begin{scope}[uncover=<3>]
+      \node[anchor=center] (d2) at ($(p3.east)!0.45!(p11p3.west)$) { \ldots };
+      \node[anchor=center] (dside) at ($(p11p2.south east)+(1.5em,-1em)$) { \ldots };
+
+      \draw[-{Straight Barb[]}, loosely dotted, thick] (p2) -- (d2);
+      \draw[-{Straight Barb[]}, loosely dotted, thick] (p11p2) -- (dside);
+    \end{scope}
+  \end{scope}
+
+  \begin{scope}[font=\Large]
+  \def\rP{\textcolor{tolhighcontrastBlue}{\mathbf{P}}};
+  \def\rE{\textcolor{tolhighcontrastYellow}{\mathbf{E}}};
+    \matrix [right=3em of laba.center, matrix anchor=head.west, anchor=base west, row sep=0.25em] {
+      \node (head) { tuples };     \\
+      \node { $\tupp = (a,b,c)$ }; \\
+      \node { $\tupe = (b,c)$ };   \\[0.25em]
+      \node { relations }; \\
+      \node { $\rP^{\str{A}} = \{ \tupp \}$ }; \\
+      \node { $\rE^{\str{A}} = \{ \tupe \}$ }; \\
+    };
+  \end{scope}
+
+
+  \coordinate (bot) at ($(3.west)!.3!(p22e2.east)$);
+  \begin{scope}[uncover=<-3>, font=\Large]
+    % \node[below=3.5em of bot] (biseqhead) { biseqs };
+    \matrix[anchor=base west, matrix anchor=headbiseqs.north west, ampersand replacement=§, column sep=1.5em, row sep=0.1em, yshift=-2em] at (bot -| head.west) {
+      \node (headbiseqs) { biseqs }; §                              §                                        \\
+      \node { $\tupp$ };             § \node { $\tupp(1,1)\tupp$};  § \node { $\tupp(1,1)\tupp(1,2)\tupp$ }; \\
+      \node { $\tupp(1,2)\tupp$ };   § \node { $\tupp(2,3)\tupe$ }; § \node { $\tupp(2,2)\tupe$ };           \\
+    };
+  \end{scope}
+
+  \begin{scope}[uncover=<4->]
+    \node[below=3.5em of bot, font=\huge] (defif) { $\elemtuptupler \in \relR^{\unravel{A}}$ if: };
+    \node[text width=25em, right=1em of defif, font=\Large] {
+      \begin{enumerate}
+        \item<alert@6> $\pi[\elemtuptupler] \in \relR^{\str{A}}$,
+        \item<alert@7> $\elemtuptupler$ is a path in the domain $\unraveldom{A}$, and
+        \item<alert@8> $|\elemtuptupler| \le b$, for $b$ s.t.\ $\mathtt{last}(\elemtuptupler) = \langle\ldots/b\rangle$.
+      \end{enumerate}
+    };
+    % \node at (botmid) {test};
+  \end{scope}
+
+  \tikzset{relNotP/.style={tolhighcontrastRed, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em, radius=\radiusP}};
+  \begin{scope}[on background layer, every path/.style={uncover=<6>}]
+    \fill[relNotP] (p1.south east) circle[] coordinate (c1);
+    \fill[relNotP] (p2.east) circle[] coordinate (c2);
+    \fill[relNotP] (p11p2.west) circle[] coordinate (c3);
+    \draw[relNotP, dashed] (c1) to[out=-60, in=60] (c2) to[out=-30,in=-150] (c3);
+  \end{scope}
+  \begin{scope}[on background layer, every path/.style={uncover=<7>}]
+    \fill[relNotP] (p1.south east) circle[] coordinate (c1);
+    \fill[relNotP] (p2.east) circle[] coordinate (c2);
+    \fill[relNotP] (p11p3.160) circle[] coordinate (c3);
+    \draw[relNotP, dashed] (c1) to[out=-60, in=60] (c2) to[out=-45, in=145] (c3);
+  \end{scope}
+  \begin{scope}[on background layer, every path/.style={uncover=<8>}]
+    \fill[relNotP] (p1.south west) circle[] coordinate (c1);
+    \fill[relNotP] (p2.west) circle[] coordinate (c2);
+    \fill[relNotP] (p22e2.north) circle[] coordinate (c3);
+    \draw[relNotP, dashed] (c1) to[out=-120, in=120] (c2) to[out=-120, in=80] (c3);
+  \end{scope}
+  \begin{scope}[on background layer, every path/.style={uncover=<9->}]
+    \fill[relP] (p1.south east) circle[] coordinate (c1);
+    \fill[relP] (p2.east) circle[] coordinate (c2);
+    \fill[relP] (p3.north east) circle[] coordinate (c3);
+    \draw[relP] (c1) to[out=-60, in=60] (c2) to[out=-60, in=60] (c3);
+  \end{scope}
+  \begin{scope}[on background layer, every path/.style={uncover=<6->}]
+    \fill[relP] (p1.north east) circle[] coordinate (c1);
+    \fill[relP] (p11p2.east) circle[] coordinate (c2);
+    \fill[relP] (p11p3.east) circle[] coordinate (c3);
+    \draw[relP] (c1) to[out=-5, in=110] (c2) to[out=-80, in=80] (c3);
+  \end{scope}
+  \begin{scope}[on background layer, every path/.style={uncover=<9->}]
+    \fill[relE] (p2.south west) circle[] coordinate (c1);
+    \fill[relE] (p22e2.60) circle[] coordinate (c2);
+    \draw[relE] (c1) to (c2);
+
+    \fill[relE] (p2.south) circle[] coordinate (c1);
+    \fill[relE] (p3.north) circle[] coordinate (c2);
+    \draw[relE] (c1) to (c2);
+
+    \fill[relE] (p11p2.south) circle[] coordinate (c1);
+    \fill[relE] (p11p3.north) circle[] coordinate (c2);
+    \draw[relE] (c1) to (c2);
+  \end{scope}
+\end{tikzpicture}

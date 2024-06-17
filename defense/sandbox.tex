@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 \usetheme{auriga}
 \usepackage{scrlfile}
@@ -7,14 +7,14 @@
 
 \input{settings/packages.tex}
 \input{macros.tex}
+\input{beamermacros.tex}
 \input{tolcolors.tex}
 
 \begin{document}
 
-\begin{frame}
-  \frame{
-    \input{res/neigh-example}
-  }
-\end{frame}
+\catcode`§=\active
 
+\begin{frame}\frametitle{sandbox}
+  \input{res/finite-unraveling}
+\end{frame}
 \end{document}

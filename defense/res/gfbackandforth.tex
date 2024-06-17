@@ -1,0 +1,118 @@
+\tikzset{
+  /backandforth/.cd,
+  default/.style = {
+    edges1/.style = {hidden},
+    step1/.style = {},
+    step2/.style = {},
+  },
+  ante/.style = {
+    /backandforth/default,
+    step2/.style = {hidden}
+  },
+  conseq/.style = {
+    /backandforth/default,
+    step1/.style = {hidden},
+  },
+}
+
+\def\gfbackandforth#1{
+\begin{tikzpicture}[/backandforth/#1]
+  \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
+  \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 100pt}};
+
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.2em, -{Stealth[round]}, shorten >= 0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.10em, -{Stealth[round]}, shorten >= 0.2em}};
+  \tikzset{relQ/.style={black, line width=0.25em, -{Stealth[round]}, shorten >= 0.4em}};
+  \def\radiusE{0.2em};
+  \def\radiusP{0.4em};
+  \def\radiusS{0.2em};
+  \def\radiusQ{0.4em};
+
+  \def\r{1.9cm};
+  \def\rnode{0.5cm};
+
+  \tikzset{egroup1/.style={draw,tolhighcontrastBlue, dashed, very thick}};
+  \tikzset{egroup2/.style={fill,tolpalePaleyellow}};
+
+  \begin{scope}[name prefix=a]
+    \foreach \i in {0, ..., 6} {
+      \draw[gray] (\i*360/7:\r) -- ({(\i+1)*360/7}:\r);
+    };
+
+    \begin{scope}[every node/.style={draw,circle,inner sep=0.5ex,fill=white,font=\small}, yshift=0.5cm, xshift=-0.2cm]
+      \path {
+        (3*360/14:1.2*\rnode) node (1) { 2 }
+        ++(-110:1.8*\rnode) node (2) { 3 }
+        ++(0:1.8*\rnode) node (3) { 1 }
+        ++(-80:2*\rnode) node (4) { 4 }
+        ++(-180:2*\rnode) node (5) { 5 }
+      };
+    \end{scope}
+
+    \begin{scope}[on background layer]
+      \node[fit={(2) (3) (4) (5)}, circle, inner sep=0pt, xshift=-0.1em, yshift=-0.1em, egroup2] (eg2) {};
+      \node[fit={(1) (2) (3)}, ellipse, inner sep=0ex, yshift=-0.05*\rnode, egroup1] (eg1) {};
+    \end{scope}
+
+    \begin{scope}[on background layer, every path/.style=edges1]
+      \fill[relP] (1.west) circle [radius=\radiusP] coordinate (p1);
+      \fill[relP] (2.south west) circle [radius=\radiusP] coordinate (p2);
+      \fill[relP] (3.south) circle [radius=\radiusP] coordinate (p3);
+      \draw[relP] (p1) to[out=-120,in=120] (p2) to[out=-60,in=-100] (p3);
+
+      \fill[relS] (1.south east) circle [radius=\radiusS] coordinate (p1);
+      \fill[relS] (3.north west) circle [radius=\radiusS] coordinate (p2);
+      \draw[relS] (p1) to (p2);
+
+      \fill[relE] (2.60) circle [radius=\radiusE] coordinate (p1);
+      \fill[relE] (1.240) circle [radius=\radiusE] coordinate (p2);
+      \draw[relE] (p1) to (p2);
+    \end{scope}
+  \end{scope}
+
+
+  \begin{scope}[xshift=15em, name prefix=b]
+    \foreach \i in {0, ..., 7} {
+      \draw[gray] (\i*360/8:\r) -- ({(\i+1)*360/8}:\r);
+    };
+
+    \begin{scope}[every node/.style={draw,rectangle,inner sep=0.7ex,font=\large,fill=white}, yshift=0.5cm]
+      \path {
+        (4*360/14:1.2*\rnode) node (1) { b }
+        ++(-110:1.8*\rnode) node (3) { a }
+        ++(0:1.8*\rnode) node (2) { c }
+        ++(-80:2*\rnode) node[step2] (5) { e }
+        ++(-180:2*\rnode) node[step2] (4) { d }
+      };
+    \end{scope}
+
+    \begin{scope}[on background layer]
+      \node[fit={(2) (3) (4) (5)}, circle, inner sep=0pt, xshift=-0.1em, yshift=-0.1em, egroup2, step2] (eg2) {};
+      \node[fit={(1) (2) (3)}, circle, inner sep=0ex, yshift=-0.05*\rnode, egroup1] (eg1) {};
+    \end{scope}
+
+    \begin{scope}[on background layer, every path/.style={edges1}]
+      \fill[relP] (1.east) circle [radius=\radiusP] coordinate (p1);
+      \fill[relP] (2.south east) circle [radius=\radiusP] coordinate (p2);
+      \fill[relP] (3.south) circle [radius=\radiusP] coordinate (p3);
+      \draw[relP] (p1) to[out=-20,in=45] (p2) to[out=-120,in=-90] (p3);
+
+      \fill[relS] (1.west) circle [radius=\radiusS] coordinate (p1);
+      \fill[relS] (3.north) circle [radius=\radiusS] coordinate (p2);
+      \draw[relS] (p1) to (p2);
+
+      \fill[relE] (2.north) +(-0.2em,0) circle [radius=\radiusE] coordinate (p1);
+      \fill[relE] (1.south) circle [radius=\radiusE] coordinate (p2);
+      \draw[relE] (p1) to (p2);
+    \end{scope}
+  \end{scope}
+
+  \path[egroup1,solid,step1] (aeg1) to[bend left] node[midway, above] {$\homop \in \mathcal{Z}$} (beg1);
+  \path[egroup2,solid,draw,fill=none,tolbrightYellowDarker, step2] (aeg2) to[bend left=10] node[midway, above] {$\homof \in \mathcal{Z}$} (beg2);
+
+  \coordinate (center) at (7.5em, 0);
+  \node[step1, right=1.5em of a4, yshift=-0.5em, anchor=north west, color=tolbrightYellowDarker!80!black] (gset) {guarded set};
+  \draw[step1, solid, tolbrightYellowDarker] (aeg2) -- (gset);
+\end{tikzpicture}
+}

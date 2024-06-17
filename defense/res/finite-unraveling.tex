@@ -1,0 +1,109 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={fill=black,circle,inner sep=2.5}};
+  \tikzset{smallel/.style={el,inner sep=1.5}};
+  \tikzset{missingchild/.style={el,fill=white,draw=black,circle,double}};
+
+  % detailed tree
+  \draw[pattern color=tollightPalegrey,pattern=bricks] (0,0) coordinate (t1)  -- +(4em,-6em) coordinate (r1) -- +(-4em,-6em) coordinate (l1) -- (t1);
+  \node[el] at (t1) {};
+
+  % nodes on path under focus
+  \node[el] (n) at (0.2em, -5em) {};
+  \draw (0.2em, -8em) node[missingchild] (missing) {};
+  \draw[uncover=<2->] (missing) -- +(.8em,-2em) +(-.8em,-2em) -- (missing);
+  \draw[densely dashed,->] (n) -- (missing);
+  \node[inner sep=0,outer sep=0,xshift=0.3em,below right=0 of missing, toldarkDarkgreen,font=\boldmath] {$i$};
+  % hinted at nodes
+  \begin{scope}[transparency group,onslide=<2->{opacity=0.4}]
+    \path[onslide=<2->draw] (-4.5em, -8em) node[missingchild] (missing0) {} -- +(.8em,-2em) +(-.8em,-2em) -- (missing0);
+    \path[onslide=<2->draw] (-1.8em, -8em) node[missingchild] (missing1) {} -- +(.8em,-2em) +(-.8em,-2em) -- (missing1);
+    \path[onslide=<2->draw] (2em, -8em) node[missingchild] (missing2) {} -- +(.8em,-2em) +(-.8em,-2em) -- (missing2);
+    \path[onslide=<2->draw] (4.5em, -8em) node[missingchild] (missing3) {} -- +(.8em,-2em) +(-.8em,-2em) -- (missing3);
+
+    \begin{scope}[color=toldarkDarkgreen, font=\small\boldmath]
+      \node[inner sep=0,outer sep=0,xshift=-0.2em,below left=0 of missing0] {$1$};
+      \node[inner sep=0,outer sep=0,xshift=-0.1em,below left=0 of missing1] {$i{-}1$};
+      \node[inner sep=0,outer sep=0,xshift=0.2em,below right=0 of missing2] {$i{+}1$};
+      \node[inner sep=0,outer sep=0,xshift=0.2em,below right=0 of missing3] {$M$};
+    \end{scope}
+  \end{scope}
+
+  \draw[densely dashed,->,path fading=north] (-2em,-5em) -- (missing0);
+  \draw[densely dashed,->,path fading=north] (-1em, -4.5em) -- (missing1);
+  \draw[densely dashed,->,opacity=0.4] (n) -- (missing2);
+  \draw[densely dashed,->,path fading=north] (2em,-5em) -- (missing3);
+
+  % fillings
+  \begin{scope}[uncover=<2->]
+    \path[pattern color=tollightPalegrey,pattern=checkerboard] (missing) -- +(.8em,-2em) -- +(-.8em,-2em) -- (missing);
+    \path[pattern color=tollightPalegrey,pattern=checkerboard] (missing0) -- +(.8em,-2em) -- +(-.8em,-2em) -- (missing0);
+    \path[pattern color=tollightPalegrey,pattern=bricks] (missing1) -- +(.8em,-2em) -- +(-.8em,-2em) -- (missing1);
+    \path[pattern color=tollightPalegrey,pattern=checkerboard] (missing2) -- +(.8em,-2em) -- +(-.8em,-2em) -- (missing2);
+    \path[pattern color=tollightPalegrey,pattern=grid] (missing3) -- +(.8em,-2em) -- +(-.8em,-2em) -- (missing3);
+  \end{scope}
+
+  \node[gray,font=\large] at ($(missing0)!.55!(missing1)$) {$\cdots$};
+  \node[gray,font=\large] at ($(missing2)!.55!(missing3)$) {$\cdots$};
+
+  % paths
+  \draw[decorate,decoration=zigzag] (t1) -- (n);
+
+  % labels
+  \node[above=2ex of t1,xshift=0.5em,font=\Large] { $\mathcal{T}_{r,\ell}$ };
+  \begin{scope}[font=\small]
+    \node[anchor=base east,text width=5em] at ($(t1)!-.2!(l1) - (0.5em,0)$) { $\mathsf{seq}$ level $\le \ell$ };
+    \node[anchor=base east,text width=5em] at ($(t1)!.45!(l1) - (0.5em,0)$) { $\mathsf{seq}$ level $\le 2 * \ell$ };
+    \node[anchor=base east,text width=5em] at ($(t1)!1.2!(l1) - (0.5em,0)$) { $\mathsf{seq}$ level $= 2 * \ell + 1$ };
+  \end{scope}
+
+  % copies of trees
+  \begin{scope}[uncover=<3->]
+    \draw[pattern color=tollightPalegrey,pattern=bricks] (5em,0) node[smallel] (cop1) {}  -- +(1em,-1.5em) -- +(-1em,-1.5em) -- cycle;
+    \draw[pattern color=tollightPalegrey,pattern=bricks] (6em,-3em) node[smallel] (cop2) {}  -- +(1em,-1.5em) -- +(-1em,-1.5em) -- cycle;
+
+    \draw[pattern color=tollightPalegrey,pattern=checkerboard] (15em,-2em) node[el] (t2) {}  -- +(2em,-3em) coordinate (r2) -- +(-2em,-3em) coordinate (l2) -- cycle;
+    \coordinate (b2) at ($(l2)!0.5!(r2)$);
+    \node[below=0.6ex of b2] { $i$-th copy };
+
+    \draw[pattern color=tollightPalegrey,pattern=checkerboard] (12em,0em) node[smallel] (cop3) {} -- +(1em,-1.5em) -- +(-1em,-1.5em) -- cycle;
+    \draw[pattern color=tollightPalegrey,pattern=checkerboard] (18em,0) node[smallel] (cop4) {} -- +(1em,-1.5em) -- +(-1em,-1.5em) -- cycle;
+    \draw[pattern color=tollightPalegrey,pattern=checkerboard] (20em,-3em) node[smallel] (cop5) {} -- +(1em,-1.5em) -- +(-1em,-1.5em) -- cycle;
+
+    \draw[pattern color=tollightPalegrey,pattern=grid] (23em,-1em) node[smallel] (cop6) {} -- +(1em,-1.5em) -- +(-1em,-1.5em) -- cycle;
+    \draw[pattern color=tollightPalegrey,pattern=grid] (24em,-4em) node[smallel] (cop7) {} -- +(1em,-1.5em) -- +(-1em,-1.5em) -- cycle;
+
+    % ellipses
+    \node[gray,font=\huge,rotate=30] at (8.7em, -2em) {$\cdots$};
+
+    \node at (17em,-8.5em) { $M$ copies of each tree };
+  \end{scope}
+
+  % replacement link
+  \begin{scope}[uncover=<4->]
+    \draw[->,shorten >=0.30em] plot [smooth] coordinates {
+      (n)
+      (3.5em, -7em)
+      ($(t2) + (-2em, 0em)$)
+      (t2)
+    };
+  \end{scope}
+
+  % hint at some connections between copies as well
+  \begin{scope}[uncover=<5->]
+    \begin{scope}[onslide=<5->{opacity=.4}]
+      \draw ($(cop4) + (0.2em,-1em)$) edge[out=-90,in=180,->] (cop6);
+      \draw ($(cop6) + (0.2em,-1.3em)$) edge[out=-90,in=90,->] (cop5);
+      \draw ($(cop7) + (0.2em,-1.3em)$) edge[out=-90,in=45,->,bend right=150,looseness=5] (cop7);
+      \draw ($(cop5) + (0.2em,-1.3em)$) edge[out=-90,in=100,->,looseness=1.5] (cop7);
+      \draw[->,shorten >=0.30em] plot [smooth] coordinates {
+        ($(cop1) + (0em,-1em)$)
+        ($(cop1) + (1em,-2em)$)
+        ($(cop3) + (1em, 1em)$)
+        (t2)
+      };
+    \end{scope}
+    \path ($(cop3) + (-0.2em,-1em)$) edge[out=-90,in=45,->,looseness=1.5,path fading=south] (10em,-3em);
+    \path ($(cop2) + (0.2em,-1.3em)$) edge[out=-90,in=-120,->,looseness=1.5,path fading=north] (8em,-4em);
+    \path ($(t2) + (-0.5em,-2.5em)$) edge[out=-90,in=-45,->,looseness=1.5,path fading=west,looseness=0.8] (11em,-4.5em);
+  \end{scope}
+\end{tikzpicture}

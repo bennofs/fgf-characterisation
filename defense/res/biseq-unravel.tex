@@ -1,0 +1,55 @@
+{
+\newcommand{\tupp}{{\color{tolhighcontrastBlue}\elemtuplep}}%
+\newcommand{\tupe}{{\color{tolhighcontrastYellow}\elemtuplee}}%
+
+\begin{tikzpicture}
+  \draw[tolhighcontrastBlue, line cap=round, line width=2em] (-0em,8em) -- ++(0,-8em);
+  \draw[tolhighcontrastYellow, line cap=round, line width=0.5em, -{Latex[length=2em]}] (0,4em) -- (0,0em);
+
+  \draw [black, line width=0.1em, fill=white] (0em, 8em) circle [radius=0.8em] node[anchor=center] {1};
+  \draw [black, line width=0.1em, fill=white] (0em, 4em) circle [radius=0.8em] node[anchor=center] {2};
+  \draw [black, line width=0.1em, fill=white] (0em, 0em) circle [radius=0.8em] node[anchor=center] {3};
+
+  \node[anchor=base] at (0em,-4em) {{\Huge $\str{E}$}};
+  \node at (7em, 3em) { {\Huge $\leadsto$} };
+
+  \node[anchor=west, text width=10em] at (4.5em, 6em) { $\tupp = (1,2,3)$ \\ $\tupe = (2,3)$ };
+
+  \begin{scope}[xshift=20em, yshift=8em]
+    \tikzset{element/.style = {
+        inner sep=0.25em, fill=white, rounded corners=0.7em, draw=black
+      }};
+    \tikzset{edge from parent/.style = {draw,->}};
+    \node[element] (p1) {$(\tupp, 1)$}
+      [level distance=4em, grow=down, sibling distance=8em]
+      child[missing]
+      child[grow=down, sibling distance=5em] { node[element] (p2) {$(\tupp, 2)$}
+        child [] { node[element] (p22e2) {$(\tupp(2,2)\tupe, 2)$} }
+        child [grow=down] { node[element] (p3) {$(\tupp, 3)$}
+        }
+        child [missing]
+      }
+      child { node[element] (p11p2) {$(\tupp(1,1)\tupp, 2)$}
+        child { node[element] (p11p3) {$(\tupp(1,1)\tupp, 3)$} }
+      }
+    ;
+
+    \node[anchor=center] (d2) at ($(p3.east)!0.45!(p11p3.west)$) { \ldots };
+    \node[anchor=center] (dside) at (13em, -5em) { \ldots };
+
+    \draw[-{Straight Barb[]}, loosely dotted, thick] (p2) -- (d2);
+    \draw[-{Straight Barb[]}, loosely dotted, thick] (p11p2) -- (dside);
+
+    \node[text width=15em, align=left, anchor=base] at (1em,-12em) {
+      {\hspace{5em}\huge$\unraveldom{E}$} \\
+      (domain of the unraveling) \\
+    };
+
+    \node[text width=25em, align=left, anchor=base] at (2em,-15em) {
+      \small
+      only a subset of elements are shown, the dotted edges lead to elements not shown in the picture
+    };
+  \end{scope}
+
+\end{tikzpicture}
+}

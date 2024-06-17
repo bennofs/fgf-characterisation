@@ -1,0 +1,37 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={fill=black,circle,inner sep=2.5}};
+  \tikzset{missingchild/.style={el,fill=none,draw=black,circle,double}};
+
+  % trees
+  \draw (0,0) coordinate (t1)  -- +(4em,-6em) coordinate (r1) -- +(-4em,-6em) coordinate (l1) -- cycle;
+  \draw (15em,0) coordinate (t2)  -- +(4em,-6em) coordinate (r2) -- +(-4em,-6em) coordinate (l2) -- cycle;
+  \draw (30em,0)  coordinate (t3) -- +(4em,-6em) coordinate (r3) -- +(-4em,-6em) coordinate (l3) -- cycle;
+
+  % nodes
+  \node[el] at (t1) {};
+  \node[el] at (t2) {};
+  \node[el] at (t3) {};
+
+  \node[el] (n1) at (1em, -5em) {};
+  \node[missingchild] (missing1) at (0em, -8em) {};
+  \draw[densely dashed,->] (n1) -- (missing1);
+  \node[below=0 of missing1] {$i$};
+
+  \coordinate (b2) at ($(l2)!0.5!(r2)$);
+  \node[below=0.6ex of b2] { $i$-th copy of a tree };
+
+  % replacement link
+  \draw[->,shorten >=0.30em] plot [smooth] coordinates {
+    (n1)
+    (5.5em, -8em)
+    ($(t2) + (-2em, 0.5em)$)
+    (t2)
+  };
+
+  % ellipses
+  \node[gray,font=\Huge] at (7.5em, -3em) {$\cdots$};
+  \node[gray,font=\Huge] at (22.5em, -3em) {$\cdots$};
+
+  % title
+  \node[above=4ex of t2] {\textbf{replacing missing children}};
+\end{tikzpicture}

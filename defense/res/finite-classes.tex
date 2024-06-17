@@ -1,0 +1,116 @@
+  \begin{tikzpicture}
+    \def\relem{0.15em};
+    \begin{scope}
+      \draw circle[radius=3em];
+      \node [anchor=north, text width=6em, align=center] at (0,-3.5em) {all structures \\ (infinite)};
+
+      \fill[radius=\relem, x=0.1em, y=0.1em, tolbrightGrey] {
+        (5,2) circle []
+        (10, 12) circle []
+        (-12, 4) circle []
+        (-14, 17) circle []
+        (-23, -14) circle []
+        (23, -14) circle []
+        (13, -5) circle []
+        (14, -13) circle []
+        (-5, -13) circle []
+        (2, -25) circle []
+        (-4, -24) circle []
+        (5, 18) circle []
+        (15, 8) circle []
+      };
+      \fill[radius=0.5*\relem, x=0.1em, y=0.1em, tolbrightGrey] {
+        (-7,-5) circle []
+        (-10,-3) circle []
+        (-15,-6) circle []
+        (-3,27) circle []
+        (-8,24) circle []
+        (-10,22) circle []
+      };
+      \fill[radius=\relem, x=0.1em, y=0.1em, tolbrightRed] {
+        (13, -5) circle []
+        (14, -13) circle []
+        (2, -25) circle []
+        (-12, 4) circle []
+        (-14, 17) circle []
+        (-4, -24) circle []
+      };
+      \fill[radius=0.5*\relem, x=0.1em, y=0.1em, tolbrightRed] {
+        (5, -3) circle []
+        (7, -8) circle []
+        (3, -13) circle []
+      };
+    \end{scope}
+
+    \begin{scope}[xshift=10em]
+      \node [anchor=north] at (0,-3.5em) {$\bisimto_{\FGF}^{\ell}$ classes};
+      \draw[thick] circle[radius=3em];
+      \draw[thick] {
+        (135:3em) rectangle (0,0)
+        (-135:3em) rectangle (0,0)
+        (45:3em) rectangle (0,0)
+        (-45:3em) rectangle (0,0)
+      };
+
+      \fill[radius=\relem, x=0.1em, y=0.1em, tolbrightGrey] {
+        (5,2) circle []
+        (10, 12) circle []
+        (-12, 4) circle []
+        (-14, 17) circle []
+        (-23, -14) circle []
+        (23, -14) circle []
+        (13, -5) circle []
+        (14, -13) circle []
+        (-5, -13) circle []
+        (2, -25) circle []
+        (5, 18) circle []
+        (15, 8) circle []
+      };
+      \fill[radius=0.5*\relem, x=0.1em, y=0.1em, tolbrightGrey] {
+        (-7,-5) circle []
+        (-10,-3) circle []
+        (-15,-6) circle []
+        (-3,27) circle []
+        (-8,24) circle []
+        (-10,22) circle []
+      };
+      \fill[radius=\relem, x=0.1em, y=0.1em, tolbrightRed] {
+        (13, -5) circle []
+        (14, -13) circle []
+        (2, -25) circle []
+        (-12, 4) circle []
+        (-14, 17) circle []
+        (-4, -24) circle []
+      };
+      \fill[radius=0.5*\relem, x=0.1em, y=0.1em, tolbrightRed] {
+        (5, -3) circle []
+        (7, -8) circle []
+        (3, -13) circle []
+      };
+    \end{scope}
+
+    \begin{scope}[xshift=20em]
+      \draw[thick] circle[radius=3em];
+      \draw[thick] {
+        (135:3em) rectangle (0,0)
+        (-135:3em) rectangle (0,0)
+        (45:3em) rectangle (0,0)
+        (-45:3em) rectangle (0,0)
+      };
+
+      \begin{scope}[font=\small]
+        \node[tolhighcontrastRed] at (135:1.5em) {$\chi_{1}$};
+        \node[tolhighcontrastRed] at (45:1.5em) {$\chi_{2}$};
+        \node at (-45:1.5em) {$\chi_{3}$};
+        \node at (-135:1.5em) {$\chi_{4}$};
+        \node at (0:2.6em) {$\chi_{5}$};
+        \node at (90:2.6em) {$\chi_{6}$};
+        \node at (180:2.6em) {$\chi_{7}$};
+        \node[tolhighcontrastRed] at (270:2.6em) {$\chi_{8}$};
+      \end{scope}
+
+      \node [anchor=north] (setc) at (0,-3.5em) {$\mathcal{C} = \{\chi_{1}, \chi_{3}, \chi_{8}\}$};
+    \end{scope}
+
+    \node[anchor=north, below=0.2em of setc.south] { $\implies \varphi = \bigvee \mathcal{C}$ };
+ \end{tikzpicture}

@@ -1,0 +1,92 @@
+\begin{tikzpicture}[x=1em,y=-0.8em]
+  \tikzset{el/.style={fill=black,circle,inner sep=2.5}};
+  \tikzset{missingchild/.style={el,onslide=<2->{fill=none,draw=black,circle,double}}};
+  \tikzset{excluded/.style={el,onslide=<2->{fill=none,draw=black,circle}}};
+  \tikzset{virtual/.style={draw=none,inner sep=0.2,red}};
+  \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
+  \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt}};
+  \tikzset{index/.style={font=\bfseries\boldmath,color=toldarkDarkgreen,uncover=<3->}};
+
+  % level <2l
+  \node[el] (a1) at (1.5,0) {};
+  \node[el] (a2) at (4.5,0) {};
+
+  % level 2l
+  \node[el] (b1) at (0,5) {};
+  \node[el] (b2) at (2,3) {};
+  \node[el] (b3) at (6,4) {};
+  \node[el] (b4) at (7,7) {};
+  \node[el] (b5) at (2,7) {};
+
+  % level 2l+1
+  \node[missingchild,label={[index]below:1}] (c1) at (-3,11) {};
+  \node[missingchild,label={[index]right:2}] (c2) at (0.5,10) {};
+  \node[excluded]     (c3) at (0.5,12) {};
+
+  \node[missingchild,label={[index]left:$M{-}1$}] (c4) at (7,10) {};
+  \node[missingchild,label={[index]-90:$M$}] (c5) at (10,11) {};
+  \node[excluded]     (c6) at (6.5,12) {};
+
+  % virtual nodes
+  \node[virtual] (v1) at (2.5,-2) {};
+  \node[virtual] (v2) at (3.5,-2) {};
+  \node[virtual] (v3) at (3,9) {};
+  \node[virtual] (v5) at (4.5,5.5) {};
+
+  % tree container
+  \begin{scope}
+    \clip[overlay] (-20,-3) rectangle (20,20);
+    \draw[densely dotted] (3,-5) coordinate (root) -- (-6,13) coordinate (left);
+    \draw[densely dotted] (3,-5) -- (12,13) coordinate (right);
+  \end{scope}
+
+  % edges
+  \graph[use existing nodes] {
+    (v1) ->[faded edge] (a1) -> {
+      (b1) -> { (c1), (c2) -> (c3), (b5) ->[faded edge reverse] (v3) },
+      (b2)
+    },
+    (v2) ->[faded edge] (a2) -> {
+      (b3) -> (b4) -> {
+        (c4) -> (c6),
+        (c5)
+      },
+      (b3) ->[faded edge reverse] (v5)
+    }
+  };
+
+  % cut lines
+  \path
+    ($(root)!.35!(left) - (1,0)$) coordinate (l1left)
+    ($(root)!.35!(right) + (1,0)$) coordinate (l1right)
+    ($(root)!.72!(left) - (1,0)$) coordinate (l2left)
+    ($(root)!.78!(right) + (1,0)$) coordinate (l2right);
+
+  \draw[opacity=0.8] (l1left) -- ($(l1left)!0.35!(l1right)$) ($(l1left)!0.65!(l1right)$) -- (l1right);
+  \draw[opacity=0.8,dashed] ($(l1left)!0.35!(l1right)$) -- ($(l1left)!0.65!(l1right)$);
+  \draw[onslide=<2->{thick,tolmutedWine}] (l2left) -- ($(l2left)!0.35!(l2right)$) ($(l2left)!0.65!(l2right)$) -- (l2right);
+  \draw[onslide=<2->{thick,tolmutedWine},dashed] ($(l2left)!0.35!(l2right)$) -- ($(l2left)!0.65!(l2right)$);
+
+  \begin{scope}[uncover=<2->]
+    \node[left=0.5 of l2left,font=\large,anchor=east,yshift=1,color=tolmutedWine] {cut here\hspace{0.5em}{\raisebox{-0.8ex}{\Huge\Rightscissors}}};
+  \end{scope}
+
+  % text
+  \node[anchor=base east] at ($(root)!.20!(left) - (1,0)$) {$\mathsf{seq}$ level $< 2 * \ell$ };
+  \node[anchor=base east] at ($(root)!.50!(left) - (1,0)$) {$\mathsf{seq}$ level $= 2 * \ell$ };
+  \node[anchor=base east] at ($(root)!.90!(left) - (1,0)$) {$\mathsf{seq}$ level $= 2 * \ell + 1$ };
+
+  % legend
+  \begin{scope}[uncover=<2->]
+    \node[el] (leg1) at (-12,15) {};
+    \node[right=0.5 of leg1.south, anchor=south west, inner sep=1] { element };
+
+    \node[excluded] (leg2) at (-6,15) {};
+    \node[right=0.5 of leg2.south, anchor=south west, inner sep=1] { excluded element };
+
+    \node[missingchild] (leg3) at (4,15) {};
+    \node[right=0 of leg3, anchor=west, uncover=<2>] (leg3t) { missing child };
+    \node[right=0 of leg3, anchor=west, uncover=<3->] (leg3t2) { missing child (labeled with \textcolor{toldarkDarkgreen}{index}) };
+  \end{scope}
+
+\end{tikzpicture}

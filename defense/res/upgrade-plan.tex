@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+\matrix[row sep=2em, column sep=3em]
+{
+    \node (a) {$(\str{A}, \elemtuplea)$}; &
+        \node[font=\large] (sim_ab) {$\bisimto_{\FGF}^{\homop(\mathit{g})}$}; &
+    \node (b) {$(\str{B}, \elemtupleb)$}; &
+    \node[anchor=west] {}; \\
+
+    \node[font=\large] (sim_a_unravel) {$\bisimto_{\FGF}$}; &
+    \node {}; &
+    \node[font=\large] (sim_b_unravel) {$\bisimto_{\FGF}$}; &
+    \node[anchor=west] {}; \\
+
+    \node (a_unravel) {$(\str{A}', \elemtuplea')$}; &
+    \node[font=\large] (sim_unravel) {$\bisimto_{\GF}^{\mathit{g}}$}; &
+    \node (b_unravel) {$(\str{B}', \elemtupleb')$};
+    \node[anchor=west] {}; \\
+};
+
+\draw[->] (a) -- (sim_ab) -> (b);
+\draw[dashed,->] (a) -- (sim_a_unravel) -> (a_unravel);
+\draw[->] (a_unravel) -- (sim_unravel) -> (b_unravel);
+\draw[dashed,->] (b_unravel) -- (sim_b_unravel) -> (b);
+
+\node[below=1.5em of sim_unravel, font=\bfseries] (companion_label) { finite companions };
+\draw[->] (companion_label) -- (a_unravel);
+\draw[->] (companion_label) -- (b_unravel);
+\end{tikzpicture}

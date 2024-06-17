@@ -1,0 +1,102 @@
+\def\fgfbackandforth#1{
+\begin{tikzpicture}
+  \tikzset{tuples/.style={}}
+  \tikzset{ante/.style={}}
+  \tikzset{conseq/.style={}}
+  \tikzset{tupler/.style={}}
+  \tikzset{infix/.style={hidden}}
+  \tikzset{infixnodes/.style={}}
+  \tikzset{#1}
+
+  \tikzset{pmap1/.style={tolhighcontrastBlue, dashed}};
+
+  \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
+  \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 100pt}};
+
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.25em, -{Stealth[round]}, shorten >= 0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.10em, -{Stealth[round]}, shorten >= 0.2em}};
+  \def\radiusE{0.2em};
+  \def\radiusP{0.4em};
+  \def\radiusS{0.2em};
+
+
+  \begin{scope}[name prefix=s, tuples]
+    \matrix[
+    matrix of nodes,
+    ampersand replacement=\&,
+    nodes={draw,circle,outer sep=0.5ex,fill=white,minimum height=4ex},
+    column sep=1em,
+    row sep=1.5em,
+    matrix anchor=s2.center,
+    ] (n) at (0,0) {
+      |(1)| 1 \& |(2) [infixnodes]| 2 \& |(3) [infixnodes]| 3 \\
+      \& \& |(4) [tupler]| 4 \\
+    };
+
+    \node[draw, rectangle, rounded corners=3pt, pmap1, fit={(1) (2) (3)}] (tuple) {};
+    \node[above left=0em of tuple, anchor=south west] { tuple $\elemtuples$ };
+
+    \begin{scope}[on background layer]
+      \path[fill=tolpalePaleyellow, rounded corners, tupler] {
+        (2.north -| 2.west)
+        -- (3.north -| 3.east)
+        -- (4.south -| 4.east)
+        -- (4.south -| 4.west)
+        -- (3.south -| 3.west)
+        -- (2.south -| 2.west)
+        -- cycle
+      };
+    \end{scope}
+
+    \begin{scope}[on background layer]
+      \path[fill=tolpalePaleyellow, rounded corners, infix] {
+        (2.north -| 2.west)
+        -- (3.north -| 3.east)
+        -- (3.south -| 3.east)
+        -- (2.south -| 2.west)
+        -- cycle
+      };
+    \end{scope}
+
+
+    \node[tolbrightYellowDarkest, left=0.5ex of 4, text width=3em, align=right, tupler] (nextlab) { tuple $\elemtupler$ \\ (live) };
+  \end{scope}
+
+  \begin{scope}[xshift=18em, name prefix=t, tuples]
+    \matrix[
+    matrix of nodes,
+    ampersand replacement=\&,
+    nodes={draw,rectangle,fill=white,minimum height=4ex,minimum width=3ex, anchor=center,outer sep=0.5ex},
+    column sep=1em,
+    row sep=1.5em,
+    matrix anchor=t2.center,
+    ] (n) at (0,0) {
+      |(1)| a \& |(2)| b \& |(3)| b \\
+      \& \& |(4) [conseq]| c \\
+    };
+
+    \node[draw, rectangle, rounded corners=3pt, pmap1, fit={(1) (2) (3)}] (tuple) {};
+    \node[above left=0em of tuple, anchor=south west] { tuple $\elemtuplet$ };
+
+    \begin{scope}[on background layer]
+      \path[fill=tolpalePaleyellow, rounded corners, conseq] {
+        (2.north -| 2.west)
+        -- (3.north -| 3.east)
+        -- (4.south -| 4.east)
+        -- (4.south -| 4.west)
+        -- (3.south -| 3.west)
+        -- (2.south -| 2.west)
+        -- cycle
+      };
+    \end{scope}
+
+    \node[tolbrightYellowDarkest, left=0.5ex of 4, text width=3.5em, align=right, conseq] (nextlab) { tuple $\elemtupleq$ \\ (live) };
+  \end{scope}
+
+  \draw[thick, pmap1, solid, ante] (stuple) to node[above, midway, text width=7em] {forward partial map $(\elemtuples, \elemtuplet)$} (ttuple);
+
+  \draw[tolbrightYellowDarkest, thick, conseq] (s4.east) to node[above, midway, text width=7em] {forward partial map $(\elemtupleq, \elemtupler)$} (tnextlab.west);
+
+\end{tikzpicture}
+}

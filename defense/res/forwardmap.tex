@@ -1,0 +1,156 @@
+\def\forwardmap#1{%
+\begin{tikzpicture}
+  \tikzset{nonforwardedges/.style={opacity=0.2}}
+  \tikzset{tupleedges/.style={}}
+  \tikzset{tuples/.style={}}
+  \tikzset{caption/.style={}}
+  \tikzset{#1}
+
+  \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
+  \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 100pt}};
+
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.25em, -{Stealth[round]}, shorten >= 0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.10em, -{Stealth[round]}, shorten >= 0.2em}};
+  \def\radiusE{0.2em};
+  \def\radiusP{0.4em};
+  \def\radiusS{0.2em};
+
+  \def\r{1.3cm};
+  \def\rnode{0.6cm};
+
+  \begin{scope}[name prefix=a]
+    \foreach \i in {0, ..., 6} {
+      \draw[gray] (\i*360/7:\r) -- ({(\i+1)*360/7}:\r);
+    };
+
+    \node at (0, 1.3*\r) { $\str{A}$ };
+
+    \begin{scope}[every node/.style={draw,circle,inner sep=0.5ex,fill=white,font=\small}]
+      \node (1) at (4*360/14:1.2*\rnode) {1};
+      \node (2) at (9*360/14:1.1*\rnode) {2};
+      \node (3) at (0*360/14:\rnode) {3};
+    \end{scope}
+
+    \begin{scope}[on background layer]
+      \fill[relP] (1.west) circle [radius=\radiusP] coordinate (p1);
+      \fill[relP] (2.south west) circle [radius=\radiusP] coordinate (p2);
+      \fill[relP] (3.south) circle [radius=\radiusP] coordinate (p3);
+      \draw[relP] (p1) to[out=-120,in=120] (p2) to[out=-60,in=-100] (p3);
+
+      \fill[relS] (1.south east) circle [radius=\radiusS] coordinate (p1);
+      \fill[relS] (3.north west) circle [radius=\radiusS] coordinate (p2);
+      \draw[relS] (p1) to (p2);
+
+      \fill[relE] (1.240) circle [radius=\radiusE] coordinate (p1);
+      \fill[relE] (2.north) circle [radius=\radiusE] coordinate (p2);
+      \draw[relE] (p1) to (p2);
+
+      \fill[relE] (3.200) circle [radius=\radiusE] coordinate (p1);
+      \fill[relE] (2.30) circle [radius=\radiusE] coordinate (p2);
+      \draw[relE] (p1) to (p2);
+    \end{scope}
+  \end{scope}
+
+  \begin{scope}[xshift=15em, name prefix=b]
+    \foreach \i in {0, ..., 7} {
+      \draw[gray] (\i*360/8:\r) -- ({(\i+1)*360/8}:\r);
+    };
+    \node at (0, 1.3*\r) { $\str{B}$ };
+
+    \begin{scope}[every node/.style={draw,rectangle,inner sep=0.7ex,font=\large,fill=white}]
+      \node (1) at (7*360/16:\rnode) {a};
+      \node (2) at (15*360/16:\rnode) {b};
+    \end{scope}
+
+    \begin{scope}[on background layer]
+      \fill[relP] (1.south) circle [radius=\radiusP] coordinate (p1);
+      \fill[relP] (2.south west) circle [radius=\radiusP] coordinate (p2);
+      \fill[relP] (2.south east) circle [radius=\radiusP] coordinate (p3);
+      \draw[relP] (p1) to[out=-60,in=150] (p2) to[out=-90,in=-120, looseness=3] (p3);
+
+      \fill[relE] (1.east) circle [radius=\radiusE] coordinate (p1);
+      \fill[relE] (2.west) circle [radius=\radiusE] coordinate (p2);
+      \draw[relE] (p1) to (p2);
+
+      \fill[relS] (2.north) circle [radius=\radiusS] coordinate (p1);
+      \fill[relS] (1.north) circle [radius=\radiusS] coordinate (p2);
+      \draw[relS] (p1) to[out=90,in=90] (p2);
+
+    \end{scope}
+  \end{scope}
+
+  \begin{scope}[yshift=-2.5cm, name prefix=s, tuples]
+    \node (lab) { $\elemtuples = (1,2,3)$ };
+    \matrix[
+    matrix of nodes,
+    ampersand replacement=\&,
+    nodes={draw,circle,fill=white},
+    column sep=1.5em,
+    below=0em of lab,
+    ] (n) {
+      |(1)| 1 \& |(2)| 2 \& |(3)| 3 \\
+    };
+
+    \begin{scope}[on background layer, tupleedges]
+      \fill[relE] (1.east) circle [radius=\radiusE] coordinate (p1);
+      \fill[relE] (2.west) circle [radius=\radiusE] coordinate (p2);
+      \draw[relE] (p1) to (p2);
+
+      \fill[relP] (1.south) circle [radius=\radiusP] coordinate (p1);
+      \fill[relP] (2.south) circle [radius=\radiusP] coordinate (p2);
+      \fill[relP] (3.south) circle [radius=\radiusP] coordinate (p3);
+      \draw[relP] (p1) to[out=-60,in=-150] (p2) to[out=-60,in=-150] (p3);
+
+      \begin{scope}[transparency group, nonforwardedges]
+        \fill[relE] (3.west) circle [radius=\radiusE] coordinate (p1);
+        \fill[relE] (2.east) circle [radius=\radiusE] coordinate (p2);
+        \draw[relE] (p1) to (p2);
+
+        \fill[relS] (1.60) circle [radius=\radiusS] coordinate (p1);
+        \fill[relS] (3.120) circle [radius=\radiusS] coordinate (ps2);
+        \draw[relS] (p1) to[bend left=20] (ps2);
+      \end{scope}
+  \end{scope}
+
+  \end{scope}
+
+  \begin{scope}[yshift=-2.5cm, xshift=15em, name prefix=t, tuples]
+    \node (lab) { $\elemtuplet = (a,b,b)$ };
+    \matrix[
+    matrix of nodes,
+    ampersand replacement=\&,
+    nodes={draw,rectangle,fill=white,minimum height=3ex,anchor=center},
+    column sep=1.5em,
+    below=0em of lab,
+    ] (n) {
+      |(1)| a \& |(2)| b \& |(3)| b \\
+    };
+
+    \begin{scope}[on background layer, tupleedges]
+      \fill[relE] (1.east) circle [radius=\radiusE] coordinate (p1);
+      \fill[relE] (2.west) circle [radius=\radiusE] coordinate (p2);
+      \draw[relE] (p1) to (p2);
+
+      \fill[relP] (1.south) circle [radius=\radiusP] coordinate (p1);
+      \fill[relP] (2.south) circle [radius=\radiusP] coordinate (p2);
+      \fill[relP] (3.south) circle [radius=\radiusP] coordinate (p3);
+      \draw[relP] (p1) to[out=-60,in=-150] (p2) to[out=-60,in=-150] (p3);
+
+      \begin{scope}[transparency group, nonforwardedges]
+        \fill[relE] (3.west) circle [radius=\radiusE] coordinate (p1);
+        \fill[relE] (2.east) circle [radius=\radiusE] coordinate (p2);
+        \draw[relE] (p1) to (p2);
+
+        \fill[relS] (2.120) circle [radius=\radiusS] coordinate (p1);
+        \fill[relS] (1.60) circle [radius=\radiusS] coordinate (ps2);
+        \draw[relS] (p1) to[bend right=45] (ps2);
+      \end{scope}
+    \end{scope}
+
+  \end{scope}
+
+  \coordinate (mid) at ($(s3)!0.5!(t1)$);
+  \node[below=2.5em of mid, caption] { \emph{forward partial map $(\elemtuples, \elemtuplet)$} };
+\end{tikzpicture}
+}
