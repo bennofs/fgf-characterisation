@@ -102,8 +102,13 @@
         (t2)
       };
     \end{scope}
-    \path ($(cop3) + (-0.2em,-1em)$) edge[out=-90,in=45,->,looseness=1.5,path fading=south] (10em,-3em);
-    \path ($(cop2) + (0.2em,-1.3em)$) edge[out=-90,in=-120,->,looseness=1.5,path fading=north] (8em,-4em);
-    \path ($(t2) + (-0.5em,-2.5em)$) edge[out=-90,in=-45,->,looseness=1.5,path fading=west,looseness=0.8] (11em,-4.5em);
+    \path ( $(cop3) + (-0.2em,-1em)$) edge[out=-90,in=45,->,looseness=1.5,path fading=south] (10em,-3em);
+    \path ( $(cop2) + (0.2em,-1.3em)$) edge[out=-90,in=-120,->,looseness=1.5,path fading=north] (8em,-4em);
+    \path ( $(t2) + (-0.5em,-2.5em)$) edge[out=-90,in=-45,->,looseness=1.5,path fading=west,looseness=0.8] (11em,-4.5em);
+  \end{scope}
+
+  \begin{scope}[uncover=<5->, font=\Huge]
+    \coordinate (mid) at ($(cop2)!.5!(cop3)$);
+    \node at (mid |- 0em,-13em)  { $\unravel{A}_{\ell}$ };
   \end{scope}
 \end{tikzpicture}
