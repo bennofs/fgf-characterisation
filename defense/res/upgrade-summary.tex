@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+\matrix[row sep=0.8em, column sep=1em]
+{
+    \node (a) {$(\str{A}, \elemtuplea)$};                   & \node[font=\large] (sim_ab) {$\bisimto_{\FGF}^{\homop(\mathit{g})}$}; & \node[outer sep=0] (b) {$(\str{B}, \elemtupleb)$};                                       \\
+    \node[font=\large] (sim_a_unravel) {$\bisimto_{\FGF}$};  & \node {};                                                        & \node[font=\large, overlay] (sim_b_unravel) {$\bisimto_{\FGF}$};             \\
+    \node (a_unravel) {$(\unravel{A}, \elemtuptuplea)$};    & \node[font=\large] (sim_unravel) {$\bisimto_{\GF}^{\mathit{g}}$};   & \node[outer sep=0] (b_unravel) {$(\unravel{B}, \elemtuptupleb)$}; \node[anchor=west] {}; \\
+};
+
+\draw[->] (a) -- (sim_ab) -> (b);
+\draw[dashed,->] (a) -- (sim_a_unravel) -> (a_unravel);
+\draw[->] (a_unravel) -- (sim_unravel) -> (b_unravel);
+\draw[dashed,->] (b_unravel) -- (sim_b_unravel) -> (b);
+\end{tikzpicture}

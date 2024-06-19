@@ -16,7 +16,7 @@
 \hypersetup{bookmarks=true,colorlinks=true,allcolors=blue}
 
 \title{\textcolor{tolhighcontrastBlue}{A Constructive Proof of a Van~Benthem Theorem for the Forward Guarded Fragment of First~Order~Logic}}
-\author{\textcolor{toldarkDarkblue}{Benno \textcolor{tolbrightYellowDarkest}{Fünfstück}}}
+\author{Benno Fünfstück}
 \institute{\textcolor{toldarkDarkcyan}{Master's defense}}
 \date{24.06.2024}
 
@@ -277,7 +277,7 @@
   \input{res/bipoint-tree}
 \end{frame}
 
-\begin{frame}{Cutting for a finite unraveling}
+\begin{frame}{Cutting to obtain a finite unraveling}
   \begin{center}
     \input{res/cutting}
   \end{center}
@@ -362,7 +362,7 @@
   \end{minipage}
 \end{frame}
 
-\begin{frame}{Forward extension}
+\begin{frame}{$z$-similarity: forward extension}
   \begin{center}
   given $\;\picelemOneA{} \approx_{z} \picelemOneB{}\;$ with
   \begin{math}
@@ -398,6 +398,64 @@
   \end{center}
 \end{frame}
 
-\section{Conclusion}
+\begin{frame}{$z$-similarity: backward extension}
+  \begin{center}
+  given $\;\picelemTwoA{} \approx_{z} \picelemTwoB{}\;$ with
+  \begin{math}
+    \begin{array}{l @{{}={}\langle{}} c @{{}/{}} c @{{}\rangle}}
+      \picelemTwoA{} & \cdots \tups_{z-1} \ij{z} \tups_{z} & x \\[1ex]
+      \picelemTwoB{} & \cdots \tupt_{z-1} \op{z} \tupt_{z} & y
+    \end{array}
+  \end{math}
+
+  \vspace{3em}
+  \begin{minipage}{0.8\textwidth}
+  \begin{minipage}{4em}
+    \textbf{Case 1}\\{}
+  \end{minipage}
+  \begin{math}
+    \begin{array}{rl @{{}={}\langle{}} c @{{}/{}} c @{{}\rangle}}
+      \text{if} & \picelemOneA{} & \cdots \tups_{z-1}\ij{z} \tups_{z} & x - 1 \\[1ex]
+      \text{then} & \picelemOneB{} & \cdots \tupt_{z-1}\op{z} \tupt_{z} & y - 1
+    \end{array}
+  \end{math}
+
+  \vspace{2em}
+  \begin{minipage}{4em}
+    \textbf{Case 2}\\{}
+  \end{minipage}
+  \begin{math}
+    \begin{array}{rl @{{}={}\langle{}} c @{{}/{}} c @{{}\rangle}}
+      \text{if} & \picelemOneA{} & \cdots \tups_{z-1} & j_{z} \\[1ex]
+      \text{then} & \picelemOneB{} & \cdots \tupt_{z-1} & p_{z}
+    \end{array}
+  \end{math}
+  \end{minipage}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Summary}
+  \begin{center}
+    \huge $\FGF \equiv \FO/{\bisimto_{\FGF}}$ \\[0.5ex]
+    \large over finite structures
+  \end{center}
+
+  \begin{center}
+  \begin{minipage}[t]{0.4\textwidth}
+    \raggedleft
+
+    {\usebeamercolor[fg]{item} proof via new unraveling} \\
+    \input{res/upgrade-summary.tex}
+  \end{minipage}
+  \hspace{4em}
+  \begin{minipage}[t]{0.4\textwidth}
+    \raggedright
+
+    {\usebeamercolor[fg]{item} bonus corollary} \\[1ex]
+    Decidability of checking whether a given $\GF$-formula is expressible in $\FGF$.
+  \end{minipage}
+\end{center}
+\end{frame}
+
 
 \end{document}
