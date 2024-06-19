@@ -1,0 +1,71 @@
+\begin{tikzpicture}
+  \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
+  \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 100pt}};
+
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.20em, -{Stealth[round]}, shorten >= 0.3em, radius=0.3em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em, radius=0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.10em, -{Stealth[round]}, shorten >= 0.2em, radius=0.2em}};
+  \tikzset{relNotP/.style={tolhighcontrastRed, line width=0.2em, -{Stealth[round]}, shorten >= 0.3em, radius=0.3em}};
+  \tikzset{relNotE/.style={tolhighcontrastRed, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em, radius=0.2em}};
+
+  \begin{scope}
+    \draw[tolbrightGreen, line width=1ex, rounded corners=2pt] (80:2em) -- (80:-2em) -- +(160:2em);
+
+    \matrix[
+    name=s,
+    ampersand replacement=§,
+    column sep=1em,
+    matrix of nodes,
+    matrix anchor=west,
+    nodes={
+      draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white
+    },
+    ] at (1.5em,0em) {
+        {1} § {2} § {3} § {4} \\
+    };
+    \graph[use existing nodes, edges={-{Stealth[round]}}] { (s-1-1) -> (s-1-2) -> (s-1-3) -> (s-1-4) };
+  \end{scope}
+  \begin{scope}[on background layer]
+    \fill[relP] (s-1-2.north) circle [] coordinate (p1);
+    \fill[relP] (s-1-3.north) circle [] coordinate (p2);
+    \fill[relP] (s-1-4.north) circle [] coordinate (p3);
+    \draw[relP, bend left] (p1) to (p2) to (p3);
+
+    \fill[relE] (s-1-1.south) circle [] coordinate (p1);
+    \fill[relE] (s-1-2.south) circle [] coordinate (p2);
+    \draw[relE, bend right] (p1) to (p2);
+
+    \fill[relE] (s-1-3.south) circle [] coordinate (p1);
+    \fill[relE] (s-1-4.south) circle [] coordinate (p2);
+    \draw[relE, bend right] (p1) to (p2);
+  \end{scope}
+
+  \begin{scope}[xshift=17em]
+    \draw[tolbrightRed, line width=1ex, rounded corners=2pt] (135:2.5em) -- (135:-2.5em) (45:2.5em) -- (45:-2.5em);
+
+    \matrix[
+    name=s,
+    ampersand replacement=§,
+    column sep=1em,
+    matrix of nodes,
+    matrix anchor=west,
+    nodes={
+      draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white
+    },
+    ] at (3em,0em) {
+        {1} § {2} § {3} § {4} \\
+    };
+    \graph[use existing nodes, edges={-{Stealth[round]}}] { (s-1-1) -> (s-1-2) -> (s-1-3) -> (s-1-4) };
+
+    \begin{scope}[on background layer]
+      \fill[relNotP] (s-1-1.north) circle [] coordinate (p1);
+      \fill[relNotP] (s-1-3.north) circle [] coordinate (p2);
+      \fill[relNotP] (s-1-4.north) circle [] coordinate (p3);
+      \draw[dashed, relNotP, bend left] (p1) to (p2) to (p3);
+
+      \fill[relNotE] (s-1-2.south west) circle [] coordinate (p1);
+      \fill[relNotE] (s-1-2.south east) circle [] coordinate (p2);
+      \draw[relNotE, dashed, bend right=130, looseness=8] (p1) to (p2);
+    \end{scope}
+  \end{scope}
+\end{tikzpicture}

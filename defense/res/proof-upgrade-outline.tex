@@ -7,101 +7,25 @@
   \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
   \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 100pt}};
 
-  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.25em, -{Stealth[round]}, shorten >= 0.4em}};
-  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em}};
-  \tikzset{relS/.style={tolhighcontrastRed, line width=0.10em, -{Stealth[round]}, shorten >= 0.2em}};
-  \def\radiusE{0.2em};
-  \def\radiusP{0.4em};
-  \def\radiusS{0.2em};
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.25em, -{Stealth[round]}, shorten >= 0.4em, radius=0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em, radius=0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.10em, -{Stealth[round]}, shorten >= 0.2em, radius=0.2em}};
 
-  \def\r{1cm};
-  \def\rnode{0.4cm};
 
-  \begin{scope}[name prefix=a]
-    \foreach \i in {0, ..., 6} {
-      \draw[gray] (\i*360/7:\r) -- ({(\i+1)*360/7}:\r);
-    };
-
-    \node (headstruct) at (0, 1.3*\r) { $\str{A}$ };
-
-    \begin{scope}[every node/.style={draw,circle,inner sep=0.2ex,fill=white,font=\small}]
-      \node (1) at (4*360/14:1.3*\rnode) {1};
-      \node (2) at (9*360/14:1.2*\rnode) {2};
-      \node (3) at (0*360/14:1.3*\rnode) {3};
-    \end{scope}
-
-    \begin{scope}[on background layer]
-      \fill[relP] (1.west) circle [radius=\radiusP] coordinate (p1);
-      \fill[relP] (2.south west) circle [radius=\radiusP] coordinate (p2);
-      \fill[relP] (3.south) circle [radius=\radiusP] coordinate (p3);
-      \draw[relP] (p1) to[out=-120,in=120] (p2) to[out=-60,in=-100] (p3);
-
-      \fill[relE] (1.240) circle [radius=\radiusE] coordinate (p1);
-      \fill[relE] (2.north) circle [radius=\radiusE] coordinate (p2);
-      \draw[relE] (p1) to (p2);
-    \end{scope}
-  \end{scope}
-
-  \begin{scope}[name prefix=b, xshift=8em]
-    \foreach \i in {0, ..., 6} {
-      \draw[gray] (\i*360/7:\r) -- ({(\i+1)*360/7}:\r);
-    };
-
-    \node (headstruct) at (0, 1.3*\r) { $\str{B}$ };
-
-    \begin{scope}[every node/.style={draw,circle,minimum height=2.3ex, inner sep=0.2ex,fill=white,font=\small}]
-      \node (1) at (4*360/14:1.3*\rnode) {a};
-      \node (2) at (9*360/14:1.2*\rnode) {b};
-      \node (3) at (0*360/14:1.3*\rnode) {c};
-    \end{scope}
-
-    \begin{scope}[on background layer]
-      \fill[relP] (1.west) circle [radius=\radiusP] coordinate (p1);
-      \fill[relP] (2.south west) circle [radius=\radiusP] coordinate (p2);
-      \fill[relP] (3.south) circle [radius=\radiusP] coordinate (p3);
-      \draw[relP] (p1) to[out=-120,in=120] (p2) to[out=-60,in=-100] (p3);
-
-      \fill[relE] (1.240) circle [radius=\radiusE] coordinate (p1);
-      \fill[relE] (2.north) circle [radius=\radiusE] coordinate (p2);
-      \draw[relE] (p1) to (p2);
-    \end{scope}
-  \end{scope}
-
-  \begin{scope}[dotted, very thick]
-    \draw (a1) -- (b1);
-    \draw (a2) -- (b2);
-    \draw (a3) -- (b3);
-  \end{scope}
+  \node (prop1) { 1. If $(\elemtuples, \elemtuplet)$ is forward partial map, then $\homop: s_{i} \mapsto t_{i}$ is a partial isomorphism };
 
   \matrix[
   name=s,
   ampersand replacement=§,
-  column sep=0.75em,
+  column sep=1em,
   matrix of nodes,
-  above=3em of aheadstruct.north,
+  below=1em of prop1.south west,
+  matrix anchor=north west,
   nodes={
     draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex},
   ] {
-    {1} § {2} § {3} \\
+    {1} § {2} § {3} § {4} \\
   };
-  \graph[use existing nodes, edges={-{Stealth[round]}}] { (s-1-1) -> (s-1-2) -> (s-1-3) };
-
-  \matrix[
-  name=t,
-  ampersand replacement=§,
-  column sep=0.75em,
-  matrix of nodes,
-  above=3em of bheadstruct.north,
-  nodes={
-    draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, anchor=center
-  },
-  ] {
-    {a} § {b} § {c} \\
-  };
-  \graph[use existing nodes, edges={-{Stealth[round]}}] { (t-1-1) -> (t-1-2) -> (t-1-3) };
-
-  \node[yshift=2em, align=center, text width=10em] (headforwardmap) at ($(s-1-3.east)!.5!(t-1-1.west)$) { forward partial map \\ $(\elemtuples, \elemtuplet)$ };
-  \node[yshift=0.5em, font=\large] (headpartiso) at ($(aheadstruct.east)!.5!(bheadstruct.west)$) { $\homop: s_{i} \mapsto t_{i}$ };
-  \node[yshift=-0.5em, rotate=-90, font=\Large\bfseries] (implies) at ($(headforwardmap.south)!.5!(headpartiso.north)$) { $\implies$ };
+  \graph[use existing nodes, edges={-{Stealth[round]}}] { (s-1-1) -> (s-1-2) -> (s-1-3) -> (s-1-4) };
 
 \end{tikzpicture}

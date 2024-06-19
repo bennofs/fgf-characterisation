@@ -1,0 +1,181 @@
+\begin{tikzpicture}
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.25em, -{Stealth[round]}, shorten >= 0.4em, radius=0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em, radius=0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.10em, -{Stealth[round]}, shorten >= 0.2em, radius=0.2em}};
+  \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
+
+  \begin{scope}
+    \def\denom{3}
+    \path[every node/.style=el] (0, 0)
+       +(15:-3em) -- node[pos=0] (1) {1} node[pos=1/\denom] (2) {2} node[pos=2/\denom] (3) {3} node[pos=1] (4) {4} +(15:3em);
+
+    \node [el,above=0.7em of 2] (5) { 5 };
+    \node [el,below=0.7em of 3] (6) { 6 };
+    \node [el,below right=0.7em of 6] (7) { 7 };
+
+    \graph[use existing nodes, edges={white, -{Stealth[round]}, very thick}] {
+      (1) -> (2) -> (3) -> (4),
+      (5) -> (2),
+      (3) -> (6) -> (7),
+    };
+
+    \begin{scope}[on background layer]
+      \def\dx{2ex};
+      \def\dy{1.9ex};
+      \path {
+        (1) ++(15:-\dx) ++(105:\dy) coordinate (c1)
+        (1) ++(15:-\dx) ++(105:-\dy) coordinate (c4)
+        (4) ++(15:\dx) ++(105:\dy) coordinate (c2)
+        (4) ++(15:\dx) ++(105:-\dy) coordinate (c3)
+      };
+      \fill[tolhighcontrastBlue, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- cycle;
+
+      \def\dx{1.7ex};
+      \def\dy{1.6ex};
+      \path {
+        (5) ++(90:\dy) ++(0:-\dx) coordinate (c1)
+        (2) ++(15:-\dx) ++(105:-0.9*\dy) coordinate (c2)
+        (3) ++(15:-\dx) ++(105:-0.9*\dy) coordinate (c3)
+        (6) ++(-\dx,-\dy) coordinate (c4)
+        (7) ++(-\dx,-\dy) coordinate (c5)
+        (7) ++(\dx,-\dy) coordinate (c6)
+        (7) ++(\dx,\dy) coordinate (c7)
+        (6) ++(\dx,0) coordinate (c8)
+        (3) ++(15:\dx) ++(105:-0.8*\dy) coordinate (c9)
+        (3) ++(15:\dx) ++(105:0.9*\dy) coordinate (c10)
+        (3) ++(15:-\dx) ++(105:0.9*\dy) coordinate (c11)
+        (5) ++(90:\dy) ++(0:\dx) coordinate (c12)
+      };
+      \fill[tolhighcontrastYellow, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- (c5) -- (c6) -- (c7) -- (c8) -- (c9) -- (c10) -- (c11) -- (c12) -- cycle;
+    \end{scope}
+
+    \node[font=\Large] at (-1em,4em) { $\str{A}$ };
+  \end{scope}
+
+  \begin{scope}[xshift=12em]
+    \def\denom{3}
+    \path[every node/.style=el] (0, 0)
+       +(15:-3em) -- node[pos=0] (1) {a} node[pos=1/\denom] (2) {b} node[pos=2/\denom] (3) {c} node[pos=1] (4) {d} +(15:2.5em);
+
+    \graph[use existing nodes, edges={white, -{Stealth[round]}, very thick}] {
+      (1) -> (2) -> (3) -> (4),
+    };
+
+    \begin{scope}[on background layer]
+      \def\dx{2ex};
+      \def\dy{1.9ex};
+      \path {
+        (1) ++(15:-\dx) ++(105:\dy) coordinate (c1)
+        (1) ++(15:-\dx) ++(105:-\dy) coordinate (c4)
+        (4) ++(15:\dx) ++(105:\dy) coordinate (c2)
+        (4) ++(15:\dx) ++(105:-\dy) coordinate (c3)
+      };
+      \fill[tolhighcontrastBlue, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- cycle;
+
+      \def\dx{1.7ex};
+      \def\dy{1.6ex};
+      \path {
+        (2) ++(15:-\dx) ++(105:0.9*\dy) coordinate (c1)
+        (2) ++(15:-\dx) ++(105:-0.9*\dy) coordinate (c2)
+        (3) ++(15:\dx) ++(105:-0.9*\dy) coordinate (c3)
+        (3) ++(15:\dx) ++(105:0.9*\dy) coordinate (c4)
+      };
+      \fill[tolhighcontrastYellow, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- cycle;
+    \end{scope}
+    \node[font=\Large] at (-1em,5em) { $\str{B}$ };
+  \end{scope}
+
+  \begin{scope}[xshift=21em]
+    \def\denom{3}
+    \path[every node/.style=el] (0, 0)
+       +(15:-3em) -- node[pos=0] (1) {a} node[pos=1/\denom] (2) {b} node[pos=2/\denom] (3) {c} node[pos=1] (4) {d} +(15:2.5em);
+
+    \node [el,below=0.7em of 3] (6) { f };
+    \node [el,below right=0.7em of 6] (7) { g };
+
+    \graph[use existing nodes, edges={white, -{Stealth[round]}, very thick}] {
+      (1) -> (2) -> (3) -> (4),
+      (3) -> (6) -> (7),
+    };
+
+    \begin{scope}[on background layer]
+      \def\dx{2ex};
+      \def\dy{1.9ex};
+      \path {
+        (1) ++(15:-\dx) ++(105:\dy) coordinate (c1)
+        (1) ++(15:-\dx) ++(105:-\dy) coordinate (c4)
+        (4) ++(15:\dx) ++(105:\dy) coordinate (c2)
+        (4) ++(15:\dx) ++(105:-\dy) coordinate (c3)
+      };
+      \fill[tolhighcontrastBlue, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- cycle;
+
+      \def\dx{1.7ex};
+      \def\dy{1.6ex};
+      \path {
+        (2) ++(15:-\dx) ++(105:0.9*\dy) coordinate (c1)
+        (2) ++(15:-\dx) ++(105:-0.9*\dy) coordinate (c2)
+        (3) ++(15:-\dx) ++(105:-0.9*\dy) coordinate (c3)
+        (6) ++(-\dx,-\dy) coordinate (c4)
+        (7) ++(-\dx,-\dy) coordinate (c5)
+        (7) ++(\dx,-\dy) coordinate (c6)
+        (7) ++(\dx,\dy) coordinate (c7)
+        (6) ++(\dx,0) coordinate (c8)
+        (3) ++(15:\dx) ++(105:-0.9*\dy) coordinate (c9)
+        (3) ++(15:\dx) ++(105:0.9*\dy) coordinate (c10)
+      };
+      \fill[tolhighcontrastYellow, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- (c5) -- (c6) -- (c7) -- (c8) -- (c9) -- (c10) -- cycle;
+    \end{scope}
+    \node[font=\Large] (bhead) at (-0.7em,5em) { $\str{B} $ };
+    \node[below=0em of bhead.south, anchor=north, inner sep=0pt] { forward extension };
+  \end{scope}
+
+  \begin{scope}[xshift=30em]
+    \def\denom{3}
+    \path[every node/.style=el] (0, 0)
+       +(15:-3em) -- node[pos=0] (1) {a} node[pos=1/\denom] (2) {b} node[pos=2/\denom] (3) {c} node[pos=1] (4) {d} +(15:2.5em);
+
+    \node [el,above=0.7em of 2] (5) { e };
+    \node [el,below=0.7em of 3] (6) { f };
+    \node [el,below right=0.7em of 6] (7) { g };
+
+    \graph[use existing nodes, edges={white, -{Stealth[round]}, very thick}] {
+      (1) -> (2) -> (3) -> (4),
+      (5) -> (2),
+      (3) -> (6) -> (7),
+    };
+
+    \begin{scope}[on background layer]
+      \def\dx{2ex};
+      \def\dy{1.9ex};
+      \path {
+        (1) ++(15:-\dx) ++(105:\dy) coordinate (c1)
+        (1) ++(15:-\dx) ++(105:-\dy) coordinate (c4)
+        (4) ++(15:\dx) ++(105:\dy) coordinate (c2)
+        (4) ++(15:\dx) ++(105:-\dy) coordinate (c3)
+      };
+      \fill[tolhighcontrastBlue, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- cycle;
+
+      \def\dx{1.7ex};
+      \def\dy{1.6ex};
+      \path {
+        (5) ++(90:\dy) ++(0:-\dx) coordinate (c1)
+        (2) ++(15:-\dx) ++(105:-0.9*\dy) coordinate (c2)
+        (3) ++(15:-\dx) ++(105:-0.9*\dy) coordinate (c3)
+        (6) ++(-\dx,-\dy) coordinate (c4)
+        (7) ++(-\dx,-\dy) coordinate (c5)
+        (7) ++(\dx,-\dy) coordinate (c6)
+        (7) ++(\dx,\dy) coordinate (c7)
+        (6) ++(\dx,0) coordinate (c8)
+        (3) ++(15:\dx) ++(105:-0.8*\dy) coordinate (c9)
+        (3) ++(15:\dx) ++(105:0.9*\dy) coordinate (c10)
+        (3) ++(15:-\dx) ++(105:0.9*\dy) coordinate (c11)
+        (5) ++(90:\dy) ++(0:\dx) coordinate (c12)
+      };
+      \fill[tolhighcontrastYellow, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- (c5) -- (c6) -- (c7) -- (c8) -- (c9) -- (c10) -- (c11) -- (c12) -- cycle;
+    \end{scope}
+    \node[font=\Large] (bhead) at (0,5em) { $\str{B} $ };
+    \node[below=0em of bhead.south, anchor=north, inner sep=0pt] { backward extension };
+  \end{scope}
+
+
+\end{tikzpicture}

@@ -1,0 +1,106 @@
+\begin{tikzpicture}
+  \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
+  \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 100pt}};
+
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.25em, -{Stealth[round]}, shorten >= 0.4em, radius=0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em, radius=0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.10em, -{Stealth[round]}, shorten >= 0.2em, radius=0.2em}};
+
+  \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
+
+  \begin{scope}
+    \draw[tolbrightGreen, line width=1ex, rounded corners=2pt] (80:2em) -- (80:-2em) -- +(160:2em);
+
+    \def\denom{3}
+    \path[every node/.style=el] (5.5em, 0)
+       +(15:-3em) -- node[pos=0] (1) {1} node[pos=1/\denom] (2) {2} node[pos=2/\denom] (3) {3} node[pos=1] (4) {4} +(15:3em);
+
+    \node [el,above=0.7em of 2] (5) { 5 };
+    \node [el,below=0.7em of 3] (6) { 6 };
+    \node [el,below right=0.7em of 6] (7) { 7 };
+
+    \graph[use existing nodes, edges={white, -{Stealth[round]}, very thick}] {
+      (1) -> (2) -> (3) -> (4),
+      (5) -> (2),
+      (3) -> (6) -> (7),
+    };
+
+    \begin{scope}[on background layer]
+      \def\dx{2ex};
+      \def\dy{1.9ex};
+      \path {
+        (1) ++(15:-\dx) ++(105:\dy) coordinate (c1)
+        (1) ++(15:-\dx) ++(105:-\dy) coordinate (c4)
+        (4) ++(15:\dx) ++(105:\dy) coordinate (c2)
+        (4) ++(15:\dx) ++(105:-\dy) coordinate (c3)
+      };
+      \fill[tolhighcontrastBlue, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- cycle;
+
+      \def\dx{1.7ex};
+      \def\dy{1.6ex};
+      \path {
+        (5) ++(90:\dy) ++(0:-\dx) coordinate (c1)
+        (2) ++(15:-\dx) ++(105:-0.9*\dy) coordinate (c2)
+        (3) ++(15:-\dx) ++(105:-0.9*\dy) coordinate (c3)
+        (6) ++(-\dx,-\dy) coordinate (c4)
+        (7) ++(-\dx,-\dy) coordinate (c5)
+        (7) ++(\dx,-\dy) coordinate (c6)
+        (7) ++(\dx,\dy) coordinate (c7)
+        (6) ++(\dx,0) coordinate (c8)
+        (3) ++(15:\dx) ++(105:-0.8*\dy) coordinate (c9)
+        (3) ++(15:\dx) ++(105:0.9*\dy) coordinate (c10)
+        (3) ++(15:-\dx) ++(105:0.9*\dy) coordinate (c11)
+        (5) ++(90:\dy) ++(0:\dx) coordinate (c12)
+      };
+      \fill[tolhighcontrastYellow, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- (c5) -- (c6) -- (c7) -- (c8) -- (c9) -- (c10) -- (c11) -- (c12) -- cycle;
+    \end{scope}
+  \end{scope}
+
+  \begin{scope}[xshift=17em]
+    \draw[tolbrightRed, line width=1ex, rounded corners=2pt] (135:2.5em) -- (135:-2.5em) (45:2.5em) -- (45:-2.5em);
+
+    \def\denom{3}
+    \path[every node/.style=el] (7.5em, 0)
+    +(15:-3em) -- node[pos=0] (1) {1} node[pos=1/\denom] (2) {2} node[pos=2/\denom] (3) {3} node[pos=1] (4) {4} +(15:3em);
+
+    \node [el, below=1em of 2, xshift=0.8em] (5) { 5 };
+    \node [el, below=1em of 3, xshift=0.8em] (6) { 6 };
+
+    \graph[use existing nodes, edges={white, -{Stealth[round]}, very thick}] {
+      (1) -> (2) -> (3) -> (4),
+      (1) -> (5) -> (6) -> (4),
+    };
+
+    \begin{scope}[on background layer]
+      \def\dx{2ex};
+      \def\dy{1.9ex};
+      \path {
+        (1) ++(15:-\dx) ++(105:\dy) coordinate (c1)
+        (1) ++(15:-\dx) ++(105:-\dy) coordinate (c4)
+        (4) ++(15:\dx) ++(105:\dy) coordinate (c2)
+        (4) ++(15:\dx) ++(105:-\dy) coordinate (c3)
+      };
+      \fill[tolhighcontrastBlue, rounded corners=5pt] (c1) -- (c2) -- (c3) -- (c4) -- cycle;
+
+      \def\dx{1.7ex};
+      \def\dy{1.6ex};
+      \path {
+        (1) ++(15:-\dx) ++(105:\dy) coordinate (c1)
+        (1) ++(15:-\dx) ++(105:-0.7*\dy) coordinate (c2)
+        (5) ++(15:-1.2*\dx) ++(105:0*\dy) coordinate (c2p)
+        (5) ++(15:-\dx) ++(105:-\dy) coordinate (c3)
+        (6) ++(15:\dx) ++(105:-\dy) coordinate (c4)
+        (6) ++(15:\dx) ++(105:-0*\dy) coordinate (c4a)
+        (4) ++(15:\dx) ++(105:-0.7*\dy) coordinate (c4b)
+        (4) ++(15:\dx) ++(105:\dy) coordinate (c5)
+        (4) ++(15:-\dx) ++(105:\dy) coordinate (c6)
+        (4) ++(15:-\dx) ++(105:-0.7*\dy) coordinate (c7)
+        (6) ++(15:0*\dx) ++(105:\dy) coordinate (c8)
+        (5) ++(15:0) ++(105:\dy) coordinate (c9)
+        (1) ++(15:\dx) ++(105:-0*\dy) coordinate (c10)
+        (1) ++(15:\dx) ++(105:\dy) coordinate (c11)
+      };
+      \fill[tolhighcontrastYellow, rounded corners=5pt] (c1) -- (c2) -- (c2p) -- (c3) -- (c4) -- (c4a) -- (c4b) -- (c5) -- (c6) -- (c7) -- (c8) -- (c9) -- (c10) -- (c11) -- cycle;
+    \end{scope}
+  \end{scope}
+\end{tikzpicture}
