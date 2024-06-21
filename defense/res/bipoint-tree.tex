@@ -104,37 +104,37 @@
   \end{scope}
 
   \tikzset{relNotP/.style={tolhighcontrastRed, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em, radius=\radiusP}};
-  \begin{scope}[on background layer, every path/.style={uncover=<6>}]
+  \begin{scope}[on background layer, every path/.style={uncover=<5>}]
     \fill[relNotP] (p1.south east) circle[] coordinate (c1);
     \fill[relNotP] (p2.east) circle[] coordinate (c2);
     \fill[relNotP] (p11p2.west) circle[] coordinate (c3);
     \draw[relNotP, dashed] (c1) to[out=-60, in=60] (c2) to[out=-30,in=-150] (c3);
   \end{scope}
-  \begin{scope}[on background layer, every path/.style={uncover=<7>}]
+  \begin{scope}[on background layer, every path/.style={uncover=<6>}]
     \fill[relNotP] (p1.south east) circle[] coordinate (c1);
     \fill[relNotP] (p2.east) circle[] coordinate (c2);
     \fill[relNotP] (p11p3.160) circle[] coordinate (c3);
     \draw[relNotP, dashed] (c1) to[out=-60, in=60] (c2) to[out=-45, in=145] (c3);
   \end{scope}
-  \begin{scope}[on background layer, every path/.style={uncover=<8>}]
+  \begin{scope}[on background layer, every path/.style={uncover=<7>}]
     \fill[relNotP] (p1.south west) circle[] coordinate (c1);
     \fill[relNotP] (p2.west) circle[] coordinate (c2);
     \fill[relNotP] (p22e2.north) circle[] coordinate (c3);
     \draw[relNotP, dashed] (c1) to[out=-120, in=120] (c2) to[out=-120, in=80] (c3);
   \end{scope}
-  \begin{scope}[on background layer, every path/.style={uncover=<9->}]
+  \begin{scope}[on background layer, every path/.style={uncover=<8->}]
     \fill[relP] (p1.south east) circle[] coordinate (c1);
     \fill[relP] (p2.east) circle[] coordinate (c2);
     \fill[relP] (p3.north east) circle[] coordinate (c3);
     \draw[relP] (c1) to[out=-60, in=60] (c2) to[out=-60, in=60] (c3);
   \end{scope}
-  \begin{scope}[on background layer, every path/.style={uncover=<6->}]
+  \begin{scope}[on background layer, every path/.style={uncover=<5->}]
     \fill[relP] (p1.north east) circle[] coordinate (c1);
     \fill[relP] (p11p2.east) circle[] coordinate (c2);
     \fill[relP] (p11p3.east) circle[] coordinate (c3);
     \draw[relP] (c1) to[out=-5, in=110] (c2) to[out=-80, in=80] (c3);
   \end{scope}
-  \begin{scope}[on background layer, every path/.style={uncover=<9->}]
+  \begin{scope}[on background layer, every path/.style={uncover=<8->}]
     \fill[relE] (p2.south west) circle[] coordinate (c1);
     \fill[relE] (p22e2.60) circle[] coordinate (c2);
     \draw[relE] (c1) to (c2);

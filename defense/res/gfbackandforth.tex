@@ -29,8 +29,8 @@
   \def\radiusS{0.2em};
   \def\radiusQ{0.4em};
 
-  \def\r{1.9cm};
-  \def\rnode{0.5cm};
+  \def\r{1.8cm};
+  \def\rnode{0.45cm};
 
   \tikzset{egroup1/.style={draw,tolhighcontrastBlue, dashed, very thick}};
   \tikzset{egroup2/.style={fill,tolpalePaleyellow}};
@@ -72,7 +72,7 @@
   \end{scope}
 
 
-  \begin{scope}[xshift=15em, name prefix=b]
+  \begin{scope}[xshift=14em, name prefix=b]
     \foreach \i in {0, ..., 7} {
       \draw[gray] (\i*360/8:\r) -- ({(\i+1)*360/8}:\r);
     };

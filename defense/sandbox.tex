@@ -13,57 +13,19 @@
 \begin{document}
 
 \catcode`§=\active
-
-\def\tups{\textcolor{tolmutedTeal}{\elemtuples}}
-\def\tupt{\textcolor{tolmutedTeal}{\elemtuplet}}
-\def\ij#1{\textcolor{tolmutedWine}{(i_{#1},j_{#1})}}
-\def\op#1{\textcolor{tolmutedWine}{(o_{#1},p_{#1})}}
-\def\picelemOneA{%
-  \tikz[baseline] {
-    \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
-    \node[el,anchor=base] {1};
-  }%
-}
-\def\picelemOneB{%
-  \tikz[baseline] {%
-    \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
-    \node[el,anchor=base] {a};
-  }%
-}
-\def\picelemTwoA{%
-  \tikz[baseline] {
-    \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
-    \node[el,anchor=base] {2};
-  }%
-}
-\def\picelemTwoB{%
-  \tikz[baseline] {
-    \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
-    \node[el,anchor=base] {b};
-  }%
-}
-\def\ni{\textcolor{tolbrightYellowDarker}{i}}
-\def\nj{\textcolor{tolbrightYellowDarker}{j}}
-\begin{frame}\frametitle{sandbox}
-  \begin{center}
-    \huge $\FGF \equiv \FO/{\bisimto_{\FGF}}$ \\[0.5ex]
-    \large over finite structures
-  \end{center}
-
-  \begin{center}
-  \begin{minipage}[t]{0.4\textwidth}
-    \raggedleft
-
-    {\usebeamercolor[fg]{item} proof via new unraveling} \\
-    \input{res/upgrade-summary.tex}
-  \end{minipage}
-  \hspace{4em}
-  \begin{minipage}[t]{0.4\textwidth}
-    \raggedright
-
-    {\usebeamercolor[fg]{item} bonus corollary} \\[1ex]
-    Decide whether a given $\GF$-formula is expressible in $\FGF$.
-  \end{minipage}
-\end{center}
+\def\dragon{\textcolor{toldarkDarkyellow}{\mathrm{dragon}}}
+\def\red{\textcolor{tolhighcontrastRed}{\mathrm{red}}}
+\def\blue{\textcolor{tolhighcontrastBlue}{\mathrm{blue}}}
+\def\green{\textcolor{tolbrightGreen}{\mathrm{green}}}
+\def\fly{\textcolor{tolmutedCyan}{\mathrm{fly}}}
+\def\band{\textcolor{black}{\mathrm{band}}}
+\def\child{\mathit{child}}
+\def\parent{\mathit{parent}}
+\def\grandchild{\mathit{grandchild}}
+\def\cross{\tikz[baseline, tolhighcontrastRed, yshift=0.6ex, very thick] \draw (45:1ex) -- (45:-1ex) (-45:1ex) -- (-45:-1ex);}
+\def\check{\tikz[baseline, tolbrightGreenDarker, yshift=0.6ex, very thick, rounded corners=1pt] \draw (80:1ex) -- ++(80:-2ex) -- ++(160:1ex);}
+\begin{frame}<9->\frametitle{sandbox}
+  \input{res/fgf-biseq}
 \end{frame}
+
 \end{document}

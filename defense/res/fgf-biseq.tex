@@ -1,0 +1,379 @@
+\begin{tikzpicture}
+  \def\radiusP{0.5em};
+  \def\radiusE{0.4em};
+  \def\radiusS{0.2em};
+  \def\tuppad{0.5em};
+  \tikzset{el/.style={circle,draw,fill=white,minimum width=2em,minimum height=2em}};
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.3em, -{Stealth[round]}, shorten >= 0.4em, radius=\radiusP}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.25em, -{Stealth[round]}, shorten >= 0.2em, radius=\radiusE}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em, radius=\radiusS}};
+  \tikzset{selnode/.style={white, fill=tolbrightGreen}}
+  \tikzset{sel2node/.style={black, fill=tollightLightcyan}}
+  \tikzset{sel3node/.style={black, fill=tollightLightyellow}}
+  \tikzset{selnodex/.style={#1/.append style={selnode}}}
+  \tikzset{sel2nodex/.style={#1/.append style={sel2node}}}
+  \tikzset{sel3nodex/.style={#1/.append style={sel3node}}}
+
+  \def\tups{\textcolor{tolhighcontrastBlue}{\elemtuples}}
+  \def\tupt{\textcolor{toldarkDarkcyan}{\elemtuplet}}
+  \def\tupu{\textcolor{tolbrightYellowDarkest}{\elemtupleu}}
+
+
+  \tikzset{
+    0/.style={name=0},
+    1/.style={name=1},
+    2/.style={name=2},
+    3/.style={name=3},
+    4/.style={name=4},
+    5/.style={name=5},
+    6/.style={name=6},
+    7/.style={name=7},
+    8/.style={name=8},
+    9/.style={name=9},
+    10/.style={name=10},
+    11/.style={name=11},
+    12/.style={name=12},
+    % common edges
+    edge/.style={},
+    e1234/.style={},
+    e2356/.style={},
+    e12/.style={},
+    % edges of A
+    e54/.style={},
+    e84/.style={},
+    e68/.style={},
+    e47/.style={},
+    e13/.style={},
+    % edges of B
+    ebief/.style={},
+    efe/.style={},
+    eeg/.style={},
+    egh/.style={},
+    edc/.style={},
+    eaj/.style={},
+    % biseqs
+    seq1/.style = {},
+    seq2/.style = {},
+    seq3/.style = {},
+    seq4/.style = {},
+    bp1/.style = {name=bp1, hidden},
+    bp2/.style = {name=bp2, hidden},
+    bp3/.style = {name=bp3, hidden},
+    bp4/.style = {name=bp4, hidden},
+    bp5/.style = {name=bp5, hidden},
+    bp6/.style = {name=bp6, hidden},
+    bp7/.style = {name=bp7, hidden},
+    bp8/.style = {name=bp8, hidden},
+    bp9/.style = {name=bp9, hidden},
+    points1/.style = {hidden},
+    points2/.style = {hidden},
+    points3/.style = {hidden},
+    % scope A
+    A/.style={},
+    % scope B
+    B/.style={},
+    % scope biseq
+    Biseq/.style={},
+  };
+
+  \newcommand<>{\setonly}[1]{\only#2{\tikzset{#1}}}
+
+  \tikzset{B/.style={hidden, every path/.style={hidden}}}
+  \tikzset{seq1/.style={uncover=<1->}}
+  \tikzset{seq2/.style={uncover=<2->}}
+  \tikzset{seq3/.style={uncover=<3->}}
+  \tikzset{seq4/.style={uncover=<6->}}
+
+  \setonly<1>{
+    selnodex/.list={1,2,3,4},
+    edge/.style={opacity=0.3},
+    e1234/.style={opacity=1},
+  }
+
+  \setonly<2>{
+    selnodex/.list={1,4},
+    sel2nodex/.list={2,3},
+    sel3nodex/.list={5,6},
+    edge/.style={opacity=0.3},
+    e2356/.style={opacity=1},
+  }
+
+  \setonly<3-5>{
+    selnodex/.list={1,4},
+    sel2nodex/.list={2},
+    A/.style={
+      sel3nodex/.list={3,5,6},
+    },
+    edge/.style={opacity=0.3},
+    e2356/.style={opacity=1},
+  }
+
+  \setonly<4>{
+    B/.style={sel3nodex/.list={3,5,6}},
+    Biseq/.style={hidden},
+  }
+
+  \setonly<5>{
+    B/.style={
+      selnodex/.list={3},
+      sel3nodex/.list={9,5,6},
+      e2356/.style={opacity=0.3},
+      ebief/.style={opacity=1},
+    },
+    Biseq/.style={hidden},
+  }
+
+  \setonly<6>{
+    edge/.style={opacity=0.3},
+    e1234/.style={opacity=1},
+    e2356/.style={opacity=1},
+    e54/.style={opacity=1},
+    selnodex/.list={2,3,6},
+    sel2nodex=5,
+    sel3nodex=4,
+  }
+
+  \tikzset{
+    makevisible/.style={
+      #1/.append style={opacity=1}
+    }
+  }
+
+  \setonly<7->{
+    edge/.style={opacity=0.3},
+    makevisible/.list={bp1,bp2,bp3,bp4,points1,e1234,e12},
+  }
+  \setonly<8->{
+    makevisible/.list={bp5,bp6,points2,e2356},
+  }
+  \setonly<9->{
+    makevisible/.list={bp7,bp8,bp9,points3},
+  }
+  \setonly<7>{
+    selnodex/.list={1,2,3,4},
+  }
+  \setonly<8>{
+    selnodex/.list={1,4},
+    sel2nodex/.list={2,3},
+    sel3nodex/.list={5,6},
+  }
+  \setonly<9>{
+    selnodex/.list={1,4},
+    sel2nodex/.list={2},
+    sel3nodex/.list={3,5,6},
+  }
+
+  \begin{scope}[A]
+    \matrix[
+    matrix of nodes,
+    column sep=2em,
+    row sep=2em,
+    every node/.prefix style={el},
+    name=A,
+    matrix anchor=4.base,
+    ampersand replacement=§,
+    ] {
+              §         §          § |[7]| 7 \\
+      |[1]| 1 § |[2]| 2 § |[3]| 3  § |[4]| 4 \\
+              §         §  |[5]| 5 § |[8]| 8 \\
+              §         §  |[6]| 6 §         \\
+    };
+
+    \begin{scope}[on background layer]
+      \begin{scope}[transparency group, edge, e1234]
+        \fill[relP] (1.north) circle [] coordinate (p1);
+        \fill[relP] (2.north) circle [] coordinate (p2);
+        \fill[relP] (3.north) circle [] coordinate (p3);
+        \fill[relP] (4.north) circle [] coordinate (p4);
+        \draw[bend left, relP] (p1) to (p2) to (p3) to (p4);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, e2356]
+        \fill[relP] (2.south east) circle [] coordinate (p1);
+        \fill[relP] (3.south) circle [] coordinate (p2);
+        \fill[relP] (5.north west) circle [] coordinate (p3);
+        \fill[relP] (6.west) circle [] coordinate (p4);
+        \draw[relP, bend right] (p1) to (p2) to (p3) to[bend right] (p4);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, e68]
+        \draw[relS,shorten >= 0em] (6) to (8);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, e84]
+        \draw[relE,shorten >= 0em] (8) to (4);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, e54]
+        \draw[relE,shorten >= 0em] (5) to (4);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, e47]
+        \draw[relS,shorten >= 0em, bend right=45] (4) to (7);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, e12]
+        \draw[relE,shorten >= 0em] (1) to (2);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, e13, overlay]
+        \draw[relS,shorten >= 0em] (1) to[out=135,in=45,looseness=1] (3);
+      \end{scope}
+    \end{scope}
+  \end{scope}
+
+  \begin{scope}[B]
+    \matrix[
+    matrix of nodes,
+    column sep=2em,
+    row sep=2em,
+    nodes={
+      el
+    },
+    name=B,
+    ampersand replacement=§,
+    matrix anchor=1.base west,
+    xshift=5em,
+    ] at (4.base east) {
+      |[1]| a  § |[2]| b § |[3]| c § |[4]| d \\
+      |[10]| j § |[9]| i § |[5]| e § |[7]| g \\
+               §         § |[6]| f § |[8]| h \\
+    };
+
+    \begin{scope}[on background layer]
+      \begin{scope}[transparency group, edge, e1234]
+        \fill[relP] (1.north) circle [] coordinate (p1);
+        \fill[relP] (2.north) circle [] coordinate (p2);
+        \fill[relP] (3.north) circle [] coordinate (p3);
+        \fill[relP] (4.north) circle [] coordinate (p4);
+        \draw[bend left, relP] (p1) to (p2) to (p3) to (p4);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, e2356]
+        \fill[relP] (2.south east) circle [] coordinate (p1);
+        \fill[relP] (3.south) circle [] coordinate (p2);
+        \fill[relP] (5.north east) circle [] coordinate (p3);
+        \fill[relP] (6.east) circle [] coordinate (p4);
+        \draw[relP] (p1) to[bend right=45] (p2) to[bend left=45] (p3) to[bend left] (p4);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, ebief]
+        \fill[relP] (2.south west) circle [] coordinate (p1);
+        \fill[relP] (9.south west) circle [] coordinate (p2);
+        \fill[relP] (5.south west) circle [] coordinate (p3);
+        \fill[relP] (6.west) circle [] coordinate (p4);
+        \draw[bend right, relP] (p1) to (p2) to (p3) to[bend right=20] (p4);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, efe]
+        \draw[relS, shorten >= 0] (6) to (5);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, egh]
+        \draw[relS, shorten >= 0] (7) to (8);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, edc]
+        \draw[relS, shorten >= 0] (4) to (3);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, e12]
+        \draw[relE,shorten >= 0em] (1) to (2);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, eeg]
+        \draw[relE,shorten >= 0em] (5) to[bend right=45] (7);
+      \end{scope}
+
+      \begin{scope}[transparency group, edge, eaj]
+        \draw[relS,shorten >= 0em] (1) to (10);
+      \end{scope}
+    \end{scope}
+  \end{scope}
+
+  \begin{scope}[Biseq, xshift=5em]
+    \node[inner xsep=0pt, text width=20em, anchor=base west] (tuples) at (0,5em) {$\tups = (1,2,3,4)\quad\tupt = (2,3,5,6)$ \\[1ex] $\tupu = (5,4)$};
+
+    \matrix[
+    matrix of nodes,
+    row sep=1ex,
+    nodes={anchor=base west},
+    matrix anchor=north west,
+    below=2ex of tuples.south west,
+    inner xsep=0pt,
+    font=\Large,
+    uncover=<-6>,
+    ] {
+      |[font=\bfseries\Large] (headbiseq)| bisimulation sequences (biseqs) \\
+      |[seq1]| $\tups$ \\
+      |[seq2]| $\tups(2,3)\tupt$ \\
+      |[seq3]| $\tups(2,2)\tupt$ \\
+      |[seq4]| $\tups(2,3)\tupt(3,3)\tupu$ \\
+    };
+
+    \begin{scope}[uncover=<7->]
+      \node[font=\bfseries\Large, anchor=base west, inner xsep=0pt] (headbipoint) at (headbiseq.base west) { bisimulation points (bipoints) };
+      \matrix[
+      matrix of nodes,
+      row sep=2ex,
+      column sep=1.5em,
+      below=1ex of headbipoint.south west,
+      matrix anchor=north west,
+      ampersand replacement=§,
+      every node/.style={rectangle,rounded corners=3pt,draw,fill=white},
+      ] {
+        |[bp1]| $\langle \tups / 1 \rangle$ §                                              §                                               § § \\
+        |[bp2]| $\langle \tups / 2 \rangle$ §                                              § |[bp7]| $\langle \tups(2,2)\tupt / 2 \rangle$ § § \\
+        |[bp3]| $\langle \tups / 3 \rangle$ § |[bp5]| $\langle \tups(2,3)\tupt / 3\rangle$ § |[bp8]| $\langle \tups(2,2)\tupt / 3 \rangle$ § § \\
+        |[bp4]| $\langle \tups / 4 \rangle$ § |[bp6]| $\langle \tups(2,3)\tupt / 4\rangle$ § |[bp9]| $\langle \tups(2,2)\tupt / 4 \rangle$ § § \\
+      };
+      \graph[use existing nodes, edges={thick, -{Stealth[round]}}] {
+        {[edges=points1] bp1 -> bp2 -> bp3 -> bp4 },
+        {[edges=points2] bp3 -> bp5 -> bp6 },
+        {[edges=points3] bp2 -> bp7 -> bp8 -> bp9 },
+      };
+
+      \begin{scope}[tolhighcontrastRed,label distance=2pt, inner sep=0pt]
+        \begin{scope}[points1]
+          \node also [label=145:1] (bp1);
+          \node also [label=145:2] (bp2);
+          \node also [label=145:3] (bp3);
+          \node also [label=145:4] (bp4);
+        \end{scope}
+        \begin{scope}[points2]
+          \node also [label=90:5] (bp5);
+          \node also [label=-90:6] (bp6);
+        \end{scope}
+        \begin{scope}[points3]
+          \node also [label=0:3] (bp7);
+          \node also [label=0:5] (bp8);
+          \node also [label=0:6] (bp9);
+        \end{scope}
+      \end{scope}
+    \end{scope}
+
+    \begin{scope}[on background layer]
+      \begin{scope}[uncover=<10>]
+        \draw[relE, shorten >= 0] (bp1) to[out=-5,in=15, looseness=1] (bp2);
+
+        \fill[relP] (bp1.west) circle[] coordinate (p1);
+        \fill[relP] (bp2.west) circle[] coordinate (p2);
+        \fill[relP] (bp3.west) circle[] coordinate (p3);
+        \fill[relP] (bp4.west) circle[] coordinate (p4);
+        \draw[relP, bend right=80, looseness=1.5] (p1) to (p2) to (p3) to (p4);
+
+        \fill[relP] (bp2.south) circle[] coordinate (p1);
+        \fill[relP] (bp3.north east) circle[] coordinate (p2);
+        \fill[relP] (bp5.west) circle[] coordinate (p3);
+        \fill[relP] (bp6.west) circle[] coordinate (p4);
+        \draw[relP, bend right] (p1) to (p2) to (p3) to[] (p4);
+
+        \fill[relP] (bp2.-20) circle[] coordinate (p1);
+        \fill[relP] (bp7.south west) circle[] coordinate (p2);
+        \fill[relP] (bp8.west) circle[] coordinate (p3);
+        \fill[relP] (bp9.west) circle[] coordinate (p4);
+        \draw[relP, bend right] (p1) to[bend left=10] (p2) to (p3) to (p4);
+      \end{scope}
+    \end{scope}
+  \end{scope}
+\end{tikzpicture}

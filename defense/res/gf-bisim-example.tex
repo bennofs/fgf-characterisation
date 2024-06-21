@@ -1,0 +1,53 @@
+\begin{tikzpicture}
+  \tikzset{el/.style={circle,draw,fill=white,minimum width=2em,minimum height=2em}};
+  \tikzset{relP/.style={tolhighcontrastBlue, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em}};
+  \tikzset{relE/.style={tolhighcontrastYellow, line width=0.25em, -{Stealth[round]}, shorten >= 0.2em}};
+  \tikzset{relS/.style={tolhighcontrastRed, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em}};
+  \def\radiusP{0.7em};
+  \def\radiusE{0.4em};
+  \def\radiusS{0.2em};
+
+  \matrix[matrix of nodes, every node/.style={el},name=n,column sep=4em, row sep=4em]  {
+    |(n1)| $1$ & |(n2)| 2 & |(n3)| 3 \\
+  };
+  \begin{scope}[on background layer]
+    \fill[relE] (n1.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n2.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to node[above]{E} (p2);
+    \fill[relE] (n2.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (n3.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to node[above]{E} (p2);
+    \fill[relS] (n1.south) circle [radius=\radiusS] coordinate (p1);
+    \fill[relS] (n3.south) circle [radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to[bend right] node[below]{S} (p2);
+  \end{scope}
+
+  \matrix[matrix of nodes, every node/.style={el}, name=m, column sep=4em, row sep=4em, right=8em of n] {
+    |(m1)| $1$ & |(m2)| 2 & |(m3)| 3 \\
+    |(m4)| 1' & |(m5)| 2' & |(m6)| 3' \\
+  };
+
+  \begin{scope}[on background layer]
+    \fill[relE] (m1.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (m2.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to node[above]{E} (p2);
+    \fill[relE] (m2.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (m3.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to node[above]{E} (p2);
+    \fill[relS] (m1.south east) circle [radius=\radiusS] coordinate (p1);
+    \fill[relS] (m6.north west) circle [radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to node[above, pos=0.8]{S} (p2);
+
+    \fill[relE] (m4.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (m5.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to node[above]{E} (p2);
+    \fill[relE] (m5.east) circle [radius=\radiusE] coordinate (p1);
+    \fill[relE] (m6.west) circle [radius=\radiusE] coordinate (p2);
+    \draw[relE] (p1) to node[above]{E} (p2);
+    \fill[relS] (m4.north east) circle [radius=\radiusS] coordinate (p1);
+    \fill[relS] (m3.south west) circle [radius=\radiusS] coordinate (p2);
+    \draw[relS] (p1) to node[above,pos=0.7]{S} (p2);
+  \end{scope}
+
+  \node[font=\huge] at ($(n.east)!.5!(m.west)$) { $\bisimto_{\GF}$ };
+\end{tikzpicture}
