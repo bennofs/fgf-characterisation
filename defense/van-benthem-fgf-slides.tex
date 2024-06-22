@@ -24,9 +24,19 @@
 \input{macros.tex}
 \input{beamermacros.tex}
 
+\newcommand*\makeAlph[1]{\symbol{\numexpr`a-1+#1}}
+\setbeamerfont{page number in head/foot}{size=\large}
+\setbeamertemplate{footline}{
+    \hfill%
+    \usebeamercolor[fg]{page number in head/foot}%
+    \usebeamerfont{page number in head/foot}%
+    \hspace{2em}%
+    \insertframenumber\hbox to 1.5em{\smash{\small\makeAlph{\insertoverlaynumber}}\hfill}\vskip2ex%
+}
+
 \begin{document}
 
-\begin{frame}
+\begin{frame}[noframenumbering,plain]
   \titlepage
 \end{frame}
 
@@ -104,29 +114,32 @@
   \end{center}
 \end{frame}
 
-\begin{frame}<-2>[label=outline]{Outline}%
+{
+\setbeamercolor{page number in head/foot}{fg=white}
+\begin{frame}<-2>[label=outline,noframenumbering]{Outline}%
   \begin{center}
   \begin{enumerate}
     \item<alert@2| check@3-> $\GF$-, $\FGF$- and $\ell$-bisimulation
     \item<alert@3| check@4-> Unraveling
-    \item<alert@5| check@6> Proof of van Benthem for $\FGF$  \only<4->{
-          \uncover<5->{\\\textcolor{black}{\small
-          via Upgrading: $\FGF$-bisimulation invariance implies $\ell$-$\FGF$-bisimulation invariance \\
-          (Martin Otto has proved the same for $\GF$)}}}
+    \item<alert@4| check@5> Proof of van Benthem for $\FGF$ %  \only<4->{
+          % \uncover<5->{\\\textcolor{black}{\small
+          % via Upgrading: $\FGF$-bisimulation invariance implies $\ell$-$\FGF$-bisimulation invariance \\
+          % (Martin Otto has proved the same for $\GF$)}}}
   \end{enumerate}
   \end{center}
 
-  \onslide*<4->{
-  \uncover<5->{
-    \begin{itemize}
-      \item[]
-            \begin{center}
-              \input{res/upgrade-plan.tex}
-            \end{center}
-    \end{itemize}
-  }
-  }
+  % \onslide*<4->{
+  % \uncover<5->{
+  %   \begin{itemize}
+  %     \item[]
+  %           \begin{center}
+  %             \input{res/upgrade-plan.tex}
+  %           \end{center}
+  %   \end{itemize}
+  % }
+  % }
 \end{frame}
+}
 
 \begin{frame}{$\FGF$-bisimulation: forward partial map}
   An $\FGF$-bisimulation is a set $\mathcal{Z}$ of \emph{forward partial maps} between two structures, satisfying \emph{back-and-forth conditions} (next slide)
@@ -203,7 +216,7 @@
   \begin{center}
     \Huge
     {\usebeamercolor[fg]{block title}Lemma} \\[0.5ex]
-    \huge
+    \Large
     If $\varphi$ is $\ell$-$\FGF$-bisimulation invariant, then $\varphi$ is logically equivalent to a formula in $\FGF_{\ell}$.
   \end{center}
 \end{frame}
@@ -222,14 +235,17 @@
   \end{enumerate}
 \end{frame}
 
-\againframe<3>{outline}
+{
+\setbeamercolor{page number in head/foot}{fg=white}
+\againframe<3>[noframenumbering]{outline}
+}
 
 \begin{frame}{Biseqs and Bipoints}
   \input{res/fgf-biseq}
 \end{frame}
 
 \begin{frame}{The forward unraveling $\unravel{A}$}
-  \input{res/bipoint-tree}
+  \input{res/forward-unravel}
 \end{frame}
 
 \begin{frame}
@@ -390,7 +406,29 @@
   \end{center}
 \end{frame}
 
-\againframe<4-5>{outline}
+{
+\setbeamercolor{page number in head/foot}{fg=white}
+\againframe<4>[noframenumbering]{outline}
+}
+
+\begin{frame}{Proving van Benthem}
+  \textbf{Claim}: If $\varphi \in \FO$ is $\bisimto_{FGF}$-invariant, then it is expressible in $\FGF$.\\[3ex]
+
+  \begin{minipage}[t]{0.5\framewidth}
+    \textbf{Steps:}
+    \vspace{1ex}
+    \begin{enumerate}
+      \itemsep1ex
+      \item $\varphi$ is also $\bisimto_{\GF}$-invariant
+      \item Martin Otto: $\varphi$ is $\bisimto_{\GF}^{g}$-invariant
+      \item We show: $\varphi$ is $\bisimto_{\FGF}^{\homop(g)}$-invariant
+    \end{enumerate}
+    \vspace{1ex}
+    {\usebeamercolor[fg]{item}(3)} implies that $\varphi$ is expressible in $\FGF$
+  \end{minipage}
+  \pause
+  \input{res/upgrade-plan}
+\end{frame}
 
 \begin{frame}{Cutting to obtain a finite unraveling}
   \begin{center}
@@ -402,9 +440,14 @@
   \input{res/finite-unraveling}
 \end{frame}
 
-\againframe<6>{outline}
+{
+\setbeamercolor{page number in head/foot}{fg=white}
+\againframe<5>[noframenumbering]{outline}
+}
 
-\begin{frame}{Summary}
+{
+\setbeamercolor{page number in head/foot}{fg=white}
+\begin{frame}[noframenumbering]{Summary}
   \begin{center}
     \huge $\FGF \equiv \FO/{\bisimto_{\FGF}}$ \\[0.5ex]
     \large over finite structures
@@ -433,6 +476,7 @@
   \end{minipage}
 \end{center}
 \end{frame}
+}
 
 \appendix
 
