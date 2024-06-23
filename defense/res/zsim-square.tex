@@ -1,0 +1,35 @@
+  \begin{tikzpicture}
+    \begin{scope}
+      \matrix [ampersand replacement=§, column sep=4em, row sep=2em, font=\Large] (p) {
+        \node { $\unravel{A}$ }; § \node { $\unravel{B}$ }; \\[-1.8em]
+        \node (1) {\picelemOneA}; § \node (a) {\picelemOneB}; \\
+        \node (2) {\picelemTwoA}; § \node[tolbrightRed] (b) {\picelemTwoB}; \\
+      };
+
+      \begin{scope}[-{Stealth[round]}, very thick]
+        \draw (1) to (2);
+        \draw[tolbrightRed] (a) to (b);
+      \end{scope}
+      \begin{scope}[font=\Large]
+        \node[anchor=west, yshift=-0.2ex] at ($(1.east)!.2!(a.west)$) { $\approx_{z}$ };
+        \node[anchor=west, yshift=-0.2ex, tolhighcontrastRed] at ($(2.east)!.2!(b.west)$) { ${\approx}_{\smash{\mathrlap{z{-}1}}}$ };
+      \end{scope}
+    \end{scope}
+
+    \begin{scope}[xshift=15em, uncover=<2->]
+      \matrix [ampersand replacement=§, column sep=4em, row sep=2em, font=\Large] (p) {
+        \node { $\unravel{A}$ }; § \node { $\unravel{B}$ }; \\[-1.8em]
+        \node (1) {\picelemOneA}; § \node[tolbrightRed] (a) {\picelemOneB}; \\
+        \node (2) {\picelemTwoA}; § \node (b) {\picelemTwoB}; \\
+      };
+
+      \begin{scope}[-{Stealth[round]}, very thick]
+        \draw (1) to (2);
+        \draw[tolbrightRed] (a) to (b);
+      \end{scope}
+      \begin{scope}[font=\Large]
+        \node[anchor=west, yshift=-0.2ex] at ($(2.east)!.2!(b.west)$) { $\approx_{z}$ };
+        \node[anchor=west, yshift=-0.2ex, tolhighcontrastRed] at ($(1.east)!.2!(a.west)$) { ${\approx}_{\smash{\mathrlap{z{-}1}}}$ };
+      \end{scope}
+    \end{scope}
+  \end{tikzpicture}

@@ -6,6 +6,12 @@
   \tikzset{relP/.style={tolhighcontrastBlue, line width=0.4em, -{Stealth[round]}, shorten >= 0.4em, radius=\radiusP}};
   \tikzset{relE/.style={tolhighcontrastYellow, line width=0.25em, -{Stealth[round]}, shorten >= 0.2em, radius=\radiusE}};
   \tikzset{relS/.style={tolhighcontrastRed, line width=0.15em, -{Stealth[round]}, shorten >= 0.2em, radius=\rediusS}};
+  \tikzset{selnode/.style={white, fill=tolbrightGreen}}
+  \tikzset{sel2node/.style={black, fill=tollightLightcyan}}
+  \tikzset{sel3node/.style={black, fill=tollightLightyellow}}
+  \tikzset{selnodex/.style={#1/.append style={selnode}}}
+  \tikzset{sel2nodex/.style={#1/.append style={sel2node}}}
+  \tikzset{sel3nodex/.style={#1/.append style={sel3node}}}
 
   \def\tupp{{\color{tolhighcontrastBlue}\elemtuplep}}%
   \def\tupe{{\color{tolbrightYellowDarkest}\elemtuplee}}%
@@ -22,8 +28,8 @@
   \end{scope}
 
   \begin{scope}[every node/.style={uncover=<2->}, every path/.style={uncover=<2->}]
-    \matrix[matrix of nodes, every node/.style={el},name=n,column sep=2em, row sep=2em, ampersand replacement=§, matrix anchor=1.base, below=7em of defif.south west, uncover=<2->]  {
-      |(1)| a \\ |(2)| b \\ |(3)| c \\
+    \matrix[matrix of nodes, every node/.style={el},name=n,column sep=2em, row sep=2em, ampersand replacement=§, matrix anchor=1.base, below=5em of defif.south west, uncover=<2->]  {
+      |(1)| a \\ |(2) [onslide=<5>selnode]| b \\ |(3) [onslide=<5>selnode]| c \\
     };
     \node[above=1.5ex of 1] (laba) {\huge{$\str{A}$}};
     \begin{scope}[font=\Large]
@@ -111,7 +117,7 @@
     \draw[relE] (c1) to (c2);
   \end{scope}
 
-  \begin{scope}[tolbrightRed, uncover=<3->]
+  \begin{scope}[tolbrightRed, uncover=<2->]
     \node also [label=120:a] (p1);
     \node also [label=120:b] (p2);
     \node also [label=120:c] (p3);

@@ -5,7 +5,7 @@
   \tikzset{virtual/.style={draw=none,inner sep=0.2,red}};
   \tikzset{faded edge/.style={dash pattern=on 1pt off 1pt on 1pt off 1pt on 2pt off 1pt on 2pt off 1pt on 100pt}};
   \tikzset{faded edge reverse/.style={tips=false,dash pattern=on 5pt off 1pt on 2pt off 1pt on 2pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt on 1pt off 1pt}};
-  \tikzset{index/.style={font=\bfseries\boldmath,color=toldarkDarkgreen,uncover=<3->}};
+  \tikzset{index/.style={font=\bfseries\boldmath,color=toldarkDarkgreen,hidden}};
 
   % level <2l
   \node[el] (a1) at (1.5,0) {};
@@ -72,21 +72,21 @@
   \end{scope}
 
   % text
-  \node[anchor=base east] at ($(root)!.20!(left) - (1,0)$) {$\mathsf{seq}$ level $< 2 * \ell$ };
-  \node[anchor=base east] at ($(root)!.50!(left) - (1,0)$) {$\mathsf{seq}$ level $= 2 * \ell$ };
-  \node[anchor=base east] at ($(root)!.90!(left) - (1,0)$) {$\mathsf{seq}$ level $= 2 * \ell + 1$ };
+  \node[anchor=base east] at ($(root)!.20!(left) - (1,0)$) {$\mathsf{seq}$ level $< D$ };
+  \node[anchor=base east] at ($(root)!.50!(left) - (1,0)$) {$\mathsf{seq}$ level $= D$ };
+  \node[anchor=base east] at ($(root)!.90!(left) - (1,0)$) {$\mathsf{seq}$ level $= D + 1$ };
 
   % legend
   \begin{scope}[uncover=<2->]
-    \node[el] (leg1) at (-12,15) {};
+    \node[el] (leg1) at (-10,15) {};
     \node[right=0.5 of leg1.south, anchor=south west, inner sep=1] { element };
 
-    \node[excluded] (leg2) at (-6,15) {};
+    \node[excluded] (leg2) at (-4,15) {};
     \node[right=0.5 of leg2.south, anchor=south west, inner sep=1] { excluded element };
 
-    \node[missingchild] (leg3) at (4,15) {};
+    \node[missingchild] (leg3) at (6,15) {};
     \node[right=0 of leg3, anchor=west, uncover=<2>] (leg3t) { missing child };
-    \node[right=0 of leg3, anchor=west, uncover=<3->] (leg3t2) { missing child (labeled with \textcolor{toldarkDarkgreen}{index}) };
+    %\node[right=0 of leg3, anchor=west, uncover=<3->] (leg3t2) { missing child (labeled with \textcolor{toldarkDarkgreen}{index}) };
   \end{scope}
 
 \end{tikzpicture}

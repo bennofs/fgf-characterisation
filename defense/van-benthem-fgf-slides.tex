@@ -49,74 +49,86 @@
 \def\child{\mathit{child}}
 \def\grandchild{\mathit{grandchild}}
 \def\parent{\mathit{parent}}
+\def\singer{\textcolor{tolhighcontrastBlue}{\mathrm{singer}}}
+\def\plays{\mathit{plays}}
+\def\drums{\textcolor{tolbrightGreen}{\mathrm{drums}}}
+\def\trio{\textcolor{black}{\mathbf{trio}}}
 \def\cross{\tikz[baseline, tolhighcontrastRed, yshift=0.6ex, very thick] \draw (45:1ex) -- (45:-1ex) (-45:1ex) -- (-45:-1ex);}
 \def\check{\tikz[baseline, tolbrightGreenDarker, yshift=0.6ex, very thick, rounded corners=1pt] \draw (80:1ex) -- ++(80:-2ex) -- ++(160:1ex);}
-\begin{frame}\frametitle{First-order logic ($\FO$)}
-  \begin{center}
-    \Large
-    $\exists{x_{1}} (\dragon(x_{1}) \land \forall{x_{2}} (\child(x_{1}, x_{2}) \to \green(x_{2})))$ \\
-    ``there exists a dragon which has only green children''
+\newcommand<>{\uncoverubrace}[2]{%
+  \onslide#3 \underbrace{ \onslide<1->%
+  #1%
+  \onslide#3 }_{\mathclap{#2}} \onslide<1->%
+}
+% \begin{frame}\frametitle{First-order logic ($\FO$)}
+%   \begin{center}
+%     \Large
+%     $\exists{x_{1}} (\dragon(x_{1}) \land \forall{x_{2}} (\child(x_{1}, x_{2}) \to \green(x_{2})))$ \\
+%     ``there exists a dragon which has only green children''
 
-    \vspace{3ex}
-    \huge
-    \textbf{problem} \\[1ex]
-    \Large
-    many logical decision problems undecidable over $\FO$
+%     \vspace{3ex}
+%     \huge
+%     \textbf{problem} \\[1ex]
+%     \Large
+%     many logical decision problems undecidable over $\FO$
+%   \end{center}
+% \end{frame}
+
+\begin{frame}\frametitle{The forward guarded fragment ($\FGF$)}
+  \vspace{3ex}
+  \small
+  ``there is a trio where the first member is a singer and the third member only plays drums''
+  \large
+  \begin{equation*}
+    \exists{\alert<3>{x_{1}x_{2}x_{3}}}\;[
+    \uncoverubrace<4>{\trio(\alert<2>{x_{1}, x_{2}, x_{3}})}{\text{\bfseries guard}} \land
+    \uncoverubrace<4>{
+      \singer(\alert<2,4>{x_{1}})
+      \land \forall{\alert<3>{x_{4}}} \smash{(
+      \uncoverubrace<5>{
+        \plays(\alert<2>{\alert<4>{x_{3}}, x_{4}})
+      }{\text{\bfseries guard}}
+      \to \uncoverubrace<5>{\drums(\alert<2>{x_{4}})}{\text{\bfseries free variables $x_{4}$}}
+      )}
+    }{\text{\bfseries free variables $x_{1}, x_{3}$}}
+    ]
+  \end{equation*}
+
+  \onslide<4->
+  \normalsize
+  \begin{center}
+    \textbf{guarded quantification:} ``$\exists{\vartuplex}\; (\relR(\vartupley) \land \cdots)$'' and ``$\forall{\vartuplex}\; (\relR(\vartupley) \to \cdots)$''\\[1ex]
+    \small
+    ($\vartupley$ covers $\vartuplex$ and all free variables)
   \end{center}
 \end{frame}
 
-\begin{frame}\frametitle{The forward guarded fragment ($\FGF$)}
-  \large
-  \textbf{forward} (variables appear in predicates in order of introduction)
-  \begin{itemize}
-    \itemsep1ex
-    \item[\cross] $\forall{x_{1}x_{2}} (\parent(x_{1}, x_{2}) \to \child(x_{\alert{2}}, x_{\alert{1}}))$
-    \item[\cross] $\forall{x_{1}x_{2}x_{3}} [(\child(x_{1}, x_{2}) \land \child(x_{2}, x_{3})) \to  \child(x_{\alert{1}}, x_{\alert{3}})]$
-    \item[\check] $\forall{x_{1}x_{2}} (\child(x_{1}, x_{2}) \to (\green(x_{2}) \lor \green(x_{1})))$
-  \end{itemize}
+\begin{frame}\frametitle<1>{Van Benthem's theorem}\frametitle<2->{Van Benthem's theorem \smash{(finitary version)}}
+  \begin{theorem}[Van Benthem's theorem for $\FGF$]
+    \begin{overprint}
+      \onslide<1>
+      A first-order formula $\varphi$ is equivalent to some $\FGF$-formula if and only if it is invariant under $\FGF$-bisimulation.
+      \onslide<2>
+      A first-order formula $\varphi$ is equivalent to some $\FGF$-formula \textbf{over finite structures} if and only if it is invariant under $\FGF$-bisimulation \textbf{over finite structures}.
+    \end{overprint}
+  \end{theorem}
 
-  \vspace{2em}
-  \textbf{guarded} (quantification only over guarded fomulae)
-  \begin{itemize}
-    \itemsep1ex
-    \item[\cross] $\forall{x_{1}x_{2}}\; [(\green(x_{1}) \land \green(x_{2})) \to (\fly(x_{1}) \iff \fly(x_{2}))]$
-    \item[\cross] $\forall{x_{1}x_{2}x_{3}}\; [(\child(x_{1}, x_{2}) \land \child(x_{2}, x_{3})) \to \grandchild(x_{1}, x_{3})]$
-    \item[\check] $\forall{x_{1}x_{2}}\; [\quad\underbrace{\child(x_{1}, x_{2})}_{\text{\bfseries{guard}}}\quad \to \underbrace{(\fly(x_{1}) \iff \fly(x_{2}))}_{\text{\bfseries{may freely use variables $x_1$ and $x_2$}}}]$
-    \item[\check]
-          \alt<2>{
-          $\exists{x_{1}x_{2}}\; [\underbrace{\child(x_{1}, x_{2})}_{\text{\textbf{guard}}} \land \underbrace{(\blue(x_{1}) \lor \forall{x_{3}} (\child(x_{2}, x_{3}) \to \green(x_{2})))}_{\text{\textbf{may freely use variables $x_{1}$ and $x_{2}$}}}]$
-          }{
-          $\exists{x_{1}x_{2}}\; [\child(x_{1}, x_{2}) \land (\blue(x_{1}) \lor \forall{x_{3}} (\underbrace{\child(x_{2}, x_{3})}_{\text{\textbf{guard}}} \to \underbrace{\green(x_{2})}_{\textbf{can use $x_2$, $x_{3}$}}))]$
-          }
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{How expressive is $\FGF$?}
+  \vspace{2ex}
   \begin{center}
     \input{res/bisim1.tex}
   \end{center}
-  \begin{itemize}
-    \item \emph{FGF-bisimulation}: equivalence relation on structures
-    \item $\FGF$-formulae are $\FGF$-bisimulation-invariant
-    \item \textbf{Can we express all $\FGF$-bisimulation-invariant $\FO$-definable properties in $\FGF$?}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}\frametitle<1>{Van Benthem's theorem}\frametitle<2->{Van Benthem's theorem (finitary version)}
-  \begin{theorem}[Van Benthem's theorem for $\FGF$]
-    A first-order formula $\varphi$ is equivalent to some $\FGF$-formula\only<2->{ \textbf{over finite structures}} if and only if it is invariant under $\FGF$-bisimulation\only<2->{ \textbf{over finite structures}}.
-  \end{theorem}
-  \onslide<3>
-  \vspace{2em}
-  \begin{center}
-  $\varphi = \forall{x_{1}x_{2}}\; [(\green(x_{1}) \land \green(x_{2})) \to (\fly(x_{1}) \iff \fly(x_{2}))]$ \\[0.5ex]
-  $\varphi \equiv [\forall{x_{1}} (\green(x_{1}) \to \fly(x_{1}))] \lor [\forall{x_{1}} (\green(x_{1}) \to \neg \fly(x_{1}))]$
-  \end{center}
+  % \onslide<3>
+  % \vspace{2em}
+  % \begin{center}
+  % $\varphi = \forall{x_{1}x_{2}}\; [(\green(x_{1}) \land \green(x_{2})) \to (\fly(x_{1}) \iff \fly(x_{2}))]$ \\[0.5ex]
+  % $\varphi \equiv [\forall{x_{1}} (\green(x_{1}) \to \fly(x_{1}))] \lor [\forall{x_{1}} (\green(x_{1}) \to \neg \fly(x_{1}))]$
+  % \end{center}
 \end{frame}
 
 {
 \setbeamercolor{page number in head/foot}{fg=white}
-\begin{frame}<-2>[label=outline,noframenumbering]{Outline}%
+\addtocounter{framenumber}{100}
+\begin{frame}<-2>[label=outline]{Outline}%
   \begin{center}
   \begin{enumerate}
     \item<alert@2| check@3-> $\GF$-, $\FGF$- and $\ell$-bisimulation
@@ -139,34 +151,34 @@
   % }
   % }
 \end{frame}
+\addtocounter{framenumber}{-101}
 }
 
-\begin{frame}{$\FGF$-bisimulation: forward partial map}
-  An $\FGF$-bisimulation is a set $\mathcal{Z}$ of \emph{forward partial maps} between two structures, satisfying \emph{back-and-forth conditions} (next slide)
-  \begin{center}
-    \input{res/forwardmap.tex}
-    \forwardmap{
-      nonforwardedges/.style = {
-        onslide=<3>{opacity=0.2},
-      },
-      tuples/.style = {
-        onslide=<1>{hidden, every path/.style=hidden},
-      },
-      caption/.style={
-        onslide=<-2>{hidden},
-      }
-    }
-  \end{center}
-\end{frame}
+% \begin{frame}{$\FGF$-bisimulation: forward partial map}
+%   An $\FGF$-bisimulation is a set $\mathcal{Z}$ of \emph{forward partial maps} between two structures, satisfying \emph{back-and-forth conditions} (next slide)
+%   \begin{center}
+%     \input{res/forwardmap.tex}
+%     \forwardmap{
+%       nonforwardedges/.style = {
+%         onslide=<3>{opacity=0.2},
+%       },
+%       tuples/.style = {
+%         onslide=<1>{hidden, every path/.style=hidden},
+%       },
+%       caption/.style={
+%         onslide=<-2>{hidden},
+%       }
+%     }
+%   \end{center}
+% \end{frame}
 
-
-\begin{frame}{$\FGF$-bisimulation example}
+\begin{frame}{$\FGF$-bisimulation}
   \input{res/fgf-game}
 \end{frame}
 
 \begin{frame}{Bisimulation games}
   \textbf{Rules of the $\FGF$ bisimulation game}\\
-  Invariant: there is a forward partial map between selected tuples\\[2ex]
+  Invariant: selected tuples have the same forward type\\[2ex]
   In each round \begin{minipage}{0.8\textwidth}
   \begin{enumerate}
     \item Spoiler picks an infix of one of the selected tuples
@@ -189,18 +201,18 @@
 \end{frame}
 
 \begin{frame}{$\ell$-bisimulation}
-  The \textbf{quantifier rank} $\qr(\varphi)$ is the maximum degree of nesting of quantifiers in $\varphi$.\\[2ex]
+  The \textbf{quantifier rank} $\qr(\varphi)$ is the maximum nesting of blocks of quantifiers in $\varphi$.\\[2ex]
 
   \begin{example}[quantifier rank 2]
     \Large
     \begin{math}
-      \varphi = \exists{x_{1}x_{2}} [\child(x_{1}, x_{2}) \land \forall{x_{3}} (\child(x_{2}, x_{3}) \to \green(x_{3}))]
+      \varphi = \exists{x_{1}x_{2}} [\child(x_{1}, x_{2}) \land \forall{x_{3}} (\child(x_{2}, x_{3}) \to \singer(x_{3}))]
     \end{math}\\[1ex]
 
     \pause
 
     \begin{math}
-      \psi = \exists{x}[\dragon(x)] \land \varphi
+      \psi = \exists{x_{1}x_{2}x_{3}}[\trio(x_{1},x_{2},x_{3})] \land \varphi
     \end{math}
   \end{example}
 
@@ -228,24 +240,39 @@
   \input{res/finite-classes}
   \end{center}
   \begin{enumerate}
-    \item the number of distinct $\FGF_{\ell}$ formulae is finite
-    \item each $\bisimto_{\FGF}^{\ell}$ equivalence class is characterized by some $\FGF_{\ell}$ formula
-    \item let $\mathcal{C}$ be the set of charateristic formulae of those $\bisimto_{\FGF}^{\ell}$ equivalence classes in which $\varphi$ is satisfied
-    \item now, $\varphi \equiv \bigvee C$
+    \item The number of distinct $\FGF_{\ell}$ formulae is finite (up to logical equivalence).
+    \item Each $\bisimto_{\FGF}^{\ell}$ equivalence class is characterized by some $\FGF_{\ell}$ formula.
+    \item Let $\mathcal{C}$ be the set of charateristic formulae of those $\bisimto_{\FGF}^{\ell}$ equivalence classes in which $\varphi$ is satisfied.
+    \item Now, $\varphi \equiv \bigvee C$.
   \end{enumerate}
 \end{frame}
 
 {
 \setbeamercolor{page number in head/foot}{fg=white}
-\againframe<3>[noframenumbering]{outline}
+\addtocounter{framenumber}{100}
+\againframe<3>{outline}
+\addtocounter{framenumber}{-101}
 }
 
 \begin{frame}{Biseqs and Bipoints}
   \input{res/fgf-biseq}
 \end{frame}
 
-\begin{frame}{The forward unraveling $\unravel{A}$}
+\begin{frame}{The forward unraveling $\smash{\unravel{A}}$}
   \input{res/forward-unravel}
+\end{frame}
+
+\begin{frame}{Properties of the unraveling}
+  \begin{enumerate}
+    \item $\elemtuples$ has the same forward type as $\elemtuplet$, then $\homop: s_{i} \mapsto t_{i}$ is a partial isomorphism
+          \vspace{0.5em}
+
+          \input{res/forward-map-to-partiso}
+    \item<2> The intersection of a guarded set $\mathcal{S}$ and a tuple $\elemtupler$ is an infix
+          \vspace{0.5em}
+
+          \input{res/guarded-sets-infix}
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}
@@ -257,22 +284,6 @@
     \normalsize
     (for some function $\homop$)
   \end{center}
-\end{frame}
-
-\begin{frame}{Forward unraveling upgrades from $\FGF$ to $\GF$}
-  \textbf{Claim:} If $\str{A} \bisimto_{\FGF}^{\homof(g)} \str{B}$, then $\unravel{A} \bisimto_{\GF}^{g} \unravel{B}$ (for some function $\homof$) \\[1.5em]
-
-  \textbf{Properties of the unraveling:}\\[0.5em]
-  \begin{enumerate}
-    \item If $(\elemtuples, \elemtuplet)$ is a forward partial map, then $\homop: s_{i} \mapsto t_{i}$ is a partial isomorphism
-          \vspace{0.5em}
-
-          \input{res/forward-map-to-partiso}
-    \item<2> The intersection of a guarded set $\mathcal{S}$ and a tuple $\elemtupler$ is an infix
-          \vspace{0.5em}
-
-          \input{res/guarded-sets-infix}
-  \end{enumerate}
 \end{frame}
 
 \def\tups{\textcolor{tolmutedTeal}{\elemtuples}}
@@ -305,34 +316,114 @@
 }
 \def\ni{\textcolor{tolbrightYellowDarker}{i}}
 \def\nj{\textcolor{tolbrightYellowDarker}{j}}
+\def\tikzedge{
+  \tikz[baseline=-0.5ex] \draw[-{Stealth[round]}] (0,0) -- (1em,0);
+}
 \begin{frame}{$z$-similarity}
-  \input{res/z-sim}
-  \vspace{-1ex}
-  \pause
+  \begin{center}
+    \input{res/zsim-square}
+  \end{center}
+
+  \onslide<3->
   \begin{minipage}[t]{0.6\textwidth}
     \begin{definition}[$z$-similar elements]
       \vspace{2.5ex}
       \picelemOneA{} $= \langle \cdots\; \tups_{0} \ij{1} \tups_{1} \ij{2} \cdots \ij{z} \tups_{z} / x \rangle$
 
-      \pause
       \vspace{2ex}
       \picelemOneB{} $= \langle \cdots\; \tupt_{0} \op{1} \tupt_{1} \op{2} \cdots \op{z} \tupt_{z} / y \rangle$
     \end{definition}
   \end{minipage}
   \begin{minipage}[t]{0.39\textwidth}
-    \vspace{1.5ex}
+    \vspace{0.5ex}
 
-    {\Large \picelemOneA{} $\approx_{z}$ \picelemOneB{} if:}
+    {\Large \picelemOneA{} $\approx_{z}$ \picelemOneB{} if, \normalsize for all $k \in [1,z]$}
     \vspace{0.5ex}
     {\large\begin{enumerate}
       \item $x = y$,
       \item $\ij{k} = \op{k}$, and
-      \item $(\str{A}, \tups_{k}) \bisimto_{\FGF}^{z} (\str{B}, \tupt_{k})$
+      \item $(\str{A}, \tups_{k}) \bisimto_{\FGF}^{z} (\str{B}, \tupt_{k})$.
     \end{enumerate}}
-    \vspace{0.5ex}
-    \hspace{3pt}for all $k \in [1,z]$.
   \end{minipage}
 \end{frame}
+
+\begin{frame}{Upgrading to $\GF$ bisimulation}
+  \input{res/z-sim}
+\end{frame}
+
+{
+\setbeamercolor{page number in head/foot}{fg=white}
+\addtocounter{framenumber}{100}
+\againframe<4>{outline}
+\addtocounter{framenumber}{-101}
+}
+
+\begin{frame}{Proving van Benthem}
+  \textbf{Claim}: If $\varphi \in \FO$ is $\bisimto_{FGF}$-invariant, then it is expressible in $\FGF$.\\[3ex]
+
+  \begin{minipage}[t]{0.5\framewidth}
+    \textbf{Steps:}
+    \vspace{1ex}
+    \begin{enumerate}
+      \itemsep1ex
+      \item $\varphi$ is also $\bisimto_{\GF}$-invariant
+      \item Martin Otto: $\varphi$ is $\bisimto_{\GF}^{g}$-invariant
+      \item We show: $\varphi$ is $\bisimto_{\FGF}^{\homop(g)}$-invariant
+    \end{enumerate}
+    \vspace{1ex}
+    {\usebeamercolor[fg]{item}(3)} implies that $\varphi$ is expressible in $\FGF$
+  \end{minipage}
+  \pause
+  \input{res/upgrade-plan}
+\end{frame}
+
+\begin{frame}{Cutting to obtain a finite unraveling}
+  \hspace{1em}\input{res/cutting}
+\end{frame}
+
+\begin{frame}{The finite forward unraveling $\smash{\unravel{A}_{\ell}}$}
+  \input{res/finite-unraveling}
+\end{frame}
+
+% {
+% \setbeamercolor{page number in head/foot}{fg=white}
+% \againframe<5>[noframenumbering]{outline}
+% }
+
+{
+\setbeamercolor{page number in head/foot}{fg=white}
+\begin{frame}[noframenumbering]{Summary}
+  \begin{center}
+    \huge $\FGF \equiv \FO/{\bisimto_{\FGF}}$ \\[0.5ex]
+    \large over finite structures
+  \end{center}
+
+  \begin{center}
+    \pause
+  \begin{minipage}[t]{0.4\textwidth}
+    \raggedleft
+
+    {\usebeamercolor[fg]{item} proof via new unraveling} \\
+    \input{res/upgrade-summary.tex}
+  \end{minipage}
+  \hspace{4em}
+  \pause
+  \begin{minipage}[t]{0.4\textwidth}
+    \raggedright
+
+    {\usebeamercolor[fg]{item} bonus corollary} \\[1ex]
+
+    \raggedleft
+    \begin{minipage}{0.9\textwidth}
+      \raggedright
+      Decidability of checking whether a given $\GF$-formula is expressible in $\FGF$.
+    \end{minipage}
+  \end{minipage}
+\end{center}
+\end{frame}
+}
+
+\appendix
 
 \begin{frame}{$z$-similarity: forward extension}
   \begin{center}
@@ -406,79 +497,6 @@
   \end{center}
 \end{frame}
 
-{
-\setbeamercolor{page number in head/foot}{fg=white}
-\againframe<4>[noframenumbering]{outline}
-}
-
-\begin{frame}{Proving van Benthem}
-  \textbf{Claim}: If $\varphi \in \FO$ is $\bisimto_{FGF}$-invariant, then it is expressible in $\FGF$.\\[3ex]
-
-  \begin{minipage}[t]{0.5\framewidth}
-    \textbf{Steps:}
-    \vspace{1ex}
-    \begin{enumerate}
-      \itemsep1ex
-      \item $\varphi$ is also $\bisimto_{\GF}$-invariant
-      \item Martin Otto: $\varphi$ is $\bisimto_{\GF}^{g}$-invariant
-      \item We show: $\varphi$ is $\bisimto_{\FGF}^{\homop(g)}$-invariant
-    \end{enumerate}
-    \vspace{1ex}
-    {\usebeamercolor[fg]{item}(3)} implies that $\varphi$ is expressible in $\FGF$
-  \end{minipage}
-  \pause
-  \input{res/upgrade-plan}
-\end{frame}
-
-\begin{frame}{Cutting to obtain a finite unraveling}
-  \begin{center}
-    \input{res/cutting}
-  \end{center}
-\end{frame}
-
-\begin{frame}{The finite forward unraveling $\unravel{A}_{\ell}$}
-  \input{res/finite-unraveling}
-\end{frame}
-
-{
-\setbeamercolor{page number in head/foot}{fg=white}
-\againframe<5>[noframenumbering]{outline}
-}
-
-{
-\setbeamercolor{page number in head/foot}{fg=white}
-\begin{frame}[noframenumbering]{Summary}
-  \begin{center}
-    \huge $\FGF \equiv \FO/{\bisimto_{\FGF}}$ \\[0.5ex]
-    \large over finite structures
-  \end{center}
-
-  \begin{center}
-    \pause
-  \begin{minipage}[t]{0.4\textwidth}
-    \raggedleft
-
-    {\usebeamercolor[fg]{item} proof via new unraveling} \\
-    \input{res/upgrade-summary.tex}
-  \end{minipage}
-  \hspace{4em}
-  \pause
-  \begin{minipage}[t]{0.4\textwidth}
-    \raggedright
-
-    {\usebeamercolor[fg]{item} bonus corollary} \\[1ex]
-
-    \raggedleft
-    \begin{minipage}{0.9\textwidth}
-      \raggedright
-      Decidability of checking whether a given $\GF$-formula is expressible in $\FGF$.
-    \end{minipage}
-  \end{minipage}
-\end{center}
-\end{frame}
-}
-
-\appendix
 
 % \begin{frame}{Tree unraveling}
 %   \begin{center}
@@ -487,40 +505,40 @@
 % \end{frame}
 
 
-% \begin{frame}{Higher-arity relations: HAF unraveling}
-%   \input{res/ex-other-unravel-hat}
-%   \input{res/ex-other-unravel-struct}
+\begin{frame}{Higher-arity relations: HAF unraveling}
+  \input{res/ex-other-unravel-hat}
+  \input{res/ex-other-unravel-struct}
 
-%   \begin{columns}
-%     \begin{column}{0.2\textwidth}
-%       \begin{overprint}
-%         \onslide<1>
+  \begin{columns}
+    \begin{column}{0.2\textwidth}
+      \begin{overprint}
+        \onslide<1>
 
-%         \onslide<2-3>
-%         \exunravelstruct{reledges/.style={hidden}, gaifman/.style={}}
+        \onslide<2-3>
+        \exunravelstruct{reledges/.style={hidden}, gaifman/.style={}}
 
-%         \onslide<4>
-%         \exunravelstruct{gaifman/.style={}}
-%       \end{overprint}
-%     \end{column}
-%     \begin{column}{0.75\textwidth}
-%       \begin{overprint}
-%         \onslide<1-2>
-%         \exunravelstruct{}
+        \onslide<4>
+        \exunravelstruct{gaifman/.style={}}
+      \end{overprint}
+    \end{column}
+    \begin{column}{0.75\textwidth}
+      \begin{overprint}
+        \onslide<1-2>
+        \exunravelstruct{}
 
-%         \onslide<3>
-%         \exunravelhat{reledges/.style={hidden}}
+        \onslide<3>
+        \exunravelhat{reledges/.style={hidden}}
 
-%         \onslide<4>
-%         \exunravelhat{}
-%       \end{overprint}
-%     \end{column}
-%   \end{columns}
-% \end{frame}
+        \onslide<4>
+        \exunravelhat{}
+      \end{overprint}
+    \end{column}
+  \end{columns}
+\end{frame}
 
-% \begin{frame}{HAF-unraveling does not upgrade to $\GF$}
-%   \input{res/hat-not-gf-unravel}
-% \end{frame}
+\begin{frame}{HAF-unraveling does not upgrade to $\GF$}
+  \input{res/hat-not-gf-unravel}
+\end{frame}
 
 % \begin{frame}
 %   \frametitle{$\GF$-bisimulation: back-and-forth}

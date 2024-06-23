@@ -23,34 +23,89 @@
 \begin{document}
 
 \catcode`§=\active
-\def\dragon{\textcolor{toldarkDarkyellow}{\mathrm{dragon}}}
+\def\dragon{\textcolor{tolhighcontrastRed}{\mathrm{bird}}}
+\def\shark{\textcolor{tolhighcontrastBlue}{\mathrm{shark}}}
+\def\duck{\textcolor{toldarkDarkyellow}{\mathrm{duck}}}
 \def\red{\textcolor{tolhighcontrastRed}{\mathrm{red}}}
 \def\blue{\textcolor{tolhighcontrastBlue}{\mathrm{blue}}}
 \def\green{\textcolor{tolbrightGreen}{\mathrm{green}}}
+\def\drums{\textcolor{tolbrightGreen}{\mathrm{drums}}}
 \def\fly{\textcolor{tolmutedCyan}{\mathrm{fly}}}
-\def\band{\textcolor{black}{\mathrm{band}}}
+\def\trio{\textcolor{black}{\mathbf{trio}}}
 \def\child{\mathit{child}}
+\def\plays{\mathit{plays}}
 \def\parent{\mathit{parent}}
 \def\grandchild{\mathit{grandchild}}
 \def\cross{\tikz[baseline, tolhighcontrastRed, yshift=0.6ex, very thick] \draw (45:1ex) -- (45:-1ex) (-45:1ex) -- (-45:-1ex);}
 \def\check{\tikz[baseline, tolbrightGreenDarker, yshift=0.6ex, very thick, rounded corners=1pt] \draw (80:1ex) -- ++(80:-2ex) -- ++(160:1ex);}
+\newcommand<>{\uncoverubrace}[2]{%
+  \onslide#3 \underbrace{ \onslide<1->%
+  #1%
+  \onslide#3 }_{\mathclap{#2}} \onslide<1->%
+}
+\def\tups{\textcolor{tolmutedTeal}{\elemtuples}}
+\def\tupt{\textcolor{tolmutedTeal}{\elemtuplet}}
+\def\ij#1{\textcolor{tolmutedWine}{(i_{#1},j_{#1})}}
+\def\op#1{\textcolor{tolmutedWine}{(o_{#1},p_{#1})}}
+\def\picelemOneA{%
+  \tikz[baseline] {
+    \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
+    \node[el,anchor=base] {1};
+  }%
+}
+\def\picelemOneB{%
+  \tikz[baseline] {%
+    \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
+    \node[el,anchor=base] {a};
+  }%
+}
+\def\picelemTwoA{%
+  \tikz[baseline] {
+    \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
+    \node[el,anchor=base] {2};
+  }%
+}
+\def\picelemTwoB{%
+  \tikz[baseline] {
+    \tikzset{el/.style={draw, circle, minimum height=2.3ex, font=\small, inner sep=0.2ex, fill=white}};
+    \node[el,anchor=base] {b};
+  }%
+}
+\def\ni{\textcolor{tolbrightYellowDarker}{i}}
+\def\nj{\textcolor{tolbrightYellowDarker}{j}}
+\def\tikzedge{
+  \tikz[baseline=-0.5ex] \draw[-{Stealth[round]}] (0,0) -- (1em,0);
+}
 \begin{frame}\frametitle{sandbox}
-  \textbf{Claim}: If $\varphi \in \FO$ is $\bisimto_{FGF}$-invariant, then it is expressible in $\FGF$.\\[3ex]
+  \begin{center}
+    \input{res/zsim-square}
+  \end{center}
 
-  \begin{minipage}[t]{0.5\framewidth}
-    \textbf{Steps:}
-    \vspace{1ex}
-    \begin{enumerate}
-      \itemsep1ex
-      \item $\varphi$ is also $\bisimto_{\GF}$-invariant
-      \item Martin Otto: $\varphi$ is $\bisimto_{\GF}^{g}$-invariant
-      \item We show: $\varphi$ is $\bisimto_{\FGF}^{\homop(g)}$-invariant
-    \end{enumerate}
-    \vspace{1ex}
-    {\usebeamercolor[fg]{item}(3)} implies that $\varphi$ is expressible in $\FGF$
+  \begin{minipage}[t]{0.6\textwidth}
+    \begin{definition}[$z$-similar elements]
+      \vspace{2.5ex}
+      \picelemOneA{} $= \langle \cdots\; \tups_{0} \ij{1} \tups_{1} \ij{2} \cdots \ij{z} \tups_{z} / x \rangle$
+
+      \pause
+      \vspace{2ex}
+      \picelemOneB{} $= \langle \cdots\; \tupt_{0} \op{1} \tupt_{1} \op{2} \cdots \op{z} \tupt_{z} / y \rangle$
+    \end{definition}
   \end{minipage}
-  \pause
-  \input{res/upgrade-plan}
+  \begin{minipage}[t]{0.39\textwidth}
+    \vspace{0.5ex}
+
+    {\Large \picelemOneA{} $\approx_{z}$ \picelemOneB{} if, \normalsize for all $k \in [1,z]$}
+    \vspace{0.5ex}
+    {\large\begin{enumerate}
+      \item $x = y$,
+      \item $\ij{k} = \op{k}$, and
+      \item $(\str{A}, \tups_{k}) \bisimto_{\FGF}^{z} (\str{B}, \tupt_{k})$
+    \end{enumerate}}
+  \end{minipage}
 \end{frame}
+
+% \begin{frame}
+%   \input{res/z-sim}
+% \end{frame}
 
 \end{document}

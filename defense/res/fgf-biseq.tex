@@ -74,23 +74,26 @@
     B/.style={},
     % scope biseq
     Biseq/.style={},
+    Bipoint/.style={},
+    Unravel/.style={},
+    unraveledge/.style={hidden},
   };
 
   \newcommand<>{\setonly}[1]{\only#2{\tikzset{#1}}}
 
   \tikzset{B/.style={hidden, every path/.style={hidden}}}
   \tikzset{seq1/.style={uncover=<1->}}
-  \tikzset{seq2/.style={uncover=<2->}}
-  \tikzset{seq3/.style={uncover=<3->}}
-  \tikzset{seq4/.style={uncover=<6->}}
+  \tikzset{seq2/.style={uncover=<3-4>}}
+  \tikzset{seq3/.style={uncover=<5->}}
+  \tikzset{seq4/.style={hidden}}
 
-  \setonly<1>{
+  \setonly<1,2>{
     selnodex/.list={1,2,3,4},
     edge/.style={opacity=0.3},
     e1234/.style={opacity=1},
   }
 
-  \setonly<2>{
+  \setonly<3,4>{
     selnodex/.list={1,4},
     sel2nodex/.list={2,3},
     sel3nodex/.list={5,6},
@@ -98,7 +101,7 @@
     e2356/.style={opacity=1},
   }
 
-  \setonly<3-5>{
+  \setonly<5-8>{
     selnodex/.list={1,4},
     sel2nodex/.list={2},
     A/.style={
@@ -108,60 +111,55 @@
     e2356/.style={opacity=1},
   }
 
-  \setonly<4>{
+  \setonly<6>{
     B/.style={sel3nodex/.list={3,5,6}},
-    Biseq/.style={hidden},
   }
 
-  \setonly<5>{
+  \setonly<7>{
     B/.style={
       selnodex/.list={3},
       sel3nodex/.list={9,5,6},
       e2356/.style={opacity=0.3},
       ebief/.style={opacity=1},
     },
-    Biseq/.style={hidden},
   }
 
-  \setonly<6>{
-    edge/.style={opacity=0.3},
-    e1234/.style={opacity=1},
-    e2356/.style={opacity=1},
-    e54/.style={opacity=1},
-    selnodex/.list={2,3,6},
-    sel2nodex=5,
-    sel3nodex=4,
-  }
+  % \setonly<9>{
+  %   edge/.style={opacity=0.3},
+  %   e1234/.style={opacity=1},
+  %   e2356/.style={opacity=1},
+  %   e54/.style={opacity=1},
+  %   selnodex/.list={2,3,6},
+  %   sel2nodex=5,
+  %   sel3nodex=4,
+  % }
 
   \tikzset{
     makevisible/.style={
       #1/.append style={opacity=1}
+    },
+    makeinvisible/.style={
+      #1/.append style={hidden}
+    },
+  }
+
+  \setonly<2->{
+    Bipoint/.append style={
+      makevisible/.list={bp1,bp2,bp3,bp4,points1,e1234,e12},
+    }
+  }
+  \setonly<4->{
+    Bipoint/.append style={
+      makevisible/.list={bp5,bp6,points2,e2356},
+    }
+  }
+  \setonly<7->{
+    Bipoint/.append style={
+      makevisible/.list={bp7,bp8,bp9,points3},
     }
   }
 
-  \setonly<7->{
-    edge/.style={opacity=0.3},
-    makevisible/.list={bp1,bp2,bp3,bp4,points1,e1234,e12},
-  }
-  \setonly<8->{
-    makevisible/.list={bp5,bp6,points2,e2356},
-  }
-  \setonly<9->{
-    makevisible/.list={bp7,bp8,bp9,points3},
-  }
-  \setonly<7>{
-    selnodex/.list={1,2,3,4},
-  }
-  \setonly<8>{
-    selnodex/.list={1,4},
-    sel2nodex/.list={2,3},
-    sel3nodex/.list={5,6},
-  }
-  \setonly<9>{
-    selnodex/.list={1,4},
-    sel2nodex/.list={2},
-    sel3nodex/.list={3,5,6},
-  }
+  \setonly<1,5-7>{Bipoint/.style={hidden}}
 
   \begin{scope}[A]
     \matrix[
@@ -176,7 +174,7 @@
               §         §          § |[7]| 7 \\
       |[1]| 1 § |[2]| 2 § |[3]| 3  § |[4]| 4 \\
               §         §  |[5]| 5 § |[8]| 8 \\
-              §         §  |[6]| 6 §         \\
+              §         §  |[6,alias=a6]| 6 §         \\
     };
 
     \begin{scope}[on background layer]
@@ -291,28 +289,19 @@
     \end{scope}
   \end{scope}
 
-  \begin{scope}[Biseq, xshift=5em]
+  \begin{scope}[xshift=5em, Unravel]
     \node[inner xsep=0pt, text width=20em, anchor=base west] (tuples) at (0,5em) {$\tups = (1,2,3,4)\quad\tupt = (2,3,5,6)$ \\[1ex] $\tupu = (5,4)$};
 
-    \matrix[
-    matrix of nodes,
-    row sep=1ex,
-    nodes={anchor=base west},
-    matrix anchor=north west,
-    below=2ex of tuples.south west,
-    inner xsep=0pt,
-    font=\Large,
-    uncover=<-6>,
-    ] {
-      |[font=\bfseries\Large] (headbiseq)| bisimulation sequences (biseqs) \\
-      |[seq1]| $\tups$ \\
-      |[seq2]| $\tups(2,3)\tupt$ \\
-      |[seq3]| $\tups(2,2)\tupt$ \\
-      |[seq4]| $\tups(2,3)\tupt(3,3)\tupu$ \\
-    };
+    \begin{scope}[Biseq,font=\huge]
+      \node[font=\bfseries\Large, below=1em of a6, xshift=-1.5em] (headbiseq) {bisimulation sequence (biseq)};
+      \node[seq1, below=0.5ex of headbiseq.south, xshift=-3em] (seq1) {$\tups$};
+      \node[seq2, anchor=base west] at (seq1.base west) {$\tups(2,3)\tupt$};
+      \node[seq3, anchor=base west] at (seq1.base west) {$\tups(2,2)\tupt$};
+      \node[seq4, anchor=base west] at (seq1.base west) {$\tups(2,3)\tupt(3,3)\tupu$};
+    \end{scope}
 
-    \begin{scope}[uncover=<7->]
-      \node[font=\bfseries\Large, anchor=base west, inner xsep=0pt] (headbipoint) at (headbiseq.base west) { bisimulation points (bipoints) };
+    \begin{scope}[Bipoint]
+      \node[font=\bfseries\Large, inner xsep=0pt, below=4ex of tuples.south west, anchor=base west] (headbipoint) { unraveling (bipoints) };
       \matrix[
       matrix of nodes,
       row sep=2ex,
@@ -353,7 +342,7 @@
     \end{scope}
 
     \begin{scope}[on background layer]
-      \begin{scope}[uncover=<10>]
+      \begin{scope}[unraveledge]
         \draw[relE, shorten >= 0] (bp1) to[out=-5,in=15, looseness=1] (bp2);
 
         \fill[relP] (bp1.west) circle[] coordinate (p1);

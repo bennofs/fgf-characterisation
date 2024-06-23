@@ -138,10 +138,6 @@
       \draw[relP] (p1) to[out=-60,in=-150] (p2) to[out=-60,in=-150] (p3);
 
       \begin{scope}[transparency group, nonforwardedges]
-        \fill[relE] (3.west) circle [radius=\radiusE] coordinate (p1);
-        \fill[relE] (2.east) circle [radius=\radiusE] coordinate (p2);
-        \draw[relE] (p1) to (p2);
-
         \fill[relS] (2.120) circle [radius=\radiusS] coordinate (p1);
         \fill[relS] (1.60) circle [radius=\radiusS] coordinate (ps2);
         \draw[relS] (p1) to[bend right=45] (ps2);
